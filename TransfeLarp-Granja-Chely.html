@@ -14,6 +14,7 @@ img{max-width:100%}
 </style>
 <title>Granja Chely</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-25%20-29%2050%2060%22%3E%3Cpath%20d%3D%22M-21%2029V-7A21%2021%200%200%201%2021-7V29Z%22%20fill%3D%22%231E3B2A%22%20stroke%3D%22%23C9A25C%22%20stroke-width%3D%222%22/%3E%3Cg%20transform%3D%22translate%280%202%29%20scale%281.15%29%22%3E%3Cpath%20d%3D%22M0%200C-2.2-2.6-7.4-3.4-7.4-8.2C-7.4-11.4-3.6-12.6-1.6-10.4L0-8.8L1.6-10.4C3.6-12.6%207.4-11.4%207.4-8.2C7.4-3.4%202.2-2.6%200%200Z%22%20transform%3D%22rotate%2845%29%20translate%280%20-1.2%29%22%20fill%3D%22%23D9B97A%22/%3E%3Cpath%20d%3D%22M0%200C-2.2-2.6-7.4-3.4-7.4-8.2C-7.4-11.4-3.6-12.6-1.6-10.4L0-8.8L1.6-10.4C3.6-12.6%207.4-11.4%207.4-8.2C7.4-3.4%202.2-2.6%200%200Z%22%20transform%3D%22rotate%28135%29%20translate%280%20-1.2%29%22%20fill%3D%22%23D9B97A%22/%3E%3Cpath%20d%3D%22M0%200C-2.2-2.6-7.4-3.4-7.4-8.2C-7.4-11.4-3.6-12.6-1.6-10.4L0-8.8L1.6-10.4C3.6-12.6%207.4-11.4%207.4-8.2C7.4-3.4%202.2-2.6%200%200Z%22%20transform%3D%22rotate%28225%29%20translate%280%20-1.2%29%22%20fill%3D%22%23D9B97A%22/%3E%3Cpath%20d%3D%22M0%200C-2.2-2.6-7.4-3.4-7.4-8.2C-7.4-11.4-3.6-12.6-1.6-10.4L0-8.8L1.6-10.4C3.6-12.6%207.4-11.4%207.4-8.2C7.4-3.4%202.2-2.6%200%200Z%22%20transform%3D%22rotate%28315%29%20translate%280%20-1.2%29%22%20fill%3D%22%23D9B97A%22/%3E%3Cpath%20d%3D%22M0%200q1.2%206%205.6%209.6%22%20fill%3D%22none%22%20stroke%3D%22%23D9B97A%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
 <meta name="description" content="Granja Chely, salón y jardín para eventos en Aguascalientes. Paquetes para 50, 100 y 150 personas. Cotiza en línea y agenda tu visita por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,9 +75,12 @@ a{color:inherit}
 /* ---------- Barra superior ---------- */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--verde-hondo);color:var(--on-verde);border-bottom:1px solid rgba(217,185,122,.25)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
-.marca{display:flex;align-items:baseline;gap:8px;text-decoration:none}
-.marca small{font:700 .7rem var(--f-body);letter-spacing:.32em;color:var(--on-verde)}
-.marca span{font:2rem/1 var(--f-script);color:var(--dorado-claro)}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;--logo-fondo:var(--verde)}
+.logo-mark{width:34px;height:41px;flex:none}
+.logo-txt{display:grid;justify-items:center;line-height:1}
+.marca small{font:600 .62rem/1 var(--f-display);letter-spacing:.42em;margin-right:-.42em;color:var(--on-verde)}
+.marca .logo-txt span{font:1.9rem/.8 var(--f-script);color:var(--dorado-claro);margin-top:2px}
+.hero-logo{width:58px;height:70px;--logo-fondo:var(--verde)}
 .nav{display:flex;gap:22px;font-size:.9rem}
 .nav a{text-decoration:none;opacity:.85}
 .nav a:hover{opacity:1;color:var(--dorado-claro)}
@@ -269,7 +273,8 @@ details .cuerpo{padding:0 0 18px;color:var(--tinta-suave);display:grid;gap:8px;m
 
 footer{background:#08120C;color:rgba(243,235,216,.7);font-size:.82rem}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:24px 96px}
-footer .marca span{font-size:1.6rem}
+footer .marca .logo-txt span{font-size:1.6rem}
+footer .logo-mark{width:28px;height:34px}
 
 /* ---------- WhatsApp flotante ---------- */
 .wa-flot{position:fixed;z-index:70;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;padding:10px 18px 10px 12px;border-radius:999px;background:var(--wa);color:#fff;text-decoration:none;font-weight:700;font-size:.9rem;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
@@ -282,6 +287,7 @@ footer .marca span{font-size:1.6rem}
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <linearGradient id="oro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9D29C"/><stop offset=".55" stop-color="#C9A25C"/><stop offset="1" stop-color="#9C7838"/></linearGradient><symbol id="i-logo" viewBox="-25 -29 50 60"><path d="M-21 29V-7A21 21 0 0 1 21-7V29Z" style="fill:var(--logo-fondo,#1E3B2A)" stroke="url(#oro)" stroke-width="1.6"/><path d="M-17.5 25.5V-6.5A17.5 17.5 0 0 1 17.5-6.5V25.5Z" fill="none" stroke="url(#oro)" stroke-width=".6" opacity=".6"/><g transform="translate(0 2) scale(1.15)"><path d="M0 0C-2.2-2.6-7.4-3.4-7.4-8.2C-7.4-11.4-3.6-12.6-1.6-10.4L0-8.8L1.6-10.4C3.6-12.6 7.4-11.4 7.4-8.2C7.4-3.4 2.2-2.6 0 0Z" transform="rotate(45) translate(0 -1.2)" fill="url(#oro)"/><path d="M0 0C-2.2-2.6-7.4-3.4-7.4-8.2C-7.4-11.4-3.6-12.6-1.6-10.4L0-8.8L1.6-10.4C3.6-12.6 7.4-11.4 7.4-8.2C7.4-3.4 2.2-2.6 0 0Z" transform="rotate(135) translate(0 -1.2)" fill="url(#oro)"/><path d="M0 0C-2.2-2.6-7.4-3.4-7.4-8.2C-7.4-11.4-3.6-12.6-1.6-10.4L0-8.8L1.6-10.4C3.6-12.6 7.4-11.4 7.4-8.2C7.4-3.4 2.2-2.6 0 0Z" transform="rotate(225) translate(0 -1.2)" fill="url(#oro)"/><path d="M0 0C-2.2-2.6-7.4-3.4-7.4-8.2C-7.4-11.4-3.6-12.6-1.6-10.4L0-8.8L1.6-10.4C3.6-12.6 7.4-11.4 7.4-8.2C7.4-3.4 2.2-2.6 0 0Z" transform="rotate(315) translate(0 -1.2)" fill="url(#oro)"/><path d="M0 0q1.2 6 5.6 9.6" fill="none" stroke="url(#oro)" stroke-width="1.6" stroke-linecap="round"/></g></symbol>
   <symbol id="i-wa" viewBox="0 0 32 32"><path fill="currentColor" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3Zm0 23.7a10.7 10.7 0 0 1-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1 1 16 26.7Zm5.9-8c-.3-.2-1.9-1-2.2-1-.3-.1-.5-.2-.7.1l-1 1.2c-.2.2-.4.3-.7.1a8.8 8.8 0 0 1-4.4-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8 1 3.9.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.1-.3-.2-.6-.4Z"/></symbol>
   <symbol id="i-reloj" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></symbol>
@@ -292,7 +298,7 @@ footer .marca span{font-size:1.6rem}
 
 <header class="top">
   <div class="wrap">
-    <a class="marca" href="#inicio" aria-label="Granja Chely, inicio"><small>GRANJA</small><span>Chely</span></a>
+    <a class="marca" href="#inicio" aria-label="Granja Chely, inicio"><svg class="logo-mark" aria-hidden="true"><use href="#i-logo"/></svg><span class="logo-txt"><small>GRANJA</small><span>Chely</span></span></a>
     <nav class="nav" aria-label="Secciones">
       <a href="#cotizador">Cotizador</a>
       <a href="#espacios">Espacios</a>
@@ -308,6 +314,7 @@ footer .marca span{font-size:1.6rem}
 <section class="hero" id="inicio">
   <div class="wrap">
     <div class="hero-txt">
+      <svg class="hero-logo" aria-hidden="true"><use href="#i-logo"/></svg>
       <span class="granja">GRANJA</span>
       <h1>Chely</h1>
       <p class="lema">Tu evento en un lugar único</p>
@@ -579,7 +586,7 @@ footer .marca span{font-size:1.6rem}
 
 <footer>
   <div class="wrap">
-    <span class="marca"><small>GRANJA</small><span>Chely</span></span>
+    <span class="marca"><svg class="logo-mark" aria-hidden="true"><use href="#i-logo"/></svg><span class="logo-txt"><small>GRANJA</small><span>Chely</span></span></span>
     <span>Salón y jardín para eventos · Aguascalientes, México · WhatsApp 449 156 6428</span>
   </div>
 </footer>
