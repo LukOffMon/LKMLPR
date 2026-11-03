@@ -189,7 +189,7 @@ Este cuestionario es parte de una investigación escolar sobre cómo la publicid
 - ( ) No noté ningún cambio
 - ( ) No he cambiado mis hábitos
 
-**21. En tu opinión, ¿quién tiene la **mayor** responsabilidad de fomentar una alimentación saludable?**
+**21. En tu opinión, ¿quién tiene la MAYOR responsabilidad de fomentar una alimentación saludable?**
 - ( ) El gobierno
 - ( ) Las empresas que producen alimentos
 - ( ) Las escuelas
