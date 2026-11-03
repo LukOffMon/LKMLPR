@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriConsumer · Encuesta de hábitos alimentarios</title>
+<meta name="description" content="Cuestionario anónimo sobre hábitos alimentarios, consumo y alimentos ultraprocesados, con resultados en tiempo real.">
+<meta property="og:title" content="NutriConsumer · Encuesta de hábitos alimentarios">
+<meta property="og:description" content="Responde en 7 minutos y mira los resultados en vivo.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥗</text></svg>">
+<script src="https://cdn.tailwindcss.com/3.4.5"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+  tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] } } } };
+</script>
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; background: #f1f5f4; }
+  .view { display: none; }
+  .view.active { display: block; animation: fade .35s ease; }
+  .step { display: none; }
+  .step.active { display: block; animation: fade .35s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .opt { transition: border-color .15s, background-color .15s, box-shadow .15s; }
+  .opt:has(input:checked) { border-color: #10b981; background: #ecfdf5; box-shadow: 0 0 0 1px #10b981 inset; }
+  .opt:has(input:focus-visible) { outline: 2px solid #059669; outline-offset: 2px; }
+  .opt input { accent-color: #059669; }
+  .q.missing { animation: shake .35s; }
+  .q.missing .q-title { color: #e11d48; }
+  @keyframes shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+  .live-dot { width: .55rem; height: .55rem; border-radius: 9999px; background: #10b981; position: relative; }
+  .live-dot::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: inherit; animation: ping 1.6s cubic-bezier(0,0,.2,1) infinite; }
+  .live-dot.off { background: #94a3b8; } .live-dot.off::after { display: none; }
+  @keyframes ping { 75%, 100% { transform: scale(2.4); opacity: 0; } }
+  .flash { animation: flash 1.2s ease; }
+  @keyframes flash { 0% { background: #d1fae5; } 100% { background: transparent; } }
+  .chip[aria-pressed="true"] { background: #059669; color: #fff; border-color: #059669; }
+  @media (prefers-reduced-motion: reduce) { *, *::after { animation: none !important; transition: none !important; } }
+  @media print { .no-print { display: none !important; } body { background: #fff; } }
+</style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col">
+
+<!-- ============ ENCABEZADO ============ -->
+<header class="bg-white/90 backdrop-blur border-b border-slate-200 sticky top-0 z-40 no-print">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <a href="#encuesta" class="flex items-center gap-3 min-w-0">
+      <div class="w-10 h-10 shrink-0 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-lg shadow-md shadow-emerald-200"><i class="fa-solid fa-leaf"></i></div>
+      <div class="min-w-0">
+        <p class="font-extrabold text-slate-800 leading-tight">NutriConsumer</p>
+        <p class="text-xs text-slate-500 truncate">Hábitos alimentarios y consumo</p>
+      </div>
+    </a>
+    <nav class="flex items-center gap-1 bg-slate-100 rounded-xl p-1 text-sm font-semibold" aria-label="Secciones">
+      <a href="#encuesta" data-nav="encuesta" class="nav-link px-3 py-1.5 rounded-lg">
+        <i class="fa-solid fa-pen-to-square sm:mr-1"></i><span class="hidden sm:inline">Encuesta</span>
+      </a>
+      <a href="#resultados" data-nav="resultados" class="nav-link px-3 py-1.5 rounded-lg flex items-center gap-2 whitespace-nowrap">
+        <span class="live-dot off" data-live-dot></span><span class="hidden sm:inline">Resultados en vivo</span><span class="sm:hidden">En vivo</span>
+        <span class="text-xs bg-white text-emerald-700 rounded-md px-1.5 tabular-nums" data-total-badge>–</span>
+      </a>
+    </nav>
+  </div>
+  <div class="w-full bg-slate-100 h-1.5" id="progressWrap"><div id="progressBar" class="bg-emerald-500 h-1.5 transition-all duration-300" style="width:0%"></div></div>
+</header>
+
+<main class="flex-1 w-full">
+
+<!-- ============ VISTA: ENCUESTA ============ -->
+<section id="view-encuesta" class="view max-w-3xl mx-auto px-4 py-8">
+
+  <!-- Portada / instrucciones -->
+  <div id="intro">
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="bg-gradient-to-br from-emerald-500 to-teal-600 text-white p-6 md:p-10">
+        <p class="text-emerald-100 text-xs font-bold uppercase tracking-widest mb-2">Cuestionario · 13/10/26</p>
+        <h1 class="text-2xl md:text-4xl font-extrabold leading-tight">Hábitos alimentarios, consumo y alimentos ultraprocesados</h1>
+        <p class="mt-3 text-emerald-50 max-w-xl">Investigación escolar sobre cómo la publicidad, el precio, el entorno y las emociones influyen en lo que comemos.</p>
+        <div class="mt-6 flex flex-wrap gap-2 text-sm">
+          <span class="bg-white/15 rounded-full px-3 py-1"><i class="fa-regular fa-clock mr-1"></i> 7–10 min</span>
+          <span class="bg-white/15 rounded-full px-3 py-1"><i class="fa-solid fa-user-secret mr-1"></i> Anónimo</span>
+          <span class="bg-white/15 rounded-full px-3 py-1"><i class="fa-solid fa-list-check mr-1"></i> 21 preguntas</span>
+          <span class="bg-white/15 rounded-full px-3 py-1"><i class="fa-solid fa-users mr-1"></i> <span data-total-text>–</span> respuestas</span>
+        </div>
+      </div>
+      <div class="p-6 md:p-10 grid md:grid-cols-2 gap-8">
+        <div>
+          <h2 class="font-bold text-lg mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-info text-emerald-600"></i> Instrucciones</h2>
+          <ol class="space-y-2 text-sm text-slate-600 list-decimal pl-5">
+            <li>Lee con atención cada pregunta antes de responder.</li>
+            <li>Elige <strong>una sola opción</strong> por pregunta.</li>
+            <li>Responde con sinceridad: no hay respuestas correctas ni incorrectas.</li>
+            <li>Piensa en tus hábitos de los <strong>últimos 3 meses</strong>.</li>
+            <li>Si ninguna opción te describe exactamente, elige la más cercana.</li>
+            <li>Al terminar verás tu diagnóstico y los resultados de todos en vivo.</li>
+          </ol>
+          <p class="mt-4 text-xs text-slate-500 bg-slate-50 rounded-xl p-3"><i class="fa-solid fa-shield-halved text-emerald-600 mr-1"></i> No pedimos nombre, correo ni datos de contacto. Las respuestas se usan solo con fines académicos y de forma agrupada. Puedes dejar de responder cuando quieras.</p>
+        </div>
+        <div>
+          <h2 class="font-bold text-lg mb-3 flex items-center gap-2"><i class="fa-solid fa-book-open text-emerald-600"></i> Definiciones útiles</h2>
+          <dl class="space-y-3 text-sm">
+            <div><dt class="font-semibold">Sellos de advertencia</dt><dd class="text-slate-600">Los octágonos negros del empaque: "EXCESO AZÚCARES", "EXCESO SODIO", "EXCESO CALORÍAS", etc.</dd></div>
+            <div><dt class="font-semibold">Ultraprocesados</dt><dd class="text-slate-600">Productos industriales listos para comer con muchos ingredientes añadidos: refrescos, frituras, galletas, embutidos, sopas instantáneas, golosinas.</dd></div>
+            <div><dt class="font-semibold">Consumismo</dt><dd class="text-slate-600">Tendencia a comprar más de lo necesario por publicidad, modas o presión social.</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="px-6 md:px-10 pb-8 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+        <button id="startBtn" class="px-6 py-3.5 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition">
+          Comenzar encuesta <i class="fa-solid fa-arrow-right ml-2"></i>
+        </button>
+        <a href="#resultados" class="px-6 py-3.5 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-50 text-center transition">
+          <i class="fa-solid fa-chart-column mr-2"></i>Ver resultados
+        </a>
+        <p id="alreadyNote" class="hidden text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">Ya respondiste desde este dispositivo. Si lo comparten, otra persona puede responder.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario por pasos -->
+  <form id="quizForm" class="hidden" novalidate>
+    <div class="flex items-center justify-between mb-4">
+      <p id="stepLabel" class="text-sm font-semibold text-emerald-700"></p>
+      <p id="stepCounter" class="text-xs font-semibold px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200"></p>
+    </div>
+    <div id="steps"></div>
+    <div class="flex items-center justify-between mt-6 no-print">
+      <button type="button" id="prevBtn" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 font-semibold hover:bg-white transition"><i class="fa-solid fa-arrow-left mr-2"></i>Anterior</button>
+      <button type="button" id="nextBtn" class="px-6 py-2.5 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 shadow-md shadow-emerald-200 transition disabled:opacity-60"></button>
+    </div>
+  </form>
+
+  <!-- Resultado personal -->
+  <div id="result" class="hidden">
+    <div id="pdfContent" class="bg-white rounded-3xl p-6 md:p-10 border border-slate-200 shadow-sm">
+      <div class="text-center border-b border-slate-100 pb-6 mb-6">
+        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl mb-3"><i class="fa-solid fa-chart-pie"></i></div>
+        <h2 class="text-2xl font-extrabold">Tu diagnóstico de hábitos</h2>
+        <p class="text-sm text-slate-500 mt-1" id="saveStatus"></p>
+      </div>
+      <div id="profileBox" class="p-6 rounded-2xl mb-6 border">
+        <div class="flex items-center justify-between gap-3 mb-3">
+          <span class="text-xs uppercase font-bold tracking-wider opacity-80">Perfil de consumo</span>
+          <span class="text-2xl font-extrabold tabular-nums" id="scoreValue"></span>
+        </div>
+        <div class="w-full h-2.5 bg-white/70 rounded-full overflow-hidden mb-4"><div id="scoreBar" class="h-full rounded-full transition-all duration-700" style="width:0"></div></div>
+        <h3 class="text-xl font-bold mb-2" id="profileTitle"></h3>
+        <p class="text-sm leading-relaxed" id="profileDesc"></p>
+      </div>
+      <div id="compareBox" class="mb-6 text-sm bg-slate-50 rounded-2xl p-4 hidden"></div>
+      <h4 class="font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-lightbulb text-amber-500"></i> Recomendaciones para ti</h4>
+      <ul id="recommendationsList" class="space-y-2 text-sm text-slate-600"></ul>
+      <p class="pt-6 mt-6 border-t border-slate-100 text-xs text-slate-400 text-center">NutriConsumer · Cuestionario de hábitos alimentarios · <span id="resDate"></span></p>
+    </div>
+    <div class="mt-6 flex flex-wrap gap-3 justify-center no-print">
+      <a href="#resultados" class="px-6 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 shadow-md transition"><i class="fa-solid fa-chart-column mr-2"></i>Ver resultados de todos</a>
+      <button id="pdfBtn" class="px-6 py-3 rounded-xl bg-teal-600 text-white font-semibold hover:bg-teal-700 shadow-md transition"><i class="fa-solid fa-file-pdf mr-2"></i>Descargar PDF</button>
+      <button id="shareBtn" class="px-6 py-3 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-white transition"><i class="fa-solid fa-share-nodes mr-2"></i>Compartir encuesta</button>
+      <button id="resetBtn" class="px-6 py-3 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-white transition"><i class="fa-solid fa-rotate-right mr-2"></i>Nueva respuesta</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISTA: RESULTADOS EN VIVO ============ -->
+<section id="view-resultados" class="view max-w-5xl mx-auto px-4 py-8">
+  <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+    <div>
+      <p class="text-xs font-bold uppercase tracking-widest text-emerald-700 flex items-center gap-2"><span class="live-dot off" data-live-dot></span> <span id="liveText">Conectando…</span></p>
+      <h1 class="text-2xl md:text-3xl font-extrabold mt-1">Resultados en tiempo real</h1>
+      <p class="text-sm text-slate-500">Se actualizan solos cada vez que alguien responde.</p>
+    </div>
+    <div class="flex flex-wrap gap-2 no-print">
+      <button id="csvBtn" class="px-4 py-2 rounded-xl border border-slate-300 bg-white text-sm font-semibold hover:bg-slate-50"><i class="fa-solid fa-file-csv mr-1"></i> CSV</button>
+      <button id="shareBtn2" class="px-4 py-2 rounded-xl border border-slate-300 bg-white text-sm font-semibold hover:bg-slate-50"><i class="fa-solid fa-link mr-1"></i> Copiar enlace</button>
+      <a href="#encuesta" class="px-4 py-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700"><i class="fa-solid fa-pen mr-1"></i> Responder</a>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+    <div class="bg-white rounded-2xl border border-slate-200 p-4" id="kpiTotalCard">
+      <p class="text-xs text-slate-500 font-semibold">Personas que han respondido</p>
+      <p class="text-3xl font-extrabold tabular-nums mt-1" id="kpiTotal">–</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 p-4">
+      <p class="text-xs text-slate-500 font-semibold">Respuestas hoy</p>
+      <p class="text-3xl font-extrabold tabular-nums mt-1" id="kpiToday">–</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 p-4">
+      <p class="text-xs text-slate-500 font-semibold">Puntaje promedio</p>
+      <p class="text-3xl font-extrabold tabular-nums mt-1" id="kpiAvg">–</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 p-4">
+      <p class="text-xs text-slate-500 font-semibold">Última respuesta</p>
+      <p class="text-xl font-bold mt-2" id="kpiLast">–</p>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="bg-white rounded-2xl border border-slate-200 p-4 mb-6 flex flex-col sm:flex-row gap-3 sm:items-center">
+    <p class="text-sm font-semibold text-slate-600"><i class="fa-solid fa-filter mr-1 text-emerald-600"></i> Filtrar por:</p>
+    <select id="filterGenero" class="flex-1 p-2 border border-slate-300 rounded-lg text-sm bg-white"></select>
+    <select id="filterEdad" class="flex-1 p-2 border border-slate-300 rounded-lg text-sm bg-white"></select>
+    <p class="text-xs text-slate-500 sm:ml-auto">Mostrando <strong id="filteredCount" class="tabular-nums">0</strong> respuestas</p>
+  </div>
+
+  <div class="grid lg:grid-cols-3 gap-4 mb-4">
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 lg:col-span-2">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-bold">Participación acumulada</h2>
+        <div class="flex gap-1 text-xs" role="group" aria-label="Escala de tiempo">
+          <button class="chip tl px-2.5 py-1 rounded-lg border border-slate-300 font-semibold" data-scale="hour" aria-pressed="false">Por hora</button>
+          <button class="chip tl px-2.5 py-1 rounded-lg border border-slate-300 font-semibold" data-scale="day" aria-pressed="true">Por día</button>
+        </div>
+      </div>
+      <div class="h-64"><canvas id="timelineChart" aria-label="Respuestas acumuladas en el tiempo" role="img"></canvas></div>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 p-5">
+      <h2 class="font-bold mb-3">Perfiles de consumo</h2>
+      <div class="h-64"><canvas id="profileChart" aria-label="Distribución de perfiles" role="img"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Explorador de preguntas -->
+  <div class="bg-white rounded-2xl border border-slate-200 p-5 mb-4">
+    <div class="flex flex-col md:flex-row md:items-center gap-3 mb-4">
+      <h2 class="font-bold">Respuestas por pregunta</h2>
+      <div class="flex gap-2 md:ml-auto w-full md:w-auto">
+        <button id="qPrev" class="px-3 rounded-lg border border-slate-300 hover:bg-slate-50" aria-label="Pregunta anterior"><i class="fa-solid fa-chevron-left"></i></button>
+        <select id="questionSelect" class="flex-1 md:w-96 p-2 border border-slate-300 rounded-lg text-sm bg-white"></select>
+        <button id="qNext" class="px-3 rounded-lg border border-slate-300 hover:bg-slate-50" aria-label="Pregunta siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+    <p id="questionTitle" class="text-sm text-slate-600 mb-3"></p>
+    <div id="questionChartWrap" class="relative" style="height:320px"><canvas id="questionChart" role="img" aria-label="Respuestas de la pregunta seleccionada"></canvas></div>
+    <p id="questionInsight" class="mt-3 text-sm bg-emerald-50 text-emerald-900 rounded-xl p-3 hidden"></p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="bg-white rounded-2xl border border-slate-200 p-5">
+      <h2 class="font-bold mb-3">Hallazgos clave</h2>
+      <ul id="insights" class="space-y-2 text-sm text-slate-600"></ul>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 p-5">
+      <h2 class="font-bold mb-3 flex items-center gap-2"><span class="live-dot off" data-live-dot></span> Últimas respuestas</h2>
+      <ul id="feed" class="divide-y divide-slate-100 text-sm"></ul>
+    </div>
+  </div>
+
+  <div id="emptyState" class="hidden text-center bg-white rounded-2xl border border-dashed border-slate-300 p-10 mt-4">
+    <i class="fa-solid fa-seedling text-4xl text-emerald-400"></i>
+    <p class="font-bold mt-3">Aún no hay respuestas</p>
+    <p class="text-sm text-slate-500">Sé la primera persona en responder y aparecerás aquí al instante.</p>
+  </div>
+</section>
+</main>
+
+<footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-10 no-print">
+  NutriConsumer © 2026 · Encuesta interactiva de salud y consumo · Respuestas anónimas
+</footer>
+
+<div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-lg text-sm z-50 transition-opacity opacity-0 pointer-events-none" role="status" aria-live="polite"></div>
+
+<script>
+/* =========================================================
+   CONFIGURACIÓN SUPABASE
+   La llave "anon" es pública por diseño: la tabla está protegida
+   con RLS (solo insertar y leer; no se puede editar ni borrar).
+   ========================================================= */
+const SUPABASE_URL = 'https://lsvyryanshcuysowlysp.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxzdnlyeWFuc2hjdXlzb3dseXNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0NjM2MDIsImV4cCI6MjEwODAzOTYwMn0.OXYCll9pp2wLwLo1lt4d2S2PhWWp4wnL1Hcb8wcti-U';
+const TABLE = 'encuesta_respuestas';
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* =========================================================
+   CUESTIONARIO (pts = puntos para el diagnóstico; null = no puntúa)
+   ========================================================= */
+const FREQ = ['Ningún día', '1 a 2 días', '3 a 4 días', '5 a 6 días', 'Todos los días'];
+const NEVER_ALWAYS = ['Nunca', 'Casi nunca', 'A veces', 'Casi siempre', 'Siempre'];
+const AGREE = ['Totalmente en desacuerdo', 'En desacuerdo', 'Ni de acuerdo ni en desacuerdo', 'De acuerdo', 'Totalmente de acuerdo'];
+const opts = (labels, pts) => labels.map((label, i) => ({ label, pts: pts ? pts[i] : null }));
+
+const STEPS = [
+  { title: 'Sobre ti', icon: 'fa-user', questions: [
+    { id: 'edad', short: 'Edad', text: '¿Qué edad tienes?', options: opts(['14 años o menos', '15 a 17 años', '18 a 20 años', '21 a 29 años', '30 años o más']) },
+    { id: 'genero', short: 'Género', text: '¿Con qué género te identificas?', options: opts(['Mujer', 'Hombre', 'No binario / otro', 'Prefiero no responder']) },
+    { id: 'ocupacion', short: 'Ocupación', text: '¿Cuál es tu ocupación principal?', options: opts(['Solo estudio', 'Estudio y trabajo', 'Solo trabajo', 'Otra']) },
+  ]},
+  { title: 'Hábitos de consumo', icon: 'fa-utensils', questions: [
+    { id: 'sellos', short: 'Productos con sellos', text: 'En una semana normal, ¿cuántos días consumes al menos un producto con uno o más sellos de advertencia?', options: opts(FREQ, [4, 3, 2, 1, 0]) },
+    { id: 'nutritivos', short: 'Alimentos nutritivos', text: 'En una semana normal, ¿cuántos días comes alimentos nutritivos como frutas, verduras, leguminosas (frijol, lenteja), huevo, pescado, carne magra o lácteos?', options: opts(FREQ, [0, 1, 2, 3, 4]) },
+    { id: 'casa', short: 'Comida hecha en casa', text: 'En una semana normal, ¿cuántos días comes alimentos preparados en casa (en lugar de comida rápida o comprada fuera)?', options: opts(FREQ, [0, 1, 2, 3, 4]) },
+    { id: 'situacion', short: 'Elección en la escuela', text: 'Imagina esta situación: estás en la escuela, llevas unas 2 horas sin comer y tienes dinero suficiente. ¿Qué comprarías?', grid: true, options: [
+      { label: 'Papas fritas u otra fritura', pts: 0 }, { label: 'Golosinas (dulces, chocolates)', pts: 0 },
+      { label: 'Pan dulce o galletas', pts: 0 }, { label: 'Quesadilla, torta u otro antojito', pts: 2 },
+      { label: 'Fruta (uvas, manzana, fruta picada)', pts: 4 }, { label: 'Ensalada con pollo u otra comida con verdura y proteína', pts: 4 },
+      { label: 'Barra de granola, cacahuates o semillas', pts: 3 }, { label: 'No compraría nada', pts: 1 } ] },
+    { id: 'etiquetas', short: 'Lectura de etiquetas', text: '¿Qué tan seguido lees la tabla nutrimental o la lista de ingredientes antes de comprar un producto empaquetado?', options: opts(NEVER_ALWAYS, [0, 1, 2, 3, 4]) },
+  ]},
+  { title: 'Conocimiento e influencias', icon: 'fa-brain', questions: [
+    { id: 'consumismo', short: 'Conoce el consumismo', text: '¿Qué tanto sabes qué es el consumismo?', options: opts(['No sé qué es', 'He escuchado la palabra, pero no sé bien qué significa', 'Sé qué es y podría explicarlo'], [0, 1, 2]) },
+    { id: 'info_medios', short: 'Información en medios', text: '¿Qué tan de acuerdo estás? "En los medios (TV, redes sociales, escuela) hay suficiente información sobre los riesgos de los ultraprocesados."', options: opts(AGREE) },
+    { id: 'publicidad', short: 'Influencia de la publicidad', text: '¿Qué tanto influyen la publicidad y las modas de consumo en lo que decides comer?', options: opts(['Nada', 'Poco', 'Algo', 'Bastante', 'Mucho'], [4, 3, 2, 1, 0]) },
+    { id: 'influye', short: 'Quién influye más', text: '¿Quién influye más en lo que decides comer o en qué marcas compras?', options: opts(['Mi familia', 'Mis amigos o compañeros', 'Influencers o creadores de contenido', 'La publicidad (TV, anuncios, empaques)', 'Nadie, lo decido por mi cuenta']) },
+    { id: 'emociones', short: 'Comer por emociones', text: 'Cuando sientes estrés, ansiedad o aburrimiento, ¿qué tan seguido comes golosinas o snacks azucarados?', options: opts(NEVER_ALWAYS, [4, 3, 2, 1, 0]) },
+    { id: 'razon', short: 'Razón para no comer sano', text: '¿Cuál es la razón principal por la que a veces no comes saludable entre semana?', options: opts(['Falta de tiempo por la escuela o el trabajo', 'Es más caro comer saludable', 'No hay opciones saludables cerca', 'Prefiero el sabor de otros alimentos', 'No sé preparar comida saludable', 'Siempre como saludable']) },
+  ]},
+  { title: 'Entorno, precio y acceso', icon: 'fa-store', questions: [
+    { id: 'acceso', short: 'Acceso a comida fresca', text: 'En comparación con los ultraprocesados, ¿qué tan fácil es encontrar alimentos frescos y saludables cerca de tu casa o escuela?', options: opts(['Mucho más difícil', 'Un poco más difícil', 'Igual de fácil', 'Un poco más fácil', 'Mucho más fácil']) },
+    { id: 'precio_mx', short: 'Ultraprocesados más baratos', text: '¿Qué tan de acuerdo estás? "En México, los ultraprocesados son más baratos y fáciles de conseguir que las opciones saludables."', options: opts(AGREE) },
+    { id: 'escuela', short: 'Oferta saludable en la escuela', text: '¿Qué tan de acuerdo estás? "Mi escuela ofrece suficientes opciones de comida saludable a precios accesibles."', options: opts(AGREE) },
+    { id: 'prioridad', short: 'Prioridad con poco dinero', text: 'Cuando el dinero no alcanza, ¿qué priorizas al comprar alimentos?', options: opts(['Principalmente el precio', 'Principalmente lo nutritivo', 'Un balance entre precio y nutrición', 'No me ha tocado esa situación'], [0, 2, 2, null]) },
+    { id: 'pagar_mas', short: 'Pagar más por lo local', text: '¿Cuánto más estarías dispuesto(a) a pagar por alimentos locales, orgánicos o sin procesar?', options: opts(['Nada más; no pagaría extra', 'Hasta 10 % más', 'Entre 11 % y 25 % más', 'Más de 25 %']) },
+  ]},
+  { title: 'Salud y opinión', icon: 'fa-heart-pulse', questions: [
+    { id: 'cambio', short: 'Cambio en salud', text: '¿Has notado algún cambio en tu salud, bienestar o energía después de cambiar tus hábitos de alimentación?', options: opts(['Sí, un cambio positivo', 'Sí, un cambio negativo', 'No noté ningún cambio', 'No he cambiado mis hábitos']) },
+    { id: 'responsable', short: 'Principal responsable', text: 'En tu opinión, ¿quién tiene la MAYOR responsabilidad de fomentar una alimentación saludable?', options: opts(['El gobierno', 'Las empresas que producen alimentos', 'Las escuelas', 'Las familias', 'Cada consumidor', 'Todos por igual']) },
+  ]},
+];
+const QUESTIONS = STEPS.flatMap(s => s.questions);
+const QMAP = Object.fromEntries(QUESTIONS.map(q => [q.id, q]));
+const MAX_SCORE = QUESTIONS.reduce((sum, q) => {
+  const p = q.options.map(o => o.pts).filter(v => v !== null);
+  return p.length ? sum + Math.max(...p) : sum;
+}, 0);
+const PROFILES = {
+  consciente: { name: 'Consumidor consciente', color: '#10b981', box: 'bg-emerald-50 border-emerald-200 text-emerald-900', bar: 'bg-emerald-500',
+    desc: 'Tienes un alto nivel de conciencia sobre tu alimentación. Priorizas la calidad nutricional y resistes bien la presión de la publicidad y los ultraprocesados.' },
+  equilibrio: { name: 'En busca de equilibrio', color: '#f59e0b', box: 'bg-amber-50 border-amber-200 text-amber-900', bar: 'bg-amber-500',
+    desc: 'Sabes que la nutrición importa, pero el tiempo, el dinero o el entorno te llevan con frecuencia a opciones rápidas o ultraprocesadas.' },
+  riesgo: { name: 'Influenciado / riesgo nutricional', color: '#f43f5e', box: 'bg-rose-50 border-rose-200 text-rose-900', bar: 'bg-rose-500',
+    desc: 'Tus hábitos están muy condicionados por los ultraprocesados, la publicidad o el ritmo de vida. Hay riesgo de exceso de azúcar, sodio y grasas.' },
+};
+const profileFor = pct => pct >= 70 ? 'consciente' : pct >= 40 ? 'equilibrio' : 'riesgo';
+const pctOf = score => Math.round((score / MAX_SCORE) * 100);
+
+/* =========================================================
+   UTILIDADES
+   ========================================================= */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.remove('opacity-0'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.add('opacity-0'), 3000); }
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+function timeAgo(date) {
+  const s = Math.max(0, Math.round((Date.now() - date) / 1000));
+  if (s < 45) return 'hace un momento';
+  const m = Math.round(s / 60); if (m < 60) return `hace ${m} min`;
+  const h = Math.round(m / 60); if (h < 24) return `hace ${h} h`;
+  const d = Math.round(h / 24); return `hace ${d} día${d > 1 ? 's' : ''}`;
+}
+const shareUrl = () => location.href.split('#')[0];
+async function share() {
+  const url = shareUrl();
+  if (navigator.share) { try { await navigator.share({ title: 'Encuesta NutriConsumer', text: 'Responde esta encuesta anónima sobre hábitos alimentarios (7 min):', url }); return; } catch {} }
+  try { await navigator.clipboard.writeText(url); toast('Enlace copiado al portapapeles'); } catch { prompt('Copia el enlace:', url); }
+}
+
+/* =========================================================
+   ENCUESTA
+   ========================================================= */
+let currentStep = 0;
+
+function renderSteps() {
+  let n = 0;
+  $('#steps').innerHTML = STEPS.map((step, si) => `
+    <div class="step" data-step="${si}">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center"><i class="fa-solid ${step.icon}"></i></span>
+          <div><p class="text-xs text-slate-500 font-semibold">Sección ${String.fromCharCode(65 + si)}</p><h2 class="text-xl font-bold">${step.title}</h2></div>
+        </div>
+        ${step.questions.map(q => { n++; return `
+          <fieldset class="q mb-7 last:mb-0" data-q="${q.id}">
+            <legend class="q-title font-semibold text-slate-700 mb-3">${n}. ${esc(q.text)}</legend>
+            <div class="${q.grid ? 'grid grid-cols-1 sm:grid-cols-2' : 'grid grid-cols-1'} gap-2">
+              ${q.options.map((o, oi) => `
+                <label class="opt flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
+                  <input type="radio" name="${q.id}" value="${oi}" class="w-4 h-4 shrink-0">
+                  <span class="text-slate-700 text-sm">${esc(o.label)}</span>
+                </label>`).join('')}
+            </div>
+          </fieldset>`; }).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function showStep(i) {
+  currentStep = i;
+  $$('.step').forEach((el, idx) => el.classList.toggle('active', idx === i));
+  $('#stepLabel').textContent = STEPS[i].title;
+  $('#stepCounter').textContent = `Paso ${i + 1} de ${STEPS.length}`;
+  $('#prevBtn').style.visibility = i === 0 ? 'hidden' : 'visible';
+  $('#nextBtn').innerHTML = i === STEPS.length - 1 ? 'Enviar respuestas <i class="fa-solid fa-paper-plane ml-2"></i>' : 'Siguiente <i class="fa-solid fa-arrow-right ml-2"></i>';
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress() {
+  const answered = QUESTIONS.filter(q => document.querySelector(`input[name="${q.id}"]:checked`)).length;
+  $('#progressBar').style.width = `${(answered / QUESTIONS.length) * 100}%`;
+}
+
+function validateStep(i) {
+  const missing = STEPS[i].questions.filter(q => !document.querySelector(`input[name="${q.id}"]:checked`));
+  $$('.q.missing').forEach(el => el.classList.remove('missing'));
+  missing.forEach(q => { const el = document.querySelector(`[data-q="${q.id}"]`); void el.offsetWidth; el.classList.add('missing'); });
+  if (missing.length) {
+    document.querySelector(`[data-q="${missing[0].id}"]`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    toast(missing.length === 1 ? 'Te falta 1 pregunta en esta sección' : `Te faltan ${missing.length} preguntas en esta sección`);
+  }
+  return !missing.length;
+}
+
+function collect() {
+  const respuestas = {}; let score = 0;
+  QUESTIONS.forEach(q => {
+    const idx = Number(document.querySelector(`input[name="${q.id}"]:checked`).value);
+    respuestas[q.id] = idx;
+    const pts = q.options[idx].pts; if (pts !== null) score += pts;
+  });
+  return { respuestas, score };
+}
+
+async function submit() {
+  const btn = $('#nextBtn'); btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Enviando…';
+  const { respuestas, score } = collect();
+  const perfil = profileFor(pctOf(score));
+  const { error } = await db.from(TABLE).insert({ respuestas, puntaje: score, perfil });
+  btn.disabled = false;
+  showResult(respuestas, score, perfil, !error);
+  if (error) { console.error(error); toast('No se pudo guardar tu respuesta. Revisa tu conexión.'); }
+  else store.set('nc_respondio', new Date().toISOString());
+}
+
+function recommendationsFor(r) {
+  const recs = [];
+  const pts = id => QMAP[id].options[r[id]].pts;
+  if (pts('sellos') <= 1) recs.push('Consumes productos con sellos casi a diario. Cambia uno al día (por ejemplo, refresco por agua natural o de fruta).');
+  if (pts('nutritivos') <= 2) recs.push('Incluye fruta, verdura o leguminosas en al menos una comida diaria: son de lo más barato en el mercado.');
+  if (pts('casa') <= 2) recs.push('Prepara tus comidas el fin de semana para tener opciones listas en los días con poco tiempo.');
+  if (pts('situacion') <= 1) recs.push('Lleva un snack desde casa (fruta, cacahuates, palomitas naturales) para no depender de la tiendita.');
+  if (pts('etiquetas') <= 1) recs.push('Lee la tabla nutrimental de los 3 productos que más compras: fíjate en azúcares y sodio por porción.');
+  if (pts('publicidad') <= 1) recs.push('Antes de comprar algo que viste en un anuncio, pregúntate si realmente lo necesitas o si es un antojo inducido.');
+  if (pts('emociones') <= 1) recs.push('Cuando sientas estrés o aburrimiento, prueba primero tomar agua, caminar 5 minutos o hablar con alguien.');
+  if (pts('consumismo') <= 1) recs.push('Investiga qué es el consumismo y cómo las marcas usan el empaque y las redes para influir en tus compras.');
+  if (recs.length < 2) recs.push('¡Vas muy bien! Comparte tus hábitos con tu familia y amigos para influir positivamente.', 'Explora mercados locales y fruta de temporada para cuidar tu presupuesto sin perder calidad.');
+  return recs.slice(0, 5);
+}
+
+function showResult(respuestas, score, perfilKey, saved) {
+  $('#intro').classList.add('hidden'); $('#quizForm').classList.add('hidden'); $('#result').classList.remove('hidden');
+  const p = PROFILES[perfilKey]; const pct = pctOf(score);
+  $('#profileBox').className = `p-6 rounded-2xl mb-6 border ${p.box}`;
+  $('#scoreBar').className = `h-full rounded-full transition-all duration-700 ${p.bar}`;
+  $('#scoreValue').textContent = `${pct} / 100`;
+  requestAnimationFrame(() => $('#scoreBar').style.width = `${pct}%`);
+  $('#profileTitle').textContent = p.name; $('#profileDesc').textContent = p.desc;
+  $('#saveStatus').innerHTML = saved ? '<i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i>Tu respuesta se guardó de forma anónima. ¡Gracias por participar!' : '<i class="fa-solid fa-triangle-exclamation text-amber-500 mr-1"></i>Tu respuesta no se pudo guardar, pero aquí está tu diagnóstico.';
+  $('#resDate').textContent = new Date().toLocaleDateString('es-MX', { dateStyle: 'long' });
+  $('#recommendationsList').innerHTML = recommendationsFor(respuestas).map(r => `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i><span>${esc(r)}</span></li>`).join('');
+  myLastScore = pct; renderCompare();
+  $('#progressBar').style.width = '100%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let myLastScore = null;
+function renderCompare() {
+  if (myLastScore === null || !rows.length) return;
+  const all = rows.map(r => pctOf(r.puntaje));
+  const avg = Math.round(all.reduce((a, b) => a + b, 0) / all.length);
+  const atOrBelow = Math.round((all.filter(v => v <= myLastScore).length / all.length) * 100);
+  const people = all.length === 1 ? 'la <strong>1</strong> persona que ha respondido' : `las <strong>${all.length}</strong> personas que han respondido`;
+  $('#compareBox').classList.remove('hidden');
+  $('#compareBox').innerHTML = `<i class="fa-solid fa-people-group text-emerald-600 mr-1"></i> El promedio de ${people} es <strong>${avg}/100</strong>. Tu puntaje es igual o mayor que el de <strong>${atOrBelow}%</strong> de los participantes.`;
+}
+
+function resetQuiz() {
+  $('#quizForm').reset(); $$('.q.missing').forEach(el => el.classList.remove('missing'));
+  $('#result').classList.add('hidden'); $('#intro').classList.remove('hidden');
+  myLastScore = null; $('#compareBox').classList.add('hidden'); updateProgress(); checkAlready();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function checkAlready() { $('#alreadyNote').classList.toggle('hidden', !store.get('nc_respondio')); }
+
+function downloadPDF() {
+  html2pdf().set({ margin: 0.5, filename: 'Diagnostico_NutriConsumer.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } }).from($('#pdfContent')).save();
+}
+
+/* =========================================================
+   RESULTADOS EN TIEMPO REAL
+   ========================================================= */
+let rows = []; const seen = new Set();
+let charts = {}; let timeScale = 'day'; let selectedQ = 'situacion';
+const PALETTE = ['#10b981', '#0ea5e9', '#f59e0b', '#8b5cf6', '#f43f5e', '#14b8a6', '#64748b', '#ec4899'];
+
+Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+Chart.defaults.color = '#475569';
+
+function addRow(r) { if (seen.has(r.id)) return false; seen.add(r.id); rows.push(r); return true; }
+
+async function loadAll() {
+  const page = 1000; let from = 0;
+  while (true) {
+    const { data, error } = await db.from(TABLE).select('id,created_at,respuestas,puntaje,perfil').order('id', { ascending: true }).range(from, from + page - 1);
+    if (error) { console.error(error); setLive(false, 'Sin conexión con la base de datos'); return; }
+    data.forEach(addRow);
+    if (data.length < page) break; from += page;
+  }
+  renderAll();
+}
+
+function setLive(on, text) {
+  $$('[data-live-dot]').forEach(d => d.classList.toggle('off', !on));
+  $('#liveText').textContent = text || (on ? 'En vivo' : 'Reconectando…');
+}
+
+function subscribe() {
+  db.channel('encuesta-live')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: TABLE }, payload => {
+      if (addRow(payload.new)) {
+        renderAll(true);
+        if (location.hash === '#resultados') toast('¡Nueva respuesta recibida!');
+      }
+    })
+    .subscribe(status => {
+      if (status === 'SUBSCRIBED') setLive(true, 'En vivo');
+      else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') setLive(false);
+    });
+  // Respaldo: si el websocket falla, consulta cada 20 s
+  setInterval(async () => {
+    const maxId = rows.reduce((m, r) => Math.max(m, r.id), 0);
+    const { data } = await db.from(TABLE).select('id,created_at,respuestas,puntaje,perfil').gt('id', maxId).order('id');
+    if (data && data.some(addRow)) renderAll(true);
+  }, 20000);
+}
+
+function filtered() {
+  const g = $('#filterGenero').value, e = $('#filterEdad').value;
+  return rows.filter(r => (g === '' || String(r.respuestas.genero) === g) && (e === '' || String(r.respuestas.edad) === e));
+}
+
+function renderAll(isNew) {
+  const total = rows.length;
+  $$('[data-total-badge]').forEach(el => el.textContent = total);
+  $$('[data-total-text]').forEach(el => el.textContent = total);
+  $('#emptyState').classList.toggle('hidden', total > 0);
+  const data = filtered();
+  $('#filteredCount').textContent = data.length;
+
+  // KPIs
+  $('#kpiTotal').textContent = total;
+  const today = new Date().toDateString();
+  $('#kpiToday').textContent = rows.filter(r => new Date(r.created_at).toDateString() === today).length;
+  $('#kpiAvg').textContent = data.length ? `${Math.round(data.reduce((a, r) => a + pctOf(r.puntaje), 0) / data.length)}/100` : '–';
+  const last = rows.length ? new Date(rows[rows.length - 1].created_at) : null;
+  $('#kpiLast').textContent = last ? timeAgo(last) : '–';
+  if (isNew) { const c = $('#kpiTotalCard'); c.classList.remove('flash'); void c.offsetWidth; c.classList.add('flash'); }
+
+  renderTimeline(); renderProfiles(data); renderQuestion(data); renderInsights(data); renderFeed(); renderCompare();
+}
+
+function renderTimeline() {
+  const buckets = new Map();
+  const keyOf = d => {
+    const x = new Date(d);
+    if (timeScale === 'hour') x.setMinutes(0, 0, 0); else x.setHours(0, 0, 0, 0);
+    return x.getTime();
+  };
+  [...rows].sort((a, b) => new Date(a.created_at) - new Date(b.created_at)).forEach(r => { const k = keyOf(r.created_at); buckets.set(k, (buckets.get(k) || 0) + 1); });
+  let acc = 0; const keys = [...buckets.keys()];
+  const labels = keys.map(k => new Date(k).toLocaleString('es-MX', timeScale === 'hour' ? { day: 'numeric', month: 'short', hour: '2-digit' } : { day: 'numeric', month: 'short' }));
+  const cum = keys.map(k => (acc += buckets.get(k)));
+  const per = keys.map(k => buckets.get(k));
+  const cfg = {
+    data: { labels, datasets: [
+      { type: 'line', label: 'Total acumulado', data: cum, borderColor: '#059669', backgroundColor: 'rgba(16,185,129,.12)', fill: true, tension: .35, pointRadius: 3, yAxisID: 'y' },
+      { type: 'bar', label: timeScale === 'hour' ? 'Nuevas en la hora' : 'Nuevas en el día', data: per, backgroundColor: 'rgba(14,165,233,.45)', borderRadius: 4, yAxisID: 'y' },
+    ]},
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } },
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } } } },
+  };
+  upsertChart('timeline', '#timelineChart', cfg);
+}
+
+function renderProfiles(data) {
+  const keys = Object.keys(PROFILES);
+  const counts = keys.map(k => data.filter(r => r.perfil === k).length);
+  upsertChart('profile', '#profileChart', {
+    type: 'doughnut',
+    data: { labels: keys.map(k => PROFILES[k].name), datasets: [{ data: counts, backgroundColor: keys.map(k => PROFILES[k].color), borderColor: '#fff', borderWidth: 3, hoverOffset: 8 }] },
+    options: { responsive: true, maintainAspectRatio: false, cutout: '62%',
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } },
+        tooltip: { callbacks: { label: c => { const t = c.dataset.data.reduce((a, b) => a + b, 0) || 1; return ` ${c.label}: ${c.raw} (${Math.round(c.raw / t * 100)}%)`; } } } } },
+  });
+}
+
+function countsFor(qid, data) {
+  const q = QMAP[qid]; const counts = q.options.map(() => 0);
+  data.forEach(r => { const v = r.respuestas?.[qid]; if (Number.isInteger(v) && counts[v] !== undefined) counts[v]++; });
+  return counts;
+}
+
+function renderQuestion(data) {
+  const q = QMAP[selectedQ]; const idx = QUESTIONS.indexOf(q);
+  $('#questionTitle').textContent = `${idx + 1}. ${q.text}`;
+  const counts = countsFor(selectedQ, data); const total = counts.reduce((a, b) => a + b, 0);
+  $('#questionChartWrap').style.height = `${Math.max(220, q.options.length * 46)}px`;
+  upsertChart('question', '#questionChart', {
+    type: 'bar',
+    data: { labels: q.options.map(o => o.label), datasets: [{ label: 'Respuestas', data: counts, backgroundColor: q.options.map((_, i) => PALETTE[i % PALETTE.length]), borderRadius: 8, maxBarThickness: 34 }] },
+    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      scales: { x: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: '#f1f5f9' } }, y: { grid: { display: false }, ticks: { callback(v) { const l = this.getLabelForValue(v); return l.length > 34 ? l.slice(0, 32) + '…' : l; } } } },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { title: c => q.options[c[0].dataIndex].label, label: c => ` ${c.raw} personas (${total ? Math.round(c.raw / total * 100) : 0}%)` } } } },
+  });
+  const ins = $('#questionInsight');
+  if (total) {
+    const top = counts.indexOf(Math.max(...counts));
+    ins.innerHTML = `<i class="fa-solid fa-magnifying-glass-chart mr-1"></i> La respuesta más común es <strong>"${esc(q.options[top].label)}"</strong> con ${Math.round(counts[top] / total * 100)}% (${counts[top]} de ${total}).`;
+    ins.classList.remove('hidden');
+  } else ins.classList.add('hidden');
+}
+
+function share_(qid, idxs, data) { const c = countsFor(qid, data); const t = c.reduce((a, b) => a + b, 0); return t ? Math.round(idxs.reduce((a, i) => a + c[i], 0) / t * 100) : 0; }
+function renderInsights(data) {
+  if (!data.length) { $('#insights').innerHTML = '<li class="text-slate-400">Aparecerán cuando haya respuestas.</li>'; return; }
+  const items = [
+    ['fa-triangle-exclamation text-rose-500', `<strong>${share_('sellos', [3, 4], data)}%</strong> consume productos con sellos 5 días o más por semana.`],
+    ['fa-tag text-amber-500', `<strong>${share_('etiquetas', [0, 1], data)}%</strong> nunca o casi nunca lee las etiquetas.`],
+    ['fa-bullhorn text-sky-500', `<strong>${share_('publicidad', [3, 4], data)}%</strong> dice que la publicidad influye bastante o mucho en lo que come.`],
+    ['fa-face-tired text-violet-500', `<strong>${share_('emociones', [3, 4], data)}%</strong> come golosinas casi siempre o siempre que siente estrés o aburrimiento.`],
+    ['fa-sack-dollar text-emerald-600', `<strong>${share_('precio_mx', [3, 4], data)}%</strong> cree que en México los ultraprocesados son más baratos y accesibles.`],
+    ['fa-school text-teal-600', `Solo <strong>${share_('escuela', [3, 4], data)}%</strong> considera que su escuela ofrece suficientes opciones saludables.`],
+  ];
+  $('#insights').innerHTML = items.map(([ic, t]) => `<li class="flex gap-2"><i class="fa-solid ${ic} mt-1 w-4"></i><span>${t}</span></li>`).join('');
+}
+
+function renderFeed() {
+  const last = [...rows].sort((a, b) => b.id - a.id).slice(0, 6);
+  $('#feed').innerHTML = last.length ? last.map(r => {
+    const p = PROFILES[r.perfil]; const age = QMAP.edad.options[r.respuestas?.edad]?.label || '';
+    return `<li class="py-2.5 flex items-center gap-3"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${p.color}"></span>
+      <span class="flex-1 min-w-0 truncate">${esc(p.name)} <span class="text-slate-400">· ${esc(age)}</span></span>
+      <span class="text-xs text-slate-400 whitespace-nowrap">${timeAgo(new Date(r.created_at))}</span></li>`;
+  }).join('') : '<li class="py-2 text-slate-400">Todavía nadie ha respondido.</li>';
+}
+
+function upsertChart(key, sel, cfg) {
+  if (charts[key] && charts[key].config.type === (cfg.type || charts[key].config.type) && charts[key].data.labels.length === cfg.data.labels.length && key !== 'question') {
+    charts[key].data.labels = cfg.data.labels;
+    cfg.data.datasets.forEach((ds, i) => { charts[key].data.datasets[i].data = ds.data; });
+    charts[key].update(); return;
+  }
+  if (charts[key]) charts[key].destroy();
+  charts[key] = new Chart($(sel), cfg);
+}
+
+function downloadCSV() {
+  const head = ['id', 'fecha', 'puntaje_100', 'perfil', ...QUESTIONS.map(q => q.id)];
+  const lines = rows.map(r => [r.id, r.created_at, pctOf(r.puntaje), r.perfil, ...QUESTIONS.map(q => q.options[r.respuestas?.[q.id]]?.label ?? '')]);
+  const csv = [head, ...lines].map(l => l.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = `encuesta_nutriconsumer_${new Date().toISOString().slice(0, 10)}.csv`; a.click();
+}
+
+/* =========================================================
+   NAVEGACIÓN E INICIO
+   ========================================================= */
+function route() {
+  const view = location.hash === '#resultados' ? 'resultados' : 'encuesta';
+  $$('.view').forEach(v => v.classList.toggle('active', v.id === `view-${view}`));
+  $$('.nav-link').forEach(a => { const on = a.dataset.nav === view; a.classList.toggle('bg-white', on); a.classList.toggle('shadow-sm', on); a.classList.toggle('text-emerald-700', on); a.classList.toggle('text-slate-500', !on); });
+  $('#progressWrap').style.visibility = view === 'encuesta' ? 'visible' : 'hidden';
+  if (view === 'resultados') setTimeout(() => Object.values(charts).forEach(c => c.resize()), 50);
+}
+
+function init() {
+  renderSteps();
+  $('#questionSelect').innerHTML = STEPS.map(s => `<optgroup label="${esc(s.title)}">${s.questions.map(q => `<option value="${q.id}">${QUESTIONS.indexOf(q) + 1}. ${esc(q.short)}</option>`).join('')}</optgroup>`).join('');
+  $('#questionSelect').value = selectedQ;
+  $('#filterGenero').innerHTML = '<option value="">Todos los géneros</option>' + QMAP.genero.options.map((o, i) => `<option value="${i}">${esc(o.label)}</option>`).join('');
+  $('#filterEdad').innerHTML = '<option value="">Todas las edades</option>' + QMAP.edad.options.map((o, i) => `<option value="${i}">${esc(o.label)}</option>`).join('');
+
+  $('#startBtn').onclick = () => { $('#intro').classList.add('hidden'); $('#quizForm').classList.remove('hidden'); showStep(0); };
+  $('#prevBtn').onclick = () => currentStep > 0 && showStep(currentStep - 1);
+  $('#nextBtn').onclick = () => { if (!validateStep(currentStep)) return; currentStep < STEPS.length - 1 ? showStep(currentStep + 1) : submit(); };
+  $('#quizForm').addEventListener('change', e => { updateProgress(); e.target.closest('.q')?.classList.remove('missing'); });
+  $('#resetBtn').onclick = resetQuiz; $('#pdfBtn').onclick = downloadPDF;
+  $('#shareBtn').onclick = share; $('#shareBtn2').onclick = share; $('#csvBtn').onclick = downloadCSV;
+  $('#questionSelect').onchange = e => { selectedQ = e.target.value; renderQuestion(filtered()); };
+  const stepQ = d => { const i = (QUESTIONS.findIndex(q => q.id === selectedQ) + d + QUESTIONS.length) % QUESTIONS.length; selectedQ = QUESTIONS[i].id; $('#questionSelect').value = selectedQ; renderQuestion(filtered()); };
+  $('#qPrev').onclick = () => stepQ(-1); $('#qNext').onclick = () => stepQ(1);
+  $('#filterGenero').onchange = () => renderAll(); $('#filterEdad').onchange = () => renderAll();
+  $$('.tl').forEach(b => b.onclick = () => { timeScale = b.dataset.scale; $$('.tl').forEach(x => x.setAttribute('aria-pressed', x === b)); if (charts.timeline) { charts.timeline.destroy(); delete charts.timeline; } renderTimeline(); });
+  setInterval(() => { if (rows.length) { $('#kpiLast').textContent = timeAgo(new Date(rows[rows.length - 1].created_at)); renderFeed(); } }, 30000);
+
+  window.addEventListener('hashchange', route); route(); checkAlready();
+  loadAll().then(subscribe);
+}
+init();
+</script>
+</body>
+</html>
