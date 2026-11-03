@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CandyOS - Optimizador competitivo</title>
+<meta name="description" content="CandyOS: optimizador competitivo para Fortnite y Valorant en PC de escritorio. Diagnostico completo de PC y red, optimizaciones reversibles, Modo Enfoque temporal y limpieza. 100% en terminal.">
+<meta property="og:title" content="CandyOS - Optimizador competitivo para Fortnite y Valorant">
+<meta property="og:description" content="Mas FPS, menos latencia, mas fluidez. Diagnostico real, cambios reversibles y Modo Enfoque de sesion.">
+<meta name="theme-color" content="#0d0a14">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d0a14'/%3E%3Ctext x='32' y='44' font-family='monospace' font-size='34' font-weight='700' text-anchor='middle' fill='%23ff4fa3'%3EC%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0d0a14; --bg2:#141020; --card:#1a1528; --line:#2c2440; --text:#ece8f5; --muted:#a69bbf; --dim:#776c8f;
+  --pink:#ff4fa3; --cyan:#3fe0ff; --green:#5df28a; --yellow:#ffd54a; --red:#ff5d5d;
+  --mono:ui-monospace,"Cascadia Code","JetBrains Mono",Consolas,"Courier New",monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 var(--sans);overflow-x:hidden}
+a{color:var(--cyan)}
+code,pre,.mono{font-family:var(--mono)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+nav.top{position:sticky;top:0;z-index:10;background:rgba(13,10,20,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:18px;height:56px}
+.brand{font:700 18px var(--mono);color:var(--text);text-decoration:none;letter-spacing:.5px}
+.brand b{color:var(--pink)}
+nav.top .links{display:flex;gap:16px;margin-left:auto;flex-wrap:nowrap;overflow-x:auto}
+nav.top .links a{color:var(--muted);text-decoration:none;font-size:14px;white-space:nowrap}
+nav.top .links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:700;text-decoration:none;border:1px solid transparent;cursor:pointer;font-size:15px}
+.btn.primary{background:var(--pink);color:#140612}
+.btn.primary:hover{filter:brightness(1.1)}
+.btn.ghost{border-color:var(--line);color:var(--text);background:transparent}
+.btn.ghost:hover{border-color:var(--cyan)}
+header.hero{padding:56px 0 40px;background:radial-gradient(900px 400px at 15% 0%,rgba(255,79,163,.16),transparent 60%),radial-gradient(700px 380px at 90% 10%,rgba(63,224,255,.12),transparent 60%)}
+.ascii{font:700 clamp(8px,2.1vw,15px)/1.15 var(--mono);color:var(--pink);white-space:pre;margin:0 0 18px;overflow:hidden}
+.ascii span{color:var(--text)}
+h1{font-size:clamp(28px,4.6vw,46px);line-height:1.12;margin:0 0 14px}
+h1 em{font-style:normal;color:var(--cyan)}
+.lead{color:var(--muted);font-size:18px;max-width:720px;margin:0 0 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.tag{font:12px var(--mono);color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:34px 0 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.stat b{display:block;font:700 26px var(--mono);color:var(--pink)}
+.stat span{color:var(--muted);font-size:13px}
+section{padding:56px 0;border-top:1px solid var(--line)}
+section h2{font-size:clamp(24px,3.4vw,32px);margin:0 0 8px}
+section h2 .k{font-family:var(--mono);color:var(--pink);font-size:.8em;margin-right:8px}
+.sub{color:var(--muted);margin:0 0 26px;max-width:760px}
+.term{background:#07050c;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.term .bar{display:flex;gap:6px;padding:10px 12px;background:#120e1c;border-bottom:1px solid var(--line);align-items:center}
+.term .bar i{width:11px;height:11px;border-radius:50%;background:#3a3150;display:block}
+.term .bar small{margin-left:10px;color:var(--dim);font:12px var(--mono)}
+.term pre{margin:0;padding:16px 18px;font:13px/1.5 var(--mono);color:#cfc8e0;overflow-x:auto}
+.c-ok{color:var(--green)}.c-w{color:var(--yellow)}.c-f{color:var(--red)}.c-i{color:var(--cyan)}.c-p{color:var(--pink)}.c-d{color:var(--dim)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h3{margin:0 0 6px;font-size:17px}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+.card .n{font:700 13px var(--mono);color:var(--pink);display:block;margin-bottom:6px}
+.card ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:14px}
+.card ul li{margin:3px 0}
+.step{position:relative;padding-top:22px}
+.step .num{position:absolute;top:-14px;left:16px;background:var(--pink);color:#140612;font:700 14px var(--mono);border-radius:8px;padding:3px 9px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#171226;color:var(--muted);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+tr:last-child td{border-bottom:none}
+td code{font-size:12.5px;color:var(--cyan);word-break:break-all}
+.pill{display:inline-block;font:11px var(--mono);border-radius:6px;padding:2px 7px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill.g{color:var(--green);border-color:rgba(93,242,138,.35)}
+.pill.y{color:var(--yellow);border-color:rgba(255,213,74,.35)}
+.pill.p{color:var(--pink);border-color:rgba(255,79,163,.35)}
+.pill.c{color:var(--cyan);border-color:rgba(63,224,255,.35)}
+.callout{border-left:3px solid var(--cyan);background:rgba(63,224,255,.06);padding:14px 16px;border-radius:0 10px 10px 0;color:var(--muted);margin:18px 0}
+.callout.pink{border-color:var(--pink);background:rgba(255,79,163,.06)}
+.callout b{color:var(--text)}
+.copy{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#07050c;max-width:100%}
+.copy code{flex:1;padding:12px 14px;font-size:13px;color:#d9d2ea;overflow-x:auto;white-space:nowrap}
+.copy button{border:0;border-left:1px solid var(--line);background:#1d1730;color:var(--text);padding:0 16px;cursor:pointer;font:600 13px var(--sans)}
+.copy button:hover{background:#2a2142}
+ol.steps{padding-left:20px;color:var(--muted)}
+ol.steps li{margin:8px 0}
+ol.steps b{color:var(--text)}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 16px;margin:10px 0}
+summary{cursor:pointer;padding:14px 0;font-weight:600;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+ ";color:var(--pink);font-family:var(--mono)}
+details[open] summary::before{content:"- "}
+details p,details ul{color:var(--muted);margin:0 0 14px}
+.dl{background:linear-gradient(135deg,rgba(255,79,163,.16),rgba(63,224,255,.10));border:1px solid var(--line);border-radius:18px;padding:30px;text-align:center}
+.dl h2{margin-top:0}
+.dl .btn.primary{font-size:18px;padding:16px 30px}
+.hash{font:12px var(--mono);color:var(--dim);word-break:break-all;margin-top:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.no li::marker{content:"x  ";color:var(--red);font-family:var(--mono)}
+.yes li::marker{content:"+  ";color:var(--green);font-family:var(--mono)}
+#loader{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:radial-gradient(600px 400px at 50% 45%,rgba(255,79,163,.18),transparent 70%),var(--bg);transition:opacity .5s ease,visibility .5s ease;animation:loaderFailsafe .01s linear 5s forwards}
+#loader.done{opacity:0;visibility:hidden}
+@keyframes loaderFailsafe{to{opacity:0;visibility:hidden}}
+#loader .candy{width:150px;height:150px;animation:spin 1.4s cubic-bezier(.55,.1,.45,.9) infinite;filter:drop-shadow(0 10px 30px rgba(255,79,163,.45))}
+#loader .shadow{width:90px;height:12px;border-radius:50%;background:rgba(0,0,0,.55);margin-top:-14px;animation:pulse 1.4s ease-in-out infinite}
+#loader .label{font:700 16px var(--mono);letter-spacing:3px;color:var(--text)}
+#loader .label b{color:var(--pink)}
+#loader .dots::after{content:"";animation:dots 1.2s steps(4) infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{transform:scaleX(.75);opacity:.6}}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+@media (prefers-reduced-motion:reduce){#loader .candy,#loader .shadow{animation:none}html{scroll-behavior:auto}}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-size:14px}
+@media (max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.g2,.g3,.g4,.two{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}nav.top .links{display:none}nav.top .btn{margin-left:auto}.wrap{padding:0 16px}header.hero{padding-top:36px}}
+</style>
+</head>
+<body>
+<div id="loader" role="status" aria-label="Cargando CandyOS">
+  <svg class="candy" viewBox="0 0 200 200" aria-hidden="true">
+    <defs>
+      <clipPath id="cc"><circle cx="100" cy="100" r="44"/></clipPath>
+      <radialGradient id="shine" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    </defs>
+    <path d="M58 100 L12 66 Q4 100 12 134 Z" fill="#3fe0ff"/>
+    <path d="M58 100 L22 76 M58 100 L16 100 M58 100 L22 124" stroke="#0d0a14" stroke-opacity=".35" stroke-width="3" fill="none"/>
+    <path d="M142 100 L188 66 Q196 100 188 134 Z" fill="#3fe0ff"/>
+    <path d="M142 100 L178 76 M142 100 L184 100 M142 100 L178 124" stroke="#0d0a14" stroke-opacity=".35" stroke-width="3" fill="none"/>
+    <circle cx="100" cy="100" r="44" fill="#ff4fa3"/>
+    <g clip-path="url(#cc)" fill="#fff" opacity=".92">
+      <path d="M40 60 L70 40 L160 150 L130 170 Z"/>
+      <path d="M20 110 L45 85 L120 175 L90 190 Z"/>
+      <path d="M90 25 L118 10 L190 100 L170 125 Z"/>
+    </g>
+    <circle cx="100" cy="100" r="44" fill="url(#shine)"/>
+    <circle cx="100" cy="100" r="44" fill="none" stroke="#0d0a14" stroke-opacity=".25" stroke-width="3"/>
+  </svg>
+  <div class="shadow"></div>
+  <div class="label"><b>CANDY</b>OS<span class="dots"></span></div>
+</div>
+
+<nav class="top"><div class="wrap">
+  <a class="brand" href="#"><b>Candy</b>OS</a>
+  <div class="links">
+    <a href="#como">Como funciona</a>
+    <a href="#modulos">Modulos</a>
+    <a href="#enfoque">Modo Enfoque</a>
+    <a href="#pruebas">Pruebas</a>
+    <a href="#seguridad">Seguridad</a>
+    <a href="#herramientas">Herramientas</a>
+    <a href="#instalar">Instalar</a>
+    <a href="#comparativa">Comparativa</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a class="btn primary" href="#descarga" style="padding:8px 14px;font-size:14px">Descargar</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+<pre class="ascii" aria-hidden="true">  ____                _        ___  ____
+ / ___|<span>__ _ _ __   __| |_   _</span> / _ \/ ___|
+| |   <span>/ _` | '_ \ / _` | | | |</span> | | \___ \
+| |__<span>| (_| | | | | (_| | |_| |</span> |_| |___) |
+ \____<span>\__,_|_| |_|\__,_|\__, |</span>\___/|____/
+                          <span>|___/</span></pre>
+  <h1>El optimizador competitivo para <em>Fortnite</em> y <em>Valorant</em>.</h1>
+  <p class="lead">CandyOS analiza tu PC de escritorio y tu red con decenas de pruebas reales, te dice exactamente que esta frenando tus FPS y tu latencia, y lo arregla con cambios reversibles. Antes de jugar, el <b>Modo Enfoque</b> prepara la sesion con ajustes temporales que desaparecen solos al reiniciar.</p>
+  <div class="cta">
+    <a class="btn primary" href="#descarga">Descargar CandyOS.ps1</a>
+    <a class="btn ghost" href="#instalar">Ver como se instala</a>
+  </div>
+  <div class="tags">
+    <span class="tag">Windows 10 / 11</span><span class="tag">PowerShell 5.1+</span><span class="tag">Interfaz ASCII en terminal</span><span class="tag">Sin instalacion</span><span class="tag">Compatible con EAC y Vanguard</span>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>45+</b><span>comprobaciones de PC, red y juego</span></div>
+    <div class="stat"><b>13</b><span>optimizaciones permanentes y reversibles</span></div>
+    <div class="stat"><b>9</b><span>ajustes temporales en Modo Enfoque</span></div>
+    <div class="stat"><b>13</b><span>categorias de limpieza segura</span></div>
+    <div class="stat"><b>20</b><span>herramientas externas integradas</span></div>
+  </div>
+</div></header>
+
+<section id="demo"><div class="wrap">
+  <h2><span class="k">01</span>Asi se ve</h2>
+  <p class="sub">Todo corre en la consola de Windows con una interfaz ASCII: arranca al instante, no consume recursos mientras juegas y no instala nada en segundo plano.</p>
+  <div class="term">
+    <div class="bar"><i></i><i></i><i></i><small>Administrador: CandyOS v1.0.0 - Competitive Optimizer</small></div>
+<pre><span class="c-p">  +--[ HARDWARE ]------------------------------------------------------+</span>
+  <span class="c-ok">[ OK ]</span> Procesador                      AMD Ryzen 7 7800X3D
+  <span class="c-ok">[ OK ]</span> GPU dedicada                    NVIDIA GeForce RTX 4070 | 12.00 GB VRAM
+  <span class="c-f">[ XX ]</span> Frecuencia del monitor          60 Hz  (soporta hasta 240 Hz)
+  <span class="c-w">[ !! ]</span> Velocidad RAM                   4800 MT/s | kit de 6000 MT/s
+<span class="c-p">  +--[ SERVIDORES DE FORTNITE (EPIC) ]---------------------------------+</span>
+  <span class="c-i">&gt;&gt; NA-Este       </span><span class="c-ok"> [#####...............]   31.4 ms  jitter  1.2 ms  perdida 0%</span>
+  <span class="c-i">&gt;&gt; Europa        </span><span class="c-f"> [####################]  128.0 ms  jitter  3.9 ms  perdida 0%</span>
+<span class="c-p">  ===================================================================</span>
+   PUNTUACION GLOBAL  <span class="c-w"> 64 / 100  [###################...........]  RANGO C</span>
+     Hardware    <span class="c-f"> 55  [################..............]</span>
+     Windows     <span class="c-w"> 80  [########################......]</span>
+     Red         <span class="c-ok"> 88  [##########################....]</span>
+     Juegos      <span class="c-ok"> 90  [###########################...]</span>
+<span class="c-p">  +--[ RECOMENDACIONES (ordenadas por impacto) ]-----------------------+</span>
+   1. <span class="c-f">[CRITICO]</span> Hardware: Tu monitor soporta 240 Hz pero Windows lo usa a 60 Hz.
+        -&gt; Configuracion &gt; Pantalla &gt; Pantalla avanzada &gt; elige la maxima.
+   2. <span class="c-w">[ALTO]</span> Hardware: Tu RAM es de 6000 MT/s pero funciona a 4800: EXPO off.
+        -&gt; Entra a la BIOS y activa EXPO/XMP. +10-20% de FPS minimos.
+        <span class="c-p">CandyOS: Menu 4</span></pre>
+  </div>
+  <p class="sub" style="margin-top:12px;font-size:13px">Ejemplo ilustrativo. Los resultados dependen de cada equipo.</p>
+</div></section>
+
+<section id="como"><div class="wrap">
+  <h2><span class="k">02</span>Como funciona</h2>
+  <p class="sub">Cuatro pasos. La regla de oro de CandyOS: <b>medir antes de tocar</b>, y no aplicar nada que no tenga un efecto real.</p>
+  <div class="grid g4">
+    <div class="card step"><span class="num">1</span><h3>Diagnostica</h3><p>Hardware, Windows, red, Fortnite y Valorant. Puntuacion de 0 a 100 por area y lista de problemas ordenada por impacto, con la solucion exacta.</p></div>
+    <div class="card step"><span class="num">2</span><h3>Optimiza</h3><p>Aplica las optimizaciones permanentes con un clic. Antes crea un punto de restauracion y guarda el valor original de todo lo que cambia.</p></div>
+    <div class="card step"><span class="num">3</span><h3>Modo Enfoque</h3><p>Justo antes de jugar: cierra lo que estorba, pausa servicios, purga memoria y lanza el juego. Todo temporal.</p></div>
+    <div class="card step"><span class="num">4</span><h3>Compara</h3><p>Cada diagnostico se guarda. El siguiente te muestra la diferencia de puntuacion, benchmarks y ping frente al anterior.</p></div>
+  </div>
+</div></section>
+
+<section id="modulos"><div class="wrap">
+  <h2><span class="k">03</span>Modulos del menu</h2>
+  <p class="sub">El menu principal de CandyOS, opcion por opcion.</p>
+  <div class="grid g3">
+    <div class="card"><span class="n">[1] [2]</span><h3>Diagnostico completo / rapido</h3><p>45+ comprobaciones en 1-3 minutos. Genera un informe .txt en Documentos\CandyOS\Reportes y un historial de metricas para comparar.</p></div>
+    <div class="card"><span class="n">[3]</span><h3>Optimizar Windows</h3><p>13 ajustes con efecto medible: plan Ultimate, Modo Juego, HAGS, Game DVR, MMCSS, raton 1:1, GPU de alto rendimiento por juego, modelo flip en ventana, ahorro de energia de red, DNS mas rapido y mas.</p></div>
+    <div class="card"><span class="n">[4]</span><h3>Perfiles de juego</h3><p><b>Fortnite:</b> 3 perfiles sobre GameUserSettings.ini (Latencia minima, Competitivo DX12, Modo Rendimiento) con limite de FPS segun tu monitor. <b>Valorant:</b> guia de ajustes competitivos.</p></div>
+    <div class="card"><span class="n">[5]</span><h3>Limpieza de basura</h3><p>Analiza primero y muestra el tamano de cada categoria. Temporales, Windows Update, volcados, logs, caches de navegador, Discord, Epic y shaders. Nunca sigue enlaces simbolicos.</p></div>
+    <div class="card"><span class="n">[6]</span><h3>Apps de inicio</h3><p>Lista todo lo que arranca con Windows y marca lo que conviene apagar. Usa el mismo mecanismo que el Administrador de tareas: se reactiva en un clic.</p></div>
+    <div class="card"><span class="n">[7]</span><h3>Modo Enfoque</h3><p>La preparacion de sesion competitiva. 9 ajustes temporales y lanzamiento directo de Fortnite o Valorant.</p></div>
+    <div class="card"><span class="n">[8]</span><h3>Monitor en tiempo real</h3><p>CPU, GPU y RAM con barras ASCII, ping en vivo a tu mejor servidor con grafica de 60 s, jitter, perdida y los procesos que mas CPU consumen.</p></div>
+    <div class="card"><span class="n">[9]</span><h3>Centro de herramientas</h3><p>20 utilidades reconocidas (HWiNFO, LatencyMon, CapFrameX, DDU, ISLC...) instaladas desde el repositorio oficial de winget, con pack recomendado.</p></div>
+    <div class="card"><span class="n">[U]</span><h3>Deshacer todo</h3><p>Restaura cada valor original guardado (registro, plan de energia, DNS, red y config de Fortnite) o abre Restaurar sistema.</p></div>
+  </div>
+</div></section>
+
+<section id="enfoque"><div class="wrap">
+  <h2><span class="k">04</span>Modo Enfoque: el rendimiento de la sesion</h2>
+  <p class="sub">Activalo justo antes de abrir el juego. Son ajustes que tienen sentido <b>mientras juegas</b> pero que no quieres dejar fijos en tu PC. Por eso son temporales: desaparecen solos al reiniciar o al volver a iniciar sesion, o al instante con <code>[X] Terminar sesion</code>.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Ajuste temporal</th><th>Que consigue</th><th>Como se revierte</th></tr></thead>
+    <tbody>
+      <tr><td>Cerrar apps de fondo</td><td>Launchers, sincronizacion de nubes, torrents, wallpapers animados y overlays dejan de robar CPU, RAM, disco y red.</td><td>Vuelven a abrirse al reiniciar si estan en el inicio</td></tr>
+      <tr><td>Pausar servicios</td><td>Windows Update, BITS, Entrega optimizada, indexador de busqueda, telemetria, cola de impresion: cero descargas ni escaneos en mitad de la partida.</td><td>Se reanudan al reiniciar / tarea de inicio de sesion</td></tr>
+      <tr><td>Pausar SysMain <span class="pill">opcional</span></td><td>Menos actividad de disco en equipos con HDD o poca RAM.</td><td>Igual que arriba</td></tr>
+      <tr><td>Plan de energia Ultimate</td><td>CPU sin bajadas de frecuencia ni core parking. Respeta los Ryzen X3D de doble CCD (mantiene Equilibrado).</td><td>Se reactiva tu plan anterior</td></tr>
+      <tr><td>Prioridad baja para apps abiertas</td><td>Discord, navegador o Spotify siguen abiertos pero ceden el CPU al juego. El juego no se toca.</td><td>La prioridad muere con el proceso</td></tr>
+      <tr><td>Purgar memoria standby</td><td>Libera la RAM en cache al instante (lo mismo que hace ISLC / RAMMap).</td><td>Accion puntual</td></tr>
+      <tr><td>Raton sin aceleracion</td><td>Movimiento 1:1 en esta sesion sin cambiar tu configuracion guardada.</td><td>Windows recarga tu ajuste al iniciar sesion</td></tr>
+      <tr><td>Bloquear Teclas especiales</td><td>Adios al popup de "Teclas especiales" por pulsar Shift 5 veces en plena pelea.</td><td>Windows recarga tu ajuste al iniciar sesion</td></tr>
+      <tr><td>Vaciar cache DNS</td><td>Resoluciones limpias para launcher y servicios.</td><td>Accion puntual</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout pink"><b>Reversion garantizada:</b> al activar el Modo Enfoque, CandyOS registra una tarea de Windows que se ejecuta una sola vez en tu proximo inicio de sesion, restaura el plan de energia y los servicios pausados y se borra a si misma. Funciona incluso con el "Inicio rapido" de Windows activado.</div>
+  <p class="sub">Con <b>[F]</b> o <b>[V]</b> activas la sesion y lanzas Fortnite (Epic Games Launcher) o Valorant (Riot Client) en un solo paso. El juego se abre con permisos normales, no como administrador.</p>
+</div></section>
+
+<section id="pruebas"><div class="wrap">
+  <h2><span class="k">05</span>Que analiza el diagnostico</h2>
+  <p class="sub">Cada prueba produce un estado (OK / aviso / fallo) y, si hay un problema, una recomendacion con la solucion concreta y donde aplicarla.</p>
+  <div class="grid g2">
+    <div class="card"><h3>Hardware</h3><ul>
+      <li>CPU: nucleos, hilos, uso en reposo, deteccion de Ryzen X3D de doble CCD</li>
+      <li>GPU: modelo, VRAM real, version y antiguedad del driver</li>
+      <li><b>Monitor conectado a la placa base</b> en vez de a la grafica</li>
+      <li>Hz actuales del monitor vs. maximo soportado</li>
+      <li>RAM: capacidad, velocidad, <b>XMP/EXPO desactivado</b>, single channel, modulos en el mismo canal</li>
+      <li>Discos: NVMe / SSD / HDD donde estan Windows y cada juego, espacio libre, salud SMART</li>
+      <li>Placa base y antiguedad de la BIOS</li>
+      <li>Benchmarks: CPU un hilo, ancho de banda de memoria y escritura de disco</li>
+    </ul></div>
+    <div class="card"><h3>Windows</h3><ul>
+      <li>Version, tiempo encendido y reinicios pendientes</li>
+      <li>Plan de energia (con logica especial para X3D)</li>
+      <li>Modo Juego, HAGS, grabacion Game DVR</li>
+      <li>Optimizaciones para juegos en ventana (Win11)</li>
+      <li>Integridad de memoria (VBS/HVCI), solo informativo</li>
+      <li>Aceleracion del raton</li>
+      <li>Apps de inicio, programas de fondo evitables y overlays activos</li>
+    </ul></div>
+    <div class="card"><h3>Red</h3><ul>
+      <li>Cable vs. WiFi, senal y banda WiFi, velocidad de enlace, VPN</li>
+      <li>Latencia, jitter y perdida al router y a Internet</li>
+      <li><b>Ping a las 8 regiones de Fortnite</b> y mejor region de emparejamiento</li>
+      <li>Comparativa de 5 servidores DNS</li>
+      <li>MTU de la ruta</li>
+      <li>Ahorro de energia del adaptador (EEE / Green Ethernet)</li>
+      <li>TCP Auto-Tuning</li>
+      <li><b>Velocidad + bufferbloat</b>: ping en reposo vs. bajo descarga y subida, con nota A+ a F</li>
+    </ul></div>
+    <div class="card"><h3>Juegos</h3><ul>
+      <li><b>Fortnite:</b> instalacion, modo de renderizado (DX11/DX12/Rendimiento), VSync, limite de FPS vs. Hz, modo de ventana, sombras, aceleracion, preferencia de GPU</li>
+      <li><b>Valorant:</b> instalacion, disco, preferencia de GPU, estado de Riot Vanguard, Secure Boot y TPM 2.0 (errores VAN 9001/9003)</li>
+      <li>Recomendaciones de Reflex / Anti-Lag segun tu GPU</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<section id="juegos"><div class="wrap">
+  <h2><span class="k">06</span>Fortnite y Valorant, cada uno a su manera</h2>
+  <div class="two">
+    <div class="card"><h3>Fortnite</h3><p>CandyOS edita tu archivo de ajustes (con copia de seguridad) porque Fortnite lo lee en cada inicio.</p><ul>
+      <li><b>Latencia minima</b> (recomendado): VSync off, pantalla completa, limite de FPS, sin aceleracion. No toca tu calidad grafica.</li>
+      <li><b>Competitivo DX12</b>: lo anterior + sombras, iluminacion global, reflejos, postproceso, efectos y follaje al minimo.</li>
+      <li><b>Modo Rendimiento</b>: el renderizador ligero de Fortnite para el maximo FPS en PCs modestas.</li>
+      <li>Limite de FPS: igual a tus Hz, Hz-3 para G-Sync/FreeSync, el doble, sin limite o personalizado.</li>
+    </ul></div>
+    <div class="card"><h3>Valorant</h3><p>Valorant guarda la configuracion en la nube de Riot, asi que editar archivos no sirve: CandyOS te da la guia exacta y optimiza todo lo que rodea al juego.</p><ul>
+      <li>Guia competitiva: Reflex On+Boost, renderizado multihilo, MSAA 2x, Raw Input Buffer, etc.</li>
+      <li>Verificacion de Vanguard, Secure Boot y TPM.</li>
+      <li>GPU de alto rendimiento forzada para el ejecutable.</li>
+      <li>Modo Enfoque que no cierra el Riot Client cuando vas a jugar Valorant.</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<section id="seguridad"><div class="wrap">
+  <h2><span class="k">07</span>Seguridad, anti-cheat y cero placebo</h2>
+  <p class="sub">Un optimizador serio se mide tambien por lo que se niega a hacer.</p>
+  <div class="two">
+    <div class="card"><h3>Lo que CandyOS garantiza</h3><ul class="yes">
+      <li>Punto de restauracion antes del primer cambio</li>
+      <li>Copia del valor original de cada clave modificada (deshacer total en el menu U)</li>
+      <li>Copia del GameUserSettings.ini antes de editarlo</li>
+      <li>No modifica archivos de los juegos ni inyecta nada en sus procesos</li>
+      <li>No interactua con Easy Anti-Cheat ni con Riot Vanguard</li>
+      <li>Limpieza que nunca sigue enlaces simbolicos ni toca archivos en uso</li>
+      <li>Registro de todo lo que hace en ProgramData\CandyOS\candyos.log</li>
+    </ul></div>
+    <div class="card"><h3>Lo que NO hace, a proposito</h3><ul class="no">
+      <li>Desactivar Windows Defender o las actualizaciones de forma permanente</li>
+      <li>"Limpiadores de RAM" que liberan memoria en bucle</li>
+      <li>Hacks de bcdedit, timer resolution o prioridades de IRQ</li>
+      <li>Desactivar Nagle (Fortnite y Valorant usan UDP: no tiene efecto)</li>
+      <li>Desactivar la Integridad de memoria por ti (te informa y decides)</li>
+      <li>Cambiar la prioridad del proceso del juego</li>
+      <li>Borrar la cache de shaders sin avisar (provocaria tirones)</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<section id="herramientas"><div class="wrap">
+  <h2><span class="k">08</span>Ecosistema de herramientas externas</h2>
+  <p class="sub">CandyOS no reinventa lo que ya es excelente: centraliza las mejores utilidades del mundo competitivo y las instala desde el repositorio oficial de <b>winget</b> (Microsoft), siempre en su ultima version y desde la fuente del autor. El pack recomendado (*) se instala con una sola tecla.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Herramienta</th><th>Para que sirve en competitivo</th><th>ID de winget</th><th>Licencia</th></tr></thead>
+    <tbody>
+      <tr><td>HWiNFO64 *</td><td>Temperaturas, throttling y relojes reales de CPU/GPU</td><td><code>REALiX.HWiNFO</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>LatencyMon *</td><td>Detecta drivers con latencia DPC/ISR (micro-stutter)</td><td><code>Resplendence.LatencyMon</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>CapFrameX *</td><td>FPS, 1% low y frametimes antes/despues</td><td><code>CXWorld.CapFrameX</code></td><td><span class="pill g">Codigo abierto</span></td></tr>
+      <tr><td>NVIDIA FrameView</td><td>FPS y latencia del sistema (PC Latency)</td><td><code>Nvidia.FrameView</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>CPU-Z</td><td>Confirmar XMP/EXPO y canales de RAM</td><td><code>CPUID.CPU-Z</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>GPU-Z</td><td>Ancho PCIe real y sensores de la grafica</td><td><code>TechPowerUp.GPU-Z</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>CrystalDiskInfo</td><td>Salud SMART del disco</td><td><code>CrystalDewWorld.CrystalDiskInfo</code></td><td><span class="pill g">Codigo abierto</span></td></tr>
+      <tr><td>CrystalDiskMark</td><td>Velocidad real del SSD/HDD</td><td><code>CrystalDewWorld.CrystalDiskMark</code></td><td><span class="pill g">Codigo abierto</span></td></tr>
+      <tr><td>DDU *</td><td>Desinstalacion limpia de drivers de GPU</td><td><code>Wagnardsoft.DisplayDriverUninstaller</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>NVCleanstall (*NVIDIA)</td><td>Driver NVIDIA sin telemetria ni extras</td><td><code>TechPowerUp.NVCleanstall</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>ISLC *</td><td>Limpieza continua de memoria standby</td><td><code>Wagnardsoft.ISLC</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>Process Lasso</td><td>ProBalance: frena procesos que acaparan CPU</td><td><code>BitSum.ProcessLasso</code></td><td><span class="pill y">Freemium</span></td></tr>
+      <tr><td>MSI Afterburner</td><td>Ventiladores, undervolt y overlay</td><td><code>Guru3D.Afterburner</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>RivaTuner Statistics Server</td><td>Limitador de FPS por frametime muy preciso</td><td><code>Guru3D.RTSS</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>Autoruns *</td><td>Control total de lo que arranca con Windows</td><td><code>Microsoft.Sysinternals.Autoruns</code></td><td><span class="pill">Freeware (MS)</span></td></tr>
+      <tr><td>WizTree *</td><td>Que ocupa tu disco, en segundos</td><td><code>AntibodySoftware.WizTree</code></td><td><span class="pill y">Gratis uso personal</span></td></tr>
+      <tr><td>BleachBit</td><td>Limpiador avanzado</td><td><code>BleachBit.BleachBit</code></td><td><span class="pill g">GPL-3.0</span></td></tr>
+      <tr><td>O&amp;O ShutUp10++</td><td>Telemetria y funciones innecesarias</td><td><code>OO-Software.ShutUp10</code></td><td><span class="pill">Freeware</span></td></tr>
+      <tr><td>Cloudflare WARP</td><td>Ruta alternativa si tu ISP enruta mal (compara el ping)</td><td><code>Cloudflare.Warp</code></td><td><span class="pill">Gratis</span></td></tr>
+      <tr><td>Epic Games Launcher</td><td>Launcher de Fortnite</td><td><code>EpicGames.EpicGamesLauncher</code></td><td><span class="pill">Gratis</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><b>Por que winget y no empaquetarlas:</b> la mayoria son freeware con licencias que prohiben redistribuirlas dentro de un producto comercial. Al instalarlas desde el repositorio oficial, el usuario las obtiene directamente del autor y CandyOS se mantiene limpio legalmente. Tambien enlaza a los drivers oficiales de NVIDIA, AMD e Intel, al test de bufferbloat de Waveform y al estado de servidores de Epic.</div>
+</div></section>
+
+<section id="instalar"><div class="wrap">
+  <h2><span class="k">09</span>Instalacion y uso</h2>
+  <p class="sub">CandyOS no se instala: es un unico archivo que se ejecuta y se cierra.</p>
+  <div class="two">
+    <div class="card"><h3>Opcion A: descargar el archivo</h3><ol class="steps">
+      <li><b>Descarga</b> CandyOS.ps1 con el boton de abajo.</li>
+      <li><b>Clic derecho</b> sobre el archivo &gt; <b>Ejecutar con PowerShell</b>.</li>
+      <li>Acepta el aviso de <b>Control de cuentas</b> (CandyOS necesita ser administrador).</li>
+      <li>Empieza por <b>[1] Diagnostico completo</b> y sigue las recomendaciones.</li>
+    </ol></div>
+    <div class="card"><h3>Opcion B: una linea en PowerShell</h3><ol class="steps">
+      <li>Pulsa <b>Win + X</b> &gt; <b>Terminal (Administrador)</b>.</li>
+      <li>Pega este comando y pulsa Enter:</li>
+    </ol>
+      <div class="copy"><code id="oneliner">iex ((New-Object Net.WebClient).DownloadString('https://lukoffmon.github.io/LKMLPR/candyos/CandyOS.ps1'))</code><button type="button" data-copy="oneliner">Copiar</button></div>
+      <p style="margin-top:10px;font-size:13px">Si ves un error de TLS en Windows 10 antiguo, ejecuta antes: <code>[Net.ServicePointManager]::SecurityProtocol='Tls12'</code></p>
+    </div>
+  </div>
+  <h3 style="margin-top:30px">Flujo recomendado</h3>
+  <ol class="steps">
+    <li><b>Diagnostico completo [1]</b>: anota tu puntuacion y arregla primero lo marcado como CRITICO y ALTO (muchas cosas son de BIOS, cables o ajustes de Windows).</li>
+    <li><b>Optimizar Windows [3] &gt; A</b>: aplica todas las optimizaciones seguras. Reinicia.</li>
+    <li><b>Perfiles de juego [4]</b>: aplica el perfil de Fortnite y revisa la guia de Valorant.</li>
+    <li><b>Limpieza [5]</b> e <b>Inicio de Windows [6]</b> una vez al mes.</li>
+    <li>Cada vez que juegues: <b>Modo Enfoque [7] &gt; F o V</b>.</li>
+    <li>Repite el diagnostico y compara tu puntuacion.</li>
+  </ol>
+  <h3 style="margin-top:30px">Modos de linea de comandos</h3>
+  <div class="copy"><code id="cli">powershell -ExecutionPolicy Bypass -File .\CandyOS.ps1 -Mode Focus</code><button type="button" data-copy="cli">Copiar</button></div>
+  <p class="sub" style="margin-top:10px;font-size:14px">Valores de <code>-Mode</code>: <code>Menu</code>, <code>Diagnose</code>, <code>QuickDiagnose</code>, <code>Optimize</code>, <code>Games</code>, <code>Fortnite</code>, <code>Valorant</code>, <code>Clean</code>, <code>Startup</code>, <code>Focus</code>, <code>FocusStop</code>, <code>Monitor</code>, <code>Tools</code>, <code>Undo</code>. Ideal para crear un acceso directo de "Modo Enfoque" en el escritorio.</p>
+  <h3 style="margin-top:30px">Requisitos</h3>
+  <div class="grid g4">
+    <div class="card"><h3>Sistema</h3><p>Windows 10 22H2 u 11, 64 bits</p></div>
+    <div class="card"><h3>PowerShell</h3><p>5.1 (incluido en Windows) o 7.x</p></div>
+    <div class="card"><h3>Permisos</h3><p>Administrador (se solicitan solos)</p></div>
+    <div class="card"><h3>Opcional</h3><p>winget para el Centro de herramientas</p></div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <h2><span class="k">10</span>Preguntas frecuentes</h2>
+  <details><summary>Me pueden banear por usar CandyOS?</summary><p>CandyOS no modifica archivos de los juegos, no lee ni escribe su memoria, no cambia la prioridad de sus procesos y no interactua con Easy Anti-Cheat ni con Riot Vanguard. Solo cambia ajustes de Windows y el archivo de configuracion de usuario de Fortnite, el mismo que modifica el menu de opciones del juego.</p></details>
+  <details><summary>Cuantos FPS voy a ganar?</summary><p>Depende de tu punto de partida. Los mayores saltos vienen de problemas que el diagnostico detecta: monitor conectado a la placa base, monitor a 60 Hz siendo de 144/240 Hz, RAM sin XMP o en single channel, VSync activado o el juego en un disco duro. En un PC ya bien configurado la mejora principal es de estabilidad: frametimes mas regulares y menos tirones. Usa CapFrameX para medirlo tu mismo.</p></details>
+  <details><summary>Windows me dice que el script no es seguro o no se ejecuta</summary><p>Es normal en archivos descargados de Internet. Usa "Ejecutar con PowerShell" (ignora la politica solo para ese proceso) o la opcion B. Si SmartScreen avisa, pulsa "Mas informacion" &gt; "Ejecutar de todas formas". Puedes verificar el archivo con el SHA-256 de la seccion de descarga: <code>Get-FileHash .\CandyOS.ps1</code>.</p></details>
+  <details><summary>Como deshago los cambios?</summary><p>Menu <b>[U] Deshacer cambios &gt; 1</b> restaura todos los valores originales guardados. Tambien puedes usar el punto de restauracion "CandyOS - antes de optimizar". El Modo Enfoque se revierte solo al reiniciar, o al instante con <b>[7] &gt; X</b>.</p></details>
+  <details><summary>El Modo Enfoque deja algo cambiado si apago el PC?</summary><p>No. Lo de memoria, prioridades, raton y teclas desaparece al cerrar sesion. El plan de energia y los servicios los restaura una tarea programada de un solo uso en tu siguiente inicio de sesion, que despues se elimina.</p></details>
+  <details><summary>Tengo un Ryzen 7950X3D / 7900X3D / 9950X3D</summary><p>CandyOS lo detecta y mantiene el plan Equilibrado, que es el que permite a Windows y al driver de chipset de AMD llevar los juegos al CCD con 3D V-Cache. Mantener Xbox Game Bar y el driver de chipset actualizados es importante en estos procesadores.</p></details>
+  <details><summary>Por que no edita la configuracion de Valorant?</summary><p>Valorant sincroniza los ajustes con tu cuenta de Riot en la nube y los sobrescribe al iniciar. Por eso CandyOS te da la guia de ajustes exacta y optimiza todo lo que esta fuera del juego.</p></details>
+  <details><summary>Donde guarda sus datos?</summary><p>Copias de seguridad, estado y registro en <code>C:\ProgramData\CandyOS</code>. Informes en <code>Documentos\CandyOS\Reportes</code>. Puedes borrar ambas carpetas cuando quieras (despues de deshacer los cambios si quieres conservar esa posibilidad).</p></details>
+  <details><summary>Funciona en portatiles?</summary><p>CandyOS esta pensado para PC de escritorio. En un portatil funciona, pero el plan de energia maximo reduce la bateria y el diagnostico de GPU puede marcar avisos propios de los equipos hibridos.</p></details>
+</div></section>
+
+<section id="comparativa"><div class="wrap">
+  <h2><span class="k">11</span>CandyOS vs. los optimizadores "de un clic"</h2>
+  <p class="sub">La mayoria de "boosters" aplican cientos de tweaks a ciegas. CandyOS hace lo contrario: mide, explica y solo toca lo que sirve.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Caracteristica</th><th>Booster tipico</th><th>CandyOS</th></tr></thead>
+    <tbody>
+      <tr><td>Diagnostico con puntuacion y prioridades</td><td><span class="pill">No / generico</span></td><td><span class="pill g">45+ pruebas reales</span></td></tr>
+      <tr><td>Detecta problemas fisicos (monitor en la placa, Hz, XMP, single channel)</td><td><span class="pill">No</span></td><td><span class="pill g">Si</span></td></tr>
+      <tr><td>Ping a servidores del juego y bufferbloat</td><td><span class="pill">Rara vez</span></td><td><span class="pill g">8 regiones + nota A+ a F</span></td></tr>
+      <tr><td>Deshacer cada cambio a su valor original</td><td><span class="pill y">Parcial</span></td><td><span class="pill g">Total (menu U)</span></td></tr>
+      <tr><td>Ajustes temporales de sesion que se revierten solos</td><td><span class="pill">No</span></td><td><span class="pill g">Modo Enfoque</span></td></tr>
+      <tr><td>Tweaks placebo o peligrosos (Defender off, bcdedit, Nagle)</td><td><span class="pill y">Frecuentes</span></td><td><span class="pill g">Ninguno</span></td></tr>
+      <tr><td>Historial antes / despues</td><td><span class="pill">No</span></td><td><span class="pill g">Automatico</span></td></tr>
+      <tr><td>Peso y consumo en segundo plano</td><td><span class="pill y">App residente</span></td><td><span class="pill g">1 archivo, 0 procesos al cerrar</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><b>Control de calidad:</b> cada version pasa el analisis estatico de PSScriptAnalyzer, la verificacion de sintaxis para Windows PowerShell 5.1 y pruebas automatizadas de las rutinas criticas (edicion de INI preservando codificacion, limpieza sin seguir enlaces simbolicos, copias de seguridad y compilacion de las funciones nativas).</div>
+</div></section>
+
+<section id="descarga"><div class="wrap">
+  <div class="dl">
+    <h2>Descarga CandyOS</h2>
+    <p class="sub" style="margin:0 auto 22px">Un solo archivo de PowerShell. Sin instalador, sin servicios en segundo plano, sin telemetria.</p>
+    <a class="btn primary" href="CandyOS.ps1" download="CandyOS.ps1">Descargar CandyOS.ps1</a>
+    <p style="color:var(--muted);margin:16px 0 0;font-size:14px">Version <b>1.0.0</b> &middot; Windows 10/11 &middot; <span id="fsize">194 KB</span></p>
+    <div class="hash">SHA-256: <span id="sha">c7301b0e3623ec843fadff1f801708617349768041577dc87c255f1dc8eb2c10</span></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p><b style="color:var(--text)">CandyOS</b> &copy; 2026 LukOffMon. Todos los derechos reservados.</p>
+  <p>Fortnite es una marca de Epic Games, Inc. VALORANT es una marca de Riot Games, Inc. CandyOS es un producto independiente y no esta afiliado, patrocinado ni respaldado por Epic Games ni por Riot Games. Las herramientas de terceros pertenecen a sus respectivos autores y se rigen por sus licencias.</p>
+  <p>Usalo bajo tu responsabilidad: CandyOS crea copias de seguridad y puntos de restauracion, pero cada equipo es distinto.</p>
+</div></footer>
+
+<script>
+(function(){
+  var start=Date.now(), l=document.getElementById('loader');
+  function hide(){var wait=Math.max(0,1100-(Date.now()-start));setTimeout(function(){l.classList.add('done');setTimeout(function(){if(l.parentNode)l.parentNode.removeChild(l)},600)},wait)}
+  if(document.readyState==='complete'){hide()}else{window.addEventListener('load',hide)}
+})();
+document.querySelectorAll('button[data-copy]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=document.getElementById(b.getAttribute('data-copy')).textContent;
+    var done=function(){var o=b.textContent;b.textContent='Copiado';setTimeout(function(){b.textContent=o},1500)};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){fallback(t);done()})}else{fallback(t);done()}
+  });
+});
+function fallback(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a)}
+</script>
+</body>
+</html>
