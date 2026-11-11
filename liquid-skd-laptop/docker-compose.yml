@@ -1,0 +1,60 @@
+# Liquid SKd en casa (laptop vieja, PC o Raspberry Pi), sin abrir puertos ni comprar dominio:
+#   slskd      → Soulseek
+#   puente     → lo único con lo que habla Liquid (pide la clave LIQUID_CLAVE)
+#   tailscale  → Tailscale Funnel: una dirección https://<nombre>.<tu-red>.ts.net pública y gratis
+# Todo se configura en .env (lo crea instalar.sh). Arranque: docker compose up -d
+services:
+  slskd:
+    image: slskd/slskd:latest
+    restart: unless-stopped
+    user: "1000:1000"
+    environment:
+      - SLSKD_REMOTE_CONFIGURATION=false
+    volumes:
+      - ./slskd:/app
+      - ./musica:/musica
+    ports:
+      # Soulseek: si puedes, redirígelo en tu router a esta máquina (no es obligatorio)
+      - "50300:50300"
+
+  puente:
+    image: node:22-alpine
+    restart: unless-stopped
+    user: "1000:1000"
+    working_dir: /puente
+    command: ["node", "server.mjs"]
+    depends_on: [slskd]
+    environment:
+      - SLSKD_URL=http://slskd:5030
+      - SLSKD_API_KEY=${SLSKD_API_KEY}
+      - SLSKD_USERNAME=${SLSKD_WEB_USUARIO}
+      - SLSKD_PASSWORD=${SLSKD_WEB_CONTRASENA}
+      - LIQUID_CLAVE=${LIQUID_CLAVE}
+      # Vacío: el puente usa la dirección de Tailscale por la que llega Liquid
+      - PUBLICO=${PUBLICO:-}
+      - ORIGENES=${ORIGENES:-https://lukoffmon.github.io}
+      - MUSICA_DIR=/musica
+      - DATOS_DIR=/datos
+      - PUERTO=8787
+    volumes:
+      - ./puente:/puente:ro
+      - ./musica:/musica
+      - ./datos:/datos
+
+  tailscale:
+    image: tailscale/tailscale:latest
+    restart: unless-stopped
+    hostname: ${TS_NOMBRE:-liquid-skd}
+    depends_on: [puente]
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SERVE_CONFIG=/config/funnel.json
+      - TS_USERSPACE=false
+    volumes:
+      - ./tailscale-estado:/var/lib/tailscale
+      - ./funnel.json:/config/funnel.json:ro
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
