@@ -7,6 +7,7 @@ Tu laptop vieja como servidor de **Liquid ATK + SKd** (Soulseek), sin tarjeta y 
 | Archivo | Qué es |
 |---|---|
 | `instalar.sh` | Lo instala y lo deja funcionando (se puede repetir) |
+| `preseed.cfg` | Reinstalación automática de Debian 13 desde la USB oficial (PROTOCOLO, paso 1b) |
 | `docker-compose.yml` | slskd + puente + Tailscale |
 | `funnel.json` | Tailscale Funnel: `https://<nombre>.<tu-red>.ts.net` → puente |
 | `puente/` | El puente de Liquid (Node, sin dependencias) y sus tests |
