@@ -30,6 +30,23 @@ uname -m; cat /etc/os-release | head -2; free -h; df -h /
 
 **Si no arranca o el Linux está roto:** reinstala **Ubuntu Server 24.04** (ligero). Desde otra PC, descarga la imagen de ubuntu.com/download/server, grábala en una USB de 4 GB+ con **balenaEtcher**, arranca la laptop desde la USB (tecla F12, F2 o Esc al encender) y sigue el instalador: usuario y contraseña, «Install OpenSSH server» marcado. Conéctala por cable o Wi-Fi.
 
+## Paso 1b · Laptop sin contraseña o de segunda mano: instalación automática (30 min)
+
+Si no sabes la contraseña de la laptop (o quieres borrar lo del dueño anterior), reinstala Debian 13 **automáticamente**: solo escribes una dirección, tu contraseña y confirmas el borrado. Necesitas una **memoria USB de 8 GB o más** (se borra) y otra computadora para prepararla.
+
+1. **En tu otra computadora:** descarga la imagen **Debian 13 netinst amd64** (unos 750 MB) desde **debian.org** (botón de descarga de la portada) e instala **balenaEtcher** (balena.io/etcher).
+2. **balenaEtcher** → *Flash from file* (la imagen) → *Select target* (tu USB) → *Flash*.
+3. **En la laptop vieja**, con el **cable de red** conectado al router y la USB puesta: enciende pulsando **F12** varias veces y elige la USB. (Si F12 no hace nada: enciende con **F2** → BIOS → *Main* → **F12 Boot Menu: Enabled** → **F10** para guardar, y repite.)
+4. En el menú de Debian: **Advanced options → Automated install** (o *Graphical automated install*).
+5. Espera a que configure la red. Cuando pida **«Location of initial preconfiguration file»**, escribe exactamente:
+   ```
+   https://raw.githubusercontent.com/LukOffMon/LKMLPR/main/liquid-skd-laptop/preseed.cfg
+   ```
+6. Te pedirá **tu contraseña nueva** (dos veces; apúntala en papel) y **una confirmación** para borrar el disco → **Sí**. Si pregunta en qué disco instalar, elige el de la laptop (no la USB).
+7. Cuando termine y reinicie, **saca la USB**. Entra con el usuario **`liquid`** y tu contraseña. El protocolo ya está descargado en `~/LKMLPR` y la pantalla te dice los siguientes pasos. Sigue desde el **paso 3** de abajo (cuenta de Tailscale).
+
+El archivo con las respuestas automáticas es [`preseed.cfg`](preseed.cfg): idioma español (México), teclado latinoamericano, usuario `liquid` con `sudo`, sin escritorio, con SSH, y deja descargado este protocolo.
+
 ## Paso 2 · Bajar este protocolo (2 min)
 
 ```bash
