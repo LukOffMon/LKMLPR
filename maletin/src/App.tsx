@@ -16,6 +16,10 @@ import { Guerra } from './pages/Guerra'
 import { Efectivo } from './pages/Efectivo'
 import { Imperio } from './pages/Imperio'
 import { Plan } from './pages/Plan'
+import { Herramientas } from './pages/Herramientas'
+import { Imprimir } from './pages/Imprimir'
+import { FocoGlobal } from './components/Foco'
+import { LogrosToast } from './components/LogrosToast'
 
 export default function App() {
   const { seccion, param } = useRuta()
@@ -41,12 +45,18 @@ export default function App() {
     case 'efectivo': vista = <Efectivo tabInicial={param} />; break
     case 'imperio': vista = <Imperio tabInicial={param} />; break
     case 'plan': vista = <Plan tabInicial={param} />; break
+    case 'herramientas': vista = <Herramientas tabInicial={param} />; break
+    case 'imprimir': vista = <Imprimir />; break
     default: vista = <Panel />
   }
 
   return (
-    <Layout seccion={navActiva}>
-      <div key={`${seccion}/${param ?? ''}`}>{vista}</div>
-    </Layout>
+    <>
+      <Layout seccion={navActiva}>
+        <div key={`${seccion}/${param ?? ''}`}>{vista}</div>
+      </Layout>
+      <FocoGlobal />
+      <LogrosToast />
+    </>
   )
 }

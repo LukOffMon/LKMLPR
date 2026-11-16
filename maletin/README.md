@@ -26,6 +26,17 @@ Los datos se guardan en el navegador (localStorage). Exporta un respaldo JSON de
 9. Trampas que debes evitar
 10. Diario y revisión semanal
 
+## Maletín 2.0: Planificación de doble vía
+
+- **Sala de guerra**: meta del mes, progreso, pipeline proyectado, sprint activo, ritual del día y el próximo paso más importante.
+- **Modo Efectivo (Vía Rápida)**: sprints de 72 h / 7 d / 30 d con contador, 22 ofertas express, constructor de ofertas, mapa de prospección local y contador de actividad con tasas de conversión.
+- **Modo Imperio (Vía Larga)**: árbol de activos con hitos, evolución de LKM'r, laboratorio de productos con validación, simulador de futuro y fondo de Vía Larga. Cada ingreso de Vía Rápida aparta automáticamente el % configurado (20% por defecto).
+- **Plan maestro**: visión a 10 años → 5 años → año → OKR trimestral → mes → semana → hoy, matriz ICE, planificador semanal (pincel + arrastrar y soltar), ritual diario y revisión mensual.
+- **Herramientas**: cotizador con PDF y WhatsApp, calculadora de precios (hora / proyecto / valor), biblioteca de guiones, logros y modo enfoque (Pomodoro persistente).
+- **CRM Kanban** con valor proyectado ponderado por etapa y **plan imprimible**.
+
+Los respaldos de la versión anterior se importan sin perder datos.
+
 ## Estructura
 
 - `src/data/` — todo el contenido (ideas por categoría, protocolos, escalera, habilidades, trampas, finanzas)

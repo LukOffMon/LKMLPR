@@ -112,3 +112,12 @@ input, textarea, select {
 .no-scrollbar { scrollbar-width: none; }
 
 .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+
+/* ───────── Impresión / PDF ───────── */
+.print-only { display: none; }
+@media print {
+  @page { margin: 14mm; }
+  html, body { background: #fff !important; color: #111 !important; }
+  #root { display: none !important; }
+  .print-only { display: block !important; color: #111; font-family: var(--font-sans); }
+}

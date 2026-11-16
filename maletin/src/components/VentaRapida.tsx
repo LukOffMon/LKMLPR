@@ -24,7 +24,7 @@ export function VentaRapida({ onHecho }: { onHecho?: () => void }) {
       }}
     >
       <input className="input w-28 font-mono" type="number" min="0" inputMode="decimal" placeholder="$ monto" value={monto} onChange={(e) => setMonto(e.target.value)} aria-label="Monto" />
-      <input className="input min-w-0 flex-1" placeholder="Concepto (ej. Menú QR Taquería)" value={concepto} onChange={(e) => setConcepto(e.target.value)} aria-label="Concepto" />
+      <input className="input min-w-[10rem] flex-1" placeholder="Concepto (ej. Menú QR Taquería)" value={concepto} onChange={(e) => setConcepto(e.target.value)} aria-label="Concepto" />
       <button className="btn-money" disabled={!(n > 0)}>
         <Plus className="h-4 w-4" /> Registrar venta
       </button>

@@ -53,7 +53,7 @@ export const normalizar = (raw: unknown): EstadoApp => {
     const v = r[k]
     if (v === undefined) continue
     if (Array.isArray(def)) { if (Array.isArray(v)) out[k] = v; continue }
-    if (def === null) { out[k] = v && typeof v === 'object' ? v : null; continue }
+    if (def === null) { out[k] = v === null || typeof v === 'string' || (typeof v === 'object' && !Array.isArray(v)) ? v : null; continue }
     if (typeof def === 'object') { if (v && typeof v === 'object' && !Array.isArray(v)) out[k] = { ...(def as object), ...(v as object) }; continue }
     if (typeof v === typeof def) out[k] = v
   }

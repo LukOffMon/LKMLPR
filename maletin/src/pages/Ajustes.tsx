@@ -25,6 +25,10 @@ export function Ajustes() {
     ['Revisiones', estado.diario.length],
     ['Pasos de protocolos', Object.values(estado.checks).filter(Boolean).length],
     ['Días ejecutados', estado.diasActivos.length],
+    ['Metas del plan', estado.plan.length],
+    ['Sprints', estado.sprints.length],
+    ['Cotizaciones', estado.cotizaciones.length],
+    ['Sesiones de enfoque', estado.sesionesFoco.length],
   ] as const
 
   return (
@@ -47,6 +51,7 @@ export function Ajustes() {
             ))}
           </div>
           <button onClick={() => exportarJSON(estado)} className="btn-gold w-full"><Download className="h-4 w-4" /> Descargar respaldo</button>
+          <a href="#/imprimir" className="btn-ghost mt-2 w-full">Ver plan imprimible</a>
         </Card>
         <Card>
           <h2 className="mb-1 font-semibold">Importar respaldo</h2>
