@@ -1,0 +1,1016 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LKM'r Company · Sitios web, contenido y automatización para negocios | Aguascalientes</title>
+<meta name="description" content="Estudio digital en Jesús María, Aguascalientes. Páginas web, Google Maps, redes sociales, edición de video y chatbots de WhatsApp para negocios. Entrega en días. Cotiza por WhatsApp.">
+<meta name="theme-color" content="#0a0b0d">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:title" content="LKM'r Company · Hacemos crecer tu negocio en internet">
+<meta property="og:description" content="Sitios web, Google Maps, redes, video y automatización de WhatsApp. Creatividad + tecnología + IA. Aguascalientes · Todo México.">
+<!-- Cuando publiques, cambia por tu dominio y sube una imagen de 1200×630 llamada og.png -->
+<meta property="og:url" content="https://tu-dominio.com/">
+<meta property="og:image" content="https://tu-dominio.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0b0d'/%3E%3Cpath d='M14 14h8v28h14v8H14z' fill='%23f2f3f5'/%3E%3Cpath d='M40 14h9l-5 13h-8z' fill='%23c8ff2e'/%3E%3C/svg%3E">
+<!-- Fuentes opcionales: si no cargan, el sitio usa fuentes del sistema -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script>
+/* ════════════════════════════════════════════════════════════════════
+   CONFIGURACIÓN — edita SOLO aquí: número, precios, redes, textos.
+   ════════════════════════════════════════════════════════════════════ */
+window.CONFIG = {
+  marca: "LKM'r Company",
+  // WhatsApp en formato internacional SIN "+", espacios ni guiones. México: 52 + 10 dígitos.
+  // Ejemplo: "524491234567". Mientras esté vacío, el botón abre WhatsApp para elegir contacto.
+  whatsapp: "",
+  mensajeWhatsApp: "Hola LKM'r 👋 Vi su página y quiero cotizar un proyecto para mi negocio.",
+  email: "", // opcional, ej. "hola@lkmr.mx"
+  ciudad: "Jesús María",
+  estado: "Aguascalientes",
+  codigoPostal: "20900",
+  url: "https://tu-dominio.com/",
+  horario: "Lunes a sábado · respuesta en menos de 24 h",
+  redes: {
+    // Deja "" en las que no uses y no aparecerán.
+    instagram: "",
+    tiktok: "",
+    facebook: "",
+    linkedin: "",
+    youtube: "",
+  },
+  // Precios "desde" en MXN. Cambia el número y se actualiza en todo el sitio.
+  servicios: [
+    { id: "web", icono: "web", nombre: "Sitios web y landing pages", desc: "Tu negocio con página propia: rápida, bonita, con botón a WhatsApp, mapa y tus servicios.", entregables: ["Diseño a la medida", "Adaptada a celular", "Botón WhatsApp + mapa", "Dominio y publicación"], desde: 1800, categoria: "web" },
+    { id: "redes", icono: "redes", nombre: "Redes sociales y contenido", desc: "Publicaciones, historias y reels cada semana para que tu negocio se vea activo y profesional.", entregables: ["Calendario mensual", "Diseño de posts", "Reels con celular", "Reporte mensual"], desde: 2200, sufijo: "/mes", categoria: "contenido" },
+    { id: "video", icono: "video", nombre: "Edición de video", desc: "Reels, shorts y videos de YouTube con subtítulos, ritmo y ganchos que retienen.", entregables: ["Subtítulos dinámicos", "Cortes y ritmo", "Música libre de derechos", "Formato vertical u horizontal"], desde: 150, sufijo: "/video", categoria: "contenido" },
+    { id: "whatsapp", icono: "bot", nombre: "Chatbots y automatización de WhatsApp", desc: "Respuestas automáticas, catálogo y citas para que no pierdas clientes por contestar tarde.", entregables: ["WhatsApp Business pro", "Respuestas rápidas", "Flujos automáticos", "Capacitación"], desde: 900, categoria: "automatizacion" },
+    { id: "google", icono: "pin", nombre: "Google Business Profile", desc: "Que te encuentren en Google Maps: ficha optimizada, fotos, horarios y sistema de reseñas.", entregables: ["Alta o optimización", "Fotos profesionales", "QR para reseñas", "Reporte a 30 días"], desde: 600, categoria: "web" },
+    { id: "pc", icono: "pc", nombre: "Soporte técnico y armado de PCs", desc: "Mantenimiento, formateo con respaldo, redes WiFi y armado de PCs gamer o de trabajo.", entregables: ["Diagnóstico", "Limpieza y optimización", "Respaldo de archivos", "Armado y pruebas"], desde: 300, categoria: "tecnico" },
+    { id: "marca", icono: "marca", nombre: "Identidad visual", desc: "Logo, colores y piezas básicas para que tu negocio se vea serio desde el primer vistazo.", entregables: ["Logo en 3 versiones", "Paleta y tipografía", "Tarjeta / flyer", "Archivos editables"], desde: 1200, categoria: "marca" },
+  ],
+  paquetes: [
+    { nombre: "Arranque", precio: 2490, nota: "pago único", para: "Negocios que todavía no existen en internet.", incluye: ["Google Business Profile optimizado", "Landing page de 1 sección", "WhatsApp Business configurado", "QR para reseñas", "Entrega en 5 días hábiles"], noIncluye: ["Contenido mensual", "Automatizaciones"] },
+    { nombre: "Crecimiento", precio: 5990, nota: "pago único", recomendado: true, para: "Negocios que quieren verse profesionales y recibir más mensajes.", incluye: ["Todo lo de Arranque", "Sitio de hasta 5 secciones", "8 publicaciones para redes", "Respuestas automáticas de WhatsApp", "Sesión de fotos de producto", "Entrega en 10 días hábiles"], noIncluye: ["Gestión mensual"] },
+    { nombre: "Pro", precio: 4990, nota: "al mes · mínimo 3 meses", para: "Negocios que quieren un equipo digital sin contratar uno.", incluye: ["Sitio web completo + mantenimiento", "Redes: 12 posts + 4 reels al mes", "Chatbot de WhatsApp", "Google Maps gestionado", "Reporte mensual y junta de estrategia"], noIncluye: [] },
+  ],
+  // Portafolio. Mientras no tengas clientes reales, estos son PROYECTOS CONCEPTUALES (marcados así en el sitio).
+  // Para un caso real: conceptual:false, cliente real (con permiso), imagen: "ruta/foto.webp", y resultado medido.
+  portafolio: [
+    { titulo: "Menú digital con pedidos por WhatsApp", cliente: "Taquería de barrio (concepto)", categoria: "web", conceptual: true, color: "#ff7a3d", reto: "El menú en PDF no se leía en el celular y los pedidos por mensaje se perdían.", solucion: "Menú web ligero con fotos, categorías, precios editables y botón que arma el pedido en WhatsApp. QR para cada mesa.", resultado: "Resultado esperado: pedidos más claros y menos tiempo contestando preguntas.", imagen: "" },
+    { titulo: "Landing + agenda en línea", cliente: "Consultorio dental (concepto)", categoria: "web", conceptual: true, color: "#3dd6ff", reto: "Las citas se agendaban solo por llamada en horario de consultorio.", solucion: "Página con servicios, ubicación, preguntas frecuentes y agenda en línea con recordatorios automáticos.", resultado: "Resultado esperado: citas agendadas fuera de horario y menos inasistencias.", imagen: "" },
+    { titulo: "Paquete de reels mensual", cliente: "Barbería (concepto)", categoria: "contenido", conceptual: true, color: "#c8ff2e", reto: "Instagram sin publicar en semanas y sin videos.", solucion: "Sesión mensual de grabación, 8 reels con subtítulos y antes/después, calendario de publicaciones.", resultado: "Resultado esperado: perfil activo y contenido reutilizable cada mes.", imagen: "" },
+    { titulo: "Google Maps desde cero", cliente: "Taller mecánico (concepto)", categoria: "web", conceptual: true, color: "#ffd23d", reto: "El taller no aparecía al buscar \"taller cerca de mí\".", solucion: "Ficha verificada, categorías correctas, 20 fotos, horarios, servicios y tarjetas QR para pedir reseñas.", resultado: "Resultado esperado: más llamadas y solicitudes de ruta desde Google.", imagen: "" },
+    { titulo: "Bot de respuestas para pedidos", cliente: "Pastelería por encargo (concepto)", categoria: "automatizacion", conceptual: true, color: "#ff5fa2", reto: "Decenas de mensajes diarios con las mismas preguntas de precios y fechas.", solucion: "Catálogo en WhatsApp Business, respuestas rápidas y flujo automático que toma datos del pedido.", resultado: "Resultado esperado: respuesta inmediata y pedidos con toda la información.", imagen: "" },
+    { titulo: "Sitio bilingüe para proveedor", cliente: "Proveedor industrial (concepto)", categoria: "web", conceptual: true, color: "#8b7bff", reto: "Sin presencia web para presentar capacidades a plantas de la región.", solucion: "Sitio en español e inglés con capacidades, certificaciones, galería de procesos y formulario de cotización.", resultado: "Resultado esperado: una carta de presentación profesional para compras corporativas.", imagen: "" },
+  ],
+  // ⚠️ SOLO testimonios REALES de clientes, con su permiso. Nunca inventes.
+  // Formato: { nombre: "Nombre", negocio: "Negocio, Ciudad", texto: "Lo que dijo", foto: "" }
+  testimonios: [],
+};
+</script>
+
+<style>
+:root{
+  --bg:#0a0b0d; --bg2:#101216; --card:#14171c; --line:#252a33; --line2:#323844;
+  --tx:#f2f3f5; --tx2:#b4bac4; --tx3:#8a919c;
+  --ac:#c8ff2e; --ac2:#a6e000; --acInk:#0a0b0d;
+  --r:20px; --max:1180px;
+  --fd:"Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fb:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--tx);font-family:var(--fb);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:6px}
+::selection{background:var(--ac);color:var(--acInk)}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ac);color:var(--acInk);padding:10px 14px;border-radius:10px;z-index:100;font-weight:600}
+.skip:focus{top:12px}
+h1,h2,h3{font-family:var(--fd);line-height:1.05;letter-spacing:-.02em;font-weight:800}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ac)}
+.kicker::before{content:"";width:22px;height:2px;background:var(--ac);border-radius:2px}
+.sec{padding:96px 0;position:relative}
+.sec-h{max-width:720px;margin-bottom:44px}
+.sec-h h2{font-size:clamp(32px,5.4vw,56px);margin-top:14px}
+.sec-h p{color:var(--tx2);margin-top:14px;font-size:17px}
+.ac{color:var(--ac)}
+
+/* Botones */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 22px;border-radius:14px;font-weight:600;font-size:15px;transition:transform .2s, background .2s, box-shadow .2s, border-color .2s;will-change:transform;white-space:nowrap}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-p{background:var(--ac);color:var(--acInk);box-shadow:0 8px 30px -8px rgba(200,255,46,.55)}
+.btn-p:hover{background:#d6ff5c;box-shadow:0 12px 40px -8px rgba(200,255,46,.7)}
+.btn-s{border:1px solid var(--line2);background:rgba(255,255,255,.03)}
+.btn-s:hover{border-color:var(--tx3);background:rgba(255,255,255,.06)}
+.btn:active{transform:scale(.97)}
+
+/* Nav */
+.nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,border-color .3s,backdrop-filter .3s;border-bottom:1px solid transparent}
+.nav.sc{background:rgba(10,11,13,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo svg{height:26px;width:auto}
+.logo small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx3);font-weight:600;padding-top:3px}
+.nav ul{display:none;list-style:none;gap:28px;font-size:14px;color:var(--tx2)}
+.nav ul a:hover{color:var(--tx)}
+.nav .btn{padding:10px 16px;font-size:14px}
+.menu-b{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;border:1px solid var(--line2)}
+.menu-b span,.menu-b span::before,.menu-b span::after{display:block;width:18px;height:2px;background:var(--tx);border-radius:2px;position:relative;transition:.25s}
+.menu-b span::before,.menu-b span::after{content:"";position:absolute;left:0}
+.menu-b span::before{top:-6px}.menu-b span::after{top:6px}
+.menu-b[aria-expanded="true"] span{background:transparent}
+.menu-b[aria-expanded="true"] span::before{top:0;transform:rotate(45deg)}
+.menu-b[aria-expanded="true"] span::after{top:0;transform:rotate(-45deg)}
+.mmenu{position:fixed;inset:68px 0 auto;z-index:49;background:rgba(10,11,13,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:12px 20px 24px;display:none}
+.mmenu.open{display:block;animation:down .25s ease}
+.mmenu a{display:block;padding:14px 4px;border-bottom:1px solid var(--line);font-size:18px;font-family:var(--fd);font-weight:600}
+.mmenu .btn{margin-top:18px;width:100%}
+@keyframes down{from{opacity:0;transform:translateY(-8px)}}
+@media(min-width:960px){.nav ul{display:flex}.menu-b{display:none}}
+.nav-cta{display:none}
+@media(min-width:640px){.nav-cta{display:inline-flex}}
+
+/* Hero */
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 72px;position:relative;overflow:hidden}
+.mesh{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.mesh i{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55}
+.mesh i:nth-child(1){width:46vmax;height:46vmax;background:radial-gradient(circle,#c8ff2e 0,transparent 65%);top:-18vmax;right:-14vmax;opacity:.28;animation:f1 22s ease-in-out infinite alternate}
+.mesh i:nth-child(2){width:40vmax;height:40vmax;background:radial-gradient(circle,#2e7dff 0,transparent 65%);bottom:-20vmax;left:-14vmax;opacity:.22;animation:f2 26s ease-in-out infinite alternate}
+.mesh i:nth-child(3){width:26vmax;height:26vmax;background:radial-gradient(circle,#7a3dff 0,transparent 65%);top:30%;left:40%;opacity:.16;animation:f3 30s ease-in-out infinite alternate}
+.grid-bg{position:absolute;inset:0;z-index:-1;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000 30%,transparent 80%);opacity:.35}
+@keyframes f1{to{transform:translate(-10vmax,8vmax) scale(1.1)}}
+@keyframes f2{to{transform:translate(12vmax,-6vmax) scale(1.15)}}
+@keyframes f3{to{transform:translate(-14vmax,10vmax) scale(.9)}}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;border:1px solid var(--line2);border-radius:999px;font-size:13px;color:var(--tx2);background:rgba(255,255,255,.03)}
+.badge b{background:var(--ac);color:var(--acInk);font-size:11px;padding:3px 8px;border-radius:999px;letter-spacing:.04em}
+.hero h1{font-size:clamp(42px,7.4vw,84px);margin:22px 0 22px;max-width:14ch}
+.hero h1 .ac{position:relative;white-space:nowrap}
+.hero h1 .ac svg{position:absolute;left:0;right:0;bottom:-.12em;width:100%;height:.28em}
+.hero p.lead{font-size:clamp(17px,2.2vw,21px);color:var(--tx2);max-width:46ch}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.chips{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:40px;color:var(--tx2);font-size:14px}
+.chips span{display:inline-flex;align-items:center;gap:8px}
+.chips svg{width:18px;height:18px;color:var(--ac)}
+.scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:26px;height:42px;border:1.5px solid var(--line2);border-radius:14px;display:none}
+.scroll-hint::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--ac);animation:sh 1.8s infinite}
+@keyframes sh{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(12px)}}
+@media(min-width:768px){.scroll-hint{display:block}}
+
+/* Marquee */
+.marq{border-block:1px solid var(--line);overflow:hidden;padding:18px 0;background:var(--bg2)}
+.marq-t{display:flex;gap:44px;width:max-content;animation:mq 38s linear infinite;font-family:var(--fd);font-weight:600;font-size:20px;color:var(--tx3)}
+.marq-t span{display:flex;align-items:center;gap:44px}
+.marq-t span::after{content:"✦";color:var(--ac);font-size:14px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Cards genéricas */
+.grid{display:grid;gap:16px}
+@media(min-width:640px){.g2{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:var(--r);padding:26px;position:relative;transition:border-color .3s,transform .3s}
+.card:hover{border-color:var(--line2)}
+.spot{--x:50%;--y:50%}
+.spot::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(420px circle at var(--x) var(--y),rgba(200,255,46,.08),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none}
+.spot:hover::before{opacity:1}
+.ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(200,255,46,.1);color:var(--ac);border:1px solid rgba(200,255,46,.2);margin-bottom:18px}
+.ico svg{width:22px;height:22px}
+
+/* Problemas */
+.prob h3{font-size:21px;margin-bottom:8px}
+.prob p{color:var(--tx2);font-size:15px}
+.prob .fix{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line2);font-size:14px;color:var(--tx)}
+.prob .fix b{color:var(--ac)}
+.num{font-family:var(--fd);font-size:13px;color:var(--tx3);font-weight:600;letter-spacing:.1em}
+
+/* Servicios */
+.svc{display:flex;flex-direction:column}
+.svc h3{font-size:22px}
+.svc p{color:var(--tx2);font-size:15px;margin:10px 0 16px}
+.svc ul{list-style:none;display:grid;gap:7px;font-size:14px;color:var(--tx2);margin-bottom:22px}
+.svc li{display:flex;gap:9px;align-items:flex-start}
+.svc li::before{content:"";flex:none;width:6px;height:6px;margin-top:8px;border-radius:2px;background:var(--ac)}
+.svc .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:18px;border-top:1px solid var(--line)}
+.price small{display:block;font-size:12px;color:var(--tx3)}
+.price strong{font-family:var(--fd);font-size:24px}
+.price em{font-style:normal;color:var(--tx3);font-size:13px}
+.lnk{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--ac)}
+.lnk svg{width:16px;height:16px;transition:transform .2s}
+.lnk:hover svg{transform:translateX(3px)}
+
+/* Paquetes */
+.plans{display:grid;gap:16px;align-items:stretch}
+@media(min-width:960px){.plans{grid-template-columns:repeat(3,1fr)}}
+.plan{display:flex;flex-direction:column}
+.plan.rec{border-color:rgba(200,255,46,.55);background:linear-gradient(180deg,rgba(200,255,46,.08),rgba(255,255,255,.01) 40%);box-shadow:0 30px 80px -40px rgba(200,255,46,.45)}
+.plan .tag{position:absolute;top:-12px;left:26px;background:var(--ac);color:var(--acInk);font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.03em}
+.plan h3{font-size:26px}
+.plan .para{color:var(--tx2);font-size:14px;margin-top:6px;min-height:44px}
+.plan .amt{margin:20px 0 4px;font-family:var(--fd);font-size:46px;font-weight:800;letter-spacing:-.03em}
+.plan .amt sup{font-size:20px;vertical-align:top;position:relative;top:10px;margin-right:2px}
+.plan .nota{color:var(--tx3);font-size:13px}
+.plan ul{list-style:none;margin:22px 0 26px;display:grid;gap:10px;font-size:15px}
+.plan li{display:flex;gap:10px;align-items:flex-start}
+.plan li svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--ac)}
+.plan li.no{color:var(--tx3)}
+.plan li.no svg{color:var(--tx3)}
+.plan .btn{margin-top:auto;width:100%}
+.plans-note{color:var(--tx3);font-size:13px;margin-top:18px;text-align:center}
+
+/* Portafolio */
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:22px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.fbtn{flex:none;padding:9px 16px;border-radius:999px;border:1px solid var(--line2);font-size:14px;color:var(--tx2);transition:.2s}
+.fbtn[aria-pressed="true"]{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.fbtn:hover{border-color:var(--tx3)}
+.pf{display:grid;gap:16px}
+@media(min-width:640px){.pf{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.pf{grid-template-columns:repeat(3,1fr)}}
+.pcard{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--card);text-align:left;transition:transform .35s,border-color .3s;display:flex;flex-direction:column}
+.pcard:hover{transform:translateY(-4px);border-color:var(--line2)}
+.pcard .thumb{aspect-ratio:16/11;overflow:hidden;position:relative;background:#0e1014}
+.pcard .thumb svg,.pcard .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.pcard:hover .thumb svg,.pcard:hover .thumb img{transform:scale(1.04)}
+.pcard .lbl{position:absolute;top:12px;left:12px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:8px;background:rgba(10,11,13,.82);border:1px solid var(--line2);color:var(--tx2);backdrop-filter:blur(6px)}
+.pcard .lbl.real{color:var(--ac);border-color:rgba(200,255,46,.4)}
+.pcard .bd{padding:18px 20px 20px}
+.pcard h3{font-size:19px;line-height:1.2}
+.pcard .cl{font-size:13px;color:var(--tx3);margin-top:4px}
+.pcard.hide{display:none}
+
+/* Modal */
+.modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.72);backdrop-filter:blur(6px)}
+.modal.open{display:flex}
+.modal .box{background:var(--bg2);border:1px solid var(--line2);border-radius:22px 22px 0 0;width:100%;max-width:680px;max-height:90svh;overflow:auto;animation:up .3s ease}
+@media(min-width:720px){.modal{align-items:center;padding:24px}.modal .box{border-radius:22px}}
+@keyframes up{from{transform:translateY(30px);opacity:0}}
+.modal .thumb{aspect-ratio:16/8;overflow:hidden}
+.modal .thumb svg,.modal .thumb img{width:100%;height:100%;object-fit:cover}
+.modal .in{padding:24px}
+.modal h3{font-size:28px;margin:8px 0 4px}
+.modal dl{display:grid;gap:16px;margin-top:20px}
+.modal dt{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+.modal dd{color:var(--tx2);margin-top:4px}
+.xbtn{position:sticky;top:12px;float:right;margin:12px 12px 0 0;width:40px;height:40px;border-radius:12px;background:rgba(10,11,13,.8);border:1px solid var(--line2);display:grid;place-items:center;z-index:2}
+.xbtn svg{width:18px;height:18px}
+
+/* Capacidades */
+.caps{display:grid;gap:16px}
+@media(min-width:960px){.caps{grid-template-columns:1.2fr 1fr}}
+.bar{margin-bottom:16px}
+.bar .t{display:flex;justify-content:space-between;font-size:14px;margin-bottom:7px}
+.bar .t span:last-child{color:var(--tx3);font-size:13px}
+.bar .tr{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar .tr i{display:block;height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,var(--ac2),var(--ac));transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.tools span{padding:8px 13px;border-radius:10px;border:1px solid var(--line2);font-size:14px;color:var(--tx2);background:rgba(255,255,255,.02);transition:.2s}
+.tools span:hover{border-color:var(--ac);color:var(--tx)}
+.quals{display:grid;gap:12px;margin-top:16px}
+@media(min-width:640px){.quals{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.quals{grid-template-columns:repeat(5,1fr)}}
+.qual{padding:20px}
+.qual h3{font-size:17px;margin-bottom:6px}
+.qual p{font-size:14px;color:var(--tx2)}
+
+/* Proceso */
+.steps{position:relative;display:grid;gap:18px}
+@media(min-width:960px){.steps{grid-template-columns:repeat(4,1fr);gap:22px}}
+.steps .line{position:absolute;left:23px;top:24px;bottom:24px;width:2px;background:var(--line)}
+.steps .line i{position:absolute;inset:0 0 auto;height:0;background:var(--ac);transition:height 1.6s ease,width 1.6s ease}
+@media(min-width:960px){.steps .line{left:24px;right:24px;top:23px;bottom:auto;width:auto;height:2px}.steps .line i{height:100%;width:0}}
+.step{position:relative;padding-left:66px}
+@media(min-width:960px){.step{padding-left:0;padding-top:68px}}
+.step .dot{position:absolute;left:0;top:0;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:2px solid var(--line2);font-family:var(--fd);font-weight:800;transition:.5s}
+.step.on .dot{border-color:var(--ac);color:var(--ac);box-shadow:0 0 0 6px rgba(200,255,46,.1)}
+.step h3{font-size:20px}
+.step p{color:var(--tx2);font-size:15px;margin-top:6px}
+.step small{display:inline-block;margin-top:10px;font-size:12px;color:var(--tx3);border:1px solid var(--line2);padding:3px 9px;border-radius:999px}
+
+/* Sobre mí */
+.about{display:grid;gap:28px;align-items:center}
+@media(min-width:960px){.about{grid-template-columns:.9fr 1.1fr;gap:56px}}
+.photo{aspect-ratio:4/5;border-radius:26px;border:1px solid var(--line2);background:linear-gradient(160deg,#1a1e25,#0e1014);display:grid;place-items:center;position:relative;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover}
+.photo .ph{text-align:center;color:var(--tx3);font-size:14px;padding:20px}
+.photo .ph svg{width:120px;margin:0 auto 14px;opacity:.9}
+.photo .loc{position:absolute;left:14px;bottom:14px;display:flex;align-items:center;gap:8px;font-size:13px;padding:8px 12px;border-radius:12px;background:rgba(10,11,13,.8);border:1px solid var(--line2);backdrop-filter:blur(6px)}
+.photo .loc svg{width:16px;height:16px;color:var(--ac)}
+.about p{color:var(--tx2);font-size:17px;margin-top:16px}
+.about p strong{color:var(--tx)}
+.about .sig{margin-top:22px;font-family:var(--fd);font-size:22px;font-weight:600}
+
+/* Garantía */
+.guar{display:grid;gap:20px;padding:34px;border-radius:28px;border:1px solid rgba(200,255,46,.35);background:radial-gradient(600px 300px at 0 0,rgba(200,255,46,.12),transparent 60%),var(--bg2)}
+@media(min-width:960px){.guar{grid-template-columns:auto 1fr;align-items:center;padding:48px;gap:44px}}
+.shield{width:96px;height:96px;color:var(--ac)}
+.guar h2{font-size:clamp(28px,4.4vw,44px)}
+.guar ul{list-style:none;display:grid;gap:12px;margin-top:20px}
+@media(min-width:640px){.guar ul{grid-template-columns:repeat(2,1fr)}}
+.guar li{display:flex;gap:10px;color:var(--tx2)}
+.guar li svg{width:20px;height:20px;color:var(--ac);flex:none;margin-top:2px}
+
+/* Testimonios */
+.testi-empty{border:1.5px dashed var(--line2);border-radius:var(--r);padding:40px 24px;text-align:center;color:var(--tx2)}
+.testi-empty h3{font-size:24px;color:var(--tx);margin-bottom:8px}
+.testi blockquote{font-size:17px;line-height:1.6}
+.testi .who{display:flex;align-items:center;gap:12px;margin-top:18px;font-size:14px}
+.testi .who b{display:block}
+.testi .who span{color:var(--tx3)}
+.av{width:42px;height:42px;border-radius:50%;background:var(--line2);display:grid;place-items:center;font-weight:700;overflow:hidden}
+
+/* FAQ */
+.faq{display:grid;gap:10px;max-width:860px}
+.qa{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;transition:border-color .2s}
+.qa[open]{border-color:var(--line2)}
+.qa summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;justify-content:space-between;gap:16px;font-weight:600;font-size:16px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary i{flex:none;width:26px;height:26px;border-radius:8px;border:1px solid var(--line2);position:relative;transition:.25s}
+.qa summary i::before,.qa summary i::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:2px;margin:-1px 0 0 -5px;background:var(--tx);border-radius:2px;transition:.25s}
+.qa summary i::after{transform:rotate(90deg)}
+.qa[open] summary i{background:var(--ac);border-color:var(--ac)}
+.qa[open] summary i::before,.qa[open] summary i::after{background:var(--acInk)}
+.qa[open] summary i::after{transform:rotate(0)}
+.qa .a{padding:0 22px 20px;color:var(--tx2)}
+
+/* CTA final */
+.final{border-radius:32px;padding:44px 24px;text-align:center;position:relative;overflow:hidden;border:1px solid var(--line2);background:var(--bg2)}
+.final .mesh i{filter:blur(70px)}
+.final h2{font-size:clamp(36px,6.4vw,72px);max-width:16ch;margin:16px auto 0}
+.final p{color:var(--tx2);margin:16px auto 0;max-width:52ch}
+.final .ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:30px}
+.formw{max-width:620px;margin:40px auto 0;text-align:left}
+.form{display:grid;gap:12px}
+@media(min-width:640px){.form{grid-template-columns:1fr 1fr}.form .full{grid-column:1/-1}}
+.form label{font-size:13px;color:var(--tx2);display:grid;gap:6px}
+.form input,.form select,.form textarea{width:100%;font:inherit;font-size:16px;color:var(--tx);background:rgba(10,11,13,.7);border:1px solid var(--line2);border-radius:12px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.form textarea{min-height:110px;resize:vertical}
+.form input:focus,.form select:focus,.form textarea:focus{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px rgba(200,255,46,.18)}
+.form .btn{width:100%}
+.form .hint{font-size:12px;color:var(--tx3)}
+.social{display:flex;justify-content:center;gap:10px;margin-top:28px}
+.social a{width:46px;height:46px;border-radius:14px;border:1px solid var(--line2);display:grid;place-items:center;transition:.2s}
+.social a:hover{border-color:var(--ac);color:var(--ac);transform:translateY(-2px)}
+.social svg{width:20px;height:20px}
+
+/* Footer */
+footer{border-top:1px solid var(--line);padding:44px 0 110px;color:var(--tx3);font-size:14px}
+footer .wrap{display:grid;gap:26px}
+@media(min-width:960px){footer .wrap{grid-template-columns:1.3fr 1fr 1fr;padding-bottom:0}footer{padding-bottom:44px}}
+footer h4{color:var(--tx);font-size:14px;margin-bottom:12px;font-family:var(--fb)}
+footer ul{list-style:none;display:grid;gap:8px}
+footer a:hover{color:var(--tx)}
+.copy{border-top:1px solid var(--line);margin-top:30px;padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:13px}
+
+/* WhatsApp flotante */
+.wa{position:fixed;right:16px;bottom:16px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 12px 30px -6px rgba(37,211,102,.55);transition:transform .2s}
+.wa:hover{transform:scale(1.06)}
+.wa svg{width:30px;height:30px}
+.wa::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;animation:pulse 2.4s infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.55);opacity:0}}
+.wa .tip{position:absolute;right:68px;white-space:nowrap;background:var(--tx);color:var(--bg);font-size:13px;font-weight:600;padding:8px 12px;border-radius:10px;opacity:0;transform:translateX(6px);transition:.25s;pointer-events:none}
+.wa:hover .tip{opacity:1;transform:none}
+
+/* Cursor */
+.cur{position:fixed;left:0;top:0;width:34px;height:34px;border:1.5px solid rgba(200,255,46,.7);border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s,border-color .2s;mix-blend-mode:difference;display:none}
+.cur.big{width:64px;height:64px;background:rgba(200,255,46,.12);border-color:var(--ac)}
+@media(pointer:fine){.cur{display:block}}
+
+
+/* Visual del hero (solo escritorio): maqueta ilustrativa, no datos reales */
+.hero-grid{display:grid;gap:40px;align-items:center}
+.hero-vis{display:none;position:relative;height:540px}
+@media(min-width:1080px){.hero-grid{grid-template-columns:1.25fr .75fr}.hero-vis{display:block}}
+.phone{position:absolute;right:30px;top:20px;width:250px;height:500px;border-radius:38px;background:#111318;border:1px solid var(--line2);box-shadow:0 40px 100px -30px rgba(0,0,0,.8),0 0 0 8px #0d0f12;padding:16px;overflow:hidden;animation:fl 7s ease-in-out infinite}
+.phone .notch{width:80px;height:20px;border-radius:12px;background:#0a0b0d;margin:0 auto 14px}
+.phone .hero-img{height:150px;border-radius:18px;background:radial-gradient(circle at 80% 10%,rgba(200,255,46,.6),transparent 60%),linear-gradient(140deg,#1d222b,#14171c);margin-bottom:14px;display:flex;align-items:flex-end;padding:14px;font-family:var(--fd);font-weight:800;font-size:20px;line-height:1}
+.phone .ln{height:9px;border-radius:5px;background:#2a2f39;margin-bottom:8px}
+.phone .pbtn{height:38px;border-radius:12px;margin-top:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.float{position:absolute;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;background:rgba(20,23,28,.92);border:1px solid var(--line2);backdrop-filter:blur(8px);font-size:13px;box-shadow:0 20px 50px -20px rgba(0,0,0,.8)}
+.float b{display:block;font-size:13px}.float span{color:var(--tx3);font-size:12px}
+.float .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none}
+.float .ic svg{width:18px;height:18px}
+.f1{left:0;top:70px;animation:fl 6s ease-in-out infinite .5s}
+.f2{left:20px;bottom:90px;animation:fl 8s ease-in-out infinite 1s}
+.f3{right:0;bottom:20px;animation:fl 7s ease-in-out infinite 1.5s}
+@keyframes fl{50%{transform:translateY(-10px)}}
+.cur{opacity:0}.cur.on{opacity:1}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .cur{display:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<div class="cur" aria-hidden="true"></div>
+
+<!-- ═════════ NAV ═════════ -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="LKM'r Company, inicio">
+      <svg viewBox="0 0 196 60" role="img" aria-hidden="true" class="logo-svg"></svg>
+      <small>Company</small>
+    </a>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#paquetes">Paquetes</a></li>
+        <li><a href="#portafolio">Portafolio</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#faq">Preguntas</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a class="btn btn-p nav-cta js-wa" href="#" data-msg="">Cotiza gratis</a>
+      <button class="menu-b" aria-label="Abrir menú" aria-expanded="false" aria-controls="mmenu"><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mmenu" id="mmenu">
+  <a href="#servicios">Servicios</a>
+  <a href="#paquetes">Paquetes</a>
+  <a href="#portafolio">Portafolio</a>
+  <a href="#proceso">Proceso</a>
+  <a href="#sobre-mi">Sobre mí</a>
+  <a href="#faq">Preguntas</a>
+  <a class="btn btn-p js-wa" href="#">Cotiza por WhatsApp</a>
+</div>
+
+<main id="main">
+<!-- ═════════ 1. HERO ═════════ -->
+<section class="hero" id="top">
+  <div class="mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div>
+    <span class="badge rv"><b>NUEVO</b> Agenda abierta este mes en Aguascalientes</span>
+    <h1 class="rv d1">Hacemos que tu negocio se vea, se encuentre y <span class="ac">venda<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2 14 C 50 4, 120 4, 198 12" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span> en internet.</h1>
+    <p class="lead rv d2">Páginas web, Google Maps, redes, video y WhatsApp automatizado para negocios que quieren más clientes. Creatividad, tecnología e inteligencia artificial, con trato directo y precios claros.</p>
+    <div class="ctas rv d3">
+      <a class="btn btn-p mag js-wa" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>Cotiza por WhatsApp</a>
+      <a class="btn btn-s mag" href="#servicios">Ver servicios<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="chips rv d4">
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Entrega en días, no meses</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>Hecho con IA + criterio humano</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg>Aguascalientes · Todo México</span>
+    </div>
+    </div>
+    <div class="hero-vis rv d2" aria-hidden="true">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="hero-img">Tu negocio</div>
+        <div class="ln" style="width:80%"></div><div class="ln" style="width:60%"></div><div class="ln" style="width:70%"></div>
+        <div class="pbtn" style="background:var(--ac);color:var(--acInk)">Escribir por WhatsApp</div>
+        <div class="pbtn" style="border:1px solid var(--line2)">Cómo llegar</div>
+        <div class="pbtn" style="border:1px solid var(--line2)">Ver servicios</div>
+      </div>
+      <div class="float f1"><span class="ic" style="background:rgba(37,211,102,.15);color:#25d366"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span><div><b>Respuesta automática</b><span>“¡Hola! Te comparto el menú…”</span></div></div>
+      <div class="float f2"><span class="ic" style="background:rgba(200,255,46,.12);color:var(--ac)"><svg viewBox="0 0 24 24"><use href="#i-pin"/></svg></span><div><b>Google Maps</b><span>Ficha completa y verificada</span></div></div>
+      <div class="float f3"><span class="ic" style="background:rgba(122,61,255,.18);color:#b39cff"><svg viewBox="0 0 24 24"><use href="#i-video"/></svg></span><div><b>Reel listo</b><span>Subtítulos + gancho</span></div></div>
+    </div>
+  </div>
+  <a href="#problemas" class="scroll-hint" aria-label="Bajar"></a>
+</section>
+
+<div class="marq" aria-hidden="true">
+  <div class="marq-t">
+    <span>Sitios web</span><span>Google Maps</span><span>Reels</span><span>Chatbots de WhatsApp</span><span>Identidad visual</span><span>Automatización</span><span>Soporte técnico</span>
+    <span>Sitios web</span><span>Google Maps</span><span>Reels</span><span>Chatbots de WhatsApp</span><span>Identidad visual</span><span>Automatización</span><span>Soporte técnico</span>
+  </div>
+</div>
+
+<!-- ═════════ 2. PROBLEMAS ═════════ -->
+<section class="sec" id="problemas">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="kicker">El problema</span>
+      <h2>Tu negocio es bueno. Internet todavía no lo sabe.</h2>
+      <p>Estos son los cuatro problemas que más vemos en negocios de Aguascalientes, y todos tienen solución en días.</p>
+    </div>
+    <div class="grid g2 g4">
+      <article class="card spot prob rv"><span class="num">01</span><div class="ico" style="margin-top:12px"><svg viewBox="0 0 24 24"><use href="#i-search"/></svg></div><h3>No apareces en Google</h3><p>Alguien busca "[tu giro] cerca de mí" y aparece tu competencia, no tú.</p><p class="fix"><b>Solución:</b> Google Maps optimizado y página propia.</p></article>
+      <article class="card spot prob rv d1"><span class="num">02</span><div class="ico" style="margin-top:12px"><svg viewBox="0 0 24 24"><use href="#i-redes"/></svg></div><h3>Redes abandonadas</h3><p>La última publicación fue hace semanas y el perfil parece cerrado.</p><p class="fix"><b>Solución:</b> contenido constante cada semana.</p></article>
+      <article class="card spot prob rv d2"><span class="num">03</span><div class="ico" style="margin-top:12px"><svg viewBox="0 0 24 24"><use href="#i-chat"/></svg></div><h3>Clientes que se van</h3><p>Contestas WhatsApp horas después y ese cliente ya compró en otro lado.</p><p class="fix"><b>Solución:</b> respuestas automáticas y catálogo.</p></article>
+      <article class="card spot prob rv d3"><span class="num">04</span><div class="ico" style="margin-top:12px"><svg viewBox="0 0 24 24"><use href="#i-marca"/></svg></div><h3>Imagen poco profesional</h3><p>Fotos oscuras, logo pixeleado y un menú que no se lee en el celular.</p><p class="fix"><b>Solución:</b> identidad visual y fotos de producto.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 3. SERVICIOS ═════════ -->
+<section class="sec" id="servicios" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="kicker">Servicios</span>
+      <h2>Todo lo digital de tu negocio, con un solo equipo.</h2>
+      <p>Precios de referencia. Cada proyecto se cotiza gratis según lo que realmente necesitas.</p>
+    </div>
+    <div class="grid g2 g3" id="svc-grid"></div>
+  </div>
+</section>
+
+<!-- ═════════ 4. PAQUETES ═════════ -->
+<section class="sec" id="paquetes">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="kicker">Paquetes</span>
+      <h2>Elige cómo quieres crecer.</h2>
+      <p>Tres formas de empezar. Si no sabes cuál, te recomendamos una en el diagnóstico gratuito.</p>
+    </div>
+    <div class="plans" id="plans"></div>
+    <p class="plans-note">Precios en MXN. Si requieres factura, se agrega el IVA correspondiente. Anticipo del 50% para iniciar.</p>
+  </div>
+</section>
+
+<!-- ═════════ 5. PORTAFOLIO ═════════ -->
+<section class="sec" id="portafolio">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="kicker">Portafolio</span>
+      <h2>Así trabajamos.</h2>
+      <p>Proyectos conceptuales que muestran el tipo de soluciones que entregamos. Los casos de clientes reales se marcan como tales.</p>
+    </div>
+    <div class="filters rv" role="group" aria-label="Filtrar portafolio">
+      <button class="fbtn" aria-pressed="true" data-f="todos">Todos</button>
+      <button class="fbtn" aria-pressed="false" data-f="web">Web y Google</button>
+      <button class="fbtn" aria-pressed="false" data-f="contenido">Contenido</button>
+      <button class="fbtn" aria-pressed="false" data-f="automatizacion">Automatización</button>
+    </div>
+    <div class="pf" id="pf"></div>
+  </div>
+</section>
+
+<!-- ═════════ 6. CAPACIDADES ═════════ -->
+<section class="sec" id="capacidades">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="kicker">Capacidades</span>
+      <h2>Creatividad + tecnología + IA.</h2>
+      <p>La inteligencia artificial nos deja trabajar con la velocidad de un equipo grande. El criterio humano se asegura de que todo tenga calidad.</p>
+    </div>
+    <div class="caps">
+      <div class="card rv" id="bars">
+        <h3 style="font-size:20px;margin-bottom:20px">Habilidades</h3>
+        <div class="bar"><div class="t"><span>Desarrollo web</span><span>HTML · CSS · JavaScript · React</span></div><div class="tr"><i data-w="88"></i></div></div>
+        <div class="bar"><div class="t"><span>Automatización e IA</span><span>Flujos · chatbots · prompts</span></div><div class="tr"><i data-w="90"></i></div></div>
+        <div class="bar"><div class="t"><span>Edición de video</span><span>Reels · YouTube</span></div><div class="tr"><i data-w="80"></i></div></div>
+        <div class="bar"><div class="t"><span>Diseño gráfico</span><span>Redes · marca · impresos</span></div><div class="tr"><i data-w="78"></i></div></div>
+        <div class="bar"><div class="t"><span>Marketing local</span><span>Google Maps · redes</span></div><div class="tr"><i data-w="82"></i></div></div>
+        <div class="bar" style="margin-bottom:0"><div class="t"><span>Hardware y soporte</span><span>PCs · redes · formateo</span></div><div class="tr"><i data-w="85"></i></div></div>
+      </div>
+      <div class="card rv d1">
+        <h3 style="font-size:20px;margin-bottom:18px">Herramientas</h3>
+        <div class="tools">
+          <span>Claude</span><span>React</span><span>Tailwind</span><span>Figma</span><span>Canva</span><span>DaVinci Resolve</span><span>CapCut</span><span>WhatsApp Business</span><span>Google Business</span><span>Meta Business Suite</span><span>Make</span><span>n8n</span><span>Google Workspace</span><span>Netlify</span><span>GitHub</span><span>Lightroom</span>
+        </div>
+      </div>
+    </div>
+    <div class="quals">
+      <div class="card spot qual rv"><div class="ico"><svg viewBox="0 0 24 24"><use href="#i-bolt"/></svg></div><h3>Rapidez</h3><p>Entregamos en días porque trabajamos con procesos y plantillas propias.</p></div>
+      <div class="card spot qual rv d1"><div class="ico"><svg viewBox="0 0 24 24"><use href="#i-target"/></svg></div><h3>Disciplina</h3><p>Fechas prometidas = fechas cumplidas. Sin excusas.</p></div>
+      <div class="card spot qual rv d2"><div class="ico"><svg viewBox="0 0 24 24"><use href="#i-chat"/></svg></div><h3>Comunicación</h3><p>Respuesta en menos de 24 h y avances durante todo el proyecto.</p></div>
+      <div class="card spot qual rv d3"><div class="ico"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg></div><h3>Dominio de IA</h3><p>Usamos IA para hacer más en menos tiempo, revisando todo con criterio.</p></div>
+      <div class="card spot qual rv d4"><div class="ico"><svg viewBox="0 0 24 24"><use href="#i-chart"/></svg></div><h3>Resultados</h3><p>Medimos lo que importa: mensajes, llamadas, visitas, clientes.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 7. PROCESO ═════════ -->
+<section class="sec" id="proceso">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="kicker">Proceso</span>
+      <h2>De la primera plática a tu negocio funcionando.</h2>
+    </div>
+    <div class="steps" id="steps">
+      <div class="line" aria-hidden="true"><i></i></div>
+      <div class="step"><div class="dot">1</div><h3>Diagnóstico gratis</h3><p>Revisamos tu presencia digital y te decimos qué te conviene, aunque no nos contrates.</p><small>15–20 min</small></div>
+      <div class="step"><div class="dot">2</div><h3>Propuesta clara</h3><p>Qué incluye, cuánto cuesta y cuándo se entrega, por escrito. Sin letras chiquitas.</p><small>24–48 h</small></div>
+      <div class="step"><div class="dot">3</div><h3>Creación</h3><p>Trabajamos con avances visibles. Tú apruebas antes de publicar.</p><small>2–10 días</small></div>
+      <div class="step"><div class="dot">4</div><h3>Entrega y soporte</h3><p>Te entregamos accesos, una guía de uso y soporte para cualquier ajuste.</p><small>Soporte incluido 15 días</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 8. SOBRE MÍ ═════════ -->
+<section class="sec" id="sobre-mi">
+  <div class="wrap about">
+    <div class="photo rv" id="foto">
+      <!-- Pon tu foto: reemplaza el contenido de .photo por <img src="yo.webp" alt="Fundador de LKM'r Company" width="800" height="1000" loading="lazy"> -->
+      <div class="ph"><svg viewBox="0 0 196 60" class="logo-svg" aria-hidden="true"></svg>Espacio para tu foto</div>
+      <span class="loc"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg>Jesús María, Ags.</span>
+    </div>
+    <div class="rv d1">
+      <span class="kicker">Sobre mí</span>
+      <h2 style="font-size:clamp(32px,5vw,52px);margin-top:14px">Joven, de Jesús María y obsesionado con hacer las cosas bien.</h2>
+      <p>Soy el fundador de <strong>LKM'r Company</strong>. Tengo 18 años, estudio la preparatoria y estoy construyendo esta empresa desde cero, con tecnología y mucha disciplina.</p>
+      <p>Crecí viendo negocios buenísimos de aquí que nadie encontraba en internet. Aprendí a programar, diseñar, editar video y usar inteligencia artificial para resolver justo eso: que <strong>los negocios de Aguascalientes se vean tan bien en línea como son en persona</strong>.</p>
+      <p>No te voy a prometer milagros. Te prometo trabajo bien hecho, entregado a tiempo, y que siempre vas a saber en qué va tu proyecto.</p>
+      <p class="sig">— Fundador, LKM'r Company</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 9. GARANTÍA ═════════ -->
+<section class="sec" id="garantia" style="padding-top:20px">
+  <div class="wrap">
+    <div class="guar rv">
+      <svg class="shield" viewBox="0 0 96 96" aria-hidden="true"><path d="M48 6 84 20v26c0 22-15 38-36 44C27 84 12 68 12 46V20z" fill="rgba(200,255,46,.1)" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="m32 49 11 11 22-24" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div>
+        <span class="kicker">Garantía</span>
+        <h2 style="margin-top:12px">Trabajas sin riesgo.</h2>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span><b style="color:var(--tx)">No pagas el total hasta aprobar.</b> 50% para iniciar, 50% cuando estás conforme.</span></li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span><b style="color:var(--tx)">2 rondas de cambios incluidas</b> en todos los proyectos.</span></li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span><b style="color:var(--tx)">Respuesta en menos de 24 h</b> en días hábiles.</span></li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span><b style="color:var(--tx)">Todo queda a tu nombre:</b> dominio, cuentas y accesos son tuyos.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 10. TESTIMONIOS ═════════ -->
+<!-- ⚠️ IMPORTANTE: llena CONFIG.testimonios SOLO con testimonios REALES y con permiso del cliente.
+     Inventar testimonios es engañoso para los clientes y puede ser ilegal (publicidad engañosa). -->
+<section class="sec" id="testimonios" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="kicker">Testimonios</span>
+      <h2>Lo que dicen los clientes.</h2>
+    </div>
+    <div id="testi"></div>
+  </div>
+</section>
+
+<!-- ═════════ 11. FAQ ═════════ -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="kicker">Preguntas frecuentes</span>
+      <h2>Resolvemos tus dudas.</h2>
+    </div>
+    <div class="faq rv">
+      <details class="qa"><summary>¿Cuánto cuesta una página web?<i aria-hidden="true"></i></summary><div class="a">Una landing page sencilla empieza en <span data-precio="web"></span>. Un sitio de varias secciones depende de lo que necesites. Te damos precio cerrado por escrito antes de empezar: sin cobros sorpresa.</div></details>
+      <details class="qa"><summary>¿En cuánto tiempo lo entregan?<i aria-hidden="true"></i></summary><div class="a">Google Maps en 2–3 días (la verificación de Google puede tardar más). Una landing en 3–5 días hábiles. Sitios más grandes en 1–2 semanas. La fecha queda escrita en tu propuesta.</div></details>
+      <details class="qa"><summary>¿Cómo se paga?<i aria-hidden="true"></i></summary><div class="a">Transferencia, depósito o efectivo. 50% de anticipo para iniciar y 50% al aprobar el trabajo. Los servicios mensuales se pagan por adelantado cada mes.</div></details>
+      <details class="qa"><summary>¿Dan factura?<i aria-hidden="true"></i></summary><div class="a">Pregúntanos al cotizar. Si tu proyecto requiere factura, te la emitimos y se agrega el IVA correspondiente.</div></details>
+      <details class="qa"><summary>¿Trabajan con negocios fuera de Aguascalientes?<i aria-hidden="true"></i></summary><div class="a">Sí. Los servicios digitales (web, redes, video, automatización) los hacemos para todo México por videollamada y WhatsApp. Los servicios presenciales (fotos, soporte técnico) son en Jesús María y la zona metropolitana de Aguascalientes.</div></details>
+      <details class="qa"><summary>¿Qué necesito darles para empezar?<i aria-hidden="true"></i></summary><div class="a">Tu logo (si tienes), fotos de tu negocio o productos, tus servicios y precios, horarios y ubicación. Si no tienes algo, lo resolvemos juntos: tomamos fotos o hacemos el logo.</div></details>
+      <details class="qa"><summary>¿La página y las cuentas son mías?<i aria-hidden="true"></i></summary><div class="a">Sí, siempre. El dominio, el perfil de Google y las redes quedan a tu nombre. Nosotros solo tenemos acceso de administrador mientras trabajamos contigo.</div></details>
+      <details class="qa"><summary>¿Y si no me gusta el resultado?<i aria-hidden="true"></i></summary><div class="a">Incluimos 2 rondas de cambios y no pagas el 50% final hasta aprobar. Antes de empezar te mostramos referencias para asegurarnos de que vamos por el mismo camino.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 12. CTA FINAL ═════════ -->
+<section class="sec" id="contacto" style="padding-top:20px">
+  <div class="wrap">
+    <div class="final rv">
+      <div class="mesh" aria-hidden="true"><i></i><i></i></div>
+      <span class="kicker">Diagnóstico gratis</span>
+      <h2>¿Listo para que tu negocio <span class="ac">se note</span>?</h2>
+      <p>Escríbenos y en menos de 24 h te mandamos un diagnóstico de tu presencia digital, sin costo y sin compromiso.</p>
+      <div class="ctas">
+        <a class="btn btn-p mag js-wa" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>Escribir por WhatsApp</a>
+        <a class="btn btn-s mag" href="#formulario">Prefiero llenar un formulario</a>
+      </div>
+      <div class="formw" id="formulario">
+        <form class="form" id="form" novalidate>
+          <label>Tu nombre<input name="nombre" autocomplete="name" required placeholder="Nombre"></label>
+          <label>Tu negocio<input name="negocio" autocomplete="organization" placeholder="Ej. Barbería El Centro"></label>
+          <label class="full">¿Qué necesitas?<select name="servicio" id="f-svc"><option>No estoy seguro, quiero el diagnóstico</option></select></label>
+          <label class="full">Cuéntanos un poco<textarea name="mensaje" placeholder="Ej. Tengo un consultorio en Jesús María y quiero que me encuentren en Google."></textarea></label>
+          <div class="full"><button class="btn btn-p" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>Enviar por WhatsApp</button></div>
+          <p class="hint full" id="f-hint">Al enviar se abre WhatsApp con tu mensaje listo. No guardamos tus datos en ningún servidor.</p>
+        </form>
+      </div>
+      <div class="social" id="social"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ═════════ 13. FOOTER ═════════ -->
+<footer>
+  <div class="wrap">
+    <div>
+      <a href="#top" class="logo" aria-label="LKM'r Company"><svg viewBox="0 0 196 60" class="logo-svg" aria-hidden="true"></svg></a>
+      <p style="margin-top:14px;max-width:36ch">Estudio digital para negocios: web, contenido, automatización y soporte. Creatividad + tecnología + IA.</p>
+    </div>
+    <div>
+      <h4>Secciones</h4>
+      <ul><li><a href="#servicios">Servicios</a></li><li><a href="#paquetes">Paquetes</a></li><li><a href="#portafolio">Portafolio</a></li><li><a href="#faq">Preguntas frecuentes</a></li></ul>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul><li id="ft-loc"></li><li id="ft-hor"></li><li><a href="#" class="js-wa">WhatsApp</a></li><li id="ft-mail"></li></ul>
+    </div>
+  </div>
+  <div class="wrap"><div class="copy"><span>© <span id="yr"></span> LKM'r Company. Todos los derechos reservados.</span><span>Hecho en Aguascalientes, México.</span></div></div>
+</footer>
+
+<a class="wa js-wa" href="#" aria-label="Escríbenos por WhatsApp"><span class="tip">¿Cotizamos tu proyecto?</span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg></a>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-t" hidden>
+  <div class="box" role="document">
+    <button class="xbtn" id="m-x" aria-label="Cerrar"><svg viewBox="0 0 24 24"><use href="#i-x"/></svg></button>
+    <div class="thumb" id="m-img"></div>
+    <div class="in">
+      <span class="kicker" id="m-k"></span>
+      <h3 id="m-t"></h3>
+      <p id="m-c" style="color:var(--tx3);font-size:14px"></p>
+      <dl><div><dt>Reto</dt><dd id="m-r"></dd></div><div><dt>Solución</dt><dd id="m-s"></dd></div><div><dt>Resultado</dt><dd id="m-re"></dd></div></dl>
+      <a class="btn btn-p js-wa" href="#" style="margin-top:24px;width:100%" id="m-cta">Quiero algo así</a>
+    </div>
+  </div>
+</div>
+
+<!-- Íconos -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5.1 5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.1.8.83-3-.2-.3a8.2 8.2 0 1 1 6.97 3.83Zm4.5-6.14c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.17.25-.64.8-.78.97-.14.16-.29.18-.53.06a6.7 6.7 0 0 1-3.35-2.93c-.25-.44.25-.4.72-1.34.08-.16.04-.3-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.66.31 2.76 2.76 0 0 0-.86 2.05 4.8 4.8 0 0 0 1 2.55 11 11 0 0 0 4.2 3.7c1.56.68 2.18.73 2.96.62.48-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.11-.22-.17-.47-.3Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5m7 7L18 18M6 18l2.5-2.5m7-7L18 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-redes" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.6A8 8 0 1 1 21 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-marca" viewBox="0 0 24 24"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6-4.5-4.2 6.1-.7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-web" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16 10 5-3v10l-5-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4v4M9 14h.01M15 14h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-pc" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 20h8M12 16v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10m6 10V4m6 16v-7m4 7H3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="s-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="s-tiktok" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5M14 3c.5 3 2.5 5 5.5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="s-facebook" viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="s-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="s-youtube" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<script>
+(function () {
+  "use strict";
+  var C = window.CONFIG;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+  var mxn = function (n) { return "$" + Number(n).toLocaleString("es-MX"); };
+
+  /* Logo tipográfico LKM'r (geométrico, sin depender de fuentes) */
+  var LOGO = '<path fill="#f2f3f5" d="M2 6h11v38h21v10H2z"/>' +
+    '<path fill="#f2f3f5" d="M40 6h11v19L68 6h14L62 27l21 27H68L55 36l-4 4v14H40z"/>' +
+    '<path fill="#f2f3f5" d="M88 6h12l13 22 13-22h12v48h-11V27l-14 23-14-23v27H88z"/>' +
+    '<path fill="#c8ff2e" d="M145 6h11l-6 18h-9z"/>' +
+    '<path fill="#f2f3f5" d="M160 24h10v5c3-4 8-6 14-6h4v10h-5c-8 0-13 4-13 11v10h-10z"/>';
+  $$(".logo-svg").forEach(function (s) { s.innerHTML = LOGO; });
+
+  /* WhatsApp */
+  var wa = function (msg) {
+    var t = encodeURIComponent(msg || C.mensajeWhatsApp);
+    var n = String(C.whatsapp || "").replace(/\D/g, "");
+    return n ? "https://wa.me/" + n + "?text=" + t : "https://wa.me/?text=" + t;
+  };
+  if (!String(C.whatsapp || "").replace(/\D/g, "")) {
+    console.info("LKM'r: configura CONFIG.whatsapp con tu número para que los botones abran tu chat directamente.");
+  }
+  var bindWa = function (root) {
+    $$(".js-wa", root).forEach(function (a) {
+      a.href = wa(a.getAttribute("data-msg"));
+      a.target = "_blank";
+      a.rel = "noopener";
+    });
+  };
+
+  /* Servicios */
+  $("#svc-grid").innerHTML = C.servicios.map(function (s, i) {
+    return '<article class="card spot svc rv d' + (i % 4) + '">' +
+      '<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-' + esc(s.icono) + '"/></svg></div>' +
+      "<h3>" + esc(s.nombre) + "</h3><p>" + esc(s.desc) + "</p>" +
+      "<ul>" + s.entregables.map(function (e) { return "<li>" + esc(e) + "</li>"; }).join("") + "</ul>" +
+      '<div class="foot"><div class="price"><small>Desde</small><strong>' + mxn(s.desde) + "</strong> <em>MXN" + esc(s.sufijo || "") + "</em></div>" +
+      '<a class="lnk js-wa" href="#" data-msg="' + esc("Hola LKM'r 👋 Me interesa: " + s.nombre + ". ¿Me pueden cotizar?") + '">Cotizar<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>';
+  }).join("");
+  $$("[data-precio]").forEach(function (el) {
+    var s = C.servicios.filter(function (x) { return x.id === el.getAttribute("data-precio"); })[0];
+    if (s) el.textContent = mxn(s.desde) + " MXN";
+  });
+  $("#f-svc").innerHTML += C.servicios.map(function (s) { return "<option>" + esc(s.nombre) + "</option>"; }).join("") +
+    C.paquetes.map(function (p) { return "<option>Paquete " + esc(p.nombre) + "</option>"; }).join("");
+
+  /* Paquetes */
+  $("#plans").innerHTML = C.paquetes.map(function (p, i) {
+    return '<article class="card plan rv d' + i + (p.recomendado ? " rec" : "") + '">' +
+      (p.recomendado ? '<span class="tag">Recomendado</span>' : "") +
+      "<h3>" + esc(p.nombre) + '</h3><p class="para">' + esc(p.para) + "</p>" +
+      '<div class="amt"><sup>$</sup>' + Number(p.precio).toLocaleString("es-MX") + '</div><div class="nota">MXN · ' + esc(p.nota) + "</div>" +
+      "<ul>" + p.incluye.map(function (x) { return '<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>' + esc(x) + "</li>"; }).join("") +
+      p.noIncluye.map(function (x) { return '<li class="no"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-minus"/></svg><span><span class="sr">No incluye: </span>' + esc(x) + "</span></li>"; }).join("") + "</ul>" +
+      '<a class="btn ' + (p.recomendado ? "btn-p" : "btn-s") + ' js-wa" href="#" data-msg="' + esc("Hola LKM'r 👋 Me interesa el paquete " + p.nombre + ". ¿Podemos platicar?") + '">Quiero el plan ' + esc(p.nombre) + "</a></article>";
+  }).join("");
+
+  /* Portafolio: miniaturas SVG generadas (ligeras, sin imágenes externas) */
+  var thumb = function (p, i) {
+    if (p.imagen) return '<img src="' + esc(p.imagen) + '" alt="' + esc(p.titulo) + '" loading="lazy" width="800" height="550">';
+    var c = p.color, k = i % 3;
+    var ui = k === 0
+      ? '<rect x="70" y="70" width="260" height="20" rx="6" fill="#fff" opacity=".9"/><rect x="70" y="100" width="180" height="12" rx="6" fill="#fff" opacity=".35"/><rect x="70" y="130" width="90" height="30" rx="10" fill="' + c + '"/><rect x="70" y="182" width="120" height="70" rx="12" fill="#fff" opacity=".08"/><rect x="200" y="182" width="120" height="70" rx="12" fill="#fff" opacity=".08"/><rect x="330" y="182" width="120" height="70" rx="12" fill="' + c + '" opacity=".25"/>'
+      : k === 1
+      ? '<rect x="180" y="40" width="160" height="240" rx="22" fill="#14171c" stroke="#ffffff22"/><rect x="194" y="62" width="132" height="90" rx="10" fill="' + c + '" opacity=".75"/><rect x="194" y="164" width="100" height="10" rx="5" fill="#fff" opacity=".8"/><rect x="194" y="182" width="132" height="8" rx="4" fill="#fff" opacity=".3"/><rect x="194" y="198" width="120" height="8" rx="4" fill="#fff" opacity=".3"/><rect x="194" y="236" width="132" height="28" rx="9" fill="' + c + '"/>'
+      : '<rect x="70" y="60" width="200" height="34" rx="17" fill="#fff" opacity=".1"/><rect x="250" y="110" width="200" height="34" rx="17" fill="' + c + '" opacity=".85"/><rect x="70" y="160" width="230" height="34" rx="17" fill="#fff" opacity=".1"/><rect x="230" y="210" width="220" height="34" rx="17" fill="' + c + '" opacity=".85"/><circle cx="54" cy="77" r="12" fill="' + c + '" opacity=".5"/>';
+    return '<svg viewBox="0 0 520 320" role="img" aria-label="Ilustración del ' + esc(p.titulo) + '"><defs><radialGradient id="g' + i + '" cx=".85" cy="0" r="1"><stop offset="0" stop-color="' + c + '" stop-opacity=".45"/><stop offset=".7" stop-color="#0e1014" stop-opacity="0"/></radialGradient></defs><rect width="520" height="320" fill="#0e1014"/><rect width="520" height="320" fill="url(#g' + i + ')"/><g opacity=".14" stroke="#fff"><path d="M0 64h520M0 128h520M0 192h520M0 256h520M104 0v320M208 0v320M312 0v320M416 0v320"/></g>' + ui + "</svg>";
+  };
+  var catNom = { web: "Web y Google", contenido: "Contenido", automatizacion: "Automatización" };
+  $("#pf").innerHTML = C.portafolio.map(function (p, i) {
+    return '<button class="pcard rv d' + (i % 3) + '" data-cat="' + esc(p.categoria) + '" data-i="' + i + '" aria-label="Ver detalle: ' + esc(p.titulo) + '"><div class="thumb">' + thumb(p, i) +
+      '<span class="lbl' + (p.conceptual ? "" : " real") + '">' + (p.conceptual ? "Proyecto conceptual" : "Cliente real") + '</span></div><div class="bd"><h3>' + esc(p.titulo) + '</h3><p class="cl">' + esc(p.cliente) + " · " + esc(catNom[p.categoria] || p.categoria) + "</p></div></button>";
+  }).join("");
+  $$(".fbtn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var f = b.getAttribute("data-f");
+      $$(".fbtn").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      $$(".pcard").forEach(function (c) { c.classList.toggle("hide", f !== "todos" && c.getAttribute("data-cat") !== f); });
+    });
+  });
+
+  /* Modal portafolio */
+  var modal = $("#modal"), last = null;
+  var abrir = function (i) {
+    var p = C.portafolio[i];
+    last = document.activeElement;
+    $("#m-img").innerHTML = thumb(p, i);
+    $("#m-k").textContent = p.conceptual ? "Proyecto conceptual" : "Caso real";
+    $("#m-t").textContent = p.titulo;
+    $("#m-c").textContent = p.cliente;
+    $("#m-r").textContent = p.reto;
+    $("#m-s").textContent = p.solucion;
+    $("#m-re").textContent = p.resultado;
+    $("#m-cta").setAttribute("data-msg", "Hola LKM'r 👋 Vi el proyecto \"" + p.titulo + "\" y quiero algo similar para mi negocio.");
+    bindWa(modal);
+    modal.hidden = false;
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+    $("#m-x").focus();
+  };
+  var cerrar = function () {
+    modal.classList.remove("open");
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    if (last) last.focus();
+  };
+  $("#pf").addEventListener("click", function (e) {
+    var b = e.target.closest(".pcard");
+    if (b) abrir(+b.getAttribute("data-i"));
+  });
+  $("#m-x").addEventListener("click", cerrar);
+  modal.addEventListener("click", function (e) { if (e.target === modal) cerrar(); });
+  document.addEventListener("keydown", function (e) {
+    if (!modal.classList.contains("open")) return;
+    if (e.key === "Escape") cerrar();
+    if (e.key === "Tab") {
+      var f = $$("a[href],button", modal), a = f[0], z = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+      else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+    }
+  });
+
+  /* Testimonios: solo reales */
+  var T = (C.testimonios || []).filter(function (t) { return t && t.texto && t.nombre; });
+  $("#testi").innerHTML = T.length
+    ? '<div class="grid g2 g3">' + T.map(function (t, i) {
+        return '<figure class="card testi rv d' + (i % 3) + '"><blockquote>“' + esc(t.texto) + '”</blockquote><figcaption class="who"><span class="av">' +
+          (t.foto ? '<img src="' + esc(t.foto) + '" alt="" width="42" height="42" loading="lazy">' : esc(t.nombre.charAt(0))) +
+          "</span><span><b>" + esc(t.nombre) + "</b><span>" + esc(t.negocio || "") + "</span></span></figcaption></figure>";
+      }).join("") + "</div>"
+    : '<div class="testi-empty rv"><h3>Tu negocio puede ser de los primeros.</h3><p>Aquí publicaremos únicamente opiniones reales de clientes, con su permiso.<br>Los primeros clientes reciben atención prioritaria y precio de lanzamiento.</p><a class="btn btn-s js-wa" style="margin-top:20px" href="#" data-msg="Hola LKM\'r 👋 Quiero ser de sus primeros clientes. ¿Qué me recomiendan para mi negocio?">Quiero ser de los primeros</a></div>';
+
+  /* Redes y footer */
+  var redes = Object.keys(C.redes).filter(function (k) { return C.redes[k]; });
+  $("#social").innerHTML = redes.map(function (k) {
+    return '<a href="' + esc(C.redes[k]) + '" target="_blank" rel="noopener" aria-label="' + k + '"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#s-' + k + '"/></svg></a>';
+  }).join("");
+  $("#ft-loc").textContent = C.ciudad + ", " + C.estado + ", México";
+  $("#ft-hor").textContent = C.horario;
+  if (C.email) $("#ft-mail").innerHTML = '<a href="mailto:' + esc(C.email) + '">' + esc(C.email) + "</a>";
+  $("#yr").textContent = new Date().getFullYear();
+
+  /* Formulario → WhatsApp */
+  $("#form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = e.target, n = f.nombre.value.trim();
+    if (!n) { f.nombre.focus(); f.nombre.setAttribute("aria-invalid", "true"); $("#f-hint").textContent = "Escribe tu nombre para continuar."; return; }
+    f.nombre.removeAttribute("aria-invalid");
+    var msg = "Hola LKM'r 👋\n\nSoy " + n + (f.negocio.value.trim() ? " de " + f.negocio.value.trim() : "") +
+      ".\nMe interesa: " + f.servicio.value + "." + (f.mensaje.value.trim() ? "\n\n" + f.mensaje.value.trim() : "");
+    window.open(wa(msg), "_blank", "noopener");
+  });
+
+  /* Datos estructurados LocalBusiness (se generan desde CONFIG) */
+  var ld = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: C.marca,
+    description: "Estudio digital: sitios web, Google Business Profile, redes sociales, edición de video, automatización de WhatsApp y soporte técnico para negocios.",
+    url: C.url,
+    areaServed: ["Aguascalientes", "México"],
+    address: { "@type": "PostalAddress", addressLocality: C.ciudad, addressRegion: C.estado, postalCode: C.codigoPostal, addressCountry: "MX" },
+    priceRange: "$$",
+    sameAs: redes.map(function (k) { return C.redes[k]; }),
+  };
+  if (C.whatsapp) ld.telephone = "+" + String(C.whatsapp).replace(/\D/g, "");
+  if (C.email) ld.email = C.email;
+  var s = document.createElement("script");
+  s.type = "application/ld+json";
+  s.textContent = JSON.stringify(ld);
+  document.head.appendChild(s);
+
+  bindWa(document);
+
+  /* Nav */
+  var nav = $("#nav"), mb = $(".menu-b"), mm = $("#mmenu");
+  var onScroll = function () { nav.classList.toggle("sc", window.scrollY > 20); };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+  mb.addEventListener("click", function () {
+    var o = mb.getAttribute("aria-expanded") !== "true";
+    mb.setAttribute("aria-expanded", String(o));
+    mm.classList.toggle("open", o);
+  });
+  $$("a", mm).forEach(function (a) { a.addEventListener("click", function () { mb.setAttribute("aria-expanded", "false"); mm.classList.remove("open"); }); });
+
+  /* Reveal + barras + proceso */
+  var revelar = function (el) {
+    el.classList.add("in");
+    if (el.id === "bars") $$("i[data-w]", el).forEach(function (b) { b.style.width = b.getAttribute("data-w") + "%"; });
+  };
+  var steps = $("#steps");
+  var animarPasos = function () {
+    var line = $(".line i", steps), st = $$(".step", steps);
+    if (line) { line.style.height = "100%"; line.style.width = "100%"; }
+    st.forEach(function (x, i) { setTimeout(function () { x.classList.add("on"); }, reduce ? 0 : 300 + i * 380); });
+  };
+  if ("IntersectionObserver" in window && !reduce) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        if (e.target === steps) animarPasos(); else revelar(e.target);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    $$(".rv").forEach(function (el) { io.observe(el); });
+    io.observe(steps);
+  } else {
+    $$(".rv").forEach(revelar);
+    animarPasos();
+  }
+
+  /* Micro-interacciones (solo puntero fino y sin reduced-motion) */
+  if (!reduce && window.matchMedia("(pointer:fine)").matches) {
+    $$(".spot").forEach(function (c) {
+      c.addEventListener("pointermove", function (e) {
+        var r = c.getBoundingClientRect();
+        c.style.setProperty("--x", e.clientX - r.left + "px");
+        c.style.setProperty("--y", e.clientY - r.top + "px");
+      });
+    });
+    $$(".mag").forEach(function (b) {
+      b.addEventListener("pointermove", function (e) {
+        var r = b.getBoundingClientRect();
+        b.style.transform = "translate(" + (e.clientX - r.left - r.width / 2) * 0.15 + "px," + (e.clientY - r.top - r.height / 2) * 0.25 + "px)";
+      });
+      b.addEventListener("pointerleave", function () { b.style.transform = ""; });
+    });
+    var cur = $(".cur"), x = 0, y = 0, cx = 0, cy = 0;
+    window.addEventListener("pointermove", function (e) { x = e.clientX; y = e.clientY; cur.classList.add("on"); }, { passive: true });
+    document.addEventListener("pointerover", function (e) { cur.classList.toggle("big", !!e.target.closest("a,button,summary,.pcard")); });
+    (function loop() { cx += (x - cx) * 0.2; cy += (y - cy) * 0.2; cur.style.transform = "translate(" + cx + "px," + cy + "px) translate(-50%,-50%)"; requestAnimationFrame(loop); })();
+  }
+})();
+</script>
+</body>
+</html>
