@@ -21,27 +21,46 @@ export const estadoInicial = (): EstadoApp => ({
   tareas: {},
   diasActivos: [],
   ideasNotas: {},
+  config: { pctReinversion: 20, pctTiempoRapida: 80, metaMes: 5000 },
+  fondoLargo: [],
+  sprints: [],
+  actividad: {},
+  ofertas: [],
+  plan: [],
+  ice: [],
+  semana: {},
+  rituales: {},
+  revisionesMes: [],
+  productos: [],
+  cotizaciones: [],
+  sesionesFoco: [],
+  focoActivo: null,
+  logrosVistos: [],
+  logrosManuales: [],
 })
 
-/** Mezcla datos guardados con el estado inicial para tolerar versiones viejas o archivos incompletos. */
+/**
+ * Mezcla datos guardados con el estado inicial: cada campo se acepta solo si tiene el mismo tipo
+ * que el valor por defecto. Así los respaldos viejos (v1) cargan sin perder nada y sin romper la app.
+ */
 export const normalizar = (raw: unknown): EstadoApp => {
   const base = estadoInicial()
   if (!raw || typeof raw !== 'object') return base
-  const r = raw as Partial<EstadoApp>
-  return {
-    ...base,
-    ...r,
-    version: 1,
-    favoritos: Array.isArray(r.favoritos) ? r.favoritos : base.favoritos,
-    checks: r.checks && typeof r.checks === 'object' ? r.checks : {},
-    movimientos: Array.isArray(r.movimientos) ? r.movimientos : [],
-    metas: Array.isArray(r.metas) ? r.metas : base.metas,
-    leads: Array.isArray(r.leads) ? r.leads : [],
-    diario: Array.isArray(r.diario) ? r.diario : [],
-    tareas: r.tareas && typeof r.tareas === 'object' ? r.tareas : {},
-    diasActivos: Array.isArray(r.diasActivos) ? r.diasActivos : [],
-    ideasNotas: r.ideasNotas && typeof r.ideasNotas === 'object' ? r.ideasNotas : {},
+  const r = raw as Record<string, unknown>
+  const out: Record<string, unknown> = { ...base }
+  for (const k of Object.keys(base) as (keyof EstadoApp)[]) {
+    const def = base[k] as unknown
+    const v = r[k]
+    if (v === undefined) continue
+    if (Array.isArray(def)) { if (Array.isArray(v)) out[k] = v; continue }
+    if (def === null) { out[k] = v && typeof v === 'object' ? v : null; continue }
+    if (typeof def === 'object') { if (v && typeof v === 'object' && !Array.isArray(v)) out[k] = { ...(def as object), ...(v as object) }; continue }
+    if (typeof v === typeof def) out[k] = v
   }
+  out.version = 1
+  // Si el usuario tenía metas guardadas vacías a propósito, respetarlo.
+  if (Array.isArray(r.metas)) out.metas = r.metas
+  return out as unknown as EstadoApp
 }
 
 const cargar = (): EstadoApp => {

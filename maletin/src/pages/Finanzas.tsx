@@ -7,7 +7,8 @@ import { Aviso, Badge, Card, Empty, Field, PageHeader, Progress, Segmented, Sect
 import { AVISO_FISCAL, AVISO_INVERSION, EDU_FINANZAS, FORMALIZACION } from '../data/finanzasEdu'
 import { resumenMes } from '../lib/selectores'
 import { dinero, dineroCorto, fechaCorta, hoyISO, mesClave, nombreMes, uid } from '../lib/utils'
-import type { Movimiento } from '../types'
+import type { Movimiento, Via } from '../types'
+import { conMovimiento, sinMovimiento } from '../lib/acciones'
 
 type Tab = 'registro' | 'metas' | 'aprende' | 'formal'
 
@@ -88,7 +89,7 @@ function Registro() {
   ]
 
   const guardar = (m: Omit<Movimiento, 'id'>) => {
-    actualizar((s) => ({ ...s, movimientos: [...s.movimientos, { ...m, id: uid() }] }))
+    actualizar((s) => conMovimiento(s, m))
     marcarActivo()
     setAbrir(null)
   }
@@ -172,12 +173,12 @@ function Registro() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium">{m.concepto}</p>
-                  <p className="text-xs text-ink-400">{fechaCorta(m.fecha)} · {m.categoria}</p>
+                  <p className="text-xs text-ink-400">{fechaCorta(m.fecha)} · {m.categoria}{m.tipo === 'ingreso' && <span className={m.via === 'larga' ? 'text-sky-300' : 'text-gold-400'}> · {m.via === 'larga' ? 'Vía Larga' : 'Vía Rápida'}</span>}</p>
                 </div>
                 <span className={m.tipo === 'ingreso' ? 'font-mono text-sm text-money-400' : 'font-mono text-sm text-ink-300'}>
                   {m.tipo === 'ingreso' ? '+' : '−'}{dinero(m.monto)}
                 </span>
-                <button onClick={() => confirm('¿Eliminar movimiento?') && actualizar((s) => ({ ...s, movimientos: s.movimientos.filter((x) => x.id !== m.id) }))} className="p-1.5 text-ink-500 opacity-60 hover:text-alert-400 group-hover:opacity-100" aria-label="Eliminar">
+                <button onClick={() => confirm('¿Eliminar movimiento?') && actualizar((s) => sinMovimiento(s, m.id))} className="p-1.5 text-ink-500 opacity-60 hover:text-alert-400 group-hover:opacity-100" aria-label="Eliminar">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </li>
@@ -199,6 +200,8 @@ function FormMov({ tipo, onGuardar }: { tipo: 'ingreso' | 'gasto'; onGuardar: (m
   const [concepto, setConcepto] = useState('')
   const [categoria, setCategoria] = useState(cats[0])
   const [fecha, setFecha] = useState(hoyISO())
+  const [via, setVia] = useState<Via>('rapida')
+  const { estado } = useStore()
   const n = Number(monto)
   return (
     <form
@@ -206,7 +209,7 @@ function FormMov({ tipo, onGuardar }: { tipo: 'ingreso' | 'gasto'; onGuardar: (m
       onSubmit={(e) => {
         e.preventDefault()
         if (!(n > 0) || !concepto.trim()) return
-        onGuardar({ tipo, monto: n, concepto: concepto.trim(), categoria, fecha })
+        onGuardar({ tipo, monto: n, concepto: concepto.trim(), categoria, fecha, via: tipo === 'ingreso' ? via : undefined })
       }}
     >
       <Field label="Monto (MXN)">
@@ -225,6 +228,11 @@ function FormMov({ tipo, onGuardar }: { tipo: 'ingreso' | 'gasto'; onGuardar: (m
           <input className="input" type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
         </Field>
       </div>
+      {tipo === 'ingreso' && (
+        <Field label="¿De qué vía viene?" hint={via === 'rapida' ? `Se apartará automáticamente ${estado.config.pctReinversion}% (${dinero(n > 0 ? n * estado.config.pctReinversion / 100 : 0)}) al fondo de Vía Larga.` : 'Ingreso de un activo (producto, audiencia, inversión). No se aparta porcentaje.'}>
+          <Segmented value={via} onChange={setVia} options={[{ id: 'rapida', label: 'Vía Rápida (servicios)' }, { id: 'larga', label: 'Vía Larga (activos)' }]} />
+        </Field>
+      )}
       <button className={tipo === 'ingreso' ? 'btn-money w-full' : 'btn-gold w-full'} disabled={!(n > 0) || !concepto.trim()}>
         Guardar
       </button>

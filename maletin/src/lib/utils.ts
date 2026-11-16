@@ -75,3 +75,27 @@ export const calcularRacha = (dias: string[]) => {
 export const cn = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(' ')
 
 export const clamp = (n: number, a: number, b: number) => Math.min(b, Math.max(a, n))
+
+export const copiarTexto = async (t: string) => {
+  try {
+    await navigator.clipboard.writeText(t)
+  } catch {
+    const ta = document.createElement('textarea')
+    ta.value = t
+    document.body.appendChild(ta)
+    ta.select()
+    document.execCommand('copy')
+    ta.remove()
+  }
+}
+
+export const duracionTexto = (ms: number) => {
+  if (ms <= 0) return '0:00:00'
+  const s = Math.floor(ms / 1000)
+  const d = Math.floor(s / 86400)
+  const h = Math.floor((s % 86400) / 3600)
+  const m = Math.floor((s % 3600) / 60)
+  const ss = s % 60
+  const p = (n: number) => String(n).padStart(2, '0')
+  return d > 0 ? `${d}d ${p(h)}:${p(m)}:${p(ss)}` : `${h}:${p(m)}:${p(ss)}`
+}

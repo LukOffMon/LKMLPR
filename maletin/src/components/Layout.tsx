@@ -4,37 +4,73 @@ import { AnimatePresence, motion } from 'framer-motion'
 import {
   BookOpen,
   Briefcase,
+  CalendarRange,
   ClipboardCheck,
   Compass,
+  Crown,
+  Crosshair,
   LayoutDashboard,
   LayoutGrid,
   Menu,
   NotebookPen,
+  Printer,
   Settings,
   ShieldAlert,
   TrendingUp,
   Users,
   Wallet,
+  Wrench,
   X,
+  Zap,
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { useStore } from '../store/store'
 
-export const NAV = [
-  { id: 'panel', label: 'Panel', icon: LayoutDashboard },
-  { id: 'diagnostico', label: 'Diagnóstico', icon: Compass },
-  { id: 'ideas', label: 'Ideas', icon: Briefcase },
-  { id: 'protocolos', label: 'Protocolos', icon: ClipboardCheck },
-  { id: 'escalera', label: 'Escalera', icon: TrendingUp },
-  { id: 'finanzas', label: 'Finanzas', icon: Wallet },
-  { id: 'crm', label: 'Clientes', icon: Users },
-  { id: 'biblioteca', label: 'Biblioteca', icon: BookOpen },
-  { id: 'trampas', label: 'Trampas', icon: ShieldAlert },
-  { id: 'diario', label: 'Diario', icon: NotebookPen },
-  { id: 'ajustes', label: 'Respaldo', icon: Settings },
-] as const
+type ItemMenu = { id: string; label: string; icon: typeof Menu }
 
-const MOVIL = ['panel', 'ideas', 'protocolos', 'finanzas'] as const
+export const GRUPOS: { titulo: string; items: ItemMenu[] }[] = [
+  {
+    titulo: 'Operación',
+    items: [
+      { id: 'panel', label: 'Panel', icon: LayoutDashboard },
+      { id: 'guerra', label: 'Sala de guerra', icon: Crosshair },
+      { id: 'plan', label: 'Plan maestro', icon: CalendarRange },
+      { id: 'efectivo', label: 'Modo Efectivo', icon: Zap },
+      { id: 'imperio', label: 'Modo Imperio', icon: Crown },
+    ],
+  },
+  {
+    titulo: 'Negocio',
+    items: [
+      { id: 'crm', label: 'Clientes', icon: Users },
+      { id: 'herramientas', label: 'Herramientas', icon: Wrench },
+      { id: 'finanzas', label: 'Finanzas', icon: Wallet },
+      { id: 'ideas', label: 'Ideas', icon: Briefcase },
+      { id: 'protocolos', label: 'Protocolos', icon: ClipboardCheck },
+    ],
+  },
+  {
+    titulo: 'Crecimiento',
+    items: [
+      { id: 'escalera', label: 'Escalera', icon: TrendingUp },
+      { id: 'diario', label: 'Diario', icon: NotebookPen },
+      { id: 'biblioteca', label: 'Biblioteca', icon: BookOpen },
+      { id: 'trampas', label: 'Trampas', icon: ShieldAlert },
+      { id: 'diagnostico', label: 'Diagnóstico', icon: Compass },
+    ],
+  },
+  {
+    titulo: 'Sistema',
+    items: [
+      { id: 'imprimir', label: 'Plan imprimible', icon: Printer },
+      { id: 'ajustes', label: 'Respaldo', icon: Settings },
+    ],
+  },
+]
+
+export const NAV: ItemMenu[] = GRUPOS.flatMap((g) => g.items)
+
+const MOVIL = ['panel', 'guerra', 'efectivo', 'plan'] as const
 
 export function Layout({ seccion, children }: { seccion: string; children: ReactNode }) {
   const [menu, setMenu] = useState(false)
@@ -45,10 +81,8 @@ export function Layout({ seccion, children }: { seccion: string; children: React
       {/* Barra lateral escritorio */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-ink-800 bg-ink-950/80 backdrop-blur lg:flex">
         <Marca />
-        <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">
-          {NAV.map((n) => (
-            <ItemNav key={n.id} {...n} activo={seccion === n.id} />
-          ))}
+        <nav className="flex-1 overflow-y-auto px-3 py-3">
+          <Grupos seccion={seccion} />
         </nav>
         <div className="border-t border-ink-800 px-5 py-4 text-[11px] text-ink-500">
           <span className={cn('mr-1.5 inline-block h-1.5 w-1.5 rounded-full', guardadoOk ? 'bg-money-500' : 'bg-alert-500')} />
@@ -114,10 +148,8 @@ export function Layout({ seccion, children }: { seccion: string; children: React
                   <X className="h-5 w-5" />
                 </button>
               </div>
-              <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 pb-6" onClick={() => setMenu(false)}>
-                {NAV.map((n) => (
-                  <ItemNav key={n.id} {...n} activo={seccion === n.id} />
-                ))}
+              <nav className="flex-1 overflow-y-auto px-3 pb-6" onClick={() => setMenu(false)}>
+                <Grupos seccion={seccion} />
               </nav>
             </motion.div>
           </motion.div>
@@ -127,12 +159,29 @@ export function Layout({ seccion, children }: { seccion: string; children: React
   )
 }
 
+function Grupos({ seccion }: { seccion: string }) {
+  return (
+    <>
+      {GRUPOS.map((g) => (
+        <div key={g.titulo} className="mb-3">
+          <div className="label px-3 pb-1.5 pt-2 text-[9px] text-ink-500">{g.titulo}</div>
+          <div className="space-y-0.5">
+            {g.items.map((n) => (
+              <ItemNav key={n.id} {...n} activo={seccion === n.id} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </>
+  )
+}
+
 function ItemNav({ id, label, icon: Icon, activo }: { id: string; label: string; icon: typeof Menu; activo: boolean }) {
   return (
     <a
       href={`#/${id}`}
       className={cn(
-        'relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition',
+        'relative flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition',
         activo ? 'bg-gold-500/10 text-gold-300' : 'text-ink-300 hover:bg-ink-800/80 hover:text-ink-100',
       )}
     >

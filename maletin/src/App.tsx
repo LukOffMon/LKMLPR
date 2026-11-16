@@ -12,6 +12,8 @@ import { Biblioteca } from './pages/Biblioteca'
 import { Trampas } from './pages/Trampas'
 import { Diario } from './pages/Diario'
 import { Ajustes } from './pages/Ajustes'
+import { Guerra } from './pages/Guerra'
+import { Efectivo } from './pages/Efectivo'
 
 export default function App() {
   const { seccion, param } = useRuta()
@@ -33,6 +35,8 @@ export default function App() {
     case 'trampas': vista = <Trampas />; break
     case 'diario': vista = <Diario />; break
     case 'ajustes': vista = <Ajustes />; break
+    case 'guerra': vista = <Guerra />; break
+    case 'efectivo': vista = <Efectivo tabInicial={param} />; break
     default: vista = <Panel />
   }
 

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CalendarClock, ChevronRight, Pencil, Plus, Search, Trash2, Users } from 'lucide-react'
 import { useStore } from '../store/store'
-import { Badge, Card, Empty, Field, PageHeader, Sheet, Stat } from '../components/ui'
+import { Badge, Card, Empty, Field, PageHeader, Segmented, Sheet, Stat } from '../components/ui'
 import type { EstadoLead, Lead } from '../types'
 import { IDEAS } from '../data/ideas'
 import { cn, diffDias, dinero, dineroCorto, fechaCorta, hoyISO, sumarDias, uid } from '../lib/utils'
@@ -16,6 +16,9 @@ export const ESTADOS: { id: EstadoLead; label: string; color: string }[] = [
   { id: 'perdido', label: 'Perdido', color: '#ef4444' },
 ]
 const estadoInfo = Object.fromEntries(ESTADOS.map((e) => [e.id, e])) as Record<EstadoLead, (typeof ESTADOS)[number]>
+/** Probabilidad de cierre por etapa, para el valor proyectado del pipeline. */
+export const PROB_ESTADO: Record<EstadoLead, number> = { contactado: 0.1, interesado: 0.3, cotizado: 0.5, cerrado: 1, recurrente: 1, perdido: 0 }
+
 const SIGUIENTE: Partial<Record<EstadoLead, EstadoLead>> = { contactado: 'interesado', interesado: 'cotizado', cotizado: 'cerrado', cerrado: 'recurrente' }
 
 const vacio = (): Lead => ({
@@ -38,6 +41,7 @@ export function CRM() {
   const [filtro, setFiltro] = useState<EstadoLead | 'todos' | 'hoy'>('todos')
   const [q, setQ] = useState('')
   const [edit, setEdit] = useState<Lead | null>(null)
+  const [vista, setVista] = useState<'kanban' | 'lista'>('kanban')
 
   const hoy = hoyISO()
   const lista = useMemo(() => {
@@ -54,6 +58,7 @@ export function CRM() {
     const ganados = L.filter((l) => ['cerrado', 'recurrente'].includes(l.estado))
     const conv = L.length ? Math.round((ganados.length / L.length) * 100) : 0
     return {
+      proyectado: L.filter((l) => ['contactado', 'interesado', 'cotizado'].includes(l.estado)).reduce((a, l) => a + (l.valor || 0) * PROB_ESTADO[l.estado], 0),
       pipeline: abiertos.reduce((a, l) => a + (l.valor || 0), 0),
       ganado: ganados.reduce((a, l) => a + (l.valor || 0), 0),
       conv,
@@ -88,7 +93,7 @@ export function CRM() {
       />
 
       <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Card><Stat label="En negociación" value={dineroCorto(stats.pipeline)} tone="gold" sub="interesados + cotizados" /></Card>
+        <Card><Stat label="Proyectado" value={dineroCorto(stats.proyectado)} tone="gold" sub={`${dineroCorto(stats.pipeline)} en negociación`} /></Card>
         <Card><Stat label="Ganado" value={dineroCorto(stats.ganado)} tone="money" /></Card>
         <Card><Stat label="Conversión" value={`${stats.conv}%`} sub={`${estado.leads.length} prospectos`} /></Card>
         <Card><Stat label="Recurrentes" value={stats.recurrentes} sub={`${stats.vencidos} seguimientos para hoy`} /></Card>
@@ -110,11 +115,14 @@ export function CRM() {
           <input className="input pl-9" placeholder="Buscar prospecto" value={q} onChange={(e) => setQ(e.target.value)} />
         </div>
         <button onClick={() => setFiltro('todos')} className={cn('chip px-3', filtro === 'todos' ? 'border-gold-500 bg-gold-500/15 text-gold-200' : 'border-ink-700 text-ink-300')}>Todos</button>
+        <Segmented value={vista} onChange={setVista} options={[{ id: 'kanban', label: 'Kanban' }, { id: 'lista', label: 'Lista' }]} />
         <button onClick={() => setFiltro('hoy')} className={cn('chip px-3', filtro === 'hoy' ? 'border-gold-500 bg-gold-500/15 text-gold-200' : 'border-ink-700 text-ink-300')}><CalendarClock className="h-3.5 w-3.5" /> Para hoy ({stats.vencidos})</button>
       </div>
 
       {estado.leads.length === 0 ? (
         <Empty icon={<Users className="h-8 w-8" />} title="Tu lista está vacía">Agrega tus primeros 30 prospectos (Protocolo Día 0–7).</Empty>
+      ) : vista === 'kanban' ? (
+        <Kanban leads={lista} onEdit={setEdit} />
       ) : (
         <div className="grid gap-3 md:grid-cols-2">
           <AnimatePresence initial={false}>
@@ -199,5 +207,72 @@ function FormLead({ inicial, onGuardar }: { inicial: Lead; onGuardar: (l: Lead) 
       <Field label="Notas"><textarea className="input min-h-20" value={l.notas} onChange={(e) => set('notas', e.target.value)} placeholder="Qué le interesa, objeciones, presupuesto…" /></Field>
       <button className="btn-gold w-full" disabled={!l.nombre.trim()}>Guardar</button>
     </form>
+  )
+}
+
+function Kanban({ leads, onEdit }: { leads: Lead[]; onEdit: (l: Lead) => void }) {
+  const { actualizar, marcarActivo } = useStore()
+  const [sobre, setSobre] = useState<EstadoLead | null>(null)
+  const hoy = hoyISO()
+  const mover = (id: string, estado: EstadoLead) => {
+    actualizar((s) => ({ ...s, leads: s.leads.map((x) => (x.id === id && x.estado !== estado ? { ...x, estado, actualizado: hoyISO() } : x)) }))
+    marcarActivo()
+  }
+  return (
+    <div className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-3 sm:mx-0 sm:px-0">
+      {ESTADOS.map((e) => {
+        const col = leads.filter((l) => l.estado === e.id)
+        const suma = col.reduce((a, l) => a + (l.valor || 0), 0)
+        return (
+          <div
+            key={e.id}
+            onDragOver={(ev) => { ev.preventDefault(); setSobre(e.id) }}
+            onDragLeave={() => setSobre(null)}
+            onDrop={(ev) => { ev.preventDefault(); setSobre(null); const id = ev.dataTransfer.getData('text/plain'); if (id) mover(id, e.id) }}
+            className={cn('flex w-[78vw] max-w-[280px] shrink-0 snap-start flex-col rounded-2xl border bg-ink-900/60 p-2.5 transition sm:w-[260px]', sobre === e.id ? 'border-gold-500/70 bg-gold-500/5' : 'border-ink-700')}
+          >
+            <div className="mb-2 flex items-center justify-between px-1">
+              <span className="flex items-center gap-2 text-sm font-semibold"><span className="h-2 w-2 rounded-full" style={{ background: e.color }} />{e.label}<span className="font-mono text-xs text-ink-500">{col.length}</span></span>
+              <span className="font-mono text-xs text-ink-400">{dineroCorto(suma)}</span>
+            </div>
+            <div className="flex min-h-24 flex-col gap-2">
+              {col.map((l) => {
+                const d = l.seguimiento ? diffDias(hoy, l.seguimiento) : null
+                return (
+                  <div
+                    key={l.id}
+                    draggable
+                    onDragStart={(ev) => { ev.dataTransfer.setData('text/plain', l.id); ev.dataTransfer.effectAllowed = 'move' }}
+                    className="cursor-grab rounded-xl border border-ink-700 bg-ink-850 p-3 shadow-sm transition hover:border-ink-500 active:cursor-grabbing"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <button onClick={() => onEdit(l)} className="min-w-0 text-left">
+                        <p className="truncate text-sm font-medium">{l.nombre}</p>
+                        <p className="truncate text-xs text-ink-400">{l.negocio || l.servicio || '—'}</p>
+                      </button>
+                      {l.valor > 0 && <span className="shrink-0 font-mono text-xs text-money-400">{dineroCorto(l.valor)}</span>}
+                    </div>
+                    <div className="mt-2 flex items-center justify-between gap-2">
+                      {d !== null && e.id !== 'perdido' ? (
+                        <Badge tone={d < 0 ? 'alert' : d === 0 ? 'gold' : 'neutral'}>{d < 0 ? `Vencido ${-d}d` : d === 0 ? 'Hoy' : fechaCorta(l.seguimiento)}</Badge>
+                      ) : <span />}
+                      <select
+                        aria-label="Mover a etapa"
+                        value={l.estado}
+                        onChange={(ev) => mover(l.id, ev.target.value as EstadoLead)}
+                        className="rounded-lg border border-ink-700 bg-ink-900 px-1.5 py-1 text-[11px] text-ink-300"
+                      >
+                        {ESTADOS.map((x) => <option key={x.id} value={x.id}>{x.label}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                )
+              })}
+              {col.length === 0 && <p className="px-1 py-4 text-center text-xs text-ink-600">Arrastra aquí</p>}
+            </div>
+          </div>
+        )
+      })}
+    </div>
   )
 }

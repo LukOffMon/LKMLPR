@@ -136,6 +136,8 @@ export interface Movimiento {
   concepto: string
   categoria: string
   fecha: string // YYYY-MM-DD
+  /** Vía que generó el ingreso. Por defecto, rápida. */
+  via?: Via
 }
 
 export interface MetaAhorro {
@@ -185,6 +187,154 @@ export interface Tarea {
   hecho: boolean
 }
 
+export type Via = 'rapida' | 'larga'
+
+/** Movimiento del fondo de Vía Larga: + apartado automático / − usado en un activo. */
+export interface AporteLargo {
+  id: string
+  fecha: string
+  monto: number
+  concepto: string
+  activo?: string
+  origen?: string // id del movimiento que lo generó
+}
+
+export type TipoSprint = '72h' | '7d' | '30d'
+export interface Sprint {
+  id: string
+  tipo: TipoSprint
+  meta: number
+  inicio: number // timestamp ms
+  checks: Record<string, boolean>
+  oferta?: string
+  cerrado?: boolean
+}
+
+export interface Actividad {
+  mensajes: number
+  respuestas: number
+  llamadas: number
+  cotizaciones: number
+  cierres: number
+}
+
+export interface OfertaGuardada {
+  id: string
+  cliente: string
+  resultado: string
+  plazo: string
+  bonus: string
+  garantia: string
+  precio: number
+  ancla: string
+  urgencia: string
+  creada: string
+}
+
+export type NivelPlan = 'vision' | '5a' | 'anual' | 'trimestre' | 'mes' | 'semana'
+export interface KR {
+  id: string
+  texto: string
+  actual: number
+  meta: number
+}
+export interface PlanItem {
+  id: string
+  nivel: NivelPlan
+  titulo: string
+  padreId?: string
+  periodo: string
+  progreso: number
+  krs?: KR[]
+}
+
+export interface IceItem {
+  id: string
+  nombre: string
+  i: number
+  c: number
+  f: number
+  nota?: string
+}
+
+export type TipoBloque = 'escuela' | 'profundo' | 'prospeccion' | 'entrega' | 'aprendizaje' | 'ejercicio' | 'descanso' | 'vialarga'
+
+export interface ItemRitual {
+  t: string
+  h: boolean
+}
+export interface Ritual {
+  dinero: ItemRitual[]
+  larga: ItemRitual
+  aprender: ItemRitual
+}
+
+export interface RevisionMes {
+  id: string
+  mes: string // YYYY-MM
+  funciono: string
+  noFunciono: string
+  ajustes: string
+  metaSiguiente: number
+  creada: string
+}
+
+export type EstadoProducto = 'idea' | 'validando' | 'construyendo' | 'lanzado' | 'descartado'
+export interface ProductoLab {
+  id: string
+  nombre: string
+  servicioOrigen: string
+  problema: string
+  formato: string
+  precio: number
+  validacion: Record<string, boolean>
+  estado: EstadoProducto
+  notas: string
+}
+
+export interface ConceptoCot {
+  id: string
+  desc: string
+  cant: number
+  precio: number
+}
+export interface Cotizacion {
+  id: string
+  folio: string
+  fecha: string
+  cliente: string
+  negocio: string
+  contacto: string
+  conceptos: ConceptoCot[]
+  anticipoPct: number
+  vigencia: number
+  entrega: string
+  notas: string
+  iva: boolean
+  estado: 'borrador' | 'enviada' | 'aceptada' | 'rechazada'
+}
+
+export interface SesionFoco {
+  id: string
+  fecha: string
+  minutos: number
+  tarea: string
+}
+
+export interface FocoActivo {
+  fin: number
+  minutos: number
+  tarea: string
+  tipo: 'foco' | 'descanso'
+  pausadoRestante?: number
+}
+
+export interface ConfigDobleVia {
+  pctReinversion: number
+  pctTiempoRapida: number
+  metaMes: number
+}
+
 export interface EstadoApp {
   version: 1
   nombre: string
@@ -199,4 +349,21 @@ export interface EstadoApp {
   tareas: Record<string, Tarea[]> // por fecha YYYY-MM-DD
   diasActivos: string[] // YYYY-MM-DD
   ideasNotas: Record<string, string>
+  // ── v2: Doble vía ──
+  config: ConfigDobleVia
+  fondoLargo: AporteLargo[]
+  sprints: Sprint[]
+  actividad: Record<string, Actividad>
+  ofertas: OfertaGuardada[]
+  plan: PlanItem[]
+  ice: IceItem[]
+  semana: Record<string, TipoBloque>
+  rituales: Record<string, Ritual>
+  revisionesMes: RevisionMes[]
+  productos: ProductoLab[]
+  cotizaciones: Cotizacion[]
+  sesionesFoco: SesionFoco[]
+  focoActivo: FocoActivo | null
+  logrosVistos: string[]
+  logrosManuales: string[]
 }
