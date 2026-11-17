@@ -41,7 +41,7 @@ jobs:
           # App Maletín compilada
           cp -r maletin/dist _site/maletin
           # Proyectos anteriores (se mantienen sus enlaces)
-          for d in candyos encuesta nexus; do [ -d "$d" ] && cp -r "$d" "_site/$d"; done
+          for d in candyos encuesta nexus mensajes; do [ -d "$d" ] && cp -r "$d" "_site/$d"; done
           touch _site/.nojekyll
           ls -R _site | head -50
 

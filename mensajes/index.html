@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mensajes WhatsApp</title>
+<meta name="description" content="Herramienta interna de LKM'r: arma el mensaje de venta del menú digital con QR y lo abre en WhatsApp.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d1110">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231fa855'/%3E%3Cpath d='M18 46l3-9a15 15 0 1 1 6 6z' fill='none' stroke='white' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #f5f4ef; --panel: #ffffff; --fg: #17191a; --soft: #64675f; --line: #e2e0d8; --field: #f7f6f2;
+  --wa: #1fa855; --wa-ink: #ffffff; --acc: #0f7a52; --warn: #b5541c; --chip: #ecebe4;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1110; --panel: #151a19; --fg: #ecefe9; --soft: #9ba29b; --line: #26302d; --field: #101514;
+    --wa: #25c164; --wa-ink: #06210f; --acc: #4cd292; --warn: #f0a46c; --chip: #1c2422; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1110; --panel: #151a19; --fg: #ecefe9; --soft: #9ba29b; --line: #26302d; --field: #101514;
+  --wa: #25c164; --wa-ink: #06210f; --acc: #4cd292; --warn: #f0a46c; --chip: #1c2422; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 15px/1.5 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+button, input, select, textarea { font: inherit; color: inherit; }
+.wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+header.top { padding: 28px 0 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.kick { font: 700 11px/1 'Space Grotesk', sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--acc); }
+h1 { font: 700 clamp(26px, 5vw, 38px)/1.05 'Space Grotesk', sans-serif; margin: 8px 0 0; }
+.sub { color: var(--soft); margin: 6px 0 0; max-width: 60ch; }
+.layout { display: grid; gap: 16px; grid-template-columns: 1fr; padding-bottom: 48px; }
+@media (min-width: 920px) { .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: start; } .out { position: sticky; top: 16px; } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 18px; }
+.card h2 { font: 700 17px/1.2 'Space Grotesk', sans-serif; margin: 0 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.grid2 { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 520px) { .grid2 { grid-template-columns: 1fr; } }
+.f { display: grid; gap: 6px; margin-bottom: 12px; min-width: 0; }
+.f > span { font-size: 13px; font-weight: 600; }
+.f small { color: var(--soft); font-size: 12px; }
+input, select, textarea {
+  width: 100%; background: var(--field); border: 1px solid var(--line); border-radius: 12px; padding: 11px 12px; min-height: 46px; font-size: 16px;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid color-mix(in srgb, var(--acc) 55%, transparent); outline-offset: 1px; border-color: transparent; }
+.phone { display: grid; grid-template-columns: 84px 1fr; gap: 8px; }
+.ok { color: var(--acc); } .bad { color: var(--warn); }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; background: var(--chip); border-radius: 14px; padding: 4px; margin-bottom: 12px; }
+.seg button { border: 0; background: transparent; border-radius: 10px; padding: 9px 6px; font-weight: 600; font-size: 13.5px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--panel); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.toggles { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 4px 0 12px; }
+.toggles label { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+.toggles input { width: 18px; height: 18px; min-height: 0; accent-color: var(--acc); }
+details.more { border-top: 1px solid var(--line); padding-top: 12px; }
+details.more summary { cursor: pointer; font-weight: 600; font-size: 14px; color: var(--soft); margin-bottom: 10px; }
+textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size: 15px; }
+.meta { display: flex; justify-content: space-between; color: var(--soft); font-size: 12.5px; margin: 6px 2px 12px; gap: 10px; flex-wrap: wrap; }
+.actions { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; }
+.btn { border: 1px solid var(--line); background: var(--panel); border-radius: 12px; padding: 12px 14px; font-weight: 700; font-size: 14.5px; cursor: pointer; text-align: center; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; }
+.btn:hover { border-color: var(--soft); }
+.btn.wa { grid-column: 1 / -1; background: var(--wa); color: var(--wa-ink); border-color: var(--wa); font-size: 16px; min-height: 54px; }
+.btn.wa[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.ghost { border: 0; background: var(--chip); border-radius: 10px; padding: 7px 11px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.hint { color: var(--soft); font-size: 13px; margin: 10px 0 0; }
+.hist { display: grid; gap: 8px; }
+.h-row { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; padding: 10px 12px; background: var(--field); border: 1px solid var(--line); border-radius: 12px; }
+.h-row b { display: block; font-size: 14px; }
+.h-row small { color: var(--soft); font-size: 12px; }
+.empty { color: var(--soft); font-size: 13.5px; margin: 0; }
+.toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translate(-50%, calc(100% + 40px)); visibility: hidden; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-weight: 700; font-size: 14px; transition: transform .3s, visibility 0s .3s; z-index: 9; }
+.toast.show { transform: translate(-50%, 0); visibility: visible; transition: transform .3s; }
+.theme { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 8px 12px; font-size: 13px; font-weight: 600; cursor: pointer; }
+/* MACRO (envío rápido) */
+.macro { margin-bottom: 16px; }
+.m-count { font: 700 13px/1 Inter, sans-serif; color: var(--acc); background: var(--chip); padding: 6px 10px; border-radius: 999px; }
+.m-prog { height: 6px; border-radius: 999px; background: var(--chip); overflow: hidden; }
+.m-prog span { display: block; height: 100%; width: 0; background: var(--wa); transition: width .4s; }
+.m-tools { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 12px; }
+.m-tools .seg { flex: 1; min-width: 260px; }
+.m-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+.m-row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px 12px; align-items: center; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--field); }
+.m-row.done { opacity: .55; }
+.m-row.done .m-name { text-decoration: line-through; }
+.m-row.opened { border-color: var(--wa); box-shadow: 0 0 0 3px color-mix(in srgb, var(--wa) 25%, transparent); }
+.m-chk { width: 26px; height: 26px; min-height: 0; accent-color: var(--wa); cursor: pointer; margin: 0; }
+.m-name { font-weight: 700; font-size: 14.5px; line-height: 1.25; display: block; }
+.m-sub { color: var(--soft); font-size: 12.5px; }
+.m-flag { color: var(--wa); font-weight: 700; font-size: 12px; display: block; margin-top: 2px; }
+.m-send { background: var(--wa); color: var(--wa-ink); border: 0; border-radius: 10px; padding: 10px 12px; font-weight: 700; font-size: 13.5px; text-decoration: none; white-space: nowrap; }
+.m-row details { grid-column: 1 / -1; }
+.m-row summary { cursor: pointer; font-size: 12.5px; color: var(--soft); }
+.m-row pre { white-space: pre-wrap; font: 400 13px/1.5 Inter, sans-serif; margin: 8px 0 0; padding: 10px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); }
+.m-done { font-weight: 700; color: var(--acc); margin: 14px 0 0; }
+@keyframes m-pulse { 0%, 100% { transform: none; } 50% { transform: scale(1.015); } }
+.m-row.pulse { animation: m-pulse .5s 2; }
+/* /MACRO */
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <div>
+    <div class="kick">LKM'r · Menús digitales y QR</div>
+    <h1>Mensajes de WhatsApp</h1>
+    <p class="sub">Pon el número y los datos del lugar. El mensaje se arma solo, nunca sale igual y se abre en WhatsApp listo para enviar.</p>
+  </div>
+  <button class="theme" id="theme" type="button">Tema</button>
+</header>
+
+<!-- MACRO:START · envío rápido de los prospectos. Para quitarlo, borra todo hasta MACRO:END (y el bloque MACRO-JS:START del final). -->
+<section class="wrap macro" aria-labelledby="t-macro">
+  <div class="card">
+    <h2 id="t-macro">Envío rápido · prospectos de menús QR <span class="m-count" id="m-count">0 / 0</span></h2>
+    <div class="m-prog" aria-hidden="true"><span id="m-bar"></span></div>
+    <p class="hint" style="margin:10px 0 12px">Toca <b>Enviar</b>: se abre WhatsApp con el mensaje ya hecho para ese restaurante. Cuando lo mandes, regresa y marca la casilla. Usa el tono, el precio y tu firma que tengas abajo en "Datos del cliente".</p>
+    <div class="m-tools">
+      <div class="seg" role="group" aria-label="Filtro" id="m-filtro" style="margin:0">
+        <button type="button" data-v="pend" aria-pressed="true">Pendientes</button>
+        <button type="button" data-v="todos" aria-pressed="false">Todos</button>
+        <button type="button" data-v="hechos" aria-pressed="false">Ofrecidos</button>
+      </div>
+      <button class="ghost" id="m-reset" type="button">Desmarcar todo</button>
+    </div>
+    <ol class="m-list" id="m-list"></ol>
+    <p class="m-done" id="m-done" hidden>🎉 Listo: ya ofreciste todos. Puedes borrar este bloque.</p>
+  </div>
+</section>
+<!-- MACRO:END -->
+
+<main class="wrap layout">
+  <section class="card" aria-labelledby="t-datos">
+    <h2 id="t-datos">Datos del cliente <button class="ghost" id="clear" type="button">Limpiar</button></h2>
+
+    <label class="f"><span>Cargar un prospecto guardado</span>
+      <select id="preset"><option value="">Escribir uno nuevo…</option></select>
+    </label>
+
+    <div class="f">
+      <span>WhatsApp del cliente *</span>
+      <div class="phone">
+        <input id="lada" inputmode="numeric" value="52" aria-label="Código de país" maxlength="4">
+        <input id="tel" inputmode="tel" placeholder="449 123 4567" autocomplete="off" aria-describedby="tel-ok">
+      </div>
+      <small id="tel-ok">10 dígitos. Puedes pegarlo con espacios, guiones o +52.</small>
+    </div>
+
+    <div class="grid2">
+      <label class="f"><span>Nombre del lugar *</span><input id="lugar" placeholder="Ej. Tacos El Güero" autocomplete="off"></label>
+      <label class="f"><span>Tipo de negocio</span>
+        <select id="tipo">
+          <option>restaurante</option><option>taquería</option><option>fonda</option><option>cafetería</option>
+          <option>marisquería</option><option>restaurante bar</option><option>bar</option><option>pizzería</option>
+          <option>food truck</option><option>lonchería</option><option>restaurante de sushi</option><option>panadería</option>
+          <option>birriería</option><option>cenaduría</option>
+        </select>
+      </label>
+    </div>
+
+    <label class="f"><span>Enlace del menú QR (si ya lo tienes)</span>
+      <input id="menu" type="url" inputmode="url" placeholder="https://lukoffmon.github.io/WebDesignLKM/menus-qr/…" autocomplete="off">
+      <small>Si lo pones, el mensaje presenta la muestra. Si no, ofrece hacerla.</small>
+    </label>
+
+    <div class="grid2">
+      <label class="f"><span>Nombre de quien atiende</span><input id="contacto" placeholder="Opcional: Doña Lupe" autocomplete="off"></label>
+      <label class="f"><span>Ciudad o zona</span><input id="ciudad" placeholder="Opcional: Jesús María" autocomplete="off"></label>
+    </div>
+
+    <label class="f"><span>Platillos estrella</span><input id="platillos" placeholder="Opcional: gringas, pastor y aguas frescas" autocomplete="off"></label>
+
+    <label class="f"><span>¿Cómo enseñan hoy su menú?</span>
+      <select id="situacion">
+        <option value="nose">No sé / no lo revisé</option>
+        <option value="impreso">Carta impresa o pizarrón</option>
+        <option value="pdf">Menú en PDF o fotos</option>
+        <option value="apps">Solo en Rappi / Uber Eats / DiDi</option>
+        <option value="nada">No tienen menú a la vista</option>
+      </select>
+    </label>
+
+    <span class="f"><span>Etapa</span></span>
+    <div class="seg" role="group" aria-label="Etapa del mensaje" id="etapa">
+      <button type="button" data-v="primer" aria-pressed="true">Primer mensaje</button>
+      <button type="button" data-v="seguimiento" aria-pressed="false">Seguimiento</button>
+      <button type="button" data-v="cierre" aria-pressed="false">Cierre</button>
+    </div>
+
+    <span class="f"><span>Tono</span></span>
+    <div class="seg" role="group" aria-label="Tono" id="tono">
+      <button type="button" data-v="cercano" aria-pressed="true">Cercano</button>
+      <button type="button" data-v="formal" aria-pressed="false">Formal</button>
+      <button type="button" data-v="breve" aria-pressed="false">Breve</button>
+    </div>
+
+    <div class="toggles">
+      <label><input type="checkbox" id="conPrecio"> Incluir precio</label>
+      <label><input type="checkbox" id="conEmoji" checked> Emojis</label>
+      <label><input type="checkbox" id="web"> Abrir en WhatsApp Web</label>
+    </div>
+
+    <details class="more">
+      <summary>Mi firma y precios (se guardan en este dispositivo)</summary>
+      <div class="grid2">
+        <label class="f"><span>Tu nombre</span><input id="firma" placeholder="Ej. Luka" autocomplete="off"></label>
+        <label class="f"><span>Tu marca</span><input id="marca" value="LKM'r" autocomplete="off"></label>
+        <label class="f"><span>Instalación ($)</span><input id="inst" inputmode="numeric" value="1800"></label>
+        <label class="f"><span>Mensualidad ($)</span><input id="mens" inputmode="numeric" value="390"></label>
+      </div>
+    </details>
+  </section>
+
+  <section class="out" aria-labelledby="t-msg">
+    <div class="card">
+      <h2 id="t-msg">Mensaje <button class="ghost" id="otra" type="button">↻ Otra versión</button></h2>
+      <textarea id="msg" aria-label="Mensaje listo para enviar" spellcheck="true"></textarea>
+      <div class="meta"><span id="ver">Versión 1</span><span id="count">0 caracteres</span></div>
+      <div class="actions">
+        <a class="btn wa" id="send" href="#" target="_blank" rel="noopener" aria-disabled="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8.1 8.1 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.5 13.5 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.1-.3-.2-.6-.3zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.8L.2 23.8l6.1-1.6A11.8 11.8 0 0 0 12 23.6 11.8 11.8 0 0 0 20.4 3.6z"/></svg>
+          <span id="sendTxt">Escribe número y lugar</span>
+        </a>
+        <button class="btn" id="copy" type="button">Copiar mensaje</button>
+        <button class="btn" id="otra2" type="button">↻ Otra versión</button>
+      </div>
+      <p class="hint">Puedes editar el texto antes de enviarlo. Si cambias un dato del cliente, el mensaje se vuelve a armar.</p>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h2>Enviados recientemente <button class="ghost" id="wipe" type="button">Borrar lista</button></h2>
+      <div class="hist" id="hist"></div>
+    </div>
+  </section>
+</main>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('lkm-msg-' + k); return v === null ? d : JSON.parse(v); } catch (_) { return d; } },
+  set(k, v) { try { localStorage.setItem('lkm-msg-' + k, JSON.stringify(v)); } catch (_) {} },
+};
+
+// Prospectos ya investigados (menús publicados en WebDesignLKM/menus-qr).
+const PRESETS = [
+  {"lugar": "Mariscos Save", "ciudad": "Guadalajara", "tel": "3331214476", "tipo": "marisquería", "platillos": "zarandeados, cóctel Save y ceviche de robalo", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mariscos-save/", "situacion": "apps"},
+  {"lugar": "Matilda Salón Mexicano", "ciudad": "Mérida", "tel": "9999211452", "tipo": "restaurante", "platillos": "cochinita pibil, chamorro pibil y rib eye flameado con mezcal", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/matilda/", "situacion": "apps"},
+  {"lugar": "Hanaichi", "ciudad": "San Pedro Garza García", "tel": "8129140587", "tipo": "restaurante de sushi", "platillos": "Aburi Roll, sashimi de toro y teppanyaki", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/hanaichi/", "situacion": "apps"},
+  {"lugar": "El Acuario Mariscos", "ciudad": "León", "tel": "4777140059", "tipo": "marisquería", "platillos": "aguachile de camarón, cazuela de mariscos y mojarras", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-acuario/", "situacion": "apps"},
+  {"lugar": "Antigua Fonda de la China Poblana", "ciudad": "Puebla", "tel": "2222467330", "tipo": "fonda", "platillos": "mole poblano, chalupitas y cemitas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/china-poblana/", "situacion": "apps"},
+  {"lugar": "Mi Alma Restaurante", "ciudad": "Querétaro", "tel": "4421792679", "tipo": "restaurante", "platillos": "flautas, enchiladas y molletes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mi-alma/", "situacion": "apps"},
+  {"lugar": "Cocina Azul", "ciudad": "Oaxaca de Juárez", "tel": "9515010016", "tipo": "restaurante", "platillos": "omelette en mole coloradito, arroz negro y ensalada azul", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cocina-azul/", "situacion": "apps"},
+  {"lugar": "Los Agustines", "ciudad": "San Luis Potosí", "tel": "4442817486", "tipo": "restaurante", "platillos": "enchiladas potosinas, cecina y parrillada huasteca", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/los-agustines/", "situacion": "apps"},
+  {"lugar": "Restaurant Las Playas", "ciudad": "Tijuana", "tel": "6646881808", "tipo": "marisquería", "platillos": "tostadas de ceviche, tacos de camarón y cócteles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/las-playas/", "situacion": "apps"},
+  {"lugar": "La Casona de las Rosas", "ciudad": "Morelia", "tel": "4433178822", "tipo": "restaurante", "platillos": "enchiladas placeras, uchepos y corundas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/casona-de-las-rosas/", "situacion": "apps"},
+  {"lugar": "La Chicha", "ciudad": "la Roma", "tel": "5519068115", "tipo": "restaurante bar", "platillos": "tacos de cochinita, paninis y su coctelería", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-chicha/", "situacion": "apps"},
+  {"lugar": "Restaurante El Maná", "ciudad": "Boca del Río", "tel": "2291256566", "tipo": "marisquería", "platillos": "arroz a la tumbada, picadas y panuchos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-mana/", "situacion": "apps"},
+  {"lugar": "Restaurant El Zocabón", "ciudad": "Durango", "tel": "6188118083", "tipo": "restaurante", "platillos": "fajitas, filete a la tampiqueña y enchiladas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-zocabon/", "situacion": "apps"},
+  {"lugar": "Puscua, Cocina de Herencia", "ciudad": "Marfil", "tel": "4737335018", "tipo": "restaurante", "platillos": "chilaquiles con nata, huevo a 75° y birria", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/puscua/", "situacion": "apps"},
+  {"lugar": "Restaurante Mirasol", "ciudad": "San Miguel de Allende", "tel": "4151967096", "tipo": "restaurante", "platillos": "chuleta entomatada, enchiladas suizas y sus brochetas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mirasol/", "situacion": "apps"},
+  {"lugar": "Carmelita Pech Fonda Yucateca", "ciudad": "Playa del Carmen", "tel": "9842394907", "tipo": "fonda", "platillos": "antojitos yucatecos, arrachera y chiles rellenos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/carmelita-pech/", "situacion": "apps"},
+  {"lugar": "Los 5 Reyes", "ciudad": "Campeche", "tel": "9811353724", "tipo": "restaurante", "platillos": "parrilladas, tacos al pastor y alambres", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cinco-reyes/", "situacion": "apps"},
+  {"lugar": "La Cocina de Tomasa", "ciudad": "Puerto Vallarta", "tel": "3222213273", "tipo": "restaurante", "platillos": "birria con consomé, pozole y carne asada", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cocina-de-tomasa/", "situacion": "apps"},
+  {"lugar": "Tezcalli Cocina Mexicana", "ciudad": "Xalapa", "tel": "2283210521", "tipo": "restaurante", "platillos": "pozole, charola Tezcalli y sus antojitos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/tezcalli/", "situacion": "apps"},
+  {"lugar": "Josefina Cocina del Valle", "ciudad": "Tepic", "tel": "3111479057", "tipo": "restaurante", "platillos": "chilaquiles con arrachera, waffles y molletes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/josefina/", "situacion": "apps"},
+  {"lugar": "El Temorense", "ciudad": "Chihuahua", "tel": "6146096023", "tipo": "restaurante", "platillos": "birria, gorditas de asiento y sus boxes familiares", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-temorense/", "situacion": "apps"},
+  {"lugar": "Cenaduría La Guasaveña", "ciudad": "Mexicali", "tel": "6862512446", "tipo": "cenaduría", "platillos": "chimichangas, huaraches y enchiladas de mole", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-guasavena/", "situacion": "apps"},
+  {"lugar": "Restaurante Bar El Tapatío", "ciudad": "Guanajuato", "tel": "4737323291", "tipo": "restaurante bar", "platillos": "molcajete mar y tierra, enchiladas mineras y arrachera", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-tapatio/", "situacion": "apps"},
+  {"lugar": "Marisquería Las Brisas", "ciudad": "Pachuca", "tel": "7712665769", "tipo": "marisquería", "platillos": "mojarra rellena, molcajete mar y tierra y cócteles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/las-brisas/", "situacion": "apps"},
+  {"lugar": "Clavo y Canela", "ciudad": "Irapuato", "tel": "4621356050", "tipo": "restaurante", "platillos": "chilaquiles, enchiladas y sus platos fuertes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/clavo-y-canela/", "situacion": "apps"},
+  {"lugar": "Rincón del Bife", "ciudad": "Cuernavaca", "tel": "7773164428", "tipo": "restaurante", "platillos": "chilaquiles de mole, huarache y tacos villarincón", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/rincon-del-bife/", "situacion": "apps"},
+  {"lugar": "Restaurante Samael", "ciudad": "La Paz", "tel": "6121257775", "tipo": "restaurante", "platillos": "paquetes familiares, chilaquiles y lunch box", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/samael/", "situacion": "apps"},
+  {"lugar": "Mariscos 7 Mares", "ciudad": "Hermosillo", "tel": "6622608849", "tipo": "marisquería", "platillos": "aguachiles, molcajete con mango y botana de camarón y pulpo", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/siete-mares/", "situacion": "apps"},
+  {"lugar": "Cenaduría Sabor a Mí", "ciudad": "Mazatlán", "tel": "6691768909", "tipo": "cenaduría", "platillos": "asado, tacos dorados y brochetas de camarón", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/sabor-a-mi/", "situacion": "apps"},
+  {"lugar": "Los Molcajetes de Villa", "ciudad": "Villa de Álvarez", "tel": "3123114455", "tipo": "restaurante", "platillos": "huaraches, guisos caseros y roles de canela", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/molcajetes-de-villa/", "situacion": "apps"},
+  {"lugar": "La Fionela", "ciudad": "Saltillo", "tel": "8446635347", "tipo": "restaurante", "platillos": "huevos rockefeller, pechuga Fionela y chilaquiles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-fionela/", "situacion": "apps"},
+  {"lugar": "Café con Leche", "ciudad": "Zacatecas", "tel": "4922496094", "tipo": "restaurante", "platillos": "parrillada para dos, discada norteña y desayunos especiales", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cafe-con-leche/", "situacion": "apps"},
+  {"lugar": "La Sazón de la Abuela", "ciudad": "Torreón", "tel": "8712961655", "tipo": "restaurante", "platillos": "chamorro, parrillada y combo de filetes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/sazon-de-la-abuela/", "situacion": "apps"},
+  {"lugar": "Taquería San Juan", "ciudad": "Culiacán", "tel": "6677155446", "tipo": "taquería", "platillos": "vampiros, chilakas y changuirongos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/taqueria-san-juan/", "situacion": "apps"},
+  {"lugar": "Tolk Restaurant", "ciudad": "Villahermosa", "tel": "9931871265", "tipo": "restaurante", "platillos": "chamorro braseado, cecina Tolk y sus burgers", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/tolk/", "situacion": "apps"},
+  {"lugar": "Okane Sushi", "ciudad": "Durango", "tel": "6181959412", "tipo": "restaurante de sushi", "platillos": "Salmón Dragon Roll, Hot Poseidón y su ramen", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/okane-sushi/", "situacion": "apps"},
+];
+
+// ---------- utilidades ----------
+const pick = (arr, rnd) => arr[Math.floor(rnd() * arr.length)];
+function mulberry(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const money = n => '$' + Number(n || 0).toLocaleString('es-MX');
+const clean = s => s.replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').replace(/[ \t]{2,}/g, ' ').trim();
+const cap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
+
+function digits(raw, lada) {
+  let d = String(raw || '').replace(/\D/g, '');
+  lada = String(lada || '52').replace(/\D/g, '') || '52';
+  if (lada === '52') {
+    if (d.length === 13 && d.startsWith('521')) d = d.slice(3);
+    else if (d.length === 12 && d.startsWith('52')) d = d.slice(2);
+    return { ok: d.length === 10, full: '52' + d, local: d };
+  }
+  if (d.startsWith(lada) && d.length > 10) d = d.slice(lada.length);
+  return { ok: d.length >= 7 && d.length <= 12, full: lada + d, local: d };
+}
+const fmtLocal = d => d.length === 10 ? (/^(55|33|81)/.test(d) ? `${d.slice(0, 2)} ${d.slice(2, 6)} ${d.slice(6)}` : `${d.slice(0, 3)} ${d.slice(3, 6)} ${d.slice(6)}`) : d;
+
+// ---------- plantillas ----------
+// Cada bloque es una lista de funciones (d) => texto. Si una devuelve '', se descarta y se elige otra.
+// d: { lugar, tipo, contacto, ciudad, platillos, menu, firma, marca, precio, emoji, formal }
+const E = (d, e) => d.emoji ? e : '';
+const quien = d => d.firma ? `${d.firma}, de ${d.marca}` : d.marca;
+const elLugar = d => d.lugar;
+const en = d => d.ciudad ? ` en ${d.ciudad}` : '';
+
+const SALUDO = [
+  d => d.contacto ? `Hola, ${d.contacto}, buen día ${E(d, '👋')}` : `Hola, buen día ${E(d, '👋')} ¿Hablo con ${elLugar(d)}?`,
+  d => d.contacto ? `¡Qué tal, ${d.contacto}! ${E(d, '🙌')}` : `¡Qué tal! ${E(d, '🙌')} ¿Es el WhatsApp de ${elLugar(d)}?`,
+  d => d.contacto ? `Buenas tardes, ${d.contacto}.` : `Buenas tardes, ¿me comunico con ${elLugar(d)}?`,
+  d => d.contacto ? `Hola ${d.contacto}, ¿cómo va el día?` : `Hola, ¿cómo va el día por ${elLugar(d)}? ${E(d, '😊')}`,
+  d => d.contacto ? `${d.contacto}, muy buen día.` : `Muy buen día, equipo de ${elLugar(d)}.`,
+  d => d.formal ? (d.contacto ? `Estimado(a) ${d.contacto}, buen día.` : `Buen día. Me dirijo a ${elLugar(d)}.`) : '',
+  d => !d.formal ? (d.contacto ? `¡Hola, ${d.contacto}! ¿Todo bien?` : `¡Hola! Les escribo a ${elLugar(d)} ${E(d, '👋')}`) : '',
+  d => `Hola${d.contacto ? ' ' + d.contacto : ''}, les escribo a ${elLugar(d)} ${E(d, '🙂')}`,
+];
+
+const PRESENTA = [
+  d => `Soy ${quien(d)}; hago menús digitales con QR para negocios de comida${en(d)}.`,
+  d => `Les escribe ${quien(d)}. Me dedico a pasar la carta de ${d.tipo === 'restaurante' ? 'restaurantes' : 'negocios como el suyo'} a un menú digital que se abre con un QR.`,
+  d => d.firma ? `Mi nombre es ${d.firma} y trabajo con ${d.marca}: armamos menús digitales para ${d.tipo}s y restaurantes.` : `Somos ${d.marca} y armamos menús digitales para ${d.tipo}s y restaurantes.`,
+  d => `Soy de ${d.marca}, diseño web para negocios locales. Lo que más hacemos son menús con QR.`,
+  d => `Le escribe ${quien(d)}. Ayudo a negocios de comida a tener su menú en el celular del cliente, sin PDF y sin apps.`,
+  d => d.formal ? `Me presento: ${quien(d)}, servicio de menús digitales y códigos QR para establecimientos de alimentos.` : '',
+  d => !d.formal ? `Soy ${d.firma || 'de ' + d.marca} ${E(d, '📲')} y hago menús digitales con QR para ${d.tipo}s.` : '',
+];
+
+const CON_MENU = [
+  d => `Me tomé la libertad de preparar una muestra de su menú, ya con sus platillos${d.platillos ? ' (' + d.platillos + ')' : ''}:\n${d.menu}`,
+  d => `Les armé, sin compromiso, cómo se vería ${elLugar(d)} con menú digital:\n${d.menu}\nÁbranlo desde el celular, así lo vería su cliente al escanear el QR.`,
+  d => `Ya les dejé lista una versión de prueba de su carta${d.platillos ? `, con ${d.platillos} y lo demás` : ''} ${E(d, '👇')}\n${d.menu}`,
+  d => `Hice un demo de su menú para que vean la idea antes de hablar de nada:\n${d.menu}`,
+  d => `Aquí está una muestra de su menú digital, tal cual se vería en sus mesas:\n${d.menu}${d.platillos ? `\nPuse al frente ${d.platillos}.` : ''}`,
+  d => `Para no quitarles tiempo con explicaciones, mejor se los enseño. Esta es su carta en versión digital:\n${d.menu}`,
+  d => d.formal ? `Adjunto una propuesta visual de su menú digital, elaborada con su carta actual:\n${d.menu}` : '',
+  d => !d.formal ? `Les tengo una sorpresa ${E(d, '🎁')}: ya armé su menú digital de muestra\n${d.menu}` : '',
+];
+
+const SIN_MENU = [
+  d => `Me gustaría prepararles, sin costo, una muestra de su menú digital${d.platillos ? ` con ${d.platillos}` : ''} para que vean cómo queda antes de decidir.`,
+  d => `Si me mandan una foto de su carta, en un día les regreso su menú digital de muestra, gratis y sin compromiso.`,
+  d => `Puedo armarles una versión de prueba de su menú con QR para que la vean en su celular. No les cuesta nada verla.`,
+  d => `Quiero proponerles algo sencillo: hacerles una muestra de su menú digital${d.platillos ? `, empezando por ${d.platillos}` : ''}, y si les late, lo instalamos.`,
+  d => `Con una foto de su menú me basta para hacerles un demo y que lo vean funcionando en sus mesas.`,
+  d => d.formal ? `Me permito ofrecerle una muestra sin costo de su menú en formato digital, para su evaluación.` : '',
+  d => !d.formal ? `¿Me dejan hacerles una muestra gratis de su menú digital? ${E(d, '😄')} Solo necesito una foto de la carta.` : '',
+];
+
+const DOLOR = {
+  impreso: [
+    d => `Con la carta impresa, cada cambio de precio es volver a imprimir; con el menú digital lo cambio el mismo día.`,
+    d => `Las cartas impresas se manchan, se pierden y quedan con precios viejos; el QR siempre muestra lo actual.`,
+    d => `Así ya no tienen que esperar a que se libere una carta para que la mesa pida.`,
+  ],
+  pdf: [
+    d => `Un PDF en el celular se ve chiquito y hay que hacer zoom; esto es una página ligera que se lee sola.`,
+    d => `El PDF tarda en abrir y luego nadie encuentra nada; aquí hay buscador y categorías.`,
+    d => `Las fotos del menú en WhatsApp se pierden en el chat; con un enlace siempre está a la mano.`,
+  ],
+  apps: [
+    d => `Las apps de reparto cobran comisión por cada pedido; con su propio menú los pedidos les llegan directo por WhatsApp.`,
+    d => `En Rappi o Uber sus precios traen comisión y el cliente es de la app; con su menú propio el cliente es suyo.`,
+    d => `Ya tienen las fotos y la carta en las apps; con eso mismo armo su menú propio, sin comisiones.`,
+  ],
+  nada: [
+    d => `Muchos clientes deciden dónde comer viendo el menú en el celular; si no lo encuentran, se van con otro.`,
+    d => `Tener el menú a la vista hace que pidan más rápido y que pregunten menos.`,
+    d => `Un QR en el mostrador resuelve el "¿qué tienen?" sin que nadie tenga que dictar la carta.`,
+  ],
+  nose: [
+    d => `Es una página ligera, no un PDF borroso: abre rápido y se ve bien en cualquier celular.`,
+    d => `Sirve igual para mesas, para mostrador y para mandarlo por WhatsApp a quien pregunte qué tienen.`,
+    d => '',
+  ],
+};
+
+const BENEFICIO = [
+  d => `Cómo funciona: imprimen el QR para mesas y mostrador, el cliente lo escanea y ve la carta con fotos y precios. Si quiere, arma su pedido y se lo manda directo a su WhatsApp.`,
+  d => `El cliente escanea, ve fotos, busca lo que se le antoja y pide. Ustedes solo imprimen el QR.`,
+  d => `Incluye fotos, categorías, buscador y un botón para pedir por WhatsApp. No hay que descargar nada.`,
+  d => `Cuando cambien un precio o agreguen un platillo, me avisan y queda actualizado ese mismo día.`,
+  d => `Lo mismo les sirve para las mesas, para pedidos para llevar y para compartirlo en redes.`,
+  d => `Abre en segundos, se ve bien en cualquier celular y el pedido les llega por WhatsApp ya escrito.`,
+  d => d.platillos ? `Los platillos fuertes, como ${d.platillos}, quedan arriba y con foto para que se antojen.` : '',
+];
+
+const PRECIO = [
+  d => `La inversión es de ${money(d.inst)} de instalación y ${money(d.mens)} al mes, con cambios ilimitados.`,
+  d => `Cuesta ${money(d.inst)} una sola vez (menú + QR listos para imprimir) y ${money(d.mens)} mensuales por mantenerlo actualizado.`,
+  d => `Son ${money(d.inst)} de arranque y ${money(d.mens)} al mes; ahí entran todos los cambios de precios y platillos.`,
+  d => `Instalación ${money(d.inst)}, mensualidad ${money(d.mens)}. Sin contratos largos.`,
+];
+
+const CIERRE = [
+  d => `¿Con quién lo puedo platicar? ${E(d, '🙂')}`,
+  d => `¿Les interesa que lo dejemos listo esta semana?`,
+  d => `¿Me dicen qué les parece? Si no es para ustedes, no hay problema.`,
+  d => `¿Tienen cinco minutos esta semana para que se los enseñe?`,
+  d => `Si les late, ¿con quién veo los detalles?`,
+  d => `Quedo atento. ¿Lo vemos?`,
+  d => d.formal ? `Quedo a sus órdenes para cualquier duda. Saludos cordiales.` : '',
+  d => !d.formal ? `¿Qué dicen, lo armamos? ${E(d, '🔥')}` : '',
+];
+
+const SEG_ABRE = [
+  d => `Hola${d.contacto ? ' ' + d.contacto : ''}, ¿cómo están? ${E(d, '👋')}`,
+  d => `Buen día${d.contacto ? ', ' + d.contacto : ''}. Les escribo de nuevo, ${quien(d)}.`,
+  d => `¡Qué tal${d.contacto ? ', ' + d.contacto : ''}! Paso a saludar ${E(d, '😊')}`,
+  d => `Hola, equipo de ${elLugar(d)}. Paso a darles seguimiento.`,
+  d => d.formal ? `Buen día${d.contacto ? ', ' + d.contacto : ''}. Doy seguimiento a mi mensaje anterior.` : '',
+];
+const SEG_CUERPO = [
+  d => d.menu ? `¿Alcanzaron a ver la muestra de su menú digital?\n${d.menu}` : `¿Alcanzaron a ver mi mensaje sobre el menú digital con QR?`,
+  d => d.menu ? `Les dejo otra vez el enlace de su menú por si se perdió en el chat:\n${d.menu}` : `Les vuelvo a escribir por lo del menú digital; sigo pudiendo hacerles la muestra sin costo.`,
+  d => d.menu ? `Su menú de muestra sigue arriba, por si quieren revisarlo con calma:\n${d.menu}` : `Me quedé con ganas de hacerles su menú digital${d.platillos ? ` con ${d.platillos}` : ''}. ¿Me mandan una foto de su carta?`,
+  d => d.menu ? `Su menú de prueba sigue disponible ${E(d, '✨')}\n${d.menu}` : `Sé que andan con mucho trabajo, por eso lo hago yo: solo necesito una foto de su carta.`,
+];
+const SEG_EXTRA = [
+  d => `Si algo no les convence (colores, fotos, precios) lo cambio sin problema.`,
+  d => `La idea es que la mesa pida sin esperar la carta y que ustedes cambien precios sin reimprimir.`,
+  d => `Si prefieren, se los enseño en persona o por llamada de 5 minutos.`,
+  d => `Cualquier duda me la pueden mandar por aquí mismo.`,
+  d => '',
+];
+const SEG_CIERRE = [
+  d => `¿Qué les pareció?`,
+  d => `¿Les sirve que lo dejemos listo?`,
+  d => `¿Con quién lo veo?`,
+  d => `Quedo pendiente ${E(d, '🙌')}`,
+  d => d.formal ? `Agradezco su atención y quedo a sus órdenes.` : '',
+];
+
+const CIE_ABRE = [
+  d => `¡Qué gusto que les haya gustado${d.contacto ? ', ' + d.contacto : ''}! ${E(d, '🙌')}`,
+  d => `Perfecto${d.contacto ? ', ' + d.contacto : ''}, entonces lo dejamos listo para ${elLugar(d)}.`,
+  d => `Va, les explico cómo quedaría todo${d.contacto ? ', ' + d.contacto : ''}.`,
+  d => d.formal ? `Con gusto le detallo la propuesta${d.contacto ? ', ' + d.contacto : ''}.` : '',
+];
+const CIE_PASOS = [
+  d => `Para dejarlo listo solo necesito:\n1. Foto o PDF de su carta con los precios de salón\n2. Su logo (si tienen)\n3. El WhatsApp donde quieren recibir pedidos`,
+  d => `Lo que sigue es muy simple: me mandan su carta actualizada, su logo y el número para pedidos, y en 48 horas les entrego el menú y los QR para imprimir.`,
+  d => `Me pasan la carta con precios, logo y fotos que tengan; yo me encargo del resto y les entrego los QR listos para mesa y mostrador.`,
+];
+const CIE_PRECIO = [
+  d => `Quedaría en ${money(d.inst)} de instalación y ${money(d.mens)} al mes con cambios ilimitados.`,
+  d => `Inversión: ${money(d.inst)} una vez y ${money(d.mens)} mensuales, sin contratos largos.`,
+  d => `Son ${money(d.inst)} de instalación y ${money(d.mens)} al mes; ahí entran todos los cambios que necesiten.`,
+];
+const CIE_FIN = [
+  d => `¿Arrancamos hoy?`,
+  d => `¿Les parece si empezamos esta semana?`,
+  d => `En cuanto me manden la carta, me pongo a trabajar ${E(d, '💪')}`,
+  d => d.formal ? `Quedo atento a su confirmación.` : '',
+];
+
+// ---------- armado ----------
+function choose(list, d, rnd, used) {
+  const opts = list.map((f, i) => [i, f(d)]).filter(([, t]) => t);
+  if (!opts.length) return '';
+  const [i, t] = pick(opts, rnd);
+  used.push(i);
+  return t;
+}
+
+function build(d, seed) {
+  const rnd = mulberry(seed);
+  const used = [];
+  const c = (list) => choose(list, d, rnd, used);
+  let parts;
+  if (d.etapa === 'seguimiento') {
+    parts = [c(SEG_ABRE), c(SEG_CUERPO), d.tono === 'breve' ? '' : c(SEG_EXTRA), d.precio ? c(PRECIO) : '', c(SEG_CIERRE)];
+  } else if (d.etapa === 'cierre') {
+    parts = [c(CIE_ABRE), c(CIE_PASOS), c(CIE_PRECIO), d.menu && d.tono !== 'breve' ? `Su menú quedará en el mismo enlace:\n${d.menu}` : '', c(CIE_FIN)];
+  } else {
+    const breve = d.tono === 'breve';
+    const saludo = c(SALUDO), pres = c(PRESENTA);
+    const head = rnd() < .5 ? `${saludo}\n\n${pres}` : `${saludo} ${pres}`;
+    parts = [head, d.menu ? c(CON_MENU) : c(SIN_MENU), breve ? '' : c(DOLOR[d.situacion] || DOLOR.nose),
+      breve ? '' : c(BENEFICIO), d.precio ? c(PRECIO) : '', c(CIERRE)];
+  }
+  return { text: clean(parts.filter(Boolean).join('\n\n')), key: d.etapa + ':' + used.join('.') };
+}
+
+// ---------- estado y pantalla ----------
+const F = ['tel', 'lada', 'lugar', 'tipo', 'menu', 'contacto', 'ciudad', 'platillos', 'situacion'];
+const S = ['firma', 'marca', 'inst', 'mens'];
+let etapa = 'primer', tono = 'cercano', seed = Date.now() % 1e9, version = 1, edited = false;
+const recent = store.get('recent', []);
+
+S.forEach(k => { const v = store.get('cfg-' + k, null); if (v !== null) $(k).value = v; $(k).addEventListener('input', () => { store.set('cfg-' + k, $(k).value); render(true); }); });
+['conPrecio', 'conEmoji', 'web'].forEach(k => { const v = store.get('cfg-' + k, null); if (v !== null) $(k).checked = v; $(k).addEventListener('change', () => { store.set('cfg-' + k, $(k).checked); render(true); }); });
+
+PRESETS.forEach((p, i) => $('preset').insertAdjacentHTML('beforeend', `<option value="${i}">${p.lugar} · ${p.ciudad}</option>`));
+$('preset').addEventListener('change', () => {
+  const p = PRESETS[$('preset').value]; if (!p) return;
+  fill({ tel: p.tel, lada: '52', lugar: p.lugar, tipo: p.tipo, menu: p.menu, contacto: '', ciudad: p.ciudad, platillos: p.platillos, situacion: p.situacion, etapa: 'primer' });
+});
+
+function fill(o) {
+  F.forEach(k => { if (o[k] !== undefined) $(k).value = o[k]; });
+  if (o.etapa) setSeg('etapa', o.etapa);
+  newVersion();
+}
+
+function data() {
+  const v = k => $(k).value.trim();
+  let menu = v('menu');
+  if (menu && !/^https?:\/\//i.test(menu)) menu = 'https://' + menu;
+  return {
+    lugar: v('lugar'), tipo: v('tipo') || 'restaurante', contacto: v('contacto'), ciudad: v('ciudad'), platillos: v('platillos'),
+    menu, situacion: v('situacion'), firma: v('firma'), marca: v('marca') || "LKM'r", inst: v('inst'), mens: v('mens'),
+    precio: $('conPrecio').checked, emoji: $('conEmoji').checked && tono !== 'formal', formal: tono === 'formal', tono, etapa,
+  };
+}
+
+function render(force) {
+  const d = data();
+  const ph = digits($('tel').value, $('lada').value);
+  const okTel = ph.ok, okLugar = !!d.lugar;
+  $('tel-ok').textContent = !$('tel').value.trim() ? '10 dígitos. Puedes pegarlo con espacios, guiones o +52.'
+    : okTel ? `✓ ${$('lada').value.replace(/\D/g, '') === '52' ? fmtLocal(ph.local) : '+' + ph.full}` : 'Faltan o sobran dígitos.';
+  $('tel-ok').className = !$('tel').value.trim() ? '' : okTel ? 'ok' : 'bad';
+  if (force || !edited) {
+    if (!okLugar) { $('msg').value = ''; $('msg').placeholder = 'Escribe al menos el nombre del lugar y el mensaje aparece aquí.'; }
+    else {
+      let r = build(d, seed), tries = 0;
+      const seen = store.get('seen', []);
+      while (seen.includes(r.key + '|' + d.lugar) && tries++ < 25) { seed = (seed * 9301 + 49297) % 233280 + tries; r = build(d, seed); }
+      $('msg').value = r.text; $('msg').dataset.key = r.key;
+    }
+    edited = false;
+  }
+  $('count').textContent = `${$('msg').value.length} caracteres`;
+  $('ver').textContent = `Versión ${version}${edited ? ' · editada' : ''}`;
+  const ready = okTel && okLugar && $('msg').value.trim();
+  const send = $('send');
+  send.setAttribute('aria-disabled', ready ? 'false' : 'true');
+  $('sendTxt').textContent = ready ? `Abrir WhatsApp · ${$('lada').value.replace(/\D/g, '') === '52' ? fmtLocal(ph.local) : '+' + ph.full}`
+    : !okLugar ? 'Falta el nombre del lugar' : 'Falta el número';
+  const txt = encodeURIComponent($('msg').value);
+  send.href = ready ? ($('web').checked ? `https://web.whatsapp.com/send?phone=${ph.full}&text=${txt}` : `https://wa.me/${ph.full}?text=${txt}`) : '#';
+}
+
+function newVersion() { seed = (Math.random() * 1e9) | 0; version++; edited = false; render(true); }
+
+function setSeg(group, v) {
+  document.querySelectorAll(`#${group} button`).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+  if (group === 'etapa') etapa = v; else tono = v;
+}
+['etapa', 'tono'].forEach(g => $(g).addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return; setSeg(g, b.dataset.v); render(true);
+}));
+
+F.forEach(k => $(k).addEventListener('input', () => { if (k === 'tel' || k === 'lada') render(false); else render(true); }));
+$('situacion').addEventListener('change', () => render(true));
+$('tipo').addEventListener('change', () => render(true));
+$('msg').addEventListener('input', () => { edited = true; render(false); });
+$('otra').addEventListener('click', newVersion);
+$('otra2').addEventListener('click', newVersion);
+
+function remember() {
+  const d = data(), ph = digits($('tel').value, $('lada').value);
+  const seen = store.get('seen', []); seen.push(($('msg').dataset.key || '') + '|' + d.lugar); store.set('seen', seen.slice(-300));
+  const row = { tel: ph.local, lada: $('lada').value, lugar: d.lugar, tipo: d.tipo, menu: d.menu, contacto: d.contacto, ciudad: d.ciudad,
+    platillos: d.platillos, situacion: d.situacion, etapa, fecha: Date.now() };
+  const i = recent.findIndex(r => r.tel === row.tel);
+  if (i >= 0) recent.splice(i, 1);
+  recent.unshift(row); recent.splice(60);
+  store.set('recent', recent); drawHist();
+}
+
+$('send').addEventListener('click', e => {
+  if ($('send').getAttribute('aria-disabled') === 'true') { e.preventDefault(); return; }
+  remember(); toast('Abriendo WhatsApp…');
+});
+$('copy').addEventListener('click', async () => {
+  const t = $('msg').value; if (!t) return;
+  if (data().lugar) remember();
+  try { await navigator.clipboard.writeText(t); } catch (_) { $('msg').select(); document.execCommand('copy'); }
+  toast('Mensaje copiado');
+});
+$('clear').addEventListener('click', () => {
+  F.forEach(k => { if (k !== 'lada' && k !== 'tipo' && k !== 'situacion') $(k).value = ''; });
+  $('preset').value = ''; setSeg('etapa', 'primer'); newVersion(); $('tel').focus();
+});
+
+const ETAPA = { primer: 'Primer mensaje', seguimiento: 'Seguimiento', cierre: 'Cierre' };
+const NEXT = { primer: 'seguimiento', seguimiento: 'cierre', cierre: 'cierre' };
+function drawHist() {
+  const box = $('hist');
+  if (!recent.length) { box.innerHTML = '<p class="empty">Aquí aparecen los lugares a los que ya escribiste, para mandar el seguimiento en un toque.</p>'; return; }
+  const esc = s => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  box.innerHTML = recent.map((r, i) => {
+    const dias = Math.floor((Date.now() - r.fecha) / 864e5);
+    const cuando = dias === 0 ? 'hoy' : dias === 1 ? 'ayer' : `hace ${dias} días`;
+    return `<div class="h-row"><div><b>${esc(r.lugar)}</b><small>${fmtLocal(r.tel)} · ${ETAPA[r.etapa]} · ${cuando}</small></div>
+      <button class="ghost" data-i="${i}" data-a="next" type="button">${r.etapa === 'cierre' ? 'Abrir' : 'Siguiente paso'}</button>
+      <button class="ghost" data-i="${i}" data-a="del" type="button" aria-label="Quitar ${esc(r.lugar)}">×</button></div>`;
+  }).join('');
+}
+$('hist').addEventListener('click', e => {
+  const b = e.target.closest('button[data-a]'); if (!b) return;
+  const r = recent[+b.dataset.i];
+  if (b.dataset.a === 'del') { recent.splice(+b.dataset.i, 1); store.set('recent', recent); drawHist(); return; }
+  $('preset').value = '';
+  fill({ ...r, etapa: NEXT[r.etapa] });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+$('wipe').addEventListener('click', () => { if (!recent.length || !confirm('¿Borrar la lista de enviados?')) return; recent.length = 0; store.set('recent', recent); drawHist(); });
+
+// Tema claro / oscuro.
+const root = document.documentElement;
+const savedTheme = store.get('theme', null); if (savedTheme) root.dataset.theme = savedTheme;
+const themeLabel = () => { const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; $('theme').textContent = dark ? '☀︎ Claro' : '☾ Oscuro'; return dark; };
+$('theme').addEventListener('click', () => { root.dataset.theme = themeLabel() ? 'light' : 'dark'; store.set('theme', root.dataset.theme); themeLabel(); });
+themeLabel();
+
+let tt; function toast(t) { const el = $('toast'); el.textContent = t; el.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), 1700); }
+
+// Enlace directo: ?tel=...&lugar=...&menu=... rellena el formulario.
+const qs = new URLSearchParams(location.search);
+if ([...qs.keys()].length) fill(Object.fromEntries(F.map(k => [k, qs.get(k) ?? undefined]).filter(([, v]) => v !== undefined)));
+
+// API para el macro de envío (bloque MACRO al final del archivo).
+window.LKM = {
+  PRESETS, build, digits, fmtLocal, toast,
+  settings() {
+    const v = k => $(k).value.trim();
+    return { firma: v('firma'), marca: v('marca') || "LKM'r", inst: v('inst'), mens: v('mens'), precio: $('conPrecio').checked,
+      emoji: $('conEmoji').checked && tono !== 'formal', formal: tono === 'formal', tono, web: $('web').checked };
+  },
+  addRecent(row) {
+    const i = recent.findIndex(r => r.tel === row.tel);
+    if (i >= 0) recent.splice(i, 1);
+    recent.unshift({ ...row, fecha: Date.now() }); recent.splice(60);
+    store.set('recent', recent); drawHist();
+  },
+  removeRecent(tel) { const i = recent.findIndex(r => r.tel === tel); if (i >= 0) { recent.splice(i, 1); store.set('recent', recent); drawHist(); } },
+  onSettings(fn) {
+    ['firma', 'marca', 'inst', 'mens'].forEach(k => $(k).addEventListener('input', fn));
+    ['conPrecio', 'conEmoji', 'web'].forEach(k => $(k).addEventListener('change', fn));
+    $('tono').addEventListener('click', () => setTimeout(fn));
+  },
+};
+
+drawHist(); render(true);
+})();
+</script>
+<!-- MACRO-JS:START -->
+<script>
+(() => {
+  'use strict';
+  const L = window.LKM; if (!L) return;
+  const $ = id => document.getElementById(id);
+  const get = (k, d) => { try { const v = localStorage.getItem('lkm-macro-' + k); return v === null ? d : JSON.parse(v); } catch (_) { return d; } };
+  const set = (k, v) => { try { localStorage.setItem('lkm-macro-' + k, JSON.stringify(v)); } catch (_) {} };
+  const esc = s => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const hash = s => { let h = 2166136261; for (const ch of s) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+
+  let done = get('done', []);      // teléfonos ya ofrecidos
+  let opened = get('opened', {});  // teléfono → última vez que se abrió WhatsApp
+  let filtro = 'pend', last = null;
+
+  function message(p) {
+    const st = L.settings();
+    const d = { lugar: p.lugar, tipo: p.tipo, contacto: '', ciudad: p.ciudad, platillos: p.platillos, menu: p.menu,
+      situacion: p.situacion || 'apps', etapa: 'primer', ...st };
+    return L.build(d, hash(p.lugar + '|' + p.tel)).text;  // mensaje fijo por cliente, distinto entre clientes
+  }
+  function link(p) {
+    const ph = L.digits(p.tel, '52'), txt = encodeURIComponent(message(p));
+    return L.settings().web ? `https://web.whatsapp.com/send?phone=${ph.full}&text=${txt}` : `https://wa.me/${ph.full}?text=${txt}`;
+  }
+
+  function draw() {
+    const n = L.PRESETS.length, k = L.PRESETS.filter(p => done.includes(p.tel)).length;
+    $('m-count').textContent = `${k} / ${n} ofrecidos`;
+    $('m-bar').style.width = (n ? k / n * 100 : 0) + '%';
+    $('m-done').hidden = k < n;
+    $('m-list').innerHTML = L.PRESETS.map((p, i) => {
+      const isDone = done.includes(p.tel);
+      if ((filtro === 'pend' && isDone) || (filtro === 'hechos' && !isDone)) return '';
+      const wasOpened = opened[p.tel] && !isDone;
+      return `<li class="m-row ${isDone ? 'done' : ''} ${wasOpened ? 'opened' : ''}" data-i="${i}">
+        <input class="m-chk" type="checkbox" ${isDone ? 'checked' : ''} aria-label="Marcar ${esc(p.lugar)} como ofrecido">
+        <div><span class="m-name">${i + 1}. ${esc(p.lugar)}</span><span class="m-sub">${esc(p.ciudad)} · ${L.fmtLocal(p.tel)}</span>
+          ${wasOpened ? '<span class="m-flag">WhatsApp abierto · márcalo si ya lo enviaste</span>' : ''}</div>
+        <a class="m-send" href="#" target="_blank" rel="noopener">${isDone ? 'Reenviar' : 'Enviar'}</a>
+        <details><summary>Ver mensaje</summary><pre>${esc(message(p))}</pre></details>
+      </li>`;
+    }).join('') || '<li class="m-sub">No hay nada en este filtro.</li>';
+  }
+
+  $('m-list').addEventListener('click', e => {
+    const row = e.target.closest('.m-row'); if (!row) return;
+    const p = L.PRESETS[+row.dataset.i];
+    if (e.target.closest('.m-send')) {
+      e.target.closest('.m-send').href = link(p);   // se arma al momento con tu tono, precio y firma actuales
+      opened[p.tel] = Date.now(); set('opened', opened); last = p.tel;
+      setTimeout(draw, 300);
+    }
+  });
+  $('m-list').addEventListener('change', e => {
+    if (!e.target.classList.contains('m-chk')) return;
+    const p = L.PRESETS[+e.target.closest('.m-row').dataset.i];
+    if (e.target.checked) {
+      done = [...new Set([...done, p.tel])];
+      L.addRecent({ tel: p.tel, lada: '52', lugar: p.lugar, tipo: p.tipo, menu: p.menu, contacto: '', ciudad: p.ciudad,
+        platillos: p.platillos, situacion: p.situacion || 'apps', etapa: 'primer' });
+      L.toast(`${p.lugar}: ofrecido ✓`);
+    } else { done = done.filter(t => t !== p.tel); L.removeRecent(p.tel); }
+    delete opened[p.tel]; set('opened', opened); set('done', done);
+    setTimeout(draw, filtro === 'todos' ? 0 : 350);
+  });
+  $('m-filtro').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return; filtro = b.dataset.v;
+    document.querySelectorAll('#m-filtro button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); draw();
+  });
+  $('m-reset').addEventListener('click', () => {
+    if (!confirm('¿Desmarcar todas las casillas?')) return; done = []; opened = {}; set('done', done); set('opened', opened); draw();
+  });
+  // Al volver de WhatsApp, lleva la vista al último restaurante abierto para marcarlo.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' || !last) return;
+    const i = L.PRESETS.findIndex(p => p.tel === last); last = null;
+    const row = document.querySelector(`.m-row[data-i="${i}"]`);
+    if (row) { row.scrollIntoView({ block: 'center', behavior: 'smooth' }); row.classList.add('pulse'); setTimeout(() => row.classList.remove('pulse'), 1200); }
+  });
+  L.onSettings(draw);
+  draw();
+})();
+</script>
+<!-- MACRO-JS:END -->
+</body>
+</html>
