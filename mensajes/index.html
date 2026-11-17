@@ -84,26 +84,49 @@ textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size
 .m-intro { font-size: 14px; color: var(--soft); background: var(--field); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 0 0 12px; }
 .m-intro b { color: var(--fg); }
 .m-tools { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 12px; }
-.m-tools .seg { flex: 1; min-width: 260px; }
-.m-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); }
-.m-row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px 12px; align-items: center; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--field); }
-.m-row.done { opacity: .6; }
-.m-row.done .m-name { text-decoration: line-through; }
-.m-row.opened { border-color: var(--wa); box-shadow: 0 0 0 3px color-mix(in srgb, var(--wa) 25%, transparent); }
-.m-chk { width: 26px; height: 26px; min-height: 0; accent-color: var(--wa); cursor: pointer; margin: 0; }
-.m-name { font-weight: 700; font-size: 14.5px; line-height: 1.25; display: block; }
-.m-sub { color: var(--soft); font-size: 12.5px; display: block; }
-.m-flag { color: var(--wa); font-weight: 700; font-size: 12px; display: block; margin-top: 2px; }
-.m-send, .m-call { border-radius: 10px; padding: 10px 12px; font-weight: 700; font-size: 13.5px; text-decoration: none; white-space: nowrap; text-align: center; }
-.m-send { background: var(--wa); color: var(--wa-ink); }
-.m-call { background: #d6b47a; color: #141210; }
-.m-tier { display: inline-block; margin-top: 4px; font: 700 10.5px/1 Inter, sans-serif; letter-spacing: .05em; text-transform: uppercase; padding: 4px 7px; border-radius: 999px; color: #fff; }
-.t-ok { background: #1fa855; } .t-own { background: #2f7de1; } .t-dir { background: #8a6d1d; } .t-tel { background: #5c5f66; }
-.m-row details { grid-column: 1 / -1; }
-.m-row summary { cursor: pointer; font-size: 12.5px; color: var(--soft); }
-.m-row pre, .m-script { white-space: pre-wrap; font: 400 13.5px/1.55 Inter, sans-serif; margin: 8px 0 0; padding: 12px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); }
-.m-script { white-space: normal; }
+.m-tools .seg { flex: 1; min-width: 300px; }
+.m-guard h2 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.m-meter { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 0 0 12px; }
+.m-meter div { background: var(--field); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.m-meter small { display: block; color: var(--soft); font-size: 12px; }
+.m-meter b { font: 700 20px/1.2 'Space Grotesk', sans-serif; }
+.m-alert { margin: 0 0 12px; padding: 10px 12px; border-radius: 12px; font-size: 13.5px; font-weight: 600; background: color-mix(in srgb, #e0a800 18%, var(--panel)); border: 1px solid color-mix(in srgb, #e0a800 45%, transparent); }
+.m-alert.ok { background: color-mix(in srgb, var(--wa) 14%, var(--panel)); border-color: color-mix(in srgb, var(--wa) 40%, transparent); }
+.m-set { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; }
+.m-set label { display: grid; gap: 4px; font-size: 12.5px; font-weight: 600; color: var(--soft); }
+.m-set input { width: 100%; }
+.m-tips summary { cursor: pointer; font-weight: 700; font-size: 14px; margin-top: 12px; }
+.m-tips ul { margin: 8px 0 0; padding-left: 20px; font-size: 13.5px; color: var(--soft); display: grid; gap: 4px; }
+.m-tips b { color: var(--fg); }
+.m-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); }
+.m-row { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--field); align-content: start; }
+.m-row.s-venta, .m-row.s-no { opacity: .6; }
+.m-row.s-venta .m-name, .m-row.s-no .m-name { text-decoration: line-through; }
+.m-row.s-contesto { border-color: var(--wa); box-shadow: 0 0 0 3px color-mix(in srgb, var(--wa) 22%, transparent); }
 .m-row:has(details[open]) { grid-column: 1 / -1; }
+.m-name { font-weight: 700; font-size: 15px; line-height: 1.25; display: block; }
+.m-sub { color: var(--soft); font-size: 12.5px; display: block; }
+.m-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.m-tier, .m-stage { display: inline-block; font: 700 10.5px/1 Inter, sans-serif; letter-spacing: .05em; text-transform: uppercase; padding: 4px 7px; border-radius: 999px; color: #fff; }
+.t-ok { background: #1fa855; } .t-own { background: #2f7de1; } .t-dir { background: #8a6d1d; } .t-tel { background: #5c5f66; }
+.m-stage { background: var(--chip); color: var(--fg); }
+.m-stage.st-inicial, .m-stage.st-seguimiento { background: #e0a800; color: #1d1600; }
+.m-stage.st-contesto { background: var(--wa); color: var(--wa-ink); }
+.m-main { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.m-btn { border: 0; border-radius: 12px; padding: 11px 10px; font-weight: 700; font-size: 13.5px; line-height: 1.2; text-decoration: none; text-align: center; cursor: pointer; display: grid; gap: 2px; align-content: center; min-height: 52px; }
+.m-btn small { font-weight: 600; font-size: 11px; opacity: .85; }
+.m-btn.b1 { background: var(--wa); color: var(--wa-ink); }
+.m-btn.b2 { background: var(--fg); color: var(--bg); }
+.m-btn.call { background: #d6b47a; color: #141210; }
+.m-btn.alt { background: var(--panel); color: var(--fg); border: 1px solid var(--line); }
+.m-btn[aria-disabled="true"] { opacity: .38; cursor: not-allowed; }
+.m-sec { display: flex; flex-wrap: wrap; gap: 6px; }
+.m-sec a { color: inherit; }
+.m-why { margin: 0; font-size: 12.5px; color: var(--soft); }
+.m-why b { color: var(--fg); }
+.m-row details summary { cursor: pointer; font-size: 12.5px; color: var(--soft); }
+.m-row pre, .m-script { font: 400 13.5px/1.55 Inter, sans-serif; margin: 8px 0 0; padding: 12px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); }
+.m-row pre { white-space: pre-wrap; }
 .m-script h4 { font: 700 12px/1 Inter, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--acc); margin: 14px 0 6px; }
 .m-script h4:first-child { margin-top: 0; }
 .m-script p { margin: 0 0 6px; }
@@ -112,10 +135,7 @@ textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size
 .m-script .obj b { display: block; }
 .m-script .obj span { display: block; padding-left: 10px; }
 .m-script a { color: var(--acc); }
-.m-arch-list:empty { display: none; }
-#m-export:disabled, #m-download:disabled { opacity: .45; cursor: default; }
 .m-src { font-size: 12.5px; color: var(--soft); margin: 8px 0 6px; }
-.m-confirm { margin-bottom: 6px; }
 .m-tabs { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
 .m-tabs button { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 6px 10px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
 .m-tabs button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
@@ -123,6 +143,7 @@ textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size
 .m-archive h2, .m-nego summary { font: 700 17px/1.2 'Space Grotesk', sans-serif; display: flex; align-items: center; gap: 10px; }
 .m-arch-list { margin: 0 0 12px; padding-left: 20px; font-size: 14px; display: grid; gap: 4px; }
 .m-arch-list small { color: var(--soft); }
+#m-export:disabled, #m-download:disabled { opacity: .45; cursor: default; }
 .m-nego summary { cursor: pointer; list-style: none; }
 .m-nego ul { columns: 2 220px; margin: 12px 0 0; padding-left: 18px; font-size: 14px; color: var(--soft); }
 @keyframes m-pulse { 0%, 100% { transform: none; } 50% { transform: scale(1.015); } }
@@ -143,6 +164,35 @@ textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size
 
 <!-- MACRO:START · envío rápido de los prospectos. Para quitarlo, borra todo hasta MACRO:END (y el bloque MACRO-JS:START del final). -->
 <section class="wrap macro" aria-labelledby="t-macro">
+  <div class="card m-guard" aria-labelledby="t-guard">
+    <h2 id="t-guard">Protección de tu número <span class="m-count" id="g-estado">—</span></h2>
+    <p class="hint" style="margin:0 0 12px">WhatsApp castiga los números que <b>muchos desconocidos bloquean o reportan</b>. Por eso aquí nunca se manda el enlace ni el precio a quien no te ha contestado: primero un saludo corto que pide permiso, y la venta solo cuando te responden.</p>
+    <div class="m-meter">
+      <div><small>Contactos nuevos hoy</small><b id="g-hoy">0 / 0</b></div>
+      <div><small>Siguiente contacto</small><b id="g-next">Ya</b></div>
+      <div><small>Te han contestado</small><b id="g-resp">—</b></div>
+      <div><small>Horario permitido</small><b id="g-hora">9:00–20:00</b></div>
+    </div>
+    <p class="m-alert" id="g-alert" hidden></p>
+    <div class="m-set">
+      <label>Máximo de contactos nuevos al día<input id="g-limite" type="number" min="3" max="25" step="1" value="10"></label>
+      <label>Minutos entre un contacto y otro<input id="g-espera" type="number" min="2" max="30" step="1" value="4"></label>
+    </div>
+    <details class="m-tips"><summary>Reglas para que no te sancionen</summary>
+      <ul>
+        <li><b>Usa WhatsApp Business</b> con perfil completo: logo, "LKM'r Company", descripción, horario, ciudad y el enlace a tu portafolio.</li>
+        <li><b>Primero permiso, luego enlace.</b> El contacto inicial no lleva enlace ni precio y termina en una pregunta. Cuando te contestan, WhatsApp ya lo cuenta como conversación de dos lados.</li>
+        <li><b>Calienta el número:</b> los primeros días el límite empieza en 5 y sube solo de 2 en 2. No mandes ráfagas: el macro te hace esperar entre contactos.</li>
+        <li><b>Un solo seguimiento</b> a los 3 días si no contestan. Si tampoco responden, se archivan como "sin respuesta" y no se insiste.</li>
+        <li><b>Respeta el "no"</b>: márcalo con "No le interesa" y ya no vuelve a aparecer.</li>
+        <li><b>Sin respuesta = baja el ritmo.</b> Si menos de 1 de cada 5 te contesta, para un día y mejor llama.</li>
+        <li><b>Horario de negocio</b> (9:00 a 20:00) y evita la hora de la comida (13:00–16:00), cuando el restaurante está lleno.</li>
+        <li><b>Llamar es la mejor autorización.</b> Si en la llamada te dan su WhatsApp, ya tienes permiso: toca "Me dio su WhatsApp".</li>
+        <li>Pídeles que te guarden como contacto; no uses acortadores de enlaces ni mandes el mismo texto a todos (el macro ya los varía).</li>
+      </ul>
+    </details>
+  </div>
+
   <div class="card">
     <h2 id="t-macro">Envío rápido · prospectos de menús QR <span class="m-count" id="m-count">0 / 0</span></h2>
     <div class="m-prog" aria-hidden="true"><span id="m-bar"></span></div>
@@ -153,26 +203,27 @@ textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size
     </div>
 
     <div class="m-intro" id="m-intro-ags">
-      <b>Tu estado, tu ventaja.</b> Estos lugares están a minutos de ti: puedes llamar, ir en persona con la tarjeta de mesa impresa y cerrar el mismo día.
-      Los que dicen <b>Llamar a…</b> no publican WhatsApp: usa el guion de llamada (se adapta a cada tipo de negocio) y, si te dan su WhatsApp, márcalo con "Ya confirmé que tiene WhatsApp" para mandarles la muestra.
+      <b>Tu estado, tu ventaja.</b> Estos lugares están a minutos de ti: puedes llamar o ir en persona con la tarjeta de mesa impresa.
+      Usa <b>1 · Contacto inicial</b> (saludo corto, sin enlace) y, cuando te contesten, <b>2 · Iniciar venta</b>. Los de <b>Llamar a…</b> no publican WhatsApp: usa el guion de llamada.
     </div>
-    <p class="hint m-intro" id="m-intro-nac" hidden>Toca <b>Enviar</b>: se abre WhatsApp con el mensaje hecho para ese restaurante. Los de <b>Llamar a…</b> no publican WhatsApp: llámales primero con el guion.</p>
+    <p class="hint m-intro" id="m-intro-nac" hidden><b>1 · Contacto inicial</b> saluda y pide permiso, sin enlace. <b>2 · Iniciar venta</b> se activa cuando te contestan y manda la muestra y el precio. Los de <b>Llamar a…</b> no publican WhatsApp: llámales con el guion.</p>
 
     <div class="m-tools">
       <div class="seg" role="group" aria-label="Filtro" id="m-filtro" style="margin:0">
-        <button type="button" data-v="pend" aria-pressed="true">Pendientes</button>
-        <button type="button" data-v="hechos" aria-pressed="false">Ofrecidos</button>
+        <button type="button" data-v="nuevo" aria-pressed="true">Por contactar</button>
+        <button type="button" data-v="espera" aria-pressed="false">Esperando <b id="f-espera"></b></button>
+        <button type="button" data-v="contesto" aria-pressed="false">Contestaron <b id="f-contesto"></b></button>
         <button type="button" data-v="todos" aria-pressed="false">Todos</button>
       </div>
-      <button class="ghost" id="m-reset" type="button">Desmarcar todo</button>
+      <button class="ghost" id="m-reset" type="button">Reiniciar región</button>
     </div>
     <ol class="m-list" id="m-list"></ol>
-    <p class="m-done" id="m-done" hidden>🎉 Listo: ya ofreciste todos los de esta región.</p>
+    <p class="m-done" id="m-done" hidden>🎉 Listo: ya trabajaste todos los de esta región.</p>
   </div>
 
   <div class="card m-archive">
-    <h2>Ofrecidos · listos para archivar <span class="m-count" id="m-arch-n">0</span></h2>
-    <p class="hint" style="margin:0 0 12px">Aquí se juntan los lugares que ya marcaste. Toca <b>Exportar · copiar</b> y pégame la lista en el chat: yo los quito del macro y los paso a "Lugares ya negociados" para que solo quede lo pendiente.</p>
+    <h2>Trabajados · listos para archivar <span class="m-count" id="m-arch-n">0</span></h2>
+    <p class="hint" style="margin:0 0 12px">Aquí caen los lugares a los que ya les mandaste la venta, los que dijeron que no y los que no contestaron tras el seguimiento. Toca <b>Exportar · copiar</b> y pégame la lista en el chat: los quito del macro y quedan en "Lugares ya negociados".</p>
     <ol class="m-arch-list" id="m-arch-list"></ol>
     <div class="actions" style="grid-template-columns:1fr 1fr">
       <button class="btn wa" id="m-export" type="button" style="grid-column:auto">Exportar · copiar</button>
@@ -266,8 +317,8 @@ textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size
       <div class="grid2">
         <label class="f"><span>Tu nombre</span><input id="firma" placeholder="Ej. Luka" autocomplete="off"></label>
         <label class="f"><span>Tu marca</span><input id="marca" value="LKM'r" autocomplete="off"></label>
-        <label class="f"><span>Instalación ($)</span><input id="inst" inputmode="numeric" value="1800"></label>
-        <label class="f"><span>Mensualidad ($)</span><input id="mens" inputmode="numeric" value="390"></label>
+        <label class="f"><span>Instalación ($)</span><input id="inst" inputmode="numeric" value="650"></label>
+        <label class="f"><span>Mensualidad ($)</span><input id="mens" inputmode="numeric" value="200"></label>
       </div>
     </details>
   </section>
@@ -522,10 +573,10 @@ const BENEFICIO = [
 ];
 
 const PRECIO = [
-  d => `La inversión es de ${money(d.inst)} de instalación y ${money(d.mens)} al mes, con cambios ilimitados.`,
-  d => `Cuesta ${money(d.inst)} una sola vez (menú + QR listos para imprimir) y ${money(d.mens)} mensuales por mantenerlo actualizado.`,
-  d => `Son ${money(d.inst)} de arranque y ${money(d.mens)} al mes; ahí entran todos los cambios de precios y platillos.`,
-  d => `Instalación ${money(d.inst)}, mensualidad ${money(d.mens)}. Sin contratos largos.`,
+  d => `La inversión inicia desde ${money(d.inst)} de instalación y ${money(d.mens)} al mes, con cambios ilimitados.`,
+  d => `Inicia desde ${money(d.inst)} una sola vez (menú + QR listos para imprimir) y ${money(d.mens)} mensuales por mantenerlo actualizado.`,
+  d => `Arranca en ${money(d.inst)} y ${money(d.mens)} al mes; ahí entran todos los cambios de precios y platillos.`,
+  d => `Instalación desde ${money(d.inst)}, mensualidad desde ${money(d.mens)}. Sin contratos largos.`,
 ];
 
 const CIERRE = [
@@ -628,6 +679,9 @@ const S = ['firma', 'marca', 'inst', 'mens'];
 let etapa = 'primer', tono = 'cercano', seed = Date.now() % 1e9, version = 1, edited = false;
 const recent = store.get('recent', []);
 
+// Precios 2026-11: inicia en $650 + $200/mes (reemplaza los guardados de la oferta anterior).
+if (String(store.get('cfg-inst', '')) === '1800') store.set('cfg-inst', '650');
+if (String(store.get('cfg-mens', '')) === '390') store.set('cfg-mens', '200');
 S.forEach(k => { const v = store.get('cfg-' + k, null); if (v !== null) $(k).value = v; $(k).addEventListener('input', () => { store.set('cfg-' + k, $(k).value); render(true); }); });
 ['conPrecio', 'conEmoji', 'web'].forEach(k => { const v = store.get('cfg-' + k, null); if (v !== null) $(k).checked = v; $(k).addEventListener('change', () => { store.set('cfg-' + k, $(k).checked); render(true); }); });
 
@@ -834,43 +888,166 @@ drawHist(); render(true);
   // Lugares que ya cerraste. Cuando me pegues la exportación, los quito de PRESETS y sus nombres quedan aquí (sin más datos).
   const NEGOCIADOS = [];
 
+  // Reglas anti-sanción de WhatsApp.
+  const HORA_INI = 9, HORA_FIN = 20;   // solo se escribe a desconocidos en horario de negocio
+  const SEG_DIAS = 3, ARCH_DIAS = 4;   // un seguimiento a los 3 días; sin respuesta 4 días después → archivar
+  const DAY = 864e5;
+
   const $ = id => document.getElementById(id);
   const get = (k, d) => { try { const v = localStorage.getItem('lkm-macro-' + k); return v === null ? d : JSON.parse(v); } catch (_) { return d; } };
   const set = (k, v) => { try { localStorage.setItem('lkm-macro-' + k, JSON.stringify(v)); } catch (_) {} };
   const esc = s => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const hash = s => { let h = 2166136261; for (const ch of s) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
-  const pick = (arr, seed) => arr[seed % arr.length];
+  const hash = s => { let h = 2166136261; for (const ch of String(s)) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+  const pick = (arr, seed) => { const a = arr.filter(Boolean); return a[(seed >>> 0) % a.length]; };
   const fecha = t => new Date(t).toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const dia = t => new Date(t).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
+  const money = n => '$' + Number(String(n).replace(/[^\d.]/g, '') || 0).toLocaleString('es-MX');
+  const dayStart = t => { const d = new Date(t); d.setHours(0, 0, 0, 0); return d.getTime(); };
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, Math.round(Number(v) || a)));
 
   const nego = new Set(NEGOCIADOS.map(n => n.toLowerCase()));
   const LIST = L.PRESETS.filter(p => !nego.has(p.lugar.toLowerCase()));
 
-  // Ofrecidos: teléfono → { t: fecha, via: 'WhatsApp' | 'Llamada' }. Migra la lista vieja (solo teléfonos).
-  let hechos = get('hechos', null);
-  if (!hechos) { hechos = {}; get('done', []).forEach(tel => { hechos[tel] = { t: Date.now(), via: 'WhatsApp' }; }); set('hechos', hechos); }
-  let opened = get('opened', {});          // teléfono → última vez que se abrió WhatsApp
-  let called = get('llamados', {});        // teléfono → última vez que tocaste Llamar
-  let confirmed = get('confirmados', []);  // "solo teléfono" a los que les confirmaste WhatsApp en llamada
-  let region = get('region', 'ags'), filtro = 'pend', last = null;
+  // Estado por teléfono: { s: '' | inicial | seguimiento | contesto | venta | no, t: {etapa: fecha}, via, motivo }
+  let est = get('estado', null);
+  if (!est) {  // migra el macro anterior: los ya "ofrecidos" cuentan como venta enviada; los confirmados por llamada, como que contestaron
+    est = {};
+    const viejos = get('hechos', null) || Object.fromEntries(get('done', []).map(t => [t, { t: Date.now(), via: 'WhatsApp' }]));
+    Object.entries(viejos).forEach(([tel, h]) => { est[tel] = { s: 'venta', t: { venta: h.t }, via: h.via }; });
+    get('confirmados', []).forEach(tel => { if (!est[tel]) est[tel] = { s: 'contesto', t: { contesto: Date.now() }, via: 'Llamada' }; });
+    set('estado', est);
+  }
+  let envios = get('envios', []);      // fechas de cada mensaje a quien todavía no te ha contestado
+  let inicio = get('inicio', null);    // primer día que usaste el macro (para calentar el número)
+  let limite = clamp(get('limite', 10), 3, 25), espera = clamp(get('espera', 4), 2, 30);
+  let region = get('region', 'ags'), filtro = 'nuevo', last = null;
   const abiertos = new Set(), tabs = {};
 
   const WA_OK = new Set(['whatsapp_oficial', 'numero_propio', 'directorio']);
+  const ORDEN = { whatsapp_oficial: 0, numero_propio: 1, directorio: 2, solo_telefono: 3 };
   const TIER = {
     whatsapp_oficial: ['WhatsApp oficial', 't-ok'], numero_propio: ['Número propio del negocio', 't-own'],
     directorio: ['Número de directorio', 't-dir'], solo_telefono: ['Sin WhatsApp publicado · llamar', 't-tel'],
   };
-  const canWA = p => WA_OK.has(p.contacto) || confirmed.includes(p.tel);
-  const isDone = p => !!hechos[p.tel];
+  const ETAPA = {
+    '': ['Sin contactar', ''], inicial: ['Esperando respuesta', 'st-inicial'], seguimiento: ['Seguimiento enviado', 'st-seguimiento'],
+    contesto: ['Te contestó · manda la venta', 'st-contesto'], venta: ['Venta enviada', ''], no: ['Archivado', ''],
+  };
+  const E = p => est[p.tel] || { s: '', t: {} };
+  const stage = p => E(p).s || '';
+  const save = () => set('estado', est);
+  const setStage = (p, s, extra = {}) => { const e = E(p); est[p.tel] = { ...e, ...extra, s, t: { ...e.t, [s]: Date.now() } }; save(); };
+  // WhatsApp disponible: lo publica el negocio, o te lo dieron en la llamada (eso ya es permiso).
+  const canWA = p => WA_OK.has(p.contacto) || ['contesto', 'venta'].includes(stage(p)) || (stage(p) === 'no' && E(p).via === 'Llamada');
 
-  function message(p) {
-    const st = L.settings();
-    const d = { lugar: p.lugar, tipo: p.tipo, contacto: '', ciudad: p.ciudad, platillos: p.platillos, menu: p.menu,
-      gancho: p.gancho || '', mejora: p.mejora || '', situacion: p.situacion || 'apps', etapa: 'primer', ...st };
-    return L.build(d, hash(p.lugar + '|' + p.tel)).text;  // fijo por cliente, distinto entre clientes
+  // ───────── Protección del número ─────────
+  function guard() {
+    const now = Date.now(), today = dayStart(now);
+    envios = envios.filter(t => now - t < 30 * DAY);
+    const hoy = envios.filter(t => t >= today).length;
+    const dias = inicio ? Math.floor((today - dayStart(inicio)) / DAY) : 0;
+    const calentando = 5 + 2 * dias < limite;
+    let max = Math.min(limite, 5 + 2 * dias);
+    const contactados = Object.values(est).filter(e => e.t && e.t.inicial);
+    const resp = contactados.filter(e => e.t.contesto || (e.s === 'no' && e.motivo === 'No le interesa')).length;
+    const baja = contactados.length >= 6 && resp / contactados.length < .2;
+    if (baja) max = Math.max(3, Math.floor(max / 2));
+    const lastT = envios.length ? Math.max(...envios) : 0;
+    const next = lastT ? lastT + espera * 6e4 + (hash(lastT) % 60) * 1e3 : 0;  // espera con unos segundos al azar
+    const h = new Date(now).getHours();
+    const horario = h >= HORA_INI && h < HORA_FIN;
+    let motivo = '';
+    if (!horario) motivo = `Fuera de horario: a quien no te conoce solo se le escribe de ${HORA_INI}:00 a ${HORA_FIN}:00.`;
+    else if (hoy >= max) motivo = `Ya llegaste al límite de hoy (${max}). Sigue mañana; mientras, llama o manda la venta a quien ya te contestó.`;
+    else if (now < next) motivo = `Espera un poco entre contactos para no parecer envío masivo.`;
+    return { hoy, max, calentando, baja, resp, contactados: contactados.length, next, horario, h, ok: !motivo, motivo };
   }
-  function link(p) {
-    const ph = L.digits(p.tel, '52'), txt = encodeURIComponent(message(p));
-    return L.settings().web ? `https://web.whatsapp.com/send?phone=${ph.full}&text=${txt}` : `https://wa.me/${ph.full}?text=${txt}`;
+  function regEnvio() { const t = Date.now(); envios.push(t); set('envios', envios); if (!inicio) { inicio = t; set('inicio', inicio); } }
+  function quitarEnvio(t) { if (!t) return; const i = envios.findIndex(x => Math.abs(x - t) < 5000); if (i >= 0) { envios.splice(i, 1); set('envios', envios); } }
+
+  let wasOk = null;
+  function drawGuard() {
+    const g = guard(), now = Date.now();
+    $('g-hoy').textContent = `${g.hoy} / ${g.max}`;
+    const rest = g.next - now;
+    $('g-next').textContent = !g.horario ? 'Mañana 9:00' : g.hoy >= g.max ? 'Mañana' : rest > 0 ? `${Math.floor(rest / 6e4)}:${String(Math.floor(rest / 1e3) % 60).padStart(2, '0')}` : 'Ya';
+    $('g-resp').textContent = g.contactados ? `${g.resp} de ${g.contactados}` : '—';
+    $('g-hora').textContent = g.horario ? (g.h >= 13 && g.h < 16 ? 'Hora de comida' : 'Abierto') : 'Cerrado';
+    $('g-hora').parentElement.querySelector('small').textContent = `Horario ${HORA_INI}:00–${HORA_FIN}:00`;
+    const al = [];
+    if (!g.horario) al.push(g.motivo + ' Las ventas a quien ya te contestó sí se pueden mandar.');
+    else if (g.hoy >= g.max) al.push(g.motivo);
+    if (g.baja) al.push(`Solo ${g.resp} de ${g.contactados} te han contestado: hoy el límite baja a la mitad. Prioriza llamadas y revisa tu perfil de WhatsApp Business.`);
+    if (g.calentando && !g.baja) al.push(`Calentando el número: hoy puedes contactar a ${g.max} nuevos; sube 2 por día hasta ${limite}.`);
+    if (g.horario && g.h >= 13 && g.h < 16) al.push('Es hora de comida: los restaurantes están llenos. Mejor escribe después de las 16:00.');
+    $('g-alert').hidden = !al.length;
+    $('g-alert').className = 'm-alert' + (g.ok && !g.baja ? ' ok' : '');
+    $('g-alert').innerHTML = al.map(esc).join('<br>');
+    $('g-estado').textContent = g.ok ? 'Puedes contactar' : 'En pausa';
+    if (wasOk !== null && wasOk !== g.ok) drawList();
+    wasOk = g.ok;
+  }
+
+  // ───────── Mensajes ─────────
+  const tod = () => { const h = new Date().getHours(); return h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches'; };
+  function quien(st, s, ags) {
+    const local = ags ? pick([', aquí en Aguascalientes', ', de aquí de Aguascalientes', ''], s >>> 2) : '';
+    return st.firma
+      ? pick([`Soy ${st.firma}, de ${st.marca}${local}`, `Mi nombre es ${st.firma} y trabajo en ${st.marca}${local}`, `Le escribe ${st.firma}, de ${st.marca}${local}`], s)
+      : `Le escribo de ${st.marca}${local}`;
+  }
+  function msgInicial(p) {
+    const st = L.settings(), s = hash(p.tel + '|ini'), t = tod(), pl = p.platillos;
+    const sal = pick([t, `Hola, ${t.toLowerCase()}`, `Qué tal, ${t.toLowerCase()}`], s);
+    const es = p.contacto === 'directorio' || pick([0, 0, 1], s >>> 9) ? ` ¿Es el WhatsApp de ${p.lugar}?` : '';
+    const hace = pick(['hacemos menús digitales con QR para restaurantes', 'nos dedicamos a menús digitales con código QR para restaurantes', 'hago menús digitales con QR para negocios de comida'], s >>> 3);
+    const motivo = pick([
+      `Le preparé a ${p.lugar} una muestra de menú digital${pl ? ` con ${pl}` : ''}, lista para ver en el celular.`,
+      `Armé para ${p.lugar} una muestra de su menú en digital, con QR para las mesas.`,
+      `Hice una muestra de menú digital para ${p.lugar}${pl ? ` con ${pl}` : ''}, sin costo.`,
+    ], s >>> 5);
+    const preg = pick(['¿Le puedo mandar el enlace para que la vea? Es sin compromiso.', '¿Me permite enviársela por aquí?',
+      '¿Le gustaría verla? Se la mando por aquí si me dice que sí.', '¿Con quién la puedo compartir, o se la envío a usted?'], s >>> 7);
+    const no = pick(['Si no le interesa, me dice y no le vuelvo a escribir.', 'Si no es buen momento, no se preocupe: no insisto.',
+      'Si prefiere que no, con un "no, gracias" basta. Gracias por su tiempo.'], s >>> 11);
+    return `${sal}.${es} ${quien(st, s >>> 13, p.region === 'ags')}; ${hace}.\n\n${motivo} ${preg}\n\n${no}`;
+  }
+  function msgSeguimiento(p) {
+    const st = L.settings(), s = hash(p.tel + '|seg'), t = tod();
+    const yo = st.firma ? `soy ${st.firma}, de ${st.marca}` : `le escribo de ${st.marca}`;
+    return [
+      `${pick([t, `Hola, ${t.toLowerCase()}`], s)}, ${yo}.`,
+      pick([`Hace unos días le comenté de la muestra de menú digital que le preparé a ${p.lugar}.`,
+        `Le escribí sobre el menú digital con QR que armé para ${p.lugar}.`], s >>> 2),
+      pick(['¿Le gustaría que se la mande?', '¿Le interesa verla?'], s >>> 4),
+      pick(['Si no, ya no le vuelvo a escribir. ¡Que tenga buen día!', 'Si no es para ustedes, entendido y gracias.'], s >>> 6),
+    ].join(' ');
+  }
+  function msgVenta(p) {
+    const st = L.settings(), s = hash(p.tel + '|venta'), llamada = E(p).via === 'Llamada';
+    const abre = llamada ? pick(['Gracias por atenderme por teléfono.', 'Como le comenté por teléfono:'], s)
+      : pick(['¡Muchas gracias por contestar!', 'Gracias por su respuesta.', 'Qué gusto, gracias.'], s);
+    const link = pick([`Esta es la muestra de ${p.lugar}:\n${p.menu}`, `Aquí está su menú digital de prueba:\n${p.menu}`, `Le dejo la muestra de su menú:\n${p.menu}`], s >>> 2);
+    const como = pick([
+      'El cliente escanea el QR de la mesa, ve la carta con fotos y precios, y si quiere le manda su pedido por WhatsApp, sin apps ni comisiones.',
+      'Funciona sin apps: escanean el QR, ven sus platillos con foto y el pedido le llega por WhatsApp ya escrito.',
+      'Se abre en segundos en cualquier celular y sirve en mesas, mostrador y para mandarlo a quien le pregunte "¿qué tienen?".',
+    ], s >>> 4);
+    const mejora = [p.mejora, p.situacion === 'apps' ? 'Los precios de la muestra son los de Rappi; se lo dejo con sus precios de salón.' : ''].filter(Boolean).join(' ');
+    const i = money(st.inst || 650), m = money(st.mens || 200);
+    const precio = pick([
+      `El servicio inicia desde ${i} de instalación (menú y QR listos para imprimir) y ${m} al mes, que incluye los cambios de precios y platillos.`,
+      `La inversión arranca en ${i} una sola vez y ${m} mensuales por mantenerlo al día. Sin contratos largos.`,
+      `Inicia desde ${i} de instalación y ${m} al mes, con cambios incluidos.`,
+    ], s >>> 6);
+    const local = p.region === 'ags' ? 'Como soy de aquí, si gusta le llevo en persona los QR impresos para las mesas.' : '';
+    const cierre = pick(['¿Qué le parece? Si le gusta, lo dejo listo esta semana.', '¿Lo revisa con calma y me dice qué le cambiaría?', '¿Le gustaría que lo dejemos activo?'], s >>> 8);
+    return [abre, link, [p.gancho, como].filter(Boolean).join(' '), mejora, [precio, local].filter(Boolean).join(' '), cierre,
+      st.firma ? `— ${st.firma} · ${st.marca}` : ''].filter(Boolean).join('\n\n');
+  }
+  function wa(p, txt) {
+    const ph = L.digits(p.tel, '52'), q = encodeURIComponent(txt);
+    return L.settings().web ? `https://web.whatsapp.com/send?phone=${ph.full}&text=${q}` : `https://wa.me/${ph.full}?text=${q}`;
   }
 
   // ───────── Guion de llamada, según el tipo de negocio ─────────
@@ -927,9 +1104,7 @@ drawHist(); render(true);
     },
   };
   const COMUNES = st => [
-    ['"¿Cuánto cuesta?"', st.inst || st.mens
-      ? `La instalación es de $${st.inst || '—'} una sola vez${st.mens ? ` y $${st.mens} al mes por mantenerlo y hacerle los cambios que pida` : ''}. Pero antes de hablar de dinero, déjeme mandarle el menú que ya está hecho para que vea si le gusta.`
-      : 'Depende de lo que quiera agregar; antes de hablar de dinero, déjeme mandarle el menú que ya está hecho para que vea si le gusta.'],
+    ['"¿Cuánto cuesta?"', `Inicia desde ${money(st.inst || 650)} de instalación, una sola vez, y ${money(st.mens || 200)} al mes por mantenerlo y hacerle los cambios que pida. Pero antes de hablar de dinero, déjeme mandarle el menú que ya está hecho para que vea si le gusta.`],
     ['"No tengo tiempo / estoy ocupado."', 'Lo entiendo, es hora de trabajo. ¿A qué número le mando el enlace para que lo vea con calma? Le marco mañana a la hora que usted me diga.'],
     ['"Ya usamos Rappi / Uber / Didi."', 'Perfecto, esto no compite: las apps cobran comisión por cada pedido; el menú QR es suyo, el pedido le llega directo por WhatsApp sin comisión.'],
     ['"No me interesa."', 'Sin problema, gracias por su tiempo. ¿Me permite mandarle el enlace de todas formas? Ya está hecho con su menú; si algún día lo quiere, ahí queda.'],
@@ -951,7 +1126,7 @@ drawHist(); render(true);
     const pres = pick([
       `Le llamo porque le preparé a ${p.lugar} un menú digital con código QR, ya hecho con ${p.platillos || 'sus platillos'}, fotos y precios. No le estoy pidiendo nada todavía: ya existe y quiero que lo vea.`,
       `Le hice a ${p.lugar} una muestra de menú digital con QR: el cliente escanea en la mesa y ve ${p.platillos || 'sus platillos'} con foto y precio. Ya está terminado, solo quiero mandárselo para que lo revise.`,
-    ], s >> 3);
+    ], s >>> 3);
     const objs = [...g.obj, ...COMUNES(st)];
     return `
       <h4>Antes de marcar</h4>
@@ -964,81 +1139,130 @@ drawHist(); render(true);
       ${p.gancho ? `<p class="say">${esc(p.gancho)}</p>` : ''}
       <h4>4 · Propuesta</h4><p class="say">${esc(`El menú queda con su nombre y su estilo, con QR para cada mesa y un botón para que le hagan pedidos por WhatsApp. ${p.mejora || ''} ${local}`)}</p>
       <h4>5 · Pedir el WhatsApp</h4><p class="say">${esc('¿A qué número de WhatsApp se lo mando para que lo vea en su celular? Es el enlace de su menú; si le gusta, lo dejamos activo esta semana.')}</p>
-      <p><i>Si te lo da:</i> anótalo, toca <b>"Ya confirmé que tiene WhatsApp"</b> (o cambia el número en el formulario de abajo) y manda el mensaje en ese momento.</p>
+      <p><i>Si te lo da:</i> eso ya es su autorización. Toca <b>"Me dio su WhatsApp"</b> y manda <b>2 · Iniciar venta</b> en ese momento (si te dio otro número, usa el formulario de abajo con ese número).</p>
       <h4>6 · Objeciones</h4>${objs.map(([q, r]) => `<div class="obj"><b>${esc(q)}</b><span>${esc(r)}</span></div>`).join('')}
-      <h4>7 · Cierre</h4><p class="say">${esc(`Perfecto. Le mando el enlace ahorita y le marco ${pick(['mañana', 'el jueves', 'en dos días'], s >> 5)} para ver qué le pareció. Gracias por su tiempo, ${saludo.toLowerCase()} — soy ${yo}, de ${marca}.`)}</p>
+      <h4>7 · Cierre</h4><p class="say">${esc(`Perfecto. Le mando el enlace ahorita y le marco ${pick(['mañana', 'el jueves', 'en dos días'], s >>> 5)} para ver qué le pareció. Gracias por su tiempo, ${saludo.toLowerCase()} — soy ${yo}, de ${marca}.`)}</p>
       <p><i>Buzón o no contestan:</i> no dejes recado largo. "Habla ${esc(yo)} de ${esc(marca)}, les preparé un menú digital con QR; vuelvo a llamar más tarde." Y vuelve a intentar en otro horario (evita la hora de comida, 1 a 4 pm).</p>`;
   }
 
   // ───────── Lista ─────────
+  const enFiltro = (p, f) => {
+    const s = stage(p);
+    return f === 'todos' || (f === 'nuevo' && s === '') || (f === 'espera' && (s === 'inicial' || s === 'seguimiento')) || (f === 'contesto' && s === 'contesto');
+  };
   function drawCounts() {
     const reg = r => LIST.filter(p => p.region === r);
-    const cnt = r => { const a = reg(r); return `${a.filter(isDone).length}/${a.length}`; };
+    const hecho = p => ['venta', 'no'].includes(stage(p));
+    const cnt = r => { const a = reg(r); return `${a.filter(hecho).length}/${a.length}`; };
     $('m-n-ags').textContent = cnt('ags'); $('m-n-nac').textContent = cnt('nacional');
-    const a = reg(region), k = a.filter(isDone).length;
-    $('m-count').textContent = `${k} / ${a.length} ofrecidos`;
+    const a = reg(region), k = a.filter(hecho).length;
+    $('m-count').textContent = `${k} / ${a.length} trabajados`;
     $('m-bar').style.width = (a.length ? k / a.length * 100 : 0) + '%';
     $('m-done').hidden = !a.length || k < a.length;
+    $('f-espera').textContent = a.filter(p => enFiltro(p, 'espera')).length || '';
+    $('f-contesto').textContent = a.filter(p => enFiltro(p, 'contesto')).length || '';
     $('m-intro-ags').hidden = region !== 'ags'; $('m-intro-nac').hidden = region !== 'nacional';
     document.querySelectorAll('#m-region button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === region)));
+    document.querySelectorAll('#m-filtro button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === filtro)));
   }
 
-  function row(p) {
-    const i = LIST.indexOf(p), done = isDone(p), wa = canWA(p);
+  const btn = (cls, act, label, sub, off, href) => off
+    ? `<a class="m-btn ${cls}" href="#" role="button" aria-disabled="true" data-off="${esc(off)}">${label}${sub ? `<small>${sub}</small>` : ''}</a>`
+    : `<a class="m-btn ${cls}" href="${href || '#'}" ${href && href.startsWith('tel:') ? '' : 'target="_blank" rel="noopener"'} data-act="${act}">${label}${sub ? `<small>${sub}</small>` : ''}</a>`;
+  const sec = (act, label) => `<button type="button" class="ghost" data-act="${act}">${label}</button>`;
+
+  function row(p, g) {
+    const i = LIST.indexOf(p), e = E(p), s = stage(p), now = Date.now(), w = canWA(p);
     const tier = TIER[p.contacto] || TIER.solo_telefono;
-    const tierTxt = confirmed.includes(p.tel) && !WA_OK.has(p.contacto) ? 'WhatsApp confirmado por ti' : tier[0];
-    const tab = tabs[p.tel] || (wa ? 'msg' : 'guion');
-    const flag = opened[p.tel] && !done ? 'WhatsApp abierto · márcalo si ya lo enviaste'
-      : called[p.tel] && !done ? 'Llamada hecha · márcalo si ya se lo ofreciste' : '';
-    const actions = wa
-      ? `<a class="m-send" href="#" target="_blank" rel="noopener">${done ? 'Reenviar' : 'Enviar'}</a>`
-      : `<a class="m-call" href="tel:+52${p.tel}">📞 Llamar</a>`;
-    return `<li class="m-row ${done ? 'done' : ''} ${flag ? 'opened' : ''}" data-i="${i}">
-      <input class="m-chk" type="checkbox" ${done ? 'checked' : ''} aria-label="Marcar ${esc(p.lugar)} como ofrecido">
-      <div><span class="m-name">${wa ? '' : 'Llamar a '}${esc(p.lugar)}</span>
+    const tierTxt = w && !WA_OK.has(p.contacto) ? 'WhatsApp dado en llamada' : tier[0];
+    const [stTxt, stCls] = ETAPA[s];
+    const stLabel = s === 'no' ? (e.motivo || 'Archivado') : s && e.t[s] ? `${stTxt} · ${dia(e.t[s])}` : stTxt;
+    let main = '', secs = [], why = '';
+    if (!w) {  // sin WhatsApp publicado: la llamada consigue el permiso
+      main = btn('call', 'llamar', '📞 Llamar', 'con el guion', '', `tel:+52${p.tel}`)
+        + (s === 'no' ? btn('alt', '', 'Archivado', '', 'Ya está archivado.') : `<button type="button" class="m-btn alt" data-act="dio">Me dio su WhatsApp<small>en la llamada</small></button>`);
+      secs = s === 'no' ? [sec('deshacer', 'Deshacer')] : [sec('nointeresa', '✗ No le interesa')];
+      why = s === 'no' ? '' : 'Este lugar no publica WhatsApp: llama, y si te da su número ya tienes su permiso para mandarle la venta.';
+    } else {
+      const ini = s === ''
+        ? btn('b1', 'inicial', '1 · Contacto inicial', 'saludo sin enlace', g.ok ? '' : g.motivo)
+        : btn('b1', '', '1 · Contacto inicial ✓', e.t.inicial ? dia(e.t.inicial) : (e.via === 'Llamada' ? 'por llamada' : 'hecho'), 'Ya hiciste el contacto inicial.');
+      const listo = s === 'contesto' || s === 'venta';
+      const ven = btn('b2', 'venta', s === 'venta' ? '2 · Reenviar venta' : '2 · Iniciar venta', `muestra + desde ${money(L.settings().inst || 650)}`,
+        listo ? '' : s === 'no' ? 'Está archivado.' : 'Se activa cuando te conteste: mandar enlace y precio a quien no te ha respondido es lo que provoca reportes.');
+      main = ini + ven;
+      if (s === '') { secs = [sec('nointeresa', '✗ No le interesa')]; why = g.ok ? '' : g.motivo; }
+      if (s === 'inicial' || s === 'seguimiento') {
+        secs = [sec('contesto', '✓ Me contestó'), sec('nointeresa', '✗ No le interesa')];
+        if (s === 'inicial') {
+          const cuando = e.t.inicial + SEG_DIAS * DAY;
+          if (now >= cuando) secs.push(g.ok ? `<a class="ghost" href="#" target="_blank" rel="noopener" data-act="seguimiento" style="text-decoration:none">↻ Seguimiento (única vez)</a>` : '');
+          why = now >= cuando ? (g.ok ? 'No ha contestado: puedes mandar un solo seguimiento corto, sin enlace.' : `Seguimiento disponible. ${g.motivo}`)
+            : `Si no contesta, el seguimiento se habilita el ${dia(cuando)}. No le escribas antes.`;
+          secs.push(sec('deshacer', 'Deshacer'));
+        } else {
+          const cuando = e.t.seguimiento + ARCH_DIAS * DAY;
+          if (now >= cuando) secs.push(sec('sinresp', 'Archivar: sin respuesta'));
+          why = now >= cuando ? 'No contestó al seguimiento: archívalo y no insistas.' : `Ya no le escribas más. Si no contesta, archívalo el ${dia(cuando)}.`;
+        }
+      }
+      if (s === 'contesto') { secs = [sec('nointeresa', '✗ No le interesa'), `<a class="ghost" href="tel:+52${p.tel}" data-act="llamar" style="text-decoration:none">📞 Llamar</a>`]; why = 'Ya te contestó: manda la muestra con el precio.'; }
+      if (s === 'venta' || s === 'no') secs = [sec('deshacer', 'Deshacer')];
+    }
+    const tab = tabs[p.tel] || (!w ? 'guion' : s === 'inicial' || s === 'seguimiento' ? 'seg' : s === 'contesto' || s === 'venta' ? 'venta' : 'ini');
+    const vista = { ini: () => `<pre>${esc(msgInicial(p))}</pre>`, seg: () => `<pre>${esc(msgSeguimiento(p))}</pre>`,
+      venta: () => `<pre>${esc(msgVenta(p))}</pre>`, guion: () => `<div class="m-script">${guion(p)}</div>` }[tab]();
+    return `<li class="m-row s-${s || 'nuevo'}" data-i="${i}">
+      <div><span class="m-name">${w ? '' : 'Llamar a '}${esc(p.lugar)}</span>
         <span class="m-sub">${esc(p.sucursal ? p.sucursal + ' · ' : '')}${esc(p.ciudad)} · ${L.fmtLocal(p.tel)}</span>
-        <span class="m-tier ${tier[1]}">${tierTxt}</span>${flag ? `<span class="m-flag">${flag}</span>` : ''}</div>
-      ${actions}
-      <details ${abiertos.has(p.tel) ? 'open' : ''}><summary>${wa ? 'Mensaje y guion de llamada' : 'Guion de llamada y mensaje'}</summary>
+        <span class="m-badges"><span class="m-tier ${tier[1]}">${tierTxt}</span><span class="m-stage ${stCls}">${esc(stLabel)}</span></span></div>
+      <div class="m-main">${main}</div>
+      ${secs.filter(Boolean).length ? `<div class="m-sec">${secs.join('')}</div>` : ''}
+      ${why ? `<p class="m-why">${esc(why)}</p>` : ''}
+      <details ${abiertos.has(p.tel) ? 'open' : ''}><summary>Ver mensajes y guion de llamada</summary>
         <div class="m-tabs" role="group" aria-label="Ver">
-          <button type="button" data-tab="msg" aria-pressed="${tab === 'msg'}">Mensaje de WhatsApp</button>
-          <button type="button" data-tab="guion" aria-pressed="${tab === 'guion'}">Guion de llamada · ${esc((GUION[p.guion] || GUION.restaurante).nombre)}</button>
-          ${wa ? `<a class="ghost" href="tel:+52${p.tel}" style="text-decoration:none">📞 Llamar</a>` : ''}
+          ${[['ini', '1 · Contacto inicial'], ['seg', 'Seguimiento'], ['venta', '2 · Venta'], ['guion', `Guion · ${(GUION[p.guion] || GUION.restaurante).nombre}`]]
+            .map(([k, t]) => `<button type="button" data-tab="${k}" aria-pressed="${tab === k}">${esc(t)}</button>`).join('')}
         </div>
         <p class="m-src">${esc(p.direccion ? p.direccion + ' · ' : '')}${esc(p.fuente || '')}</p>
-        ${!WA_OK.has(p.contacto) ? `<button class="ghost m-confirm" type="button">${confirmed.includes(p.tel) ? 'Quitar: no tiene WhatsApp' : 'Ya confirmé que tiene WhatsApp'}</button>` : ''}
-        ${tab === 'msg' ? `<pre>${esc(message(p))}</pre>` : `<div class="m-script">${guion(p)}</div>`}
+        ${vista}
       </details>
     </li>`;
   }
 
   function drawList() {
-    const a = LIST.filter(p => p.region === region).filter(p => filtro === 'todos' || (filtro === 'pend') !== isDone(p));
-    // WhatsApp primero, luego los de llamar; dentro, el orden original.
-    a.sort((x, y) => (canWA(y) - canWA(x)) || (LIST.indexOf(x) - LIST.indexOf(y)));
-    $('m-list').innerHTML = a.map(row).join('') || '<li class="m-sub">No hay nada en este filtro.</li>';
+    const g = guard();
+    const peso = p => ['contesto', 'inicial', 'seguimiento', '', 'venta', 'no'].indexOf(stage(p));
+    const a = LIST.filter(p => p.region === region && enFiltro(p, filtro));
+    a.sort((x, y) => (filtro === 'todos' ? peso(x) - peso(y) : 0) || (canWA(y) - canWA(x)) || (ORDEN[x.contacto] - ORDEN[y.contacto]) || (LIST.indexOf(x) - LIST.indexOf(y)));
+    $('m-list').innerHTML = a.map(p => row(p, g)).join('') || `<li class="m-sub">${{
+      nuevo: 'Ya contactaste a todos los de esta región.', espera: 'Nadie está esperando respuesta.',
+      contesto: 'Todavía nadie te contesta. Paciencia: no mandes más mensajes de los permitidos.', todos: 'No hay lugares.' }[filtro]}</li>`;
   }
 
-  // ───────── Archivo de ofrecidos + negociados ─────────
-  const archivados = () => LIST.filter(isDone).sort((a, b) => hechos[a.tel].t - hechos[b.tel].t);
+  // ───────── Archivo de trabajados + negociados ─────────
+  const resultado = p => stage(p) === 'venta' ? `Venta enviada (${E(p).via || 'WhatsApp'})` : (E(p).motivo || 'Archivado');
+  const fechaFin = p => E(p).t[stage(p)] || Date.now();
+  const archivados = () => LIST.filter(p => ['venta', 'no'].includes(stage(p))).sort((a, b) => fechaFin(a) - fechaFin(b));
   function exportText() {
     const a = archivados();
-    return [`LKM'r · Menús QR ya ofrecidos (${a.length}) · ${fecha(Date.now())}`,
+    return [`LKM'r · Menús QR trabajados (${a.length}) · ${fecha(Date.now())}`,
       'Mover a "Lugares ya negociados" y quitar del macro:', '',
-      ...a.map((p, i) => `${i + 1}. ${p.lugar}${p.sucursal ? ` (${p.sucursal})` : ''} — ${p.ciudad} · ${L.fmtLocal(p.tel)} · ${hechos[p.tel].via} · ${fecha(hechos[p.tel].t)}\n   ${p.menu}`)].join('\n');
+      ...a.map((p, i) => `${i + 1}. ${p.lugar}${p.sucursal ? ` (${p.sucursal})` : ''} — ${p.ciudad} · ${L.fmtLocal(p.tel)} · ${resultado(p)} · ${fecha(fechaFin(p))}\n   ${p.menu}`)].join('\n');
   }
   function drawArchive() {
     const a = archivados();
     $('m-arch-n').textContent = a.length;
     $('m-arch-list').innerHTML = a.length
-      ? a.map(p => `<li><b>${esc(p.lugar)}</b> <small>· ${esc(p.ciudad)} · ${hechos[p.tel].via} · ${fecha(hechos[p.tel].t)}</small></li>`).join('')
-      : '<li class="m-sub" style="list-style:none;margin-left:-20px">Todavía no marcas ninguno.</li>';
+      ? a.map(p => `<li><b>${esc(p.lugar)}</b> <small>· ${esc(p.ciudad)} · ${esc(resultado(p))} · ${fecha(fechaFin(p))}</small></li>`).join('')
+      : '<li class="m-sub" style="list-style:none;margin-left:-20px">Todavía no hay ninguno.</li>';
     $('m-export').disabled = $('m-download').disabled = !a.length;
     $('m-nego-n').textContent = NEGOCIADOS.length;
     $('m-nego-list').innerHTML = NEGOCIADOS.length ? NEGOCIADOS.map(n => `<li>${esc(n)}</li>`).join('') : '<li>Aún ninguno.</li>';
   }
 
-  function draw() { drawCounts(); drawList(); drawArchive(); }
+  function draw() { drawGuard(); drawCounts(); drawList(); drawArchive(); }
+  const later = () => setTimeout(() => { drawGuard(); drawCounts(); drawList(); drawArchive(); }, 300);
 
   // ───────── Eventos ─────────
   $('m-list').addEventListener('click', e => {
@@ -1046,50 +1270,59 @@ drawHist(); render(true);
     const p = LIST[+r.dataset.i];
     const tb = e.target.closest('[data-tab]');
     if (tb) { tabs[p.tel] = tb.dataset.tab; abiertos.add(p.tel); drawList(); return; }
-    if (e.target.closest('.m-confirm')) {
-      confirmed = confirmed.includes(p.tel) ? confirmed.filter(t => t !== p.tel) : [...confirmed, p.tel];
-      set('confirmados', confirmed); tabs[p.tel] = 'msg'; abiertos.add(p.tel); drawList(); return;
+    const off = e.target.closest('[aria-disabled="true"]');
+    if (off) { e.preventDefault(); L.toast(off.dataset.off || 'No disponible'); return; }
+    const el = e.target.closest('[data-act]'); if (!el) return;
+    const act = el.dataset.act, g = guard();
+    if (act === 'inicial' || act === 'seguimiento') {
+      if (!g.ok) { e.preventDefault(); L.toast(g.motivo); drawGuard(); drawList(); return; }  // revisa otra vez al tocar
+      el.href = wa(p, act === 'inicial' ? msgInicial(p) : msgSeguimiento(p));
+      regEnvio(); setStage(p, act, { via: 'WhatsApp' }); last = p.tel; tabs[p.tel] = 'seg'; later(); return;
     }
-    if (e.target.closest('.m-send')) {
-      e.target.closest('.m-send').href = link(p);  // se arma al momento con tu tono, precio y firma actuales
-      opened[p.tel] = Date.now(); set('opened', opened); last = p.tel; setTimeout(drawList, 300); return;
+    if (act === 'venta') {
+      el.href = wa(p, msgVenta(p));
+      setStage(p, 'venta', { via: E(p).via || 'WhatsApp' }); last = p.tel; tabs[p.tel] = 'venta';
+      L.addRecent({ tel: p.tel, lada: '52', lugar: p.lugar, tipo: p.tipo, menu: p.menu, contacto: '', ciudad: p.ciudad,
+        platillos: p.platillos, situacion: p.situacion || 'apps', etapa: 'primer' });
+      L.toast(`${p.lugar}: venta enviada ✓ (pasa al archivo)`); later(); return;
     }
-    if (e.target.closest('a[href^="tel:"]')) {
-      called[p.tel] = Date.now(); set('llamados', called); last = p.tel;
-      tabs[p.tel] = 'guion'; abiertos.add(p.tel); setTimeout(drawList, 300);
+    if (act === 'llamar') { last = p.tel; tabs[p.tel] = 'guion'; abiertos.add(p.tel); later(); return; }
+    if (act === 'dio') { setStage(p, 'contesto', { via: 'Llamada' }); tabs[p.tel] = 'venta'; L.toast('Listo: ya puedes mandarle la venta'); draw(); return; }
+    if (act === 'contesto') { setStage(p, 'contesto'); tabs[p.tel] = 'venta'; L.toast(`${p.lugar} te contestó: ya puedes mandar la venta`); draw(); return; }
+    if (act === 'nointeresa' || act === 'sinresp') {
+      setStage(p, 'no', { motivo: act === 'sinresp' ? 'Sin respuesta' : 'No le interesa' });
+      L.toast(`${p.lugar}: archivado, no se le vuelve a escribir`); draw(); return;
+    }
+    if (act === 'deshacer') {
+      const cur = E(p), s = cur.s;
+      if (s === 'inicial' || s === 'seguimiento') quitarEnvio(cur.t[s]);
+      if (s === 'venta') L.removeRecent(p.tel);
+      const prev = { inicial: '', seguimiento: 'inicial', venta: 'contesto', no: cur.t.seguimiento ? 'seguimiento' : cur.t.inicial ? 'inicial' : cur.t.contesto ? 'contesto' : '' }[s] ?? '';
+      const t = { ...cur.t }; delete t[s];
+      if (prev === '' ) delete est[p.tel]; else est[p.tel] = { ...cur, s: prev, t, motivo: undefined };
+      save(); draw();
     }
   });
   $('m-list').addEventListener('toggle', e => {
     const r = e.target.closest && e.target.closest('.m-row'); if (!r || e.target.tagName !== 'DETAILS') return;
     const tel = LIST[+r.dataset.i].tel; e.target.open ? abiertos.add(tel) : abiertos.delete(tel);
   }, true);
-  $('m-list').addEventListener('change', e => {
-    if (!e.target.classList.contains('m-chk')) return;
-    const p = LIST[+e.target.closest('.m-row').dataset.i];
-    if (e.target.checked) {
-      const via = (called[p.tel] || 0) > (opened[p.tel] || 0) || !canWA(p) ? 'Llamada' : 'WhatsApp';
-      hechos[p.tel] = { t: Date.now(), via };
-      L.addRecent({ tel: p.tel, lada: '52', lugar: p.lugar, tipo: p.tipo, menu: p.menu, contacto: '', ciudad: p.ciudad,
-        platillos: p.platillos, situacion: p.situacion || 'apps', etapa: 'primer' });
-      L.toast(`${p.lugar}: ofrecido ✓ (pasa al archivo)`);
-    } else { delete hechos[p.tel]; L.removeRecent(p.tel); }
-    delete opened[p.tel]; delete called[p.tel];
-    set('opened', opened); set('llamados', called); set('hechos', hechos);
-    drawCounts(); drawArchive(); setTimeout(drawList, filtro === 'todos' ? 0 : 350);
-  });
   $('m-region').addEventListener('click', e => {
-    const b = e.target.closest('button'); if (!b) return; region = b.dataset.v; set('region', region); draw();
+    const b = e.target.closest('button'); if (!b) return; region = b.dataset.v; set('region', region); drawCounts(); drawList();
   });
   $('m-filtro').addEventListener('click', e => {
-    const b = e.target.closest('button'); if (!b) return; filtro = b.dataset.v;
-    document.querySelectorAll('#m-filtro button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawList();
+    const b = e.target.closest('button'); if (!b) return; filtro = b.dataset.v; drawCounts(); drawList();
   });
   $('m-reset').addEventListener('click', () => {
-    const a = LIST.filter(p => p.region === region && isDone(p)); if (!a.length) return;
-    if (!confirm(`¿Desmarcar los ${a.length} ofrecidos de esta región? También salen del archivo.`)) return;
-    a.forEach(p => { delete hechos[p.tel]; delete opened[p.tel]; delete called[p.tel]; });
-    set('hechos', hechos); set('opened', opened); set('llamados', called); draw();
+    const a = LIST.filter(p => p.region === region && est[p.tel]); if (!a.length) return;
+    if (!confirm(`¿Reiniciar los ${a.length} lugares de esta región? Se borra su avance (el conteo de envíos de hoy se queda, para cuidar tu número).`)) return;
+    a.forEach(p => delete est[p.tel]); save(); draw();
   });
+  const ajuste = (id, key, a, b) => $(id).addEventListener('change', () => {
+    const v = clamp($(id).value, a, b); $(id).value = v; if (key === 'limite') limite = v; else espera = v; set(key, v); drawGuard(); drawList();
+  });
+  $('g-limite').value = limite; $('g-espera').value = espera;
+  ajuste('g-limite', 'limite', 3, 25); ajuste('g-espera', 'espera', 2, 30);
   $('m-export').addEventListener('click', async () => {
     const t = exportText();
     try { await navigator.clipboard.writeText(t); L.toast('Lista copiada · pégamela en el chat'); }
@@ -1098,16 +1331,19 @@ drawHist(); render(true);
   $('m-download').addEventListener('click', () => {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([exportText()], { type: 'text/plain;charset=utf-8' }));
-    a.download = `menus-qr-ofrecidos-${new Date().toISOString().slice(0, 10)}.txt`;
+    a.download = `menus-qr-trabajados-${new Date().toISOString().slice(0, 10)}.txt`;
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   });
-  // Al volver de WhatsApp o de la llamada, lleva la vista al último restaurante para marcarlo.
+  // Al volver de WhatsApp o de la llamada, lleva la vista al último restaurante.
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState !== 'visible' || !last) return;
+    if (document.visibilityState !== 'visible') return;
+    draw();
+    if (!last) return;
     const i = LIST.findIndex(p => p.tel === last); last = null;
     const r = document.querySelector(`.m-row[data-i="${i}"]`);
     if (r) { r.scrollIntoView({ block: 'center', behavior: 'smooth' }); r.classList.add('pulse'); setTimeout(() => r.classList.remove('pulse'), 1200); }
   });
+  setInterval(drawGuard, 1000);
   L.onSettings(drawList);
   draw();
 })();
