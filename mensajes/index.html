@@ -163,7 +163,7 @@ textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size
 
     <label class="f"><span>Enlace del menú QR (si ya lo tienes)</span>
       <input id="menu" type="url" inputmode="url" placeholder="https://lukoffmon.github.io/WebDesignLKM/menus-qr/…" autocomplete="off">
-      <small>Si lo pones, el mensaje presenta la muestra. Si no, ofrece hacerla.</small>
+      <small id="menu-ok">Si lo pones, el mensaje presenta la muestra. Si no, ofrece hacerla.</small>
     </label>
 
     <div class="grid2">
@@ -172,6 +172,9 @@ textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size
     </div>
 
     <label class="f"><span>Platillos estrella</span><input id="platillos" placeholder="Opcional: gringas, pastor y aguas frescas" autocomplete="off"></label>
+
+    <label class="f"><span>Algo específico del lugar</span><input id="gancho" placeholder="Opcional: abren hasta tarde y siempre hay fila" autocomplete="off">
+      <small>Una frase sobre su negocio; el mensaje la usa para que no suene genérico.</small></label>
 
     <label class="f"><span>¿Cómo enseñan hoy su menú?</span>
       <select id="situacion">
@@ -249,42 +252,42 @@ const store = {
 
 // Prospectos ya investigados (menús publicados en WebDesignLKM/menus-qr).
 const PRESETS = [
-  {"lugar": "Mariscos Save", "ciudad": "Guadalajara", "tel": "3331214476", "tipo": "marisquería", "platillos": "zarandeados, cóctel Save y ceviche de robalo", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mariscos-save/", "situacion": "apps"},
-  {"lugar": "Matilda Salón Mexicano", "ciudad": "Mérida", "tel": "9999211452", "tipo": "restaurante", "platillos": "cochinita pibil, chamorro pibil y rib eye flameado con mezcal", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/matilda/", "situacion": "apps"},
-  {"lugar": "Hanaichi", "ciudad": "San Pedro Garza García", "tel": "8129140587", "tipo": "restaurante de sushi", "platillos": "Aburi Roll, sashimi de toro y teppanyaki", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/hanaichi/", "situacion": "apps"},
-  {"lugar": "El Acuario Mariscos", "ciudad": "León", "tel": "4777140059", "tipo": "marisquería", "platillos": "aguachile de camarón, cazuela de mariscos y mojarras", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-acuario/", "situacion": "apps"},
-  {"lugar": "Antigua Fonda de la China Poblana", "ciudad": "Puebla", "tel": "2222467330", "tipo": "fonda", "platillos": "mole poblano, chalupitas y cemitas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/china-poblana/", "situacion": "apps"},
-  {"lugar": "Mi Alma Restaurante", "ciudad": "Querétaro", "tel": "4421792679", "tipo": "restaurante", "platillos": "flautas, enchiladas y molletes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mi-alma/", "situacion": "apps"},
-  {"lugar": "Cocina Azul", "ciudad": "Oaxaca de Juárez", "tel": "9515010016", "tipo": "restaurante", "platillos": "omelette en mole coloradito, arroz negro y ensalada azul", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cocina-azul/", "situacion": "apps"},
-  {"lugar": "Los Agustines", "ciudad": "San Luis Potosí", "tel": "4442817486", "tipo": "restaurante", "platillos": "enchiladas potosinas, cecina y parrillada huasteca", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/los-agustines/", "situacion": "apps"},
-  {"lugar": "Restaurant Las Playas", "ciudad": "Tijuana", "tel": "6646881808", "tipo": "marisquería", "platillos": "tostadas de ceviche, tacos de camarón y cócteles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/las-playas/", "situacion": "apps"},
-  {"lugar": "La Casona de las Rosas", "ciudad": "Morelia", "tel": "4433178822", "tipo": "restaurante", "platillos": "enchiladas placeras, uchepos y corundas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/casona-de-las-rosas/", "situacion": "apps"},
-  {"lugar": "La Chicha", "ciudad": "la Roma", "tel": "5519068115", "tipo": "restaurante bar", "platillos": "tacos de cochinita, paninis y su coctelería", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-chicha/", "situacion": "apps"},
-  {"lugar": "Restaurante El Maná", "ciudad": "Boca del Río", "tel": "2291256566", "tipo": "marisquería", "platillos": "arroz a la tumbada, picadas y panuchos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-mana/", "situacion": "apps"},
-  {"lugar": "Restaurant El Zocabón", "ciudad": "Durango", "tel": "6188118083", "tipo": "restaurante", "platillos": "fajitas, filete a la tampiqueña y enchiladas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-zocabon/", "situacion": "apps"},
-  {"lugar": "Puscua, Cocina de Herencia", "ciudad": "Marfil", "tel": "4737335018", "tipo": "restaurante", "platillos": "chilaquiles con nata, huevo a 75° y birria", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/puscua/", "situacion": "apps"},
-  {"lugar": "Restaurante Mirasol", "ciudad": "San Miguel de Allende", "tel": "4151967096", "tipo": "restaurante", "platillos": "chuleta entomatada, enchiladas suizas y sus brochetas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mirasol/", "situacion": "apps"},
-  {"lugar": "Carmelita Pech Fonda Yucateca", "ciudad": "Playa del Carmen", "tel": "9842394907", "tipo": "fonda", "platillos": "antojitos yucatecos, arrachera y chiles rellenos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/carmelita-pech/", "situacion": "apps"},
-  {"lugar": "Los 5 Reyes", "ciudad": "Campeche", "tel": "9811353724", "tipo": "restaurante", "platillos": "parrilladas, tacos al pastor y alambres", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cinco-reyes/", "situacion": "apps"},
-  {"lugar": "La Cocina de Tomasa", "ciudad": "Puerto Vallarta", "tel": "3222213273", "tipo": "restaurante", "platillos": "birria con consomé, pozole y carne asada", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cocina-de-tomasa/", "situacion": "apps"},
-  {"lugar": "Tezcalli Cocina Mexicana", "ciudad": "Xalapa", "tel": "2283210521", "tipo": "restaurante", "platillos": "pozole, charola Tezcalli y sus antojitos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/tezcalli/", "situacion": "apps"},
-  {"lugar": "Josefina Cocina del Valle", "ciudad": "Tepic", "tel": "3111479057", "tipo": "restaurante", "platillos": "chilaquiles con arrachera, waffles y molletes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/josefina/", "situacion": "apps"},
-  {"lugar": "El Temorense", "ciudad": "Chihuahua", "tel": "6146096023", "tipo": "restaurante", "platillos": "birria, gorditas de asiento y sus boxes familiares", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-temorense/", "situacion": "apps"},
-  {"lugar": "Cenaduría La Guasaveña", "ciudad": "Mexicali", "tel": "6862512446", "tipo": "cenaduría", "platillos": "chimichangas, huaraches y enchiladas de mole", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-guasavena/", "situacion": "apps"},
-  {"lugar": "Restaurante Bar El Tapatío", "ciudad": "Guanajuato", "tel": "4737323291", "tipo": "restaurante bar", "platillos": "molcajete mar y tierra, enchiladas mineras y arrachera", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-tapatio/", "situacion": "apps"},
-  {"lugar": "Marisquería Las Brisas", "ciudad": "Pachuca", "tel": "7712665769", "tipo": "marisquería", "platillos": "mojarra rellena, molcajete mar y tierra y cócteles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/las-brisas/", "situacion": "apps"},
-  {"lugar": "Clavo y Canela", "ciudad": "Irapuato", "tel": "4621356050", "tipo": "restaurante", "platillos": "chilaquiles, enchiladas y sus platos fuertes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/clavo-y-canela/", "situacion": "apps"},
-  {"lugar": "Rincón del Bife", "ciudad": "Cuernavaca", "tel": "7773164428", "tipo": "restaurante", "platillos": "chilaquiles de mole, huarache y tacos villarincón", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/rincon-del-bife/", "situacion": "apps"},
-  {"lugar": "Restaurante Samael", "ciudad": "La Paz", "tel": "6121257775", "tipo": "restaurante", "platillos": "paquetes familiares, chilaquiles y lunch box", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/samael/", "situacion": "apps"},
-  {"lugar": "Mariscos 7 Mares", "ciudad": "Hermosillo", "tel": "6622608849", "tipo": "marisquería", "platillos": "aguachiles, molcajete con mango y botana de camarón y pulpo", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/siete-mares/", "situacion": "apps"},
-  {"lugar": "Cenaduría Sabor a Mí", "ciudad": "Mazatlán", "tel": "6691768909", "tipo": "cenaduría", "platillos": "asado, tacos dorados y brochetas de camarón", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/sabor-a-mi/", "situacion": "apps"},
-  {"lugar": "Los Molcajetes de Villa", "ciudad": "Villa de Álvarez", "tel": "3123114455", "tipo": "restaurante", "platillos": "huaraches, guisos caseros y roles de canela", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/molcajetes-de-villa/", "situacion": "apps"},
-  {"lugar": "La Fionela", "ciudad": "Saltillo", "tel": "8446635347", "tipo": "restaurante", "platillos": "huevos rockefeller, pechuga Fionela y chilaquiles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-fionela/", "situacion": "apps"},
-  {"lugar": "Café con Leche", "ciudad": "Zacatecas", "tel": "4922496094", "tipo": "restaurante", "platillos": "parrillada para dos, discada norteña y desayunos especiales", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cafe-con-leche/", "situacion": "apps"},
-  {"lugar": "La Sazón de la Abuela", "ciudad": "Torreón", "tel": "8712961655", "tipo": "restaurante", "platillos": "chamorro, parrillada y combo de filetes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/sazon-de-la-abuela/", "situacion": "apps"},
-  {"lugar": "Taquería San Juan", "ciudad": "Culiacán", "tel": "6677155446", "tipo": "taquería", "platillos": "vampiros, chilakas y changuirongos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/taqueria-san-juan/", "situacion": "apps"},
-  {"lugar": "Tolk Restaurant", "ciudad": "Villahermosa", "tel": "9931871265", "tipo": "restaurante", "platillos": "chamorro braseado, cecina Tolk y sus burgers", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/tolk/", "situacion": "apps"},
-  {"lugar": "Okane Sushi", "ciudad": "Durango", "tel": "6181959412", "tipo": "restaurante de sushi", "platillos": "Salmón Dragon Roll, Hot Poseidón y su ramen", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/okane-sushi/", "situacion": "apps"},
+  {"lugar": "Mariscos Save", "ciudad": "Guadalajara", "tel": "3331214476", "tipo": "marisquería", "platillos": "zarandeados, cóctel Save y ceviche de robalo", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mariscos-save/", "situacion": "apps", "gancho": "Su carta es enorme (más de 150 platillos entre tostadas, zarandeados, cortes y filetes), así que el buscador y las categorías ayudan mucho a que la mesa pida rápido.", "mejora": "Lo dejo con sus precios de salón (los de Rappi traen comisión) y fotos propias de los zarandeados."},
+  {"lugar": "Matilda Salón Mexicano", "ciudad": "Mérida", "tel": "9999211452", "tipo": "restaurante", "platillos": "cochinita pibil, chamorro pibil y rib eye flameado con mezcal", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/matilda/", "situacion": "apps", "gancho": "Tienen mucho turista en el Centro y una carta que va del desayuno al rib eye flameado con mezcal; un menú web carga al instante y se puede traducir.", "mejora": "Puedo sumar versión en inglés y un botón directo a su reservación en CoverManager."},
+  {"lugar": "Hanaichi", "ciudad": "San Pedro Garza García", "tel": "8129140587", "tipo": "restaurante de sushi", "platillos": "Aburi Roll, sashimi de toro y teppanyaki", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/hanaichi/", "situacion": "apps", "gancho": "Con 15 nigiris, 18 rollos de autor y sashimis de toro, las fotos venden solas; en un PDF se pierden.", "mejora": "Lo adapto a su imagen, con etiquetas de picante y crudo, y una sección de recomendados del chef."},
+  {"lugar": "El Acuario Mariscos", "ciudad": "León", "tel": "4777140059", "tipo": "marisquería", "platillos": "aguachile de camarón, cazuela de mariscos y mojarras", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-acuario/", "situacion": "apps", "gancho": "Abren de 13:30 a 19:00, así que cada pedido para llevar cuenta: el menú arma la orden y la manda lista por WhatsApp.", "mejora": "Lo dejo con sus precios de mostrador y los combos del día."},
+  {"lugar": "Antigua Fonda de la China Poblana", "ciudad": "Puebla", "tel": "2222467330", "tipo": "fonda", "platillos": "mole poblano, chalupitas y cemitas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/china-poblana/", "situacion": "apps", "gancho": "Más de 100 platillos (moles, chalupas, cemitas) y mucho turista: un menú digital con fotos ayuda a decidir sin tener que explicar cada platillo.", "mejora": "Puedo agregar versión en inglés y la venta de mole en pasta para llevar."},
+  {"lugar": "Mi Alma Restaurante", "ciudad": "Querétaro", "tel": "4421792679", "tipo": "restaurante", "platillos": "flautas, enchiladas y molletes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mi-alma/", "situacion": "apps", "gancho": "Su carta de desayunos es de las que más se piden con prisa; con el QR en la mesa la gente ordena sin esperar la carta.", "mejora": "Puedo marcar opciones vegetarianas y paquetes del día."},
+  {"lugar": "Cocina Azul", "ciudad": "Oaxaca de Juárez", "tel": "9515010016", "tipo": "restaurante", "platillos": "omelette en mole coloradito, arroz negro y ensalada azul", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cocina-azul/", "situacion": "apps", "gancho": "Al estar dentro del hotel, el mismo QR sirve en mesas y en habitaciones: el huésped ve la carta desde su celular.", "mejora": "Lo hago bilingüe (español / inglés) para sus huéspedes extranjeros."},
+  {"lugar": "Los Agustines", "ciudad": "San Luis Potosí", "tel": "4442817486", "tipo": "restaurante", "platillos": "enchiladas potosinas, cecina y parrillada huasteca", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/los-agustines/", "situacion": "apps", "gancho": "Las enchiladas potosinas son lo que todos buscan; en el menú quedan arriba, con foto y precio claro.", "mejora": "Puedo agregar desayunos del día y pedidos para llevar por WhatsApp."},
+  {"lugar": "Restaurant Las Playas", "ciudad": "Tijuana", "tel": "6646881808", "tipo": "marisquería", "platillos": "tostadas de ceviche, tacos de camarón y cócteles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/las-playas/", "situacion": "apps", "gancho": "Abren desde las 6:30 y atienden a mucha gente que cruza de San Diego; un menú web se abre en cualquier celular, sin app.", "mejora": "Puedo mostrar precios en pesos y en dólares, y versión en inglés."},
+  {"lugar": "La Casona de las Rosas", "ciudad": "Morelia", "tel": "4433178822", "tipo": "restaurante", "platillos": "enchiladas placeras, uchepos y corundas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/casona-de-las-rosas/", "situacion": "apps", "gancho": "Enchiladas morelianas, sopa tarasca y una carta de 80 platillos: con categorías y fotos el turista decide rápido.", "mejora": "Puedo agregar versión en inglés y un botón para reservar por WhatsApp."},
+  {"lugar": "La Chicha", "ciudad": "la Roma", "tel": "5519068115", "tipo": "restaurante bar", "platillos": "tacos de cochinita, paninis y su coctelería", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-chicha/", "situacion": "apps", "gancho": "En la Roma la mitad de las mesas son extranjeros; un menú web con fotos y versión en inglés les ahorra pedir que les traduzcan la carta.", "mejora": "Lo hago bilingüe y con su carta de coctelería y cervezas al frente."},
+  {"lugar": "Restaurante El Maná", "ciudad": "Boca del Río", "tel": "2291256566", "tipo": "marisquería", "platillos": "arroz a la tumbada, picadas y panuchos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-mana/", "situacion": "apps", "gancho": "Arroz a la tumbada, desayunos y mariscos todo el día: con el QR en la mesa, el comensal ve fotos y precios sin esperar la carta.", "mejora": "Lo dejo con sus precios de salón y los platillos de temporada."},
+  {"lugar": "Restaurant El Zocabón", "ciudad": "Durango", "tel": "6188118083", "tipo": "restaurante", "platillos": "fajitas, filete a la tampiqueña y enchiladas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-zocabon/", "situacion": "apps", "gancho": "Están en pleno centro, en un edificio histórico que recomienda Lonely Planet: el turista llega con el celular en la mano y un QR en la mesa le resuelve la carta.", "mejora": "Puedo agregar versión en inglés y destacar sus paquetes de desayuno."},
+  {"lugar": "Puscua, Cocina de Herencia", "ciudad": "Marfil", "tel": "4737335018", "tipo": "restaurante", "platillos": "chilaquiles con nata, huevo a 75° y birria", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/puscua/", "situacion": "apps", "gancho": "Su carta es corta y muy cuidada (chilaquiles con nata, huevo a 75°, birria); merece verse con fotos y no en una hoja suelta.", "mejora": "Lo hago bilingüe para los visitantes del museo y le pongo un botón para reservar."},
+  {"lugar": "Restaurante Mirasol", "ciudad": "San Miguel de Allende", "tel": "4151967096", "tipo": "restaurante", "platillos": "chuleta entomatada, enchiladas suizas y sus brochetas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mirasol/", "situacion": "apps", "gancho": "Atienden huéspedes del hotel y turistas de San Miguel: con un QR en las mesas del jardín y en las habitaciones, todos ven la carta en su idioma.", "mejora": "Lo hago bilingüe y con un botón para reservar mesa por WhatsApp."},
+  {"lugar": "Carmelita Pech Fonda Yucateca", "ciudad": "Playa del Carmen", "tel": "9842394907", "tipo": "fonda", "platillos": "antojitos yucatecos, arrachera y chiles rellenos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/carmelita-pech/", "situacion": "apps", "gancho": "Tienen casi 250 reseñas en Rappi y mucha gente local y turista; un menú con fotos de sus antojitos yucatecos ayuda a que pidan sin preguntar.", "mejora": "Puedo destacar sus especiales del día (como los chiles rellenos de los martes) y hacerlo bilingüe."},
+  {"lugar": "Los 5 Reyes", "ciudad": "Campeche", "tel": "9811353724", "tipo": "restaurante", "platillos": "parrilladas, tacos al pastor y alambres", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cinco-reyes/", "situacion": "apps", "gancho": "Con parrilladas para cinco y kilos para llevar, el menú digital ayuda a que la mesa arme su pedido completo y lo mande por WhatsApp.", "mejora": "Puedo poner sus promos del día al frente y un botón de pedido para llevar."},
+  {"lugar": "La Cocina de Tomasa", "ciudad": "Puerto Vallarta", "tel": "3222213273", "tipo": "restaurante", "platillos": "birria con consomé, pozole y carne asada", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cocina-de-tomasa/", "situacion": "apps", "gancho": "Vallarta está lleno de turistas que no conocen los platillos; con fotos y descripción en inglés piden más y más rápido.", "mejora": "Lo hago bilingüe y pongo la birria y el pozole al frente."},
+  {"lugar": "Tezcalli Cocina Mexicana", "ciudad": "Xalapa", "tel": "2283210521", "tipo": "restaurante", "platillos": "pozole, charola Tezcalli y sus antojitos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/tezcalli/", "situacion": "apps", "gancho": "Ya venden pozole por litro y paquetes; con un QR en mesas y en cada bolsa para llevar, el cliente vuelve a pedir directo por WhatsApp.", "mejora": "Lo dejo con sus paquetes al frente y sus precios de salón."},
+  {"lugar": "Josefina Cocina del Valle", "ciudad": "Tepic", "tel": "3111479057", "tipo": "restaurante", "platillos": "chilaquiles con arrachera, waffles y molletes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/josefina/", "situacion": "apps", "gancho": "Su carta de desayunos tiene más de 70 opciones entre waffles, bagels y chilaquiles; con buscador y fotos el cliente encuentra lo suyo en segundos.", "mejora": "Puedo agregar su carta de eventos de Hacienda Josefina en el mismo enlace."},
+  {"lugar": "El Temorense", "ciudad": "Chihuahua", "tel": "6146096023", "tipo": "restaurante", "platillos": "birria, gorditas de asiento y sus boxes familiares", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-temorense/", "situacion": "apps", "gancho": "Sus boxes familiares y la birria se venden por foto: un menú digital los pone al frente para mesa y para llevar.", "mejora": "Lo dejo con sus boxes y un botón de pedido por WhatsApp."},
+  {"lugar": "Cenaduría La Guasaveña", "ciudad": "Mexicali", "tel": "6862512446", "tipo": "cenaduría", "platillos": "chimichangas, huaraches y enchiladas de mole", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-guasavena/", "situacion": "apps", "gancho": "Las cenadurías se llenan de golpe en la noche: con el QR en la mesa la gente ve la carta y pide sin esperar al mesero.", "mejora": "Puedo mostrar precios en pesos y en dólares para sus clientes de Calexico."},
+  {"lugar": "Restaurante Bar El Tapatío", "ciudad": "Guanajuato", "tel": "4737323291", "tipo": "restaurante bar", "platillos": "molcajete mar y tierra, enchiladas mineras y arrachera", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-tapatio/", "situacion": "apps", "gancho": "Están frente a la Universidad, con estudiantes y turistas todo el día; una carta de más de 90 platillos en el celular se recorre mucho más fácil.", "mejora": "Lo hago bilingüe y separo la carta del bar para la noche."},
+  {"lugar": "Marisquería Las Brisas", "ciudad": "Pachuca", "tel": "7712665769", "tipo": "marisquería", "platillos": "mojarra rellena, molcajete mar y tierra y cócteles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/las-brisas/", "situacion": "apps", "gancho": "Sus mojarras y molcajetes son de foto; en un menú digital se antojan y la mesa pide más.", "mejora": "Lo dejo con su especialidad de la casa al frente y pedidos para llevar por WhatsApp."},
+  {"lugar": "Clavo y Canela", "ciudad": "Irapuato", "tel": "4621356050", "tipo": "restaurante", "platillos": "chilaquiles, enchiladas y sus platos fuertes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/clavo-y-canela/", "situacion": "apps", "gancho": "Ya tienen su página web; lo que propongo es el QR para las mesas, que abre su carta de 120 platillos con buscador y fotos.", "mejora": "Puedo enlazarlo a su página actual para que todo quede en un mismo lugar."},
+  {"lugar": "Rincón del Bife", "ciudad": "Cuernavaca", "tel": "7773164428", "tipo": "restaurante", "platillos": "chilaquiles de mole, huarache y tacos villarincón", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/rincon-del-bife/", "situacion": "apps", "gancho": "Ya tienen su sitio; el QR en la mesa abre directo la carta de desayunos con fotos, sin buscar en el sitio.", "mejora": "Lo dejo con su imagen y separo la carta de desayunos de la de cortes."},
+  {"lugar": "Restaurante Samael", "ciudad": "La Paz", "tel": "6121257775", "tipo": "restaurante", "platillos": "paquetes familiares, chilaquiles y lunch box", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/samael/", "situacion": "apps", "gancho": "Sus paquetes familiares y lunch box se piden mucho para llevar; el menú los arma y los manda por WhatsApp.", "mejora": "Lo hago bilingüe para los turistas del malecón."},
+  {"lugar": "Mariscos 7 Mares", "ciudad": "Hermosillo", "tel": "6622608849", "tipo": "marisquería", "platillos": "aguachiles, molcajete con mango y botana de camarón y pulpo", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/siete-mares/", "situacion": "apps", "gancho": "Ya tienen su sitio; el QR en la mesa abre directo su carta de aguachiles con fotos, que es lo que más se antoja.", "mejora": "Lo dejo con su imagen y los aguachiles numerados al frente."},
+  {"lugar": "Cenaduría Sabor a Mí", "ciudad": "Mazatlán", "tel": "6691768909", "tipo": "cenaduría", "platillos": "asado, tacos dorados y brochetas de camarón", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/sabor-a-mi/", "situacion": "apps", "gancho": "En Mazatlán hay mucho turista que no conoce el asado ni los tacos dorados; con fotos y descripción piden con confianza.", "mejora": "Lo hago bilingüe y pongo sus asados al frente."},
+  {"lugar": "Los Molcajetes de Villa", "ciudad": "Villa de Álvarez", "tel": "3123114455", "tipo": "restaurante", "platillos": "huaraches, guisos caseros y roles de canela", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/molcajetes-de-villa/", "situacion": "apps", "gancho": "Tienen desayunos, guisos, huaraches y panadería; con 90 productos, el buscador y las categorías ahorran mucho tiempo en mesa.", "mejora": "Puedo separar la panadería para pedidos por caja con WhatsApp."},
+  {"lugar": "La Fionela", "ciudad": "Saltillo", "tel": "8446635347", "tipo": "restaurante", "platillos": "huevos rockefeller, pechuga Fionela y chilaquiles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-fionela/", "situacion": "apps", "gancho": "Son de desayunos con mucha clientela de oficina: con el QR en la mesa piden y comen a tiempo.", "mejora": "Puedo agregar su comida del día y pedidos para llevar por WhatsApp."},
+  {"lugar": "Café con Leche", "ciudad": "Zacatecas", "tel": "4922496094", "tipo": "restaurante", "platillos": "parrillada para dos, discada norteña y desayunos especiales", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cafe-con-leche/", "situacion": "apps", "gancho": "Zacatecas recibe muchos visitantes; un menú con fotos de sus parrilladas y desayunos se comparte fácil por WhatsApp.", "mejora": "Lo dejo con sus desayunos especiales al frente y su carta de cafetería."},
+  {"lugar": "La Sazón de la Abuela", "ciudad": "Torreón", "tel": "8712961655", "tipo": "restaurante", "platillos": "chamorro, parrillada y combo de filetes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/sazon-de-la-abuela/", "situacion": "apps", "gancho": "Su carta va del desayuno americano al chamorro y los mariscos; en el celular con categorías se entiende mucho mejor.", "mejora": "Puedo destacar sus combos y su comida del día."},
+  {"lugar": "Taquería San Juan", "ciudad": "Culiacán", "tel": "6677155446", "tipo": "taquería", "platillos": "vampiros, chilakas y changuirongos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/taqueria-san-juan/", "situacion": "apps", "gancho": "Abren hasta las 11:30 de la noche y la fila se hace larga; con el QR la gente ve la carta mientras espera y ordena directo.", "mejora": "Lo dejo con todas sus sucursales en el mismo enlace."},
+  {"lugar": "Tolk Restaurant", "ciudad": "Villahermosa", "tel": "9931871265", "tipo": "restaurante", "platillos": "chamorro braseado, cecina Tolk y sus burgers", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/tolk/", "situacion": "apps", "gancho": "Su carta mezcla desayunos, cocina mexicana, burgers y alitas; con categorías y buscador cada quien encuentra lo suyo rápido.", "mejora": "Lo dejo con su imagen y un botón para reservar por WhatsApp."},
+  {"lugar": "Okane Sushi", "ciudad": "Durango", "tel": "6181959412", "tipo": "restaurante de sushi", "platillos": "Salmón Dragon Roll, Hot Poseidón y su ramen", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/okane-sushi/", "situacion": "apps", "gancho": "Con más de 70 rollos, ramen y yakitoris, las fotos venden solas; en una carta impresa se pierden.", "mejora": "Pongo etiquetas de picante y crudo, y una sección de recomendados."},
 ];
 
 // ---------- utilidades ----------
@@ -311,6 +314,13 @@ const fmtLocal = d => d.length === 10 ? (/^(55|33|81)/.test(d) ? `${d.slice(0, 2
 // Cada bloque es una lista de funciones (d) => texto. Si una devuelve '', se descarta y se elige otra.
 // d: { lugar, tipo, contacto, ciudad, platillos, menu, firma, marca, precio, emoji, formal }
 const E = (d, e) => d.emoji ? e : '';
+// Plural del tipo de negocio: "restaurante de sushi" → "restaurantes de sushi", "bar" → "bares", "food truck" → "food trucks".
+const plural = t => {
+  if (/^food truck$/i.test(t)) return 'food trucks';
+  const [w, ...rest] = t.split(' ');
+  const pw = /[aeiouáéíóú]$/i.test(w) ? w + 's' : w + 'es';
+  return [pw, ...rest].join(' ');
+};
 const quien = d => d.firma ? `${d.firma}, de ${d.marca}` : d.marca;
 const elLugar = d => d.lugar;
 const en = d => d.ciudad ? ` en ${d.ciudad}` : '';
@@ -329,11 +339,11 @@ const SALUDO = [
 const PRESENTA = [
   d => `Soy ${quien(d)}; hago menús digitales con QR para negocios de comida${en(d)}.`,
   d => `Les escribe ${quien(d)}. Me dedico a pasar la carta de ${d.tipo === 'restaurante' ? 'restaurantes' : 'negocios como el suyo'} a un menú digital que se abre con un QR.`,
-  d => d.firma ? `Mi nombre es ${d.firma} y trabajo con ${d.marca}: armamos menús digitales para ${d.tipo}s y restaurantes.` : `Somos ${d.marca} y armamos menús digitales para ${d.tipo}s y restaurantes.`,
+  d => d.firma ? `Mi nombre es ${d.firma} y trabajo con ${d.marca}: armamos menús digitales para ${plural(d.tipo)} y restaurantes.` : `Somos ${d.marca} y armamos menús digitales para ${plural(d.tipo)} y restaurantes.`,
   d => `Soy de ${d.marca}, diseño web para negocios locales. Lo que más hacemos son menús con QR.`,
   d => `Le escribe ${quien(d)}. Ayudo a negocios de comida a tener su menú en el celular del cliente, sin PDF y sin apps.`,
   d => d.formal ? `Me presento: ${quien(d)}, servicio de menús digitales y códigos QR para establecimientos de alimentos.` : '',
-  d => !d.formal ? `Soy ${d.firma || 'de ' + d.marca} ${E(d, '📲')} y hago menús digitales con QR para ${d.tipo}s.` : '',
+  d => !d.formal ? `Soy ${d.firma || 'de ' + d.marca} ${E(d, '📲')} y hago menús digitales con QR para ${plural(d.tipo)}.` : '',
 ];
 
 const CON_MENU = [
@@ -386,13 +396,12 @@ const DOLOR = {
 };
 
 const BENEFICIO = [
-  d => `Cómo funciona: imprimen el QR para mesas y mostrador, el cliente lo escanea y ve la carta con fotos y precios. Si quiere, arma su pedido y se lo manda directo a su WhatsApp.`,
-  d => `El cliente escanea, ve fotos, busca lo que se le antoja y pide. Ustedes solo imprimen el QR.`,
-  d => `Incluye fotos, categorías, buscador y un botón para pedir por WhatsApp. No hay que descargar nada.`,
-  d => `Cuando cambien un precio o agreguen un platillo, me avisan y queda actualizado ese mismo día.`,
-  d => `Lo mismo les sirve para las mesas, para pedidos para llevar y para compartirlo en redes.`,
-  d => `Abre en segundos, se ve bien en cualquier celular y el pedido les llega por WhatsApp ya escrito.`,
-  d => d.platillos ? `Los platillos fuertes, como ${d.platillos}, quedan arriba y con foto para que se antojen.` : '',
+  d => `El cliente escanea el QR de la mesa, ve la carta con fotos y precios, y si quiere manda su pedido directo a su WhatsApp.`,
+  d => `Funciona sin apps: se escanea el QR, se ve la carta con fotos y el pedido les llega por WhatsApp ya escrito.`,
+  d => `Ustedes solo imprimen el QR; el cliente ve fotos, busca lo que se le antoja y pide por WhatsApp.`,
+  d => `Es una página ligera, no un PDF: abre en segundos en cualquier celular y se actualiza el mismo día que cambien un precio.`,
+  d => `Sirve en mesas, mostrador y para mandarlo por WhatsApp a quien pregunte qué tienen.`,
+  d => d.platillos ? `Sus platillos fuertes, como ${d.platillos}, quedan arriba y con foto para que se antojen.` : '',
 ];
 
 const PRECIO = [
@@ -486,14 +495,18 @@ function build(d, seed) {
     const breve = d.tono === 'breve';
     const saludo = c(SALUDO), pres = c(PRESENTA);
     const head = rnd() < .5 ? `${saludo}\n\n${pres}` : `${saludo} ${pres}`;
-    parts = [head, d.menu ? c(CON_MENU) : c(SIN_MENU), breve ? '' : c(DOLOR[d.situacion] || DOLOR.nose),
-      breve ? '' : c(BENEFICIO), d.precio ? c(PRECIO) : '', c(CIERRE)];
+    // Lo propio del lugar (frase escrita a mano o del prospecto) pesa más que un problema genérico.
+    const personal = d.gancho ? d.gancho.replace(/\s*$/, '').replace(/([^.!?])$/, '$1.') : '';
+    const cuerpo = breve ? '' : [c(BENEFICIO), d.mejora || ''].filter(Boolean).join(' ');
+    const rappi = d.menu && d.situacion === 'apps' && !breve ? 'Los precios de la muestra son los de su app de reparto; se los dejo con sus precios de salón.' : '';
+    parts = [head, d.menu ? c(CON_MENU) : c(SIN_MENU), personal || (breve ? '' : c(DOLOR[d.situacion] || DOLOR.nose)),
+      [cuerpo, rappi].filter(Boolean).join(' '), d.precio ? c(PRECIO) : '', c(CIERRE)];
   }
   return { text: clean(parts.filter(Boolean).join('\n\n')), key: d.etapa + ':' + used.join('.') };
 }
 
 // ---------- estado y pantalla ----------
-const F = ['tel', 'lada', 'lugar', 'tipo', 'menu', 'contacto', 'ciudad', 'platillos', 'situacion'];
+const F = ['tel', 'lada', 'lugar', 'tipo', 'menu', 'contacto', 'ciudad', 'platillos', 'gancho', 'situacion'];
 const S = ['firma', 'marca', 'inst', 'mens'];
 let etapa = 'primer', tono = 'cercano', seed = Date.now() % 1e9, version = 1, edited = false;
 const recent = store.get('recent', []);
@@ -502,10 +515,38 @@ S.forEach(k => { const v = store.get('cfg-' + k, null); if (v !== null) $(k).val
 ['conPrecio', 'conEmoji', 'web'].forEach(k => { const v = store.get('cfg-' + k, null); if (v !== null) $(k).checked = v; $(k).addEventListener('change', () => { store.set('cfg-' + k, $(k).checked); render(true); }); });
 
 PRESETS.forEach((p, i) => $('preset').insertAdjacentHTML('beforeend', `<option value="${i}">${p.lugar} · ${p.ciudad}</option>`));
+let loaded = null;  // prospecto cargado desde la lista
 $('preset').addEventListener('change', () => {
-  const p = PRESETS[$('preset').value]; if (!p) return;
-  fill({ tel: p.tel, lada: '52', lugar: p.lugar, tipo: p.tipo, menu: p.menu, contacto: '', ciudad: p.ciudad, platillos: p.platillos, situacion: p.situacion, etapa: 'primer' });
+  const p = PRESETS[$('preset').value]; if (!p) { loaded = null; return; }
+  loaded = p;
+  fill({ tel: p.tel, lada: '52', lugar: p.lugar, tipo: p.tipo, menu: p.menu, contacto: '', ciudad: p.ciudad, platillos: p.platillos,
+    gancho: p.gancho || '', situacion: p.situacion, etapa: 'primer' });
 });
+// Si después de cargar un prospecto escribes otro lugar u otro número, se borran sus datos (enlace, platillos,
+// ciudad y frase) para que el mensaje del nuevo cliente no lleve el menú de otro restaurante.
+function releasePreset() {
+  if (!loaded) return;
+  if ($('lugar').value.trim() === loaded.lugar && digits($('tel').value, '52').local === loaded.tel) return;
+  [['menu', loaded.menu], ['platillos', loaded.platillos], ['ciudad', loaded.ciudad], ['gancho', loaded.gancho]]
+    .forEach(([k, v]) => { if ($(k).value.trim() === (v || '')) $(k).value = ''; });
+  loaded = null; $('preset').value = '';
+}
+// Si escribes el nombre exacto de un prospecto guardado, se cargan sus datos.
+function matchPreset() {
+  if (loaded) return;
+  const name = $('lugar').value.trim().toLowerCase(); if (!name) return;
+  const i = PRESETS.findIndex(p => p.lugar.toLowerCase() === name);
+  if (i >= 0 && !$('menu').value.trim()) { $('preset').value = String(i); $('preset').dispatchEvent(new Event('change')); }
+}
+// Avisa si el enlace del menú es de otro restaurante de la lista.
+function checkMenu() {
+  const el = $('menu-ok'), url = $('menu').value.trim(), lugar = $('lugar').value.trim().toLowerCase();
+  const owner = url && PRESETS.find(p => url.replace(/\/?$/, '/').endsWith(p.menu.replace(/^https?:\/\//, '')) || url.replace(/\/?$/, '/') === p.menu);
+  const bad = owner && lugar && owner.lugar.toLowerCase() !== lugar;
+  el.textContent = bad ? `Ojo: este enlace es el menú de ${owner.lugar}, no de este lugar.` : 'Si lo pones, el mensaje presenta la muestra. Si no, ofrece hacerla.';
+  el.className = bad ? 'bad' : '';
+  return !bad;
+}
 
 function fill(o) {
   F.forEach(k => { if (o[k] !== undefined) $(k).value = o[k]; });
@@ -519,6 +560,7 @@ function data() {
   if (menu && !/^https?:\/\//i.test(menu)) menu = 'https://' + menu;
   return {
     lugar: v('lugar'), tipo: v('tipo') || 'restaurante', contacto: v('contacto'), ciudad: v('ciudad'), platillos: v('platillos'),
+    gancho: v('gancho'), mejora: loaded && loaded.lugar === v('lugar') ? loaded.mejora || '' : '',
     menu, situacion: v('situacion'), firma: v('firma'), marca: v('marca') || "LKM'r", inst: v('inst'), mens: v('mens'),
     precio: $('conPrecio').checked, emoji: $('conEmoji').checked && tono !== 'formal', formal: tono === 'formal', tono, etapa,
   };
@@ -543,11 +585,12 @@ function render(force) {
   }
   $('count').textContent = `${$('msg').value.length} caracteres`;
   $('ver').textContent = `Versión ${version}${edited ? ' · editada' : ''}`;
-  const ready = okTel && okLugar && $('msg').value.trim();
+  const okMenu = checkMenu();
+  const ready = okTel && okLugar && okMenu && $('msg').value.trim();
   const send = $('send');
   send.setAttribute('aria-disabled', ready ? 'false' : 'true');
   $('sendTxt').textContent = ready ? `Abrir WhatsApp · ${$('lada').value.replace(/\D/g, '') === '52' ? fmtLocal(ph.local) : '+' + ph.full}`
-    : !okLugar ? 'Falta el nombre del lugar' : 'Falta el número';
+    : !okLugar ? 'Falta el nombre del lugar' : !okMenu ? 'El enlace es de otro restaurante' : 'Falta el número';
   const txt = encodeURIComponent($('msg').value);
   send.href = ready ? ($('web').checked ? `https://web.whatsapp.com/send?phone=${ph.full}&text=${txt}` : `https://wa.me/${ph.full}?text=${txt}`) : '#';
 }
@@ -562,7 +605,11 @@ function setSeg(group, v) {
   const b = e.target.closest('button'); if (!b) return; setSeg(g, b.dataset.v); render(true);
 }));
 
-F.forEach(k => $(k).addEventListener('input', () => { if (k === 'tel' || k === 'lada') render(false); else render(true); }));
+F.forEach(k => $(k).addEventListener('input', () => {
+  if (k === 'lugar' || k === 'tel') releasePreset();
+  if (k === 'tel' || k === 'lada') render(false); else render(true);
+}));
+$('lugar').addEventListener('change', matchPreset);
 $('situacion').addEventListener('change', () => render(true));
 $('tipo').addEventListener('change', () => render(true));
 $('msg').addEventListener('input', () => { edited = true; render(false); });
@@ -573,7 +620,7 @@ function remember() {
   const d = data(), ph = digits($('tel').value, $('lada').value);
   const seen = store.get('seen', []); seen.push(($('msg').dataset.key || '') + '|' + d.lugar); store.set('seen', seen.slice(-300));
   const row = { tel: ph.local, lada: $('lada').value, lugar: d.lugar, tipo: d.tipo, menu: d.menu, contacto: d.contacto, ciudad: d.ciudad,
-    platillos: d.platillos, situacion: d.situacion, etapa, fecha: Date.now() };
+    platillos: d.platillos, gancho: d.gancho, situacion: d.situacion, etapa, fecha: Date.now() };
   const i = recent.findIndex(r => r.tel === row.tel);
   if (i >= 0) recent.splice(i, 1);
   recent.unshift(row); recent.splice(60);
@@ -592,7 +639,7 @@ $('copy').addEventListener('click', async () => {
 });
 $('clear').addEventListener('click', () => {
   F.forEach(k => { if (k !== 'lada' && k !== 'tipo' && k !== 'situacion') $(k).value = ''; });
-  $('preset').value = ''; setSeg('etapa', 'primer'); newVersion(); $('tel').focus();
+  $('preset').value = ''; loaded = null; setSeg('etapa', 'primer'); newVersion(); $('tel').focus();
 });
 
 const ETAPA = { primer: 'Primer mensaje', seguimiento: 'Seguimiento', cierre: 'Cierre' };
@@ -613,8 +660,8 @@ $('hist').addEventListener('click', e => {
   const b = e.target.closest('button[data-a]'); if (!b) return;
   const r = recent[+b.dataset.i];
   if (b.dataset.a === 'del') { recent.splice(+b.dataset.i, 1); store.set('recent', recent); drawHist(); return; }
-  $('preset').value = '';
-  fill({ ...r, etapa: NEXT[r.etapa] });
+  $('preset').value = ''; loaded = PRESETS.find(p => p.tel === r.tel) || null;
+  fill({ ...r, gancho: r.gancho || (loaded && loaded.gancho) || '', etapa: NEXT[r.etapa] });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 $('wipe').addEventListener('click', () => { if (!recent.length || !confirm('¿Borrar la lista de enviados?')) return; recent.length = 0; store.set('recent', recent); drawHist(); });
@@ -675,7 +722,7 @@ drawHist(); render(true);
   function message(p) {
     const st = L.settings();
     const d = { lugar: p.lugar, tipo: p.tipo, contacto: '', ciudad: p.ciudad, platillos: p.platillos, menu: p.menu,
-      situacion: p.situacion || 'apps', etapa: 'primer', ...st };
+      gancho: p.gancho || '', mejora: p.mejora || '', situacion: p.situacion || 'apps', etapa: 'primer', ...st };
     return L.build(d, hash(p.lugar + '|' + p.tel)).text;  // mensaje fijo por cliente, distinto entre clientes
   }
   function link(p) {
