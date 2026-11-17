@@ -132,7 +132,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: s
     <div class="grid2">
       <div class="card"><h3>Para el restaurante</h3><p>Cambia precios sin reimprimir cartas, las mesas piden más rápido y tiene un enlace para mandar a quien pregunte "¿qué tienen?".</p></div>
       <div class="card"><h3>Fácil de vender</h3><p>No vendemos una idea: le enseñamos al dueño <b>su propio menú ya hecho</b>, con sus platillos. Eso convence más que cualquier folleto.</p></div>
-      <div class="card"><h3>Ingreso que se repite</h3><p>Además de la instalación, cada cliente paga una mensualidad por mantener su menú al día. Cada cliente que se queda suma cada mes.</p></div>
+      <div class="card"><h3>Ganas desde la primera venta</h3><p>Te llevas <b class="js-c1b">la mitad</b> de cada instalación que cierres. Sin inversión: los menús, los QR y el mantenimiento los pone LKM'r.</p></div>
     </div>
   </div>
 </section>
@@ -179,19 +179,19 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: s
 <section>
   <div class="wrap">
     <p class="k">Cuánto puedes ganar</p>
-    <h2>Por cada cliente, una vez y cada mes.</h2>
-    <p class="lead">Ganas <b class="js-c1">40%</b> de cada instalación y <b class="js-c2">$40</b> al mes por cada cliente tuyo que siga activo.</p>
+    <h2>La mitad de cada venta es tuya.</h2>
+    <p class="lead">Por cada restaurante que cierres te llevas <b class="js-c1">50%</b> de la instalación: <b class="js-c2">$325</b> por cliente. La mensualidad la cubre LKM'r, porque se encarga del mantenimiento y los cambios de cada menú.</p>
     <div class="calc">
       <label>Clientes que cierras al mes <output id="o-n">5</output>
         <input id="n" type="range" min="1" max="20" value="5"></label>
       <label>Meses trabajando <output id="o-m">6</output>
         <input id="m" type="range" min="1" max="12" value="6"></label>
       <div class="res">
-        <div><small>Por instalaciones este mes</small><b id="r1">$1,300</b></div>
-        <div><small>Ingreso mensual por tus clientes activos</small><b id="r2">$1,200</b></div>
-        <div><small>Total acumulado en ese tiempo</small><b id="r3">$12,000</b></div>
+        <div><small>Ganas por cliente</small><b id="r2">$325</b></div>
+        <div><small>Ganas al mes</small><b id="r1">$1,625</b></div>
+        <div><small>Total en ese tiempo</small><b id="r3">$9,750</b></div>
       </div>
-      <p class="note">Cálculo con los precios base (instalación desde <span class="js-inst">$650</span> y <span class="js-mens">$200</span> al mes) y suponiendo que los clientes siguen activos. Es un ejemplo, no una promesa de ingresos.</p>
+      <p class="note">Cálculo con el precio base de instalación (desde <span class="js-inst">$650</span>). Si un cliente paga una instalación mayor, tu parte crece igual. Es un ejemplo, no una promesa de ingresos.</p>
     </div>
   </div>
 </section>
@@ -234,8 +234,8 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: s
     whatsapp: '524492094034',
     instalacion: 650,        // precio base de instalación
     mensualidad: 200,        // precio base mensual
-    comisionInstalacion: .40, // parte de cada instalación para quien vende
-    comisionMensual: 40,      // pesos al mes por cada cliente activo de quien vende
+    comisionInstalacion: .5,  // parte de cada instalación para quien vende (la mitad)
+    // La mensualidad es completa para LKM'r (mantenimiento y cambios).
     mensaje: 'Hola, vi la propuesta de LKM\'r para vender menús digitales y me interesa sumarme. ¿Me cuentas más?',
   };
   const money = n => '$' + Math.round(n).toLocaleString('es-MX');
@@ -245,18 +245,16 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: s
   document.querySelectorAll('.js-inst').forEach(e => { e.textContent = money(CONFIG.instalacion); });
   document.querySelectorAll('.js-mens').forEach(e => { e.textContent = money(CONFIG.mensualidad); });
   $('.js-c1').textContent = Math.round(CONFIG.comisionInstalacion * 100) + '%';
-  $('.js-c2').textContent = money(CONFIG.comisionMensual);
+  const porCliente = CONFIG.instalacion * CONFIG.comisionInstalacion;
+  $('.js-c2').textContent = money(porCliente);
 
   const calc = () => {
     const n = +$('#n').value, m = +$('#m').value;
     $('#o-n').textContent = n; $('#o-m').textContent = m;
-    const porInst = n * CONFIG.instalacion * CONFIG.comisionInstalacion;
-    const activos = n * m;  // clientes acumulados al final del periodo
-    let total = 0;
-    for (let i = 1; i <= m; i++) total += porInst + (i * n) * CONFIG.comisionMensual;
-    $('#r1').textContent = money(porInst);
-    $('#r2').textContent = money(activos * CONFIG.comisionMensual);
-    $('#r3').textContent = money(total);
+    const alMes = n * porCliente;
+    $('#r1').textContent = money(alMes);
+    $('#r2').textContent = money(porCliente);
+    $('#r3').textContent = money(alMes * m);
   };
   ['#n', '#m'].forEach(s => $(s).addEventListener('input', calc));
   calc();
