@@ -99,3 +99,12 @@ export const duracionTexto = (ms: number) => {
   const p = (n: number) => String(n).padStart(2, '0')
   return d > 0 ? `${d}d ${p(h)}:${p(m)}:${p(ss)}` : `${h}:${p(m)}:${p(ss)}`
 }
+
+/** true cuando la app corre incrustada (p. ej. como página de claude.ai), donde imprimir y descargar están bloqueados. */
+export const incrustada = (() => {
+  try {
+    return window.self !== window.top
+  } catch {
+    return true
+  }
+})()

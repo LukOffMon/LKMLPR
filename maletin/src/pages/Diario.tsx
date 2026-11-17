@@ -6,6 +6,7 @@ import { Badge, Card, Empty, Field, PageHeader, SectionTitle, Sheet } from '../c
 import type { EntradaDiario } from '../types'
 import { dinero, dineroCorto, fechaCorta, lunesDe, mesClave, parseISO, sumarDias, uid } from '../lib/utils'
 import { cn } from '../lib/utils'
+import { confirmar } from '../components/Confirmar'
 
 const nueva = (semana: string, ingresos: number): EntradaDiario => ({
   id: '',
@@ -102,7 +103,7 @@ export function Diario() {
                   </div>
                   <div className="flex gap-1">
                     <button onClick={() => setEdit(e)} className="rounded-lg p-1.5 text-ink-400 hover:bg-ink-700" aria-label="Editar"><Pencil className="h-4 w-4" /></button>
-                    <button onClick={() => confirm('¿Eliminar esta revisión?') && actualizar((s) => ({ ...s, diario: s.diario.filter((x) => x.id !== e.id) }))} className="rounded-lg p-1.5 text-ink-400 hover:bg-ink-700 hover:text-alert-400" aria-label="Eliminar"><Trash2 className="h-4 w-4" /></button>
+                    <button onClick={() => void confirmar('¿Eliminar esta revisión?').then((ok) => ok && actualizar((s) => ({ ...s, diario: s.diario.filter((x) => x.id !== e.id) })))} className="rounded-lg p-1.5 text-ink-400 hover:bg-ink-700 hover:text-alert-400" aria-label="Eliminar"><Trash2 className="h-4 w-4" /></button>
                   </div>
                 </div>
                 <div className="mt-4 grid gap-4 text-sm md:grid-cols-2">

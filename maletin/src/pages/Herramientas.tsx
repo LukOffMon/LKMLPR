@@ -12,7 +12,8 @@ import { LOGROS, logrosDesbloqueados } from '../data/logros'
 import { ritualDe } from '../components/Ritual'
 import { useNow } from '../lib/useNow'
 import type { Cotizacion } from '../types'
-import { cn, dinero, duracionTexto, fechaCorta, hoyISO, lunesDe, sumarDias, uid } from '../lib/utils'
+import { cn, dinero, duracionTexto, fechaCorta, hoyISO, incrustada, lunesDe, sumarDias, uid } from '../lib/utils'
+import { confirmar } from '../components/Confirmar'
 
 type Tab = 'cotizador' | 'precios' | 'guiones' | 'logros' | 'enfoque'
 
@@ -183,6 +184,7 @@ function Cotizador() {
             <Copiar texto={resumenTexto(c)} label="Copiar resumen" className="py-2.5 text-sm" />
           </div>
           <p className="mt-2 text-xs text-ink-500">"PDF / Imprimir" abre el diálogo del navegador: elige "Guardar como PDF".</p>
+          {incrustada && <p className="mt-2 text-xs text-warn-400">Aquí la impresión está bloqueada. Abre la app en su propia pestaña o en tu sitio publicado para guardar el PDF.</p>}
         </div>
         {estado.cotizaciones.length > 0 && (
           <Card>
@@ -196,7 +198,7 @@ function Cotizador() {
                   <span className="flex shrink-0 items-center gap-2">
                     <span className="font-mono">{dinero(totalesCot(x).total)}</span>
                     <Badge tone={x.estado === 'aceptada' ? 'money' : x.estado === 'rechazada' ? 'alert' : x.estado === 'enviada' ? 'gold' : 'neutral'}>{x.estado}</Badge>
-                    <button aria-label="Eliminar" className="text-ink-500 hover:text-alert-400" onClick={() => confirm('¿Eliminar cotización?') && actualizar((s) => ({ ...s, cotizaciones: s.cotizaciones.filter((y) => y.id !== x.id) }))}><Trash2 className="h-3.5 w-3.5" /></button>
+                    <button aria-label="Eliminar" className="text-ink-500 hover:text-alert-400" onClick={() => void confirmar('¿Eliminar cotización?').then((ok) => ok && actualizar((s) => ({ ...s, cotizaciones: s.cotizaciones.filter((y) => y.id !== x.id) })))}><Trash2 className="h-3.5 w-3.5" /></button>
                   </span>
                 </li>
               ))}

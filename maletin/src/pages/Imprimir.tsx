@@ -11,7 +11,7 @@ import { ideaPorId } from '../data/ideas'
 import { saldoFondo, sprintActivo } from '../lib/acciones'
 import { nivelDe, resumenMes } from '../lib/selectores'
 import type { EstadoApp, PlanItem } from '../types'
-import { dinero, fechaCorta, hoyISO } from '../lib/utils'
+import { dinero, fechaCorta, hoyISO, incrustada } from '../lib/utils'
 
 export function Imprimir() {
   const { estado } = useStore()
@@ -23,6 +23,7 @@ export function Imprimir() {
         sub="Tu plan maestro en una hoja: visión, metas, OKRs, semana y números clave. Imprímelo o guárdalo como PDF y pégalo donde lo veas diario."
         right={<button className="btn-gold" onClick={() => window.print()}><Printer className="h-4 w-4" /> Imprimir / PDF</button>}
       />
+      {incrustada && <p className="mb-3 text-xs text-warn-400">En esta vista el navegador bloquea la impresión. Para guardar el PDF, abre la app en su propia pestaña o en tu sitio publicado.</p>}
       <Card className="overflow-hidden p-0">
         <div className="max-h-[75vh] overflow-auto bg-white">
           <DocPlan e={estado} />

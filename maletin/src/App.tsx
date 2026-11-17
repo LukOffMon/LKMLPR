@@ -20,6 +20,7 @@ import { Herramientas } from './pages/Herramientas'
 import { Imprimir } from './pages/Imprimir'
 import { FocoGlobal } from './components/Foco'
 import { LogrosToast } from './components/LogrosToast'
+import { ConfirmHost } from './components/Confirmar'
 
 export default function App() {
   const { seccion, param } = useRuta()
@@ -57,6 +58,7 @@ export default function App() {
       </Layout>
       <FocoGlobal />
       <LogrosToast />
+      <ConfirmHost />
     </>
   )
 }

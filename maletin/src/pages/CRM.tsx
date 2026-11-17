@@ -6,6 +6,7 @@ import { Badge, Card, Empty, Field, PageHeader, Segmented, Sheet, Stat } from '.
 import type { EstadoLead, Lead } from '../types'
 import { IDEAS } from '../data/ideas'
 import { cn, diffDias, dinero, dineroCorto, fechaCorta, hoyISO, sumarDias, uid } from '../lib/utils'
+import { confirmar } from '../components/Confirmar'
 
 export const ESTADOS: { id: EstadoLead; label: string; color: string }[] = [
   { id: 'contactado', label: 'Contactado', color: '#6f7783' },
@@ -139,7 +140,7 @@ export function CRM() {
                     </div>
                     <div className="flex shrink-0 items-center gap-1">
                       <button onClick={() => setEdit(l)} className="rounded-lg p-1.5 text-ink-400 hover:bg-ink-700 hover:text-ink-100" aria-label="Editar"><Pencil className="h-4 w-4" /></button>
-                      <button onClick={() => confirm(`¿Eliminar a ${l.nombre}?`) && actualizar((s) => ({ ...s, leads: s.leads.filter((x) => x.id !== l.id) }))} className="rounded-lg p-1.5 text-ink-400 hover:bg-ink-700 hover:text-alert-400" aria-label="Eliminar"><Trash2 className="h-4 w-4" /></button>
+                      <button onClick={() => void confirmar(`¿Eliminar a ${l.nombre}?`).then((ok) => ok && actualizar((s) => ({ ...s, leads: s.leads.filter((x) => x.id !== l.id) })))} className="rounded-lg p-1.5 text-ink-400 hover:bg-ink-700 hover:text-alert-400" aria-label="Eliminar"><Trash2 className="h-4 w-4" /></button>
                     </div>
                   </div>
                   <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
