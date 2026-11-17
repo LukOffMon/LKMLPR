@@ -75,6 +75,30 @@ textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size
 .toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translate(-50%, calc(100% + 40px)); visibility: hidden; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-weight: 700; font-size: 14px; transition: transform .3s, visibility 0s .3s; z-index: 9; }
 .toast.show { transform: translate(-50%, 0); visibility: visible; transition: transform .3s; }
 .theme { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 8px 12px; font-size: 13px; font-weight: 600; cursor: pointer; }
+/* MACRO (envío rápido) */
+.macro { margin-bottom: 16px; }
+.m-count { font: 700 13px/1 Inter, sans-serif; color: var(--acc); background: var(--chip); padding: 6px 10px; border-radius: 999px; }
+.m-prog { height: 6px; border-radius: 999px; background: var(--chip); overflow: hidden; }
+.m-prog span { display: block; height: 100%; width: 0; background: var(--wa); transition: width .4s; }
+.m-tools { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 12px; }
+.m-tools .seg { flex: 1; min-width: 260px; }
+.m-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+.m-row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px 12px; align-items: center; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--field); }
+.m-row.done { opacity: .55; }
+.m-row.done .m-name { text-decoration: line-through; }
+.m-row.opened { border-color: var(--wa); box-shadow: 0 0 0 3px color-mix(in srgb, var(--wa) 25%, transparent); }
+.m-chk { width: 26px; height: 26px; min-height: 0; accent-color: var(--wa); cursor: pointer; margin: 0; }
+.m-name { font-weight: 700; font-size: 14.5px; line-height: 1.25; display: block; }
+.m-sub { color: var(--soft); font-size: 12.5px; }
+.m-flag { color: var(--wa); font-weight: 700; font-size: 12px; display: block; margin-top: 2px; }
+.m-send { background: var(--wa); color: var(--wa-ink); border: 0; border-radius: 10px; padding: 10px 12px; font-weight: 700; font-size: 13.5px; text-decoration: none; white-space: nowrap; }
+.m-row details { grid-column: 1 / -1; }
+.m-row summary { cursor: pointer; font-size: 12.5px; color: var(--soft); }
+.m-row pre { white-space: pre-wrap; font: 400 13px/1.5 Inter, sans-serif; margin: 8px 0 0; padding: 10px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); }
+.m-done { font-weight: 700; color: var(--acc); margin: 14px 0 0; }
+@keyframes m-pulse { 0%, 100% { transform: none; } 50% { transform: scale(1.015); } }
+.m-row.pulse { animation: m-pulse .5s 2; }
+/* /MACRO */
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -87,6 +111,26 @@ textarea#msg { min-height: 340px; resize: vertical; line-height: 1.55; font-size
   </div>
   <button class="theme" id="theme" type="button">Tema</button>
 </header>
+
+<!-- MACRO:START · envío rápido de los prospectos. Para quitarlo, borra todo hasta MACRO:END (y el bloque MACRO-JS:START del final). -->
+<section class="wrap macro" aria-labelledby="t-macro">
+  <div class="card">
+    <h2 id="t-macro">Envío rápido · prospectos de menús QR <span class="m-count" id="m-count">0 / 0</span></h2>
+    <div class="m-prog" aria-hidden="true"><span id="m-bar"></span></div>
+    <p class="hint" style="margin:10px 0 12px">Toca <b>Enviar</b>: se abre WhatsApp con el mensaje ya hecho para ese restaurante. Cuando lo mandes, regresa y marca la casilla. Usa el tono, el precio y tu firma que tengas abajo en "Datos del cliente".</p>
+    <div class="m-tools">
+      <div class="seg" role="group" aria-label="Filtro" id="m-filtro" style="margin:0">
+        <button type="button" data-v="pend" aria-pressed="true">Pendientes</button>
+        <button type="button" data-v="todos" aria-pressed="false">Todos</button>
+        <button type="button" data-v="hechos" aria-pressed="false">Ofrecidos</button>
+      </div>
+      <button class="ghost" id="m-reset" type="button">Desmarcar todo</button>
+    </div>
+    <ol class="m-list" id="m-list"></ol>
+    <p class="m-done" id="m-done" hidden>🎉 Listo: ya ofreciste todos. Puedes borrar este bloque.</p>
+  </div>
+</section>
+<!-- MACRO:END -->
 
 <main class="wrap layout">
   <section class="card" aria-labelledby="t-datos">
@@ -588,8 +632,115 @@ let tt; function toast(t) { const el = $('toast'); el.textContent = t; el.classL
 const qs = new URLSearchParams(location.search);
 if ([...qs.keys()].length) fill(Object.fromEntries(F.map(k => [k, qs.get(k) ?? undefined]).filter(([, v]) => v !== undefined)));
 
+// API para el macro de envío (bloque MACRO al final del archivo).
+window.LKM = {
+  PRESETS, build, digits, fmtLocal, toast,
+  settings() {
+    const v = k => $(k).value.trim();
+    return { firma: v('firma'), marca: v('marca') || "LKM'r", inst: v('inst'), mens: v('mens'), precio: $('conPrecio').checked,
+      emoji: $('conEmoji').checked && tono !== 'formal', formal: tono === 'formal', tono, web: $('web').checked };
+  },
+  addRecent(row) {
+    const i = recent.findIndex(r => r.tel === row.tel);
+    if (i >= 0) recent.splice(i, 1);
+    recent.unshift({ ...row, fecha: Date.now() }); recent.splice(60);
+    store.set('recent', recent); drawHist();
+  },
+  removeRecent(tel) { const i = recent.findIndex(r => r.tel === tel); if (i >= 0) { recent.splice(i, 1); store.set('recent', recent); drawHist(); } },
+  onSettings(fn) {
+    ['firma', 'marca', 'inst', 'mens'].forEach(k => $(k).addEventListener('input', fn));
+    ['conPrecio', 'conEmoji', 'web'].forEach(k => $(k).addEventListener('change', fn));
+    $('tono').addEventListener('click', () => setTimeout(fn));
+  },
+};
+
 drawHist(); render(true);
 })();
 </script>
+<!-- MACRO-JS:START -->
+<script>
+(() => {
+  'use strict';
+  const L = window.LKM; if (!L) return;
+  const $ = id => document.getElementById(id);
+  const get = (k, d) => { try { const v = localStorage.getItem('lkm-macro-' + k); return v === null ? d : JSON.parse(v); } catch (_) { return d; } };
+  const set = (k, v) => { try { localStorage.setItem('lkm-macro-' + k, JSON.stringify(v)); } catch (_) {} };
+  const esc = s => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const hash = s => { let h = 2166136261; for (const ch of s) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+
+  let done = get('done', []);      // teléfonos ya ofrecidos
+  let opened = get('opened', {});  // teléfono → última vez que se abrió WhatsApp
+  let filtro = 'pend', last = null;
+
+  function message(p) {
+    const st = L.settings();
+    const d = { lugar: p.lugar, tipo: p.tipo, contacto: '', ciudad: p.ciudad, platillos: p.platillos, menu: p.menu,
+      situacion: p.situacion || 'apps', etapa: 'primer', ...st };
+    return L.build(d, hash(p.lugar + '|' + p.tel)).text;  // mensaje fijo por cliente, distinto entre clientes
+  }
+  function link(p) {
+    const ph = L.digits(p.tel, '52'), txt = encodeURIComponent(message(p));
+    return L.settings().web ? `https://web.whatsapp.com/send?phone=${ph.full}&text=${txt}` : `https://wa.me/${ph.full}?text=${txt}`;
+  }
+
+  function draw() {
+    const n = L.PRESETS.length, k = L.PRESETS.filter(p => done.includes(p.tel)).length;
+    $('m-count').textContent = `${k} / ${n} ofrecidos`;
+    $('m-bar').style.width = (n ? k / n * 100 : 0) + '%';
+    $('m-done').hidden = k < n;
+    $('m-list').innerHTML = L.PRESETS.map((p, i) => {
+      const isDone = done.includes(p.tel);
+      if ((filtro === 'pend' && isDone) || (filtro === 'hechos' && !isDone)) return '';
+      const wasOpened = opened[p.tel] && !isDone;
+      return `<li class="m-row ${isDone ? 'done' : ''} ${wasOpened ? 'opened' : ''}" data-i="${i}">
+        <input class="m-chk" type="checkbox" ${isDone ? 'checked' : ''} aria-label="Marcar ${esc(p.lugar)} como ofrecido">
+        <div><span class="m-name">${i + 1}. ${esc(p.lugar)}</span><span class="m-sub">${esc(p.ciudad)} · ${L.fmtLocal(p.tel)}</span>
+          ${wasOpened ? '<span class="m-flag">WhatsApp abierto · márcalo si ya lo enviaste</span>' : ''}</div>
+        <a class="m-send" href="#" target="_blank" rel="noopener">${isDone ? 'Reenviar' : 'Enviar'}</a>
+        <details><summary>Ver mensaje</summary><pre>${esc(message(p))}</pre></details>
+      </li>`;
+    }).join('') || '<li class="m-sub">No hay nada en este filtro.</li>';
+  }
+
+  $('m-list').addEventListener('click', e => {
+    const row = e.target.closest('.m-row'); if (!row) return;
+    const p = L.PRESETS[+row.dataset.i];
+    if (e.target.closest('.m-send')) {
+      e.target.closest('.m-send').href = link(p);   // se arma al momento con tu tono, precio y firma actuales
+      opened[p.tel] = Date.now(); set('opened', opened); last = p.tel;
+      setTimeout(draw, 300);
+    }
+  });
+  $('m-list').addEventListener('change', e => {
+    if (!e.target.classList.contains('m-chk')) return;
+    const p = L.PRESETS[+e.target.closest('.m-row').dataset.i];
+    if (e.target.checked) {
+      done = [...new Set([...done, p.tel])];
+      L.addRecent({ tel: p.tel, lada: '52', lugar: p.lugar, tipo: p.tipo, menu: p.menu, contacto: '', ciudad: p.ciudad,
+        platillos: p.platillos, situacion: p.situacion || 'apps', etapa: 'primer' });
+      L.toast(`${p.lugar}: ofrecido ✓`);
+    } else { done = done.filter(t => t !== p.tel); L.removeRecent(p.tel); }
+    delete opened[p.tel]; set('opened', opened); set('done', done);
+    setTimeout(draw, filtro === 'todos' ? 0 : 350);
+  });
+  $('m-filtro').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return; filtro = b.dataset.v;
+    document.querySelectorAll('#m-filtro button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); draw();
+  });
+  $('m-reset').addEventListener('click', () => {
+    if (!confirm('¿Desmarcar todas las casillas?')) return; done = []; opened = {}; set('done', done); set('opened', opened); draw();
+  });
+  // Al volver de WhatsApp, lleva la vista al último restaurante abierto para marcarlo.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' || !last) return;
+    const i = L.PRESETS.findIndex(p => p.tel === last); last = null;
+    const row = document.querySelector(`.m-row[data-i="${i}"]`);
+    if (row) { row.scrollIntoView({ block: 'center', behavior: 'smooth' }); row.classList.add('pulse'); setTimeout(() => row.classList.remove('pulse'), 1200); }
+  });
+  L.onSettings(draw);
+  draw();
+})();
+</script>
+<!-- MACRO-JS:END -->
 </body>
 </html>
