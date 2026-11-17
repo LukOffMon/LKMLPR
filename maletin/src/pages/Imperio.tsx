@@ -9,6 +9,7 @@ import { apartadoTotal, invertidoEn, saldoFondo, splitSugerido } from '../lib/ac
 import { nivelDe } from '../lib/selectores'
 import type { EstadoProducto, ProductoLab } from '../types'
 import { cn, dinero, dineroCorto, fechaCorta, hoyISO, uid } from '../lib/utils'
+import { confirmar } from '../components/Confirmar'
 
 type Tab = 'arbol' | 'lkmr' | 'lab' | 'simulador' | 'fondo'
 
@@ -244,7 +245,7 @@ function Laboratorio() {
               <p className="mt-2 text-xs text-ink-400">{v >= 6 ? 'Validación suficiente: puedes construir la versión mínima.' : v >= 3 ? 'Sigue validando: busca pre-ventas reales.' : 'Aún no construyas. Habla con clientes primero.'}</p>
               <div className="mt-3 flex gap-2">
                 <button className="btn-ghost flex-1 py-2 text-xs" onClick={() => setEdit(p)}>Abrir</button>
-                <button className="btn-ghost px-3 py-2" aria-label="Eliminar" onClick={() => confirm('¿Eliminar experimento?') && actualizar((s) => ({ ...s, productos: s.productos.filter((x) => x.id !== p.id) }))}><Trash2 className="h-3.5 w-3.5" /></button>
+                <button className="btn-ghost px-3 py-2" aria-label="Eliminar" onClick={() => void confirmar('¿Eliminar experimento?').then((ok) => ok && actualizar((s) => ({ ...s, productos: s.productos.filter((x) => x.id !== p.id) })))}><Trash2 className="h-3.5 w-3.5" /></button>
               </div>
             </Card>
           )

@@ -4,6 +4,7 @@ import { useStore } from '../store/store'
 import { Card, CheckRow, PageHeader, Progress } from '../components/ui'
 import { PROTOCOLOS } from '../data/protocolos'
 import type { EstadoApp, Protocolo } from '../types'
+import { confirmar } from '../components/Confirmar'
 
 const avance = (p: Protocolo, checks: EstadoApp['checks']) => {
   const items = p.bloques.flatMap((b) => b.items)
@@ -54,8 +55,8 @@ export function ProtocoloDetalle({ id }: { id: string }) {
     actualizar((s) => ({ ...s, checks: { ...s.checks, [k]: nuevo } }))
     if (nuevo) marcarActivo()
   }
-  const reiniciar = () => {
-    if (!confirm('¿Reiniciar el progreso de este protocolo?')) return
+  const reiniciar = async () => {
+    if (!(await confirmar('¿Reiniciar el progreso de este protocolo?'))) return
     actualizar((s) => {
       const checks = { ...s.checks }
       for (const k of Object.keys(checks)) if (k.startsWith(`${p.id}:`)) delete checks[k]

@@ -12,6 +12,7 @@ import { actividadRango, finSprint, ingresosEntre, splitSugerido } from '../lib/
 import { nivelDe, resumenMes } from '../lib/selectores'
 import type { EstadoApp, IceItem, NivelPlan, PlanItem, TipoBloque } from '../types'
 import { cn, dinero, hoyISO, lunesDe, mesClave, nombreMes, uid } from '../lib/utils'
+import { confirmar } from '../components/Confirmar'
 
 type Tab = 'hoy' | 'horizontes' | 'ice' | 'semana' | 'revision'
 
@@ -137,11 +138,11 @@ function Horizontes() {
   const upd = (id: string, patch: Partial<PlanItem>) => actualizar((s) => ({ ...s, plan: s.plan.map((p) => (p.id === id ? { ...p, ...patch } : p)) }))
   const add = (nivel: NivelPlan, padreId?: string) =>
     actualizar((s) => ({ ...s, plan: [...s.plan, { id: uid(), nivel, padreId, titulo: '', periodo: periodoDefault(nivel), progreso: 0, krs: nivel === 'trimestre' ? [{ id: uid(), texto: '', actual: 0, meta: 1 }] : undefined }] }))
-  const del = (id: string) => {
+  const del = async (id: string) => {
     const quitar = new Set<string>([id])
     let cambio = true
     while (cambio) { cambio = false; for (const p of items) if (p.padreId && quitar.has(p.padreId) && !quitar.has(p.id)) { quitar.add(p.id); cambio = true } }
-    if (quitar.size > 1 && !confirm(`Esto borra también ${quitar.size - 1} metas conectadas debajo. ¿Continuar?`)) return
+    if (quitar.size > 1 && !(await confirmar(`Esto borra también ${quitar.size - 1} metas conectadas debajo. ¿Continuar?`))) return
     actualizar((s) => ({ ...s, plan: s.plan.filter((p) => !quitar.has(p.id)) }))
   }
 
@@ -389,8 +390,8 @@ function Semana() {
         </div>
         <p className="mt-3 text-xs text-ink-400">Toca un tipo y luego las casillas para pintarlas. En computadora también puedes arrastrar un tipo a una casilla, o arrastrar una casilla para moverla.</p>
         <div className="mt-3 flex flex-wrap gap-2">
-          <button className="btn-ghost px-3 py-1.5 text-xs" onClick={() => (Object.keys(sem).length === 0 || confirm('¿Reemplazar tu semana por el horario modelo de estudiante?')) && actualizar((s) => ({ ...s, semana: modeloEstudiante() }))}><Wand2 className="h-3.5 w-3.5" /> Cargar horario modelo de estudiante</button>
-          <button className="btn-ghost px-3 py-1.5 text-xs" onClick={() => confirm('¿Vaciar toda la semana?') && actualizar((s) => ({ ...s, semana: {} }))}>Vaciar</button>
+          <button className="btn-ghost px-3 py-1.5 text-xs" onClick={async () => (Object.keys(sem).length === 0 || (await confirmar('¿Reemplazar tu semana por el horario modelo de estudiante?'))) && actualizar((s) => ({ ...s, semana: modeloEstudiante() }))}><Wand2 className="h-3.5 w-3.5" /> Cargar horario modelo de estudiante</button>
+          <button className="btn-ghost px-3 py-1.5 text-xs" onClick={() => void confirmar('¿Vaciar toda la semana?').then((ok) => ok && actualizar((s) => ({ ...s, semana: {} })))}>Vaciar</button>
         </div>
       </Card>
 

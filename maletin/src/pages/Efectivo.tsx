@@ -11,6 +11,7 @@ import type { Actividad, OfertaGuardada, TipoSprint } from '../types'
 import { actividadDe, actividadRango, avanceSprint, finSprint, sprintActivo, sumarActividad, ingresosEntre } from '../lib/acciones'
 import { useNow } from '../lib/useNow'
 import { cn, dinero, duracionTexto, fechaCorta, hoyISO, lunesDe, sumarDias, uid } from '../lib/utils'
+import { confirmar } from '../components/Confirmar'
 
 type Tab = 'sprints' | 'ofertas' | 'constructor' | 'mapa' | 'actividad'
 
@@ -116,7 +117,7 @@ function Sprints() {
 
         <button
           className="btn-ghost"
-          onClick={() => confirm('¿Cerrar el sprint antes de tiempo? Se guarda en tu historial.') && actualizar((s) => ({ ...s, sprints: s.sprints.map((x) => (x.id === activo.id ? { ...x, cerrado: true } : x)) }))}
+          onClick={() => void confirmar('¿Cerrar el sprint antes de tiempo? Se guarda en tu historial.').then((ok) => ok && actualizar((s) => ({ ...s, sprints: s.sprints.map((x) => (x.id === activo.id ? { ...x, cerrado: true } : x)) })))}
         >
           <Flag className="h-4 w-4" /> Cerrar sprint
         </button>

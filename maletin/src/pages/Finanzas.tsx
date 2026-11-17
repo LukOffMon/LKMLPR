@@ -9,6 +9,7 @@ import { resumenMes } from '../lib/selectores'
 import { dinero, dineroCorto, fechaCorta, hoyISO, mesClave, nombreMes, uid } from '../lib/utils'
 import type { Movimiento, Via } from '../types'
 import { conMovimiento, sinMovimiento } from '../lib/acciones'
+import { confirmar } from '../components/Confirmar'
 
 type Tab = 'registro' | 'metas' | 'aprende' | 'formal'
 
@@ -178,7 +179,7 @@ function Registro() {
                 <span className={m.tipo === 'ingreso' ? 'font-mono text-sm text-money-400' : 'font-mono text-sm text-ink-300'}>
                   {m.tipo === 'ingreso' ? '+' : '−'}{dinero(m.monto)}
                 </span>
-                <button onClick={() => confirm('¿Eliminar movimiento?') && actualizar((s) => sinMovimiento(s, m.id))} className="p-1.5 text-ink-500 opacity-60 hover:text-alert-400 group-hover:opacity-100" aria-label="Eliminar">
+                <button onClick={() => void confirmar('¿Eliminar movimiento?').then((ok) => ok && actualizar((s) => sinMovimiento(s, m.id)))} className="p-1.5 text-ink-500 opacity-60 hover:text-alert-400 group-hover:opacity-100" aria-label="Eliminar">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </li>
@@ -269,7 +270,7 @@ function Metas() {
               <Progress className="mt-3" value={m.actual} max={m.objetivo} color={pct >= 100 ? 'money' : 'gold'} />
               <div className="mt-3 flex gap-2">
                 <button onClick={() => { setAbono(m.id); setMonto('') }} className="btn-ghost flex-1 py-2 text-xs"><Plus className="h-3.5 w-3.5" /> Abonar / retirar</button>
-                <button onClick={() => confirm('¿Eliminar meta?') && actualizar((s) => ({ ...s, metas: s.metas.filter((x) => x.id !== m.id) }))} className="btn-ghost px-3 py-2" aria-label="Eliminar meta"><Trash2 className="h-3.5 w-3.5" /></button>
+                <button onClick={() => void confirmar('¿Eliminar meta?').then((ok) => ok && actualizar((s) => ({ ...s, metas: s.metas.filter((x) => x.id !== m.id) })))} className="btn-ghost px-3 py-2" aria-label="Eliminar meta"><Trash2 className="h-3.5 w-3.5" /></button>
               </div>
             </Card>
           )

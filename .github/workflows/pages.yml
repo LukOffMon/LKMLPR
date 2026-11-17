@@ -1,0 +1,62 @@
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: maletin/package-lock.json
+
+      - name: Compilar Maletín
+        working-directory: maletin
+        run: |
+          npm ci
+          npm run build
+
+      - name: Armar el sitio
+        run: |
+          mkdir -p _site
+          # Raíz: sitio de LKM'r Company (también disponible en /lkmr/)
+          cp lkmr/index.html _site/index.html
+          cp -r lkmr _site/lkmr
+          # App Maletín compilada
+          cp -r maletin/dist _site/maletin
+          # Proyectos anteriores (se mantienen sus enlaces)
+          for d in candyos encuesta nexus; do [ -d "$d" ] && cp -r "$d" "_site/$d"; done
+          touch _site/.nojekyll
+          ls -R _site | head -50
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
