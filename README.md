@@ -2,7 +2,7 @@
 
 - `maletin/` — **Maletín**: app de planificación para generar riqueza desde cero (React + Vite). Ver `maletin/README.md`.
 - `lkmr/` — **Sitio de LKM'r Company**: one-page autocontenido listo para publicar. Ver `lkmr/README.md`.
-- `mensajes/` — **Mensajes de WhatsApp**: herramienta interna para vender menús QR. Pones número, nombre del lugar y (si ya existe) el enlace del menú; arma un mensaje distinto cada vez (primer mensaje, seguimiento o cierre) y lo abre en WhatsApp. Todo se guarda solo en el navegador. Arriba tiene un bloque temporal de "Envío rápido" (entre los comentarios `MACRO:START`/`MACRO:END` y `MACRO-JS:START`/`MACRO-JS:END`) con los 36 prospectos como casillas; se borra cuando termines de enviar.
+- `mensajes/` — **Macro de ventas de menús QR** (con PIN): herramienta para socios. Al entrar muestra un **tutorial de inicio** (la primera vez) y un **aviso de nuevos posibles clientes** (🔔, primero los que tienen WhatsApp). Tiene "Hoy te toca" (qué hacer en un toque), primeros pasos para socios nuevos, buscador, filtro "Solo con WhatsApp", el **estándar de excelencia** por menú, respuestas rápidas, kit de cierre, notas, mapa con rutas, protección del número contra sanciones de WhatsApp y avance compartido en Supabase. Los prospectos (`PRESETS`) los genera `WebDesignLKM/menus-qr/_tools/macro.py`; los que se publiquen después llegan solos desde `menus-qr/macro.json`. Abajo sigue el generador de mensajes sueltos.
 - `candyos/`, `encuesta/`, `nexus/` — otros proyectos.
 
 ## Publicación (GitHub Pages)
