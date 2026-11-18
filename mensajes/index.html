@@ -3,10 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mensajes WhatsApp</title>
+<title>Macro de ventas · LKM'r</title>
 <meta name="description" content="Herramienta interna de LKM'r: arma el mensaje de venta del menú digital con QR y lo abre en WhatsApp.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0d1110">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Macro LKM'r">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231fa855'/%3E%3Cpath d='M18 46l3-9a15 15 0 1 1 6 6z' fill='none' stroke='white' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap">
@@ -218,6 +222,7 @@ html { scroll-padding-top: 72px; }
 @media (max-width: 520px) { .m-search { grid-template-columns: 1fr; } }
 .m-new, .m-exc-b { display: inline-block; font: 700 10.5px/1 Inter, sans-serif; letter-spacing: .05em; text-transform: uppercase; padding: 4px 7px; border-radius: 999px; }
 .m-new { background: #2f7de1; color: #fff; }
+.m-new.m-noweb { background: #7a4cc2; }
 .m-exc-b.ok { background: color-mix(in srgb, var(--wa) 20%, var(--panel)); color: var(--acc); border: 1px solid color-mix(in srgb, var(--wa) 45%, transparent); }
 .m-exc-b.low { background: color-mix(in srgb, #e0a800 22%, var(--panel)); color: var(--fg); border: 1px solid color-mix(in srgb, #e0a800 50%, transparent); }
 .m-exc-cols { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
@@ -267,6 +272,39 @@ html { scroll-padding-top: 72px; }
 .m-notif-list li b { display: block; font-size: 14.5px; }
 .m-notif-list li small { display: block; color: var(--soft); font-size: 12.5px; margin-bottom: 4px; }
 .m-notif-list .ghost { min-height: 40px; }
+/* Entorno tipo app: una vista a la vez, barra inferior en celular */
+[data-views][hidden] { display: none !important; }
+.m-nav-l a[aria-current="page"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.m-cloud { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.m-cloud.ok { background: var(--wa); } .m-cloud.err { background: #d64545; } .m-cloud.sube { background: #e0a800; }
+.m-h3 { font: 700 12px/1 Inter, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--acc); margin: 18px 0 10px; }
+.m-h3:first-of-type { margin-top: 4px; }
+.m-ajustes .more { border: 0; padding: 0; }
+.m-ajustes .more > summary { display: none; }
+.m-keys { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13.5px; color: var(--soft); }
+kbd { font: 700 12px/1 'Space Grotesk', monospace; padding: 4px 7px; border-radius: 6px; border: 1px solid var(--line); border-bottom-width: 2px; background: var(--field); color: var(--fg); }
+.m-mas-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+.m-mas-grid button { text-align: left; display: grid; gap: 4px; padding: 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--field); color: var(--fg); cursor: pointer; min-height: 76px; }
+.m-mas-grid b { font: 700 16px/1.2 'Space Grotesk', sans-serif; }
+.m-mas-grid span { font-size: 13px; color: var(--soft); }
+.m-tabbar { display: none; }
+@media (max-width: 760px) {
+  .m-nav .m-nav-l { display: none; }
+  .m-nav { justify-content: flex-end; }
+  .m-tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; display: grid; grid-template-columns: repeat(5, 1fr);
+    background: color-mix(in srgb, var(--panel) 94%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line); padding: 4px 4px calc(4px + env(safe-area-inset-bottom)); }
+  .m-tabbar a { position: relative; display: grid; justify-items: center; gap: 2px; padding: 6px 2px; min-height: 52px; border-radius: 12px; color: var(--soft);
+    font: 600 11.5px/1.1 Inter, sans-serif; text-decoration: none; }
+  .m-tabbar a i { font-style: normal; font-size: 19px; line-height: 1.2; }
+  .m-tabbar a[aria-current="page"] { color: var(--acc); background: color-mix(in srgb, var(--acc) 12%, transparent); }
+  .m-tabbar b { position: absolute; top: 2px; right: calc(50% - 22px); min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; background: #d64545; color: #fff; font: 800 10.5px/18px Inter, sans-serif; }
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+  .toast { bottom: calc(80px + env(safe-area-inset-bottom)); }
+  header.top { padding: 16px 0 6px; }
+  header.top .sub { display: none; }
+  header.top h1 { font-size: 24px; }
+}
 /* /MACRO */
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -310,11 +348,11 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
   i.addEventListener('input', () => { i.value = i.value.replace(/\D/g, ''); if (i.value.length === 4) entrar(); });
 })();
 </script>
-<header class="top wrap">
+<header class="top wrap" id="top">
   <div>
     <div class="kick">LKM'r · Menús digitales y QR</div>
-    <h1>Mensajes de WhatsApp</h1>
-    <p class="sub">Pon el número y los datos del lugar. El mensaje se arma solo, nunca sale igual y se abre en WhatsApp listo para enviar.</p>
+    <h1>Macro de ventas</h1>
+    <p class="sub">Tus prospectos con su menú QR ya hecho: escríbeles, manda la venta y cobra, todo desde aquí.</p>
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="theme" id="theme" type="button">Tema</button><button class="theme" id="lock" type="button" title="Cierra el macro en este celular">🔒 Bloquear</button></div>
 </header>
@@ -322,12 +360,16 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
 <!-- MACRO:START · envío rápido de los prospectos. Para quitarlo, borra todo hasta MACRO:END (y el bloque MACRO-JS:START del final). -->
 <section class="wrap macro" aria-labelledby="t-macro">
   <nav class="m-nav" aria-label="Secciones del macro">
-    <span class="m-nav-l"><a href="#hoy">Hoy</a><a href="#prospectos">Prospectos</a><a href="#m-map">Mapa</a><a href="#pagos">Pagos</a><a href="#excelencia">Excelencia</a></span>
+    <span class="m-nav-l" role="tablist" aria-label="Vistas">
+      <a href="#hoy" data-go="hoy">Hoy</a><a href="#prospectos" data-go="prospectos">Prospectos</a><a href="#pagos" data-go="pagos">Pagos</a>
+      <a href="#mapa" data-go="mapa">Mapa</a><a href="#excelencia" data-go="excelencia">Excelencia</a><a href="#mensaje" data-go="mensaje">Mensaje libre</a><a href="#ajustes" data-go="ajustes">Ajustes</a>
+    </span>
+    <span class="m-cloud" id="m-cloud" title="Nube" aria-hidden="true"></span>
     <button type="button" class="m-bell" id="m-bell" aria-label="Nuevos posibles clientes">🔔<b id="m-bell-n" hidden>0</b></button>
     <button type="button" class="m-help" id="m-guia-btn">? Guía</button>
   </nav>
 
-  <div class="card m-hoy" id="hoy" aria-labelledby="t-hoy">
+  <div class="card m-hoy" id="hoy" data-views="hoy" aria-labelledby="t-hoy">
     <h2 id="t-hoy"><span id="m-hola">Hoy te toca</span> <span class="m-count" id="m-hoy-fecha">—</span></h2>
     <p class="m-new-alert" id="m-new-alert" hidden></p>
     <div class="m-todo" id="m-todo"></div>
@@ -339,7 +381,7 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     </details>
   </div>
 
-  <div class="card m-guard" aria-labelledby="t-guard">
+  <div class="card m-guard" data-views="hoy" aria-labelledby="t-guard">
     <h2 id="t-guard">Protección de tu número <span class="m-count" id="g-estado">—</span></h2>
     <p class="hint" style="margin:0 0 12px">WhatsApp castiga los números que <b>muchos desconocidos bloquean o reportan</b>. Por eso aquí nunca se manda el enlace ni el precio a quien no te ha contestado: primero un saludo corto que pide permiso, y la venta solo cuando te responden.</p>
     <div class="m-meter">
@@ -369,7 +411,7 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     </details>
   </div>
 
-  <div class="card" id="prospectos">
+  <div class="card" id="prospectos" data-views="prospectos">
     <h2 id="t-macro">Envío rápido · prospectos de menús QR <span class="m-count" id="m-count">0 / 0</span></h2>
     <p class="m-sync" id="m-sync" role="status">☁ Conectando…</p>
     <div class="m-prog" aria-hidden="true"><span id="m-bar"></span></div>
@@ -402,7 +444,7 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     <p class="m-done" id="m-done" hidden>🎉 Listo: ya trabajaste todos los de esta región.</p>
   </div>
 
-  <details class="card m-map" id="m-map">
+  <details class="card m-map" id="m-map" data-views="mapa">
     <summary><b>Mapa y rutas</b> <span class="m-count">para ir en persona</span></summary>
     <p class="hint" style="margin:10px 0 12px">Pon tu punto de partida y se arma la ruta más corta por los lugares de la pestaña que tengas abierta (Jesús María · Ags o Nacional). Tu dirección solo se guarda en este navegador.</p>
     <div class="mp-start">
@@ -421,14 +463,14 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     <a class="btn wa" id="mp-gmaps" href="#" target="_blank" rel="noopener" hidden>Abrir la ruta en Google Maps</a>
   </details>
 
-  <div class="card m-pago" id="pagos">
+  <div class="card m-pago" id="pagos" data-views="pagos">
     <h2>Contactados · en espera de pago <span class="m-count" id="p-n">0</span></h2>
     <p class="hint" style="margin:0 0 12px">Los lugares a los que ya se les mandó la venta. Lo ven todos tus socios con el PIN. Marca <b>💰 Pagó</b> cuando paguen la instalación.</p>
     <ol class="p-list" id="p-list"></ol>
     <details class="p-ok"><summary>Clientes que ya pagaron <span class="m-count" id="p-ok-n">0</span></summary><ul id="p-ok"></ul></details>
   </div>
 
-  <div class="card m-archive">
+  <div class="card m-archive" data-views="pagos">
     <h2>Trabajados · listos para archivar <span class="m-count" id="m-arch-n">0</span></h2>
     <p class="hint" style="margin:0 0 12px">Aquí caen los lugares a los que ya les mandaste la venta, los que dijeron que no y los que no contestaron tras el seguimiento. Toca <b>Exportar · copiar</b> y pégame la lista en el chat: los quito del macro y quedan en "Lugares ya negociados".</p>
     <ol class="m-arch-list" id="m-arch-list"></ol>
@@ -438,7 +480,7 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     </div>
   </div>
 
-  <div class="card m-exc" id="excelencia" aria-labelledby="t-exc">
+  <div class="card m-exc" id="excelencia" data-views="excelencia" aria-labelledby="t-exc">
     <h2 id="t-exc">Estándar de excelencia · mínimo por menú <span class="m-count" id="m-exc-n">—</span></h2>
     <p class="hint" style="margin:0 0 12px">Un menú solo se ofrece si <b>cumple todo el mínimo automático</b>: así el dueño ve algo mejor que su carta actual y la compra se cierra sola. Antes de mandar la venta, palomea tú los puntos de revisión en <b>Ver mensajes → Excelencia</b> de cada lugar.</p>
     <div class="m-exc-cols">
@@ -448,10 +490,46 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     <p class="m-sub" id="m-exc-bajo" style="margin-top:10px"></p>
   </div>
 
-  <details class="card m-nego">
+  <details class="card m-nego" data-views="pagos">
     <summary><b>Lugares ya negociados</b> <span class="m-count" id="m-nego-n">0</span></summary>
     <ul id="m-nego-list"></ul>
   </details>
+  <div class="card m-ajustes" id="ajustes" data-views="ajustes" aria-labelledby="t-aj">
+    <h2 id="t-aj">Ajustes <span class="m-count">se guardan en este celular</span></h2>
+    <h3 class="m-h3">Tú y tus mensajes</h3>
+    <div id="aj-firma"></div>
+    <h3 class="m-h3">Envíos a desconocidos</h3>
+    <div id="aj-envio"></div>
+    <div id="aj-web" class="toggles" style="margin-top:12px"></div>
+    <h3 class="m-h3">Respaldo</h3>
+    <p class="hint" style="margin:0 0 10px">Tus notas, revisiones de excelencia, avisos vistos y ajustes viven en este celular. Descarga un respaldo para pasarlos a otro (el avance de contactos ya está en la nube).</p>
+    <div class="p-acts"><button type="button" class="btn" id="aj-export">⬇ Descargar respaldo</button><label class="btn" for="aj-import" style="cursor:pointer">⬆ Cargar respaldo</label>
+      <input type="file" id="aj-import" accept="application/json,.json" hidden></div>
+    <h3 class="m-h3">App en tu celular</h3>
+    <p class="hint" id="aj-app-txt" style="margin:0 0 10px">Instálalo como app: se abre desde tu pantalla de inicio, a pantalla completa, y funciona aunque se vaya el internet (con lo último que cargaste).</p>
+    <div class="p-acts"><button type="button" class="btn wa" id="aj-instalar" hidden style="grid-column:auto">📲 Instalar la app</button></div>
+    <h3 class="m-h3">Atajos de teclado (computadora)</h3>
+    <ul class="m-keys"><li><kbd>/</kbd> buscar prospecto</li><li><kbd>1</kbd>–<kbd>7</kbd> cambiar de vista</li><li><kbd>N</kbd> nuevos posibles clientes</li><li><kbd>?</kbd> guía</li><li><kbd>Esc</kbd> cerrar</li></ul>
+  </div>
+
+  <div class="card m-mas" id="mas" data-views="mas">
+    <h2>Más</h2>
+    <div class="m-mas-grid">
+      <button type="button" data-go="excelencia"><b>★ Excelencia</b><span>El mínimo que debe cumplir cada menú</span></button>
+      <button type="button" data-go="mensaje"><b>✉ Mensaje libre</b><span>Arma un mensaje para un lugar que no está en la lista</span></button>
+      <button type="button" data-go="ajustes"><b>⚙ Ajustes y respaldo</b><span>Tu nombre, precios, límites, app y respaldo</span></button>
+      <button type="button" id="mas-guia"><b>? Guía</b><span>Vuelve a ver el tutorial</span></button>
+    </div>
+  </div>
+
+  <nav class="m-tabbar" aria-label="Vistas principales">
+    <a href="#hoy" data-go="hoy"><i aria-hidden="true">☀</i>Hoy</a>
+    <a href="#prospectos" data-go="prospectos"><i aria-hidden="true">☰</i>Prospectos</a>
+    <a href="#pagos" data-go="pagos"><i aria-hidden="true">$</i>Pagos<b id="tab-pago" hidden></b></a>
+    <a href="#mapa" data-go="mapa"><i aria-hidden="true">⌖</i>Mapa</a>
+    <a href="#mas" data-go="mas"><i aria-hidden="true">⋯</i>Más</a>
+  </nav>
+
   <dialog class="m-dlg" id="m-tour" aria-labelledby="m-tour-t">
     <form method="dialog" class="m-dlg-in">
       <p class="kick" id="m-tour-k">Paso 1 de 6</p>
@@ -481,7 +559,7 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
 </section>
 <!-- MACRO:END -->
 
-<main class="wrap layout">
+<main class="wrap layout" id="mensaje" data-views="mensaje">
   <section class="card" aria-labelledby="t-datos">
     <h2 id="t-datos">Datos del cliente <button class="ghost" id="clear" type="button">Limpiar</button></h2>
 
@@ -601,10 +679,33 @@ const store = {
 
 // Prospectos ya investigados (menús publicados en WebDesignLKM/menus-qr).
 const PRESETS = [
+  {"lugar": "Patmos Cocina de Mar", "ciudad": "Morelia", "tel": "4437885040", "tipo": "marisquería", "platillos": "aguachile Patmos, tostada de camarón crunch y aguachilocos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/patmos-morelia/", "situacion": "apps", "gancho": "Sus tostadas mixtas y aguachilocos se venden por cómo se ven: con foto grande en el celular la mesa pide más y el cliente nuevo se anima.", "mejora": "Agrego el botón de reservar por WhatsApp, que ya usan.", "contacto": "whatsapp_oficial", "fuente": "Su página oficial de Facebook (Patmos · Cocina de Mar) publica \"reservas vía WhatsApp 443 788 5040\"; Tripadvisor da además el 443 315 7947. No tiene sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "Chapultepec Sur", "direccion": "Av. Lázaro Cárdenas 2390-A, Chapultepec Sur, Morelia, Mich.", "lng": -101.172092, "lat": 19.693939, "alta": "2026-11-18", "sin_web": true, "q": {"n": 99, "f": 100, "c": 14, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Taco Sireno", "ciudad": "Oaxaca de Juárez", "tel": "9512240391", "tipo": "marisquería", "platillos": "tacos de camarón baja, tostada de atún y poboy de camarón", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/taco-sireno/", "situacion": "apps", "gancho": "Tienen tacos baja, quesadillas de mariscos, poboys y crudos: el menú digital explica cada uno con foto, y el turista que no conoce los platillos pide sin miedo.", "mejora": "Agrego el botón de pedidos por WhatsApp, que ya publican en Instagram.", "contacto": "whatsapp_oficial", "fuente": "Su Instagram oficial (@tacosireno) publica \"Pedidos por Wa: 9512240391\". No tiene sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "Centro", "direccion": "Pino Suárez 900, esq. Lic. Verdad, Centro, Oaxaca, Oax.", "lng": -96.718711, "lat": 17.069459, "alta": "2026-11-18", "sin_web": true, "q": {"n": 56, "f": 100, "c": 10, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Ceviches La Palapita", "ciudad": "Hermosillo", "tel": "6624601640", "tipo": "marisquería", "platillos": "ceviche por litro, toritos y tostada de aguachile", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-palapita-hermosillo/", "situacion": "apps", "gancho": "Tienen ceviche por litro, aguachiles, toritos y cahuamanta: el menú digital con fotos ayuda a pedir para llevar y apartar por WhatsApp, como ya lo hacen.", "mejora": "Agrego venta por litro y el botón de pedido para llevar.", "contacto": "whatsapp_oficial", "fuente": "Su TikTok oficial (@cevicheslapalapita) dice \"pedidos y reservaciones por WhatsApp 6624601640\"; Restaurant Guru da el mismo. No tiene sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "San Benito", "direccion": "Gastón Madrid 147, San Benito, Hermosillo, Son.", "lng": -110.963006, "lat": 29.088411, "alta": "2026-11-18", "sin_web": true, "q": {"n": 62, "f": 100, "c": 8, "d": 6, "h": true, "ld": true}},
+  {"lugar": "A La Tostada", "ciudad": "Zapopan", "tel": "3322260476", "tipo": "marisquería", "platillos": "tostada Aguachilosa, camarones pecosos y tumbacruda", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/a-la-tostada/", "situacion": "apps", "gancho": "Sus tostadas tienen nombre propio (Aguachilosa, Ya tu sabe, Tumbacruda 3 Poderes): el menú digital explica qué lleva cada una con foto y la mesa pide sin preguntar.", "mejora": "Agrego el botón de pedidos por WhatsApp, que ya publican en Instagram.", "contacto": "whatsapp_oficial", "fuente": "Su Instagram oficial (@a_latostada) publica su WhatsApp 33 2226 0476 y dice que no tiene sucursales. No tiene sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "Prados Guadalupe", "direccion": "Av. Sebastián Bach 4722, Prados Guadalupe, Zapopan, Jal.", "lng": -103.417847, "lat": 20.672709, "alta": "2026-11-18", "sin_web": true, "q": {"n": 109, "f": 100, "c": 26, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Pato Blanco Cocina de Mar", "ciudad": "Guadalajara", "tel": "3314599613", "tipo": "marisquería", "platillos": "tostada Tapatía, aguachile negro y ceviche Mechita", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/pato-blanco/", "situacion": "apps", "gancho": "Sus tostadas y ceviches tienen nombre de la casa (Tostada Tapatía, Ceviche Mechita, Don Titi): el menú digital los presenta con foto y tamaño chico o grande.", "mejora": "Agrego el botón de pedidos para llevar por WhatsApp, que ya publican.", "contacto": "whatsapp_oficial", "fuente": "Su página oficial de Facebook (Pato Blanco Cocina de Mar) publica \"WhatsApp 3314599613\" para pedidos para llevar; el fijo 33 3642 7573 sale en Facebook y Uber Eats. No tiene sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "Providencia", "direccion": "Calle Bogotá 2763 Local 5, Providencia, Guadalajara, Jal.", "lng": -103.383053, "lat": 20.69842, "alta": "2026-11-18", "sin_web": true, "q": {"n": 64, "f": 100, "c": 12, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Mariscos Villa Marina", "ciudad": "León", "tel": "4773137061", "tipo": "marisquería", "platillos": "camarones Rockefeller, chavelas y filetes a la plancha", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mariscos-villa-marina/", "situacion": "apps", "gancho": "Su carta es enorme (casi 100 platillos entre barra fría, camarones, filetes y caldos): con categorías y buscador la mesa encuentra el suyo sin hojear una carta larga.", "mejora": "Pongo arriba la barra fría y los camarones, con botón de pedido para llevar.", "contacto": "numero_propio", "fuente": "Su página oficial de Facebook (Mariscos Villa Marina) y Restaurant Guru dan el 477 313 7061; no publica sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "Villa Insurgentes", "direccion": "Av. Rafael Iriarte 220, Villa Insurgentes, León, Gto.", "lng": -101.670333, "lat": 21.147198, "alta": "2026-11-18", "sin_web": true, "q": {"n": 94, "f": 100, "c": 13, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Taquería La Plancha", "ciudad": "Pachuca", "tel": "7712057497", "tipo": "taquería", "platillos": "tacos al pastor con queso, órdenes mixtas y volcanes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/taqueria-la-plancha/", "situacion": "apps", "gancho": "Tienen más de 90 opciones entre tacos, tacos con queso, órdenes mixtas y volcanes: el menú digital las ordena con foto y la gente pide la orden completa sin dudar.", "mejora": "Agrego pedido a domicilio por WhatsApp, que ya es como trabajan.", "contacto": "numero_propio", "fuente": "Su Facebook e Instagram oficiales (@taquerialaplancha) publican el 771 205 7497 para servicio a domicilio; no tiene sitio web.", "region": "nacional", "guion": "taqueria", "sucursal": "Parque de Poblamiento", "direccion": "Av. Federalismo, Parque de Poblamiento 2a. Secc., Pachuca, Hgo.", "lng": -98.770244, "lat": 20.114003, "alta": "2026-11-18", "sin_web": true, "q": {"n": 92, "f": 100, "c": 15, "d": 6, "h": false, "ld": true}},
+  {"lugar": "La Cabaña Restaurante", "ciudad": "Tuxtla Gutiérrez", "tel": "9613755555", "tipo": "restaurante de desayunos", "platillos": "huevos al gusto, chilaquiles y enchiladas de mole", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-cabana-tuxtla/", "situacion": "apps", "gancho": "Su carta de desayunos es grande (huevos al gusto, chilaquiles, antojitos con tortilla y con pan): con el menú digital el cliente decide mientras espera y pide más rápido en la mañana.", "mejora": "Agrego una sección de desayunos para llevar con botón de pedido.", "contacto": "numero_propio", "fuente": "Su página oficial de Facebook publica el 961 375 5555 (celular, +52 1); tuxtla.com.mx da el mismo. No tiene sitio web.", "region": "nacional", "guion": "desayunos", "sucursal": "El Cerrito", "direccion": "Calle Novena Pte. Sur 164, El Cerrito, Tuxtla Gutiérrez, Chis.", "lng": -93.124103, "lat": 16.75427, "alta": "2026-11-18", "sin_web": true, "q": {"n": 146, "f": 100, "c": 13, "d": 6, "h": true, "ld": true}},
+  {"lugar": "La Esquinita Cocina Mexicana", "ciudad": "Tijuana", "tel": "6641116804", "tipo": "restaurante", "platillos": "huevos florentina, chicharrón de rib eye y caldo tlalpeño", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-esquinita-tijuana/", "situacion": "apps", "gancho": "Tienen desayunos, antojitos, caldos y platos fuertes en más de 120 platillos: el menú digital con fotos le enseña al cliente de fuera lo mexicano de la casa.", "mejora": "Lo dejo con botón para reservar y pedir por WhatsApp.", "contacto": "numero_propio", "fuente": "Su página oficial de Facebook (@laesquinitacm) publica el 664 111 6804; Tripadvisor da además el 664 720 1929. No tiene sitio web.", "region": "nacional", "guion": "cocina_tradicional", "sucursal": "Zona Este", "direccion": "Av. Andrés Quintana Roo 1781, Zona Este, Tijuana, B.C.", "lng": -117.027851, "lat": 32.527457, "alta": "2026-11-18", "sin_web": true, "q": {"n": 122, "f": 100, "c": 23, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Los Faroles", "ciudad": "Villahermosa", "tel": "9933129164", "tipo": "restaurante de desayunos", "platillos": "paquetes de desayuno, tortas combinadas y carne asada", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/los-faroles-villahermosa/", "situacion": "apps", "gancho": "Su carta pasa de 100 platillos (desayunos económicos, tortas, tacos, carnes y mariscos): el menú digital la ordena y el cliente encuentra rápido el paquete del día.", "mejora": "Pongo arriba los paquetes de desayuno con su precio y botón de pedido.", "contacto": "numero_propio", "fuente": "Su página oficial de Facebook (Los Faroles Villahermosa) y Sección Amarilla dan el 993 312 9164. No tiene sitio web.", "region": "nacional", "guion": "desayunos", "sucursal": "Centro", "direccion": "Manuel Sánchez Mármol 404-B, Centro, Villahermosa, Tab.", "lng": -92.917287, "lat": 17.991207, "alta": "2026-11-18", "sin_web": true, "q": {"n": 105, "f": 99, "c": 17, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Los Huaraches de Don Juan", "ciudad": "Mérida", "tel": "9994062242", "tipo": "restaurante", "platillos": "huarache de tinga, gordita de chicharrón y pambazo", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/huaraches-don-juan/", "situacion": "apps", "gancho": "En Mérida los huaraches y pambazos no son de todos los días: el menú digital explica cada antojito con foto y el cliente nuevo se anima a probarlos.", "mejora": "Agrego los guisos del día en una sección que se cambia con un mensaje.", "contacto": "numero_propio", "fuente": "Su Facebook e Instagram oficiales publican el (999) 406 2242; Gastroranking lo marca con WhatsApp. No tiene sitio web.", "region": "nacional", "guion": "cocina_tradicional", "sucursal": "Francisco de Montejo", "direccion": "Calle 50 No. 384 x 53F y 55, Francisco de Montejo, Mérida, Yuc.", "lng": -89.647598, "lat": 21.027877, "alta": "2026-11-18", "sin_web": true, "q": {"n": 60, "f": 100, "c": 6, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Mariscos El Plebe", "ciudad": "Colima", "tel": "3123302776", "tipo": "marisquería", "platillos": "aguachile rojo, medallón de camarón y Pleburger", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mariscos-el-plebe/", "situacion": "apps", "gancho": "Tienen de todo: caldos, aguachiles, cócteles, pulpo y hasta sus Pleburgers de filete; el menú digital lo ordena y se antoja con foto.", "mejora": "Agrego el botón de pedido por WhatsApp, donde ya atienden.", "contacto": "numero_propio", "fuente": "Su página oficial de Facebook (Mariscos El Plebe) publica el 312 330 2776 y avisa que ya está en WhatsApp; TripTap da además el 312 118 1132. No tiene sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "Centro", "direccion": "Independencia 104, Centro, Colima, Col.", "lng": -103.730549, "lat": 19.243463, "alta": "2026-11-18", "sin_web": true, "q": {"n": 77, "f": 100, "c": 17, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Carnitas y Asadas El Güero", "ciudad": "Toluca", "tel": "7221834897", "tipo": "taquería", "platillos": "taco revolcado, chamorro y kilo de arrachera", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/carnitas-el-guero-toluca/", "situacion": "apps", "gancho": "Venden por kilo (arrachera, surtida, campechana) y por taco: el menú digital deja armar el pedido para la familia y mandarlo por WhatsApp ya sumado.", "mejora": "Pongo la venta por kilo arriba para fiestas y fines de semana.", "contacto": "numero_propio", "fuente": "Su página oficial de Facebook (Carnitas y Asadas El Güero, 5 de Mayo 936) publica el 722 183 4897. No tiene sitio web.", "region": "nacional", "guion": "taqueria", "sucursal": "Valle Don Camilo", "direccion": "Prol. 5 de Mayo 936, Valle Don Camilo, Toluca, Edo. Méx.", "lng": -99.634857, "lat": 19.275019, "alta": "2026-11-18", "sin_web": true, "q": {"n": 71, "f": 100, "c": 10, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Mariscos Frente al Mar", "ciudad": "Guadalajara", "tel": "3312040845", "tipo": "marisquería", "platillos": "aguachiles, lonche de marlín y tortas ahogadas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mariscos-frente-al-mar/", "situacion": "apps", "gancho": "Además de aguachiles y cócteles venden lonches y tortas ahogadas: el menú digital muestra todo con foto y la oficina de al lado pide por WhatsApp.", "mejora": "Agrego una sección de comida para oficina con botón de pedido.", "contacto": "numero_propio", "fuente": "Su página oficial de Facebook (Mariscos frente al mar, Francisco de Quevedo) publica el 33 1204 0845; Restaurant Guru da el mismo. No tiene sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "Arcos Vallarta", "direccion": "Francisco de Quevedo 122-A, Arcos Vallarta, Guadalajara, Jal.", "lng": -103.381541, "lat": 20.672722, "alta": "2026-11-18", "sin_web": true, "q": {"n": 55, "f": 100, "c": 17, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Doraditos y Enchiladas Mary", "ciudad": "Morelia", "tel": "4439321562", "tipo": "restaurante", "platillos": "enchiladas rellenas, doraditos surtidos y morisqueta", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/enchiladas-mary/", "situacion": "apps", "gancho": "La morisqueta, las enchiladas y los doraditos son de Michoacán: el menú digital los explica con foto para el turista del Centro Histórico.", "mejora": "Agrego sus dos sucursales en el mismo menú, con su botón de pedido.", "contacto": "numero_propio", "fuente": "Su página oficial de Facebook (Enchiladas Mary Morelia) publica el 443 932 1562 para sus sucursales Lázaro Cárdenas y Centro Histórico; Uber Eats da el mismo. No tiene sitio web.", "region": "nacional", "guion": "cocina_tradicional", "sucursal": "Centro Histórico", "direccion": "Antonio Alzate 302-B, Centro Histórico, Morelia, Mich.", "lng": -101.188709, "lat": 19.700825, "alta": "2026-11-18", "sin_web": true, "q": {"n": 46, "f": 100, "c": 8, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Mr. Camarón Aguachilería", "ciudad": "Morelia", "tel": "4432610172", "tipo": "marisquería", "platillos": "aguachile Takis Fuego, torre de mariscos y tostada Los 3 Hermanos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mr-camaron-morelia/", "situacion": "apps", "gancho": "Sus aguachiles de la casa (Takis Fuego, mariscada mixta) y las tostadas especiales se venden por la foto: con el menú digital la mesa pide más.", "mejora": "Agrego el botón de pedido por WhatsApp para llevar.", "contacto": "numero_propio", "fuente": "Su página oficial de Facebook (Mr Camarón Aguachilería Morelia, Héroes de Nocupétaro 1556) publica el 443 261 0172; Restaurant Guru da el 443 257 2422. No tiene sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "Melchor Ocampo", "direccion": "Av. Héroes de Nocupétaro 1556, Melchor Ocampo, Morelia, Mich.", "lng": -101.203434, "lat": 19.704978, "alta": "2026-11-18", "sin_web": true, "q": {"n": 71, "f": 100, "c": 10, "d": 6, "h": true, "ld": true}},
+  {"lugar": "La Mina del Abuelo", "ciudad": "Tepic", "tel": "3117407467", "tipo": "restaurante de desayunos", "platillos": "molletes, chilaquiles gratinados y omelette minero", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-mina-del-abuelo/", "situacion": "apps", "gancho": "Con más de 150 platillos entre molletes dulces y salados, chilaquiles y omelettes, el menú digital con buscador hace fácil elegir en una carta tan grande.", "mejora": "Agrego cómo llegar con mapa (está a las afueras) y pedido por WhatsApp.", "contacto": "directorio", "fuente": "Gastroranking y Wanderboat dan el 311 740 7467 (Gastroranking con WhatsApp); Restaurant Guru da el 311 110 4389. Sin sitio web.", "region": "nacional", "guion": "desayunos", "sucursal": "Brisas de San Juan", "direccion": "Rancho Paraíso del Cielo, Las Brisas, Tepic, Nay.", "lng": -104.927893, "lat": 21.513408, "alta": "2026-11-18", "sin_web": true, "q": {"n": 152, "f": 100, "c": 20, "d": 6, "h": true, "ld": true}},
+  {"lugar": "El Seri Pescadería", "ciudad": "Hermosillo", "tel": "6622203995", "tipo": "marisquería", "platillos": "paquetes familiares, camarón empanizado y ceviches", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-seri-pescaderia/", "situacion": "apps", "gancho": "Venden por paquete familiar y por kilo (pescado, camarón empanizado, milanesa): el menú digital deja que la familia arme el pedido y lo aparte por WhatsApp.", "mejora": "Pongo los paquetes familiares arriba con su precio.", "contacto": "directorio", "fuente": "Allbiz y Twopos dan el 662 220 3995 para Blvd. Camino del Seri 727. Sin sitio web; no publica WhatsApp.", "region": "nacional", "guion": "mariscos", "sucursal": "La Verbena", "direccion": "Blvd. Camino del Seri 727, La Verbena, Hermosillo, Son.", "lng": -110.990284, "lat": 29.063601, "alta": "2026-11-18", "sin_web": true, "q": {"n": 98, "f": 100, "c": 19, "d": 6, "h": true, "ld": true}},
+  {"lugar": "El Mar", "ciudad": "Tuxtla Gutiérrez", "tel": "9616000759", "tipo": "marisquería", "platillos": "cazuela de mariscos, chilpachole y cóctel de camarón", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-mar-tuxtla/", "situacion": "apps", "gancho": "Su carta pasa de 100 platillos entre cócteles, cazuelas, tacos y chilpachole: con categorías claras y fotos la mesa decide rápido.", "mejora": "Agrego las charolas para compartir arriba, con botón de pedido.", "contacto": "directorio", "fuente": "Carta.menu, Menuweb y Sección Amarilla dan el 961 600 0759. Sin sitio web; no publica WhatsApp.", "region": "nacional", "guion": "mariscos", "sucursal": "Coquelequixtlán", "direccion": "Nueva Agua Potable 398, Tuxtla Gutiérrez, Chis.", "lng": -93.108156, "lat": 16.729381, "alta": "2026-11-18", "sin_web": true, "q": {"n": 119, "f": 100, "c": 21, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Taquería Los Mandiles", "ciudad": "Toluca", "tel": "7222130422", "tipo": "taquería", "platillos": "alambre campechano, tacos Mandilón y queso fundido", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/taqueria-los-mandiles/", "situacion": "apps", "gancho": "Tienen casi 100 platillos entre órdenes, alambres, quesos y tacos de la casa (Mandilón, Hawaianos): con fotos la mesa grande pide todo de una vez.", "mejora": "Pongo los paquetes para grupos arriba con su total.", "contacto": "directorio", "fuente": "Rankeando, Restaurant Guru y el registro de la empresa dan el 722 213 0422 (correo taquerialosmandiles@gmail.com). Sin sitio web; no publica WhatsApp.", "region": "nacional", "guion": "taqueria", "sucursal": "Centro", "direccion": "Leona Vicario 301, Centro, Toluca, Edo. Méx.", "lng": -99.645786, "lat": 19.287527, "alta": "2026-11-18", "sin_web": true, "q": {"n": 96, "f": 99, "c": 15, "d": 6, "h": true, "ld": true}},
+  {"lugar": "El Arponcillo", "ciudad": "Veracruz", "tel": "2292653447", "tipo": "marisquería", "platillos": "arroz a la tumbada, mojarra frita y camarones en pulpa", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-arponcillo/", "situacion": "apps", "gancho": "Su carta es veracruzana (arroz a la tumbada, camarones en pulpa, mojarra frita): el menú digital con fotos la presenta tal cual al que viene de fuera.", "mejora": "Agrego los tamaños familiares arriba con botón de pedido.", "contacto": "directorio", "fuente": "Restaurant Guru da el 229 265 3447 para Heroísmo 420. Fuente única: confirmar en la primera llamada. Sin sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "Miguel Hidalgo", "direccion": "Heroísmo 420, Miguel Hidalgo, Veracruz, Ver.", "lng": -96.158693, "lat": 19.191204, "alta": "2026-11-18", "sin_web": true, "q": {"n": 42, "f": 100, "c": 10, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Caminos de Michoacán", "ciudad": "Morelia", "tel": "4432250200", "tipo": "restaurante", "platillos": "aporreadillo, corundas y cecina de Tierra Caliente", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/caminos-de-michoacan/", "situacion": "apps", "gancho": "Tienen platillos michoacanos que el visitante no conoce de nombre (aporreadillo, corundas, cecina de Tierra Caliente): el menú digital los explica con foto.", "mejora": "Agrego la comida del día en una sección que se cambia con un mensaje.", "contacto": "directorio", "fuente": "Uber Eats y Wanderboat dan el 443 225 0200 para Francisco J. Múgica 35. Sin sitio web; no publica WhatsApp.", "region": "nacional", "guion": "cocina_tradicional", "sucursal": "Felícitas del Río", "direccion": "Francisco J. Múgica 35, Felícitas del Río, Morelia, Mich.", "lng": -101.196046, "lat": 19.690124, "alta": "2026-11-18", "sin_web": true, "q": {"n": 95, "f": 100, "c": 12, "d": 6, "h": true, "ld": true}},
+  {"lugar": "El Camarón de Oro", "ciudad": "Durango", "tel": "6181099614", "tipo": "marisquería", "platillos": "camarones tatemados, tostiaguachiles y camarón zarandeado", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-camaron-de-oro/", "situacion": "apps", "gancho": "Tienen camarones de 7 formas, tostitos de la casa y hasta rib eye: el menú digital ordena la carta y destaca sus especialidades de oro con foto.", "mejora": "Agrego una sección de \"lo nuevo\" que se cambia con un mensaje.", "contacto": "directorio", "fuente": "Su página oficial de Facebook publica el 618 109 9614 para la sucursal Pino Suárez 2916; este menú es de la sucursal Las Playas (Blvd. Carrola Antuna 352): confirmar que atienden las dos. No tiene sitio web.", "region": "nacional", "guion": "mariscos", "sucursal": "Las Playas", "direccion": "Blvd. Coronel Enrique Carrola Antuna 352, Las Playas, Durango, Dgo.", "lng": -104.648265, "lat": 24.019703, "alta": "2026-11-18", "sin_web": true, "q": {"n": 81, "f": 100, "c": 17, "d": 6, "h": true, "ld": true}},
+  {"lugar": "Mi Ranchito Desayunador", "ciudad": "Durango", "tel": "6181097261", "tipo": "restaurante de desayunos", "platillos": "chilaquiles cremosos, huevos chipotludos y torta menonita", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mi-ranchito-desayunador/", "situacion": "apps", "gancho": "Sus chilaquiles cremosos, los huevos chipotludos y la torta menonita son de la casa: con foto en el menú digital el cliente nuevo los prueba.", "mejora": "Agrego una sección de desayunos para llevar con botón de pedido.", "contacto": "directorio", "fuente": "Tripadvisor y Menuweb dan el 618 109 7261 para José del Campo 31. Sin sitio web; no publica WhatsApp.", "region": "nacional", "guion": "desayunos", "sucursal": "Nueva Vizcaya", "direccion": "José del Campo 31, Nueva Vizcaya, Durango, Dgo.", "lng": -104.646778, "lat": 24.030244, "alta": "2026-11-18", "sin_web": true, "q": {"n": 64, "f": 100, "c": 11, "d": 6, "h": true, "ld": true}},
   {"lugar": "Los Abolengos", "ciudad": "Aguascalientes", "tel": "4498050420", "tipo": "restaurante de desayunos", "platillos": "Huevos Pelea de Gallos, pastel azteca y pan de la casa", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/los-abolengos/", "situacion": "apps", "gancho": "Tienen huevos, omelettes, especialidades y pan de la casa en una carta de casi 80 platillos: el menú digital la ordena por categorías y la gente decide antes de que llegue el mesero.", "mejora": "Agrego un botón para reservar y apartar eventos por WhatsApp.", "contacto": "whatsapp_oficial", "fuente": "Su página oficial de Facebook publica \"WhatsApp al 449-805-04-20\" para reservaciones, información y eventos; Horario.mx lo repite. El fijo 449 377 2943 sale en Tripadvisor.", "region": "ags", "guion": "desayunos", "sucursal": "Col. del Trabajo", "direccion": "Prol. Alameda 810, Col. del Trabajo, Aguascalientes", "lng": -102.270476, "lat": 21.884635, "alta": "2026-11-18", "q": {"n": 77, "f": 100, "c": 12, "d": 6, "h": false, "ld": true}},
   {"lugar": "Me Lo Dijo Adela", "ciudad": "Aguascalientes", "tel": "4495376787", "tipo": "restaurante de desayunos", "platillos": "chilaquiles Candelaria, emparedado Adela y waffles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/me-lo-dijo-adela/", "situacion": "apps", "gancho": "Cada platillo tiene nombre de persona (Chilaquiles Candelaria, Emparedado Adela, Waffles Alfonso): en el menú digital con foto la gente entiende qué es cada uno sin preguntarle al mesero.", "mejora": "Lo dejo con su imagen de cafetería y un botón para pedir para llevar por WhatsApp.", "contacto": "numero_propio", "fuente": "Número de la sucursal Madero publicado en su Instagram oficial @melodijoadelaags; Waze y Restaurant Guru dan el mismo. La sucursal Centro usa 449 589 3318.", "region": "ags", "guion": "desayunos", "sucursal": "Barrio de la Estación", "direccion": "Madero 807, Barrio de la Estación, Aguascalientes", "lng": -102.282281, "lat": 21.884814, "alta": "2026-11-18", "q": {"n": 73, "f": 100, "c": 9, "d": 6, "h": true, "ld": true}},
   {"lugar": "El Cafetal de Concha", "ciudad": "Aguascalientes", "tel": "4493671887", "tipo": "restaurante de desayunos", "platillos": "rollos de canela, rollazos y frappés", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-cafetal-de-concha/", "situacion": "apps", "gancho": "Sus rollos (ponche, cajeta con nuez, brownie) y los rollazos se venden por cómo se ven: con foto grande en el celular se antojan antes de llegar a la barra.", "mejora": "Le agrego una sección de \"rollo del día\" que se cambia con un mensaje.", "contacto": "numero_propio", "fuente": "Número publicado en su página oficial de Facebook (El Cafetal, @elcafetaldeconcha); Uber Eats y Mexicocafes dan el mismo.", "region": "ags", "guion": "desayunos", "sucursal": "San Cayetano", "direccion": "Carlos Sagredo 2713, San Cayetano, Aguascalientes", "lng": -102.312394, "lat": 21.902174, "alta": "2026-11-18", "q": {"n": 56, "f": 100, "c": 7, "d": 5, "h": true, "ld": true}},
-  {"lugar": "Lonchería El Mono", "ciudad": "Aguascalientes", "tel": "4497350251", "tipo": "taquería", "platillos": "tortas de maciza, tacos de surtido y kilos de carnitas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/loncheria-el-mono/", "situacion": "apps", "gancho": "Venden mucho por paquete y por kilo (5 tortas y 10 tacos, kilo surtido): el menú digital deja que la oficina arme su pedido completo y se lo mande por WhatsApp ya sumado.", "mejora": "Pongo arriba los paquetes para oficina y fiestas, con su precio total.", "contacto": "numero_propio", "fuente": "Su página oficial de Facebook (Lonchería El Mono Av. Independencia) publica el 449 735 0251 como número directo de la lonchería; Gastroranking lo marca con WhatsApp.", "region": "ags", "guion": "taqueria", "sucursal": "Av. Independencia", "direccion": "Av. Independencia 1316-A, El Roble, Aguascalientes", "lng": -102.296972, "lat": 21.906876, "alta": "2026-11-18", "q": {"n": 70, "f": 93, "c": 8, "d": 6, "h": true, "ld": true}},
   {"lugar": "Narros Burger", "ciudad": "Aguascalientes", "tel": "4493529241", "tipo": "restaurante", "platillos": "hamburguesas Tolteca, Zapoteca y Maya", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/narros-burger/", "situacion": "apps", "gancho": "Sus hamburguesas se llaman Tolteca, Zapoteca, Maya…: el menú digital explica qué lleva cada una con foto, y el cliente deja de pedir siempre la misma.", "mejora": "Agrego el botón para pedir a domicilio por WhatsApp sin comisión de app.", "contacto": "numero_propio", "fuente": "El 449 352 9241 lo publica su página oficial de Facebook (Narros Burger Fundición); Yelp y Restaurant Guru dan el 449 194 4470 como teléfono del local. La sucursal Paseos usa otro número.", "region": "ags", "guion": "restaurante", "sucursal": "Fundición", "direccion": "Av. Fundición 2403, La Fundición, Aguascalientes", "lng": -102.315206, "lat": 21.901606, "alta": "2026-11-18", "q": {"n": 52, "f": 98, "c": 10, "d": 6, "h": true, "ld": true}},
   {"lugar": "Amor de mis Sabores", "ciudad": "Aguascalientes", "tel": "4498296139", "tipo": "restaurante", "platillos": "pozole rojo, flautas y tostadas preparadas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/amor-de-mis-sabores/", "situacion": "apps", "gancho": "Tienen desayunos en la mañana y antojitos con pozole en la tarde: el menú digital muestra lo que hay a cada hora y la promo de pozole con taco dorado.", "mejora": "Agrego una sección de promoción que se cambia con un mensaje.", "contacto": "numero_propio", "fuente": "El 449 829 6139 lo publica su página oficial de Facebook (Amor de mis Sabores); directorios dan además el 449 398 9172.", "region": "ags", "guion": "cocina_tradicional", "sucursal": "Pocitos", "direccion": "Av. Eugenio Garza Sada 28-A, Pocitos, Aguascalientes", "lng": -102.328905, "lat": 21.908846, "alta": "2026-11-18", "q": {"n": 37, "f": 100, "c": 5, "d": 6, "h": true, "ld": true}},
   {"lugar": "AC Wing's", "ciudad": "Aguascalientes", "tel": "4498978982", "tipo": "restaurante", "platillos": "alitas, boneless y combos para compartir", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/ac-wings/", "situacion": "apps", "gancho": "Tienen opción fitness y \"Sabor sin culpa\" además de 10 salsas: el menú digital deja elegir tamaño y salsa con foto, y el pedido llega completo por WhatsApp.", "mejora": "Agrego los combos para compartir arriba y el selector de salsas.", "contacto": "numero_propio", "fuente": "El 449 897 8982 lo publica su página oficial de Facebook (AC Wing's, Cosío Sur 1044).", "region": "ags", "guion": "restaurante", "sucursal": "Barrio de la Salud", "direccion": "Prol. Cosío Sur 1044, Barrio de la Salud, Aguascalientes", "lng": -102.286924, "lat": 21.870851, "alta": "2026-11-18", "q": {"n": 36, "f": 100, "c": 8, "d": 6, "h": false, "ld": true}},
@@ -614,7 +715,6 @@ const PRESETS = [
   {"lugar": "Kaffihus", "ciudad": "Aguascalientes", "tel": "4495760144", "tipo": "restaurante de desayunos", "platillos": "crepas, frappuchinos y baguettes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/kaffihus/", "situacion": "apps", "gancho": "Su carta es grande (casi 100 productos entre cafés, frappés, crepas, bagels y baguettes); con categorías y buscador la mesa encuentra rápido lo que quiere mientras juega.", "mejora": "Agrego una sección de paquetes para grupos (Paquete juegos, Paquete Kaffihus).", "contacto": "directorio", "fuente": "Tripadvisor y Restaurant Guru dan el 449 576 0144 para Kaffihus (Plaza Albera); no publica WhatsApp. Confirmar que responde antes de mandar la venta.", "region": "ags", "guion": "desayunos", "sucursal": "Plaza Albera", "direccion": "Av. Universidad 1302, Plaza Albera, San Cayetano, Aguascalientes", "lng": -102.305675, "lat": 21.898116, "alta": "2026-11-18", "q": {"n": 96, "f": 99, "c": 13, "d": 6, "h": true, "ld": true}},
   {"lugar": "Pollo Pepe", "ciudad": "Aguascalientes", "tel": "4491531919", "tipo": "restaurante", "platillos": "pollo asado, Pepe Tenders y paquetes familiares", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/pollo-pepe/", "situacion": "apps", "gancho": "Venden por paquete (7, 10 y 12 piezas con acompañamientos): con el menú digital la familia arma el paquete, ve el total y lo pide por WhatsApp sin llamar.", "mejora": "Pongo los paquetes familiares hasta arriba y un botón de pedido para llevar.", "contacto": "directorio", "fuente": "Gastroranking, Restaurant Guru y Carta.menu dan el 449 153 1919 para la sucursal Universidad; Gastroranking lo marca con WhatsApp.", "region": "ags", "guion": "restaurante", "sucursal": "Universidad", "direccion": "Av. Universidad 409, Villas de la Universidad, Aguascalientes", "lng": -102.307077, "lat": 21.902187, "alta": "2026-11-18", "q": {"n": 48, "f": 100, "c": 12, "d": 6, "h": true, "ld": true}},
   {"lugar": "Tacos Guadalupe", "ciudad": "Aguascalientes", "tel": "4493113784", "tipo": "taquería", "platillos": "volcanes, tacos al pastor y gorditas de la casa", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/tacos-guadalupe/", "situacion": "apps", "gancho": "Tienen de todo (tacos, volcanes, quesadillas de maíz y harina, gorditas, antojitos fritos): el menú digital con fotos ordena una carta grande y ayuda a que en la noche pidan más rápido.", "mejora": "Agrego los paquetes de medio kilo para compartir arriba, con botón de pedido.", "contacto": "directorio", "fuente": "Directorio de taquerías (pueblosamerica, 2024) da el 449 311 3784 para Valentín Gómez Farías 328. Fuente única: llamar primero si no contesta.", "region": "ags", "guion": "taqueria", "sucursal": "Barrio de Guadalupe", "direccion": "Valentín Gómez Farías 328, Barrio de Guadalupe, Aguascalientes", "lng": -102.30137, "lat": 21.88512, "alta": "2026-11-18", "q": {"n": 64, "f": 100, "c": 11, "d": 6, "h": true, "ld": true}},
-  {"lugar": "Delifresh", "ciudad": "Aguascalientes", "tel": "4491465656", "tipo": "restaurante de desayunos", "platillos": "combos, ensaladas y baguettes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/delifresh/", "situacion": "apps", "gancho": "Su fuerte es \"arma tu ensalada\" y los combos de mediodía: con el menú digital la oficina ve los combos con foto y pide por WhatsApp antes de la hora de la comida.", "mejora": "Le pongo una sección de combos del día que se cambia con un mensaje.", "contacto": "directorio", "fuente": "Restaurant Guru y Worldorgs dan el 449 146 5656 para Delifresh (República de Uruguay 1103). No publica WhatsApp.", "region": "ags", "guion": "desayunos", "sucursal": "Las Américas", "direccion": "República de Uruguay 1103, Las Américas, Aguascalientes", "lng": -102.301713, "lat": 21.867277, "alta": "2026-11-18", "q": {"n": 26, "f": 100, "c": 8, "d": 6, "h": true, "ld": true}},
   {"lugar": "Los Andariegos", "ciudad": "Aguascalientes", "tel": "4494141321", "tipo": "taquería", "platillos": "chamorro, carnitas y tortas surtidas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/los-andariegos/", "situacion": "apps", "gancho": "El chamorro y las carnitas se venden con foto; en el menú digital el cliente ve platos, tacos y tortas con precio y pide por kilo para la familia.", "mejora": "Agrego venta por kilo y paquetes para el fin de semana.", "contacto": "directorio", "fuente": "Uber Eats y directorios dan el 449 414 1321 para Av. Mahatma Gandhi 613. No publica WhatsApp.", "region": "ags", "guion": "taqueria", "sucursal": "San Pedro", "direccion": "Av. Mahatma Gandhi 613, San Pedro, Aguascalientes", "lng": -102.293762, "lat": 21.841482, "alta": "2026-11-18", "q": {"n": 28, "f": 100, "c": 6, "d": 6, "h": true, "ld": true}},
   {"lugar": "Rosticería San Francisco", "ciudad": "Aguascalientes", "tel": "4499182835", "tipo": "restaurante", "platillos": "pollo rostizado, combo familiar y alitas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/rosticeria-san-francisco/", "situacion": "apps", "gancho": "El pollo completo y los combos familiares se piden para llevar: con el menú digital el cliente arma el combo con mole y papas y lo manda por WhatsApp para recogerlo listo.", "mejora": "Pongo los combos familiares arriba con botón de pedido para llevar.", "contacto": "directorio", "fuente": "Tripadvisor, Restaurant Guru, Wanderlog y allbiz dan el 449 918 2835 para Aquiles Serdán 111. No publica WhatsApp.", "region": "ags", "guion": "cocina_tradicional", "sucursal": "San Pablo", "direccion": "Aquiles Serdán 111, San Pablo, Aguascalientes", "lng": -102.299524, "lat": 21.890713, "alta": "2026-11-18", "q": {"n": 33, "f": 100, "c": 7, "d": 6, "h": true, "ld": true}},
   {"lugar": "Puerta Grande", "ciudad": "Aguascalientes", "tel": "4491533618", "tipo": "restaurante", "platillos": "paella, mariscos y cocina española", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/puerta-grande/", "situacion": "apps", "gancho": "Cocina española (paella, lechón, rabo de toro) que mucha gente de Ags no conoce de nombre: el menú digital explica cada platillo con foto y ayuda a pedir sin miedo.", "mejora": "Lo dejo con un botón para reservar mesa por WhatsApp.", "contacto": "directorio", "fuente": "Allbiz, Restaurant Guru y Guiamexico dan el 449 153 3618 para Av. Universidad 1509. No publica WhatsApp: confirmar en la llamada.", "region": "ags", "guion": "restaurante", "sucursal": "Villas de la Universidad", "direccion": "Av. Universidad 1509, Villas de la Universidad, Aguascalientes", "lng": -102.305058, "lat": 21.898912, "alta": "2026-11-18", "q": {"n": 51, "f": 90, "c": 10, "d": 6, "h": false, "ld": true}},
@@ -630,13 +730,11 @@ const PRESETS = [
   {"lugar": "La Quincena", "ciudad": "Aguascalientes", "tel": "4495376787", "tipo": "restaurante", "platillos": "botanas, comida corrida y sus especialidades", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-quincena/", "situacion": "apps", "gancho": "Los fines de semana se llena; con el QR la mesa ve la carta y pide sin esperar.", "mejora": "Puedo agregar su botana del día y las promos de fin de semana.", "contacto": "solo_telefono", "fuente": "449 537 6787 en FindGlocal y Latinoplaces; Tripadvisor da 449 239 8003. Sin WhatsApp publicado: llama primero.", "region": "ags", "guion": "cocina_tradicional", "sucursal": "Barrio de la Estación", "direccion": "Av. Francisco I. Madero 811, Barrio de la Estación, Aguascalientes", "lng": -102.28217, "lat": 21.884983, "q": {"n": 72, "f": 100, "c": 6, "d": 6, "h": true, "ld": true}},
   {"lugar": "La Cabaña de Papá", "ciudad": "Aguascalientes", "tel": "4491154579", "tipo": "taquería", "platillos": "quesadillas megas, burros y huaraches", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-cabana-de-papa/", "situacion": "apps", "gancho": "Tienen casi 90 antojitos; con buscador y fotos la familia arma su pedido rápido.", "mejora": "Lo dejo con sus paquetes familiares al frente y pedido para llevar.", "contacto": "solo_telefono", "fuente": "Número registrado de la tienda en Uber Eats; no encontré otra fuente. Llama primero.", "region": "ags", "guion": "taqueria", "sucursal": "Jardines de Casa Nueva", "direccion": "Av. Héroe Inmortal 261, Jardines de Casa Nueva, Aguascalientes", "lng": -102.269623, "lat": 21.856952, "q": {"n": 88, "f": 100, "c": 9, "d": 6, "h": true, "ld": true}},
   {"lugar": "Menudo La Granja", "ciudad": "Aguascalientes", "tel": "4494412327", "tipo": "restaurante de desayunos", "platillos": "menudo, chilaquiles y delicias granjeras", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/menudo-la-granja/", "situacion": "apps", "gancho": "Su carta tiene más de 140 productos; con categorías y buscador el cliente encuentra su desayuno en segundos.", "mejora": "Pongo el menudo y los chilaquiles al frente y pedidos por litro por WhatsApp.", "contacto": "numero_propio", "fuente": "Celular publicado en su Facebook oficial (también da 449 251 7362).", "region": "ags", "guion": "desayunos", "sucursal": "Bosques del Prado", "direccion": "Av. Aguascalientes Norte 508, Bosques del Prado Norte, Aguascalientes", "lng": -102.304758, "lat": 21.916279, "q": {"n": 141, "f": 99, "c": 10, "d": 6, "h": true, "ld": true}},
-  {"lugar": "Carnitas Mora", "ciudad": "Aguascalientes", "tel": "4499750551", "tipo": "taquería", "platillos": "carnitas por kilo, carnes asadas y burritos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/carnitas-mora/", "situacion": "apps", "gancho": "Venden por kilo y para fiestas; el menú digital les deja al cliente armar su pedido y mandarlo completo por WhatsApp.", "mejora": "Pongo las carnitas por kilo y paquetes para fiestas al frente.", "contacto": "whatsapp_oficial", "fuente": "Su TikTok oficial pide cotizar pedidos por WhatsApp al 449 190 0966 (y 449 498 9985); teléfono 449 975 0551.", "region": "ags", "guion": "taqueria", "sucursal": "Del Trabajo", "direccion": "Calle 57 No. 305, Col. Del Trabajo, Aguascalientes", "lng": -102.272788, "lat": 21.886786, "q": {"n": 130, "f": 100, "c": 15, "d": 6, "h": true, "ld": true}},
   {"lugar": "Casa del Encino", "ciudad": "Aguascalientes", "tel": "4494882639", "tipo": "restaurante de desayunos", "platillos": "chilaquiles, molletes y su panadería", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/casa-del-encino/", "situacion": "apps", "gancho": "En el Encino llega mucho turista y familia en fin de semana; con el QR ven la carta con fotos sin esperar.", "mejora": "Puedo agregar su panadería para llevar.", "contacto": "solo_telefono", "fuente": "449 488 2639 en Tripadvisor y el directorio oficial de restaurantes de Ags; otros dan 449 806 8918. Llama primero.", "region": "ags", "guion": "desayunos", "sucursal": "Barrio del Encino", "direccion": "Dr. Jesús Díaz de León 504, Barrio del Encino, Aguascalientes", "lng": -102.292118, "lat": 21.874326, "q": {"n": 26, "f": 100, "c": 6, "d": 6, "h": true, "ld": true}},
   {"lugar": "Apapacho", "ciudad": "Aguascalientes", "tel": "5566294454", "tipo": "restaurante", "platillos": "especialidades hidrocálidas y sus desayunos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/apapacho/", "situacion": "apps", "gancho": "Su menú «Legado hidrocálido» y la experiencia del lugar merecen una carta a la altura: fotos, historia y reservación con un toque.", "mejora": "Puedo agregar sus cenas y talleres con reservación por WhatsApp.", "contacto": "numero_propio", "fuente": "Número de reservaciones publicado por el restaurante en LJA.MX y Tercera Vía; reservan por WhatsApp.", "region": "ags", "guion": "restaurante", "sucursal": "Barrio del Encino", "direccion": "Dr. Jesús Díaz de León 441, Barrio del Encino, Aguascalientes", "lng": -102.292785, "lat": 21.875729, "q": {"n": 27, "f": 100, "c": 6, "d": 5, "h": true, "ld": true}},
   {"lugar": "Birria Tatemada El Laberinto", "ciudad": "Aguascalientes", "tel": "4492674278", "tipo": "taquería", "platillos": "birria por peso, tacos y consomé", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/birria-el-laberinto/", "situacion": "apps", "gancho": "Su birria sale en Texas Monthly; con un menú digital el turista que llega por la reseña sabe qué pedir.", "mejora": "Lo hago bilingüe para los visitantes que llegan por la birria.", "contacto": "solo_telefono", "fuente": "Número de Wanderlog para el local 15 del Mercado Juárez. Llama primero.", "region": "ags", "guion": "taqueria", "sucursal": "Mercado Juárez", "direccion": "Local 15, Mercado Juárez, Barrio de Guadalupe, Aguascalientes", "lng": -102.298563, "lat": 21.883782, "q": {"n": 29, "f": 100, "c": 7, "d": 5, "h": true, "ld": true}},
   {"lugar": "Tacobirria del Morelos", "ciudad": "Aguascalientes", "tel": "4492904014", "tipo": "taquería", "platillos": "birriamen, chilaquiles con birria y kilos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/tacobirria-del-morelos/", "situacion": "apps", "gancho": "Venden kilos y combos; con el menú el cliente arma su pedido para llevar y se los manda por WhatsApp.", "mejora": "Pongo los kilos de birria al frente.", "contacto": "solo_telefono", "fuente": "Número registrado de la tienda en Uber Eats. Llama primero.", "region": "ags", "guion": "taqueria", "sucursal": "Morelos I", "direccion": "Calle 1813 No. 229, Morelos I, Aguascalientes", "lng": -102.267056, "lat": 21.857608, "q": {"n": 32, "f": 100, "c": 11, "d": 6, "h": true, "ld": true}},
   {"lugar": "Sabor Azteca", "ciudad": "Aguascalientes", "tel": "4499179444", "tipo": "restaurante", "platillos": "pozole, enchiladas y especialidades", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/sabor-azteca/", "situacion": "apps", "gancho": "Su fuerte es el pozole; con fotos y tamaños claros se vende por litro para llevar.", "mejora": "Lo dejo con sus pozoles al frente y pedidos por litro.", "contacto": "solo_telefono", "fuente": "Número de directorio para Av. Aguascalientes Pte. 724 (la misma sucursal de Rappi). Llama primero.", "region": "ags", "guion": "cocina_tradicional", "sucursal": "Poniente", "direccion": "Av. Aguascalientes Poniente 724, Valle del Río San Pedro, Aguascalientes", "lng": -102.318084, "lat": 21.881928, "q": {"n": 63, "f": 100, "c": 10, "d": 6, "h": true, "ld": true}},
-  {"lugar": "La Bella Lola", "ciudad": "Aguascalientes", "tel": "4492307866", "tipo": "restaurante", "platillos": "desayunos, molletes y comida del día", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-bella-lola/", "situacion": "apps", "gancho": "En el Centro hay mucha oficina; con el QR piden rápido y regresan a trabajar.", "mejora": "Puedo agregar su comida del día y pedidos para oficinas.", "contacto": "numero_propio", "fuente": "Celular publicado en su Facebook oficial.", "region": "ags", "guion": "cocina_tradicional", "sucursal": "Centro", "direccion": "Zaragoza 611, Zona Centro, Aguascalientes", "lng": -102.292758, "lat": 21.887566, "q": {"n": 42, "f": 95, "c": 11, "d": 6, "h": true, "ld": true}},
   {"lugar": "Biznaga Brunch", "ciudad": "Aguascalientes", "tel": "4493986049", "tipo": "restaurante de desayunos", "platillos": "toast de masa madre, omelettes y enchiladas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/biznaga-brunch/", "situacion": "apps", "gancho": "Su carta de brunch es muy visual; con fotos el cliente pide más y comparte el enlace.", "mejora": "Lo dejo con sus toast y omelettes al frente.", "contacto": "directorio", "fuente": "Tripadvisor, Wanderlog y Gastroranking dan el mismo número; Gastroranking lo marca con WhatsApp.", "region": "ags", "guion": "desayunos", "sucursal": "Circunvalación Norte", "direccion": "Prol. Ignacio Zaragoza 1701, Circunvalación Norte, Aguascalientes", "lng": -102.29902, "lat": 21.900941, "q": {"n": 56, "f": 100, "c": 16, "d": 6, "h": true, "ld": true}},
   {"lugar": "Schinus", "ciudad": "Aguascalientes", "tel": "4495022049", "tipo": "restaurante de desayunos", "platillos": "desayunos, ceviches y burritos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/schinus/", "situacion": "apps", "gancho": "Abren de martes a domingo de 9 a 5; un QR en la mesa ayuda a atender rápido en las horas pico.", "mejora": "Puedo agregar promos de la semana.", "contacto": "numero_propio", "fuente": "Número de su Facebook oficial (con opción de WhatsApp).", "region": "ags", "guion": "desayunos", "sucursal": "Bosques del Prado", "direccion": "Sierra Fría 409, Bosques del Prado Norte, Aguascalientes", "lng": -102.307555, "lat": 21.91813, "q": {"n": 23, "f": 100, "c": 6, "d": 5, "h": true, "ld": true}},
   {"lugar": "Miravelas", "ciudad": "Aguascalientes", "tel": "4493777616", "tipo": "restaurante de desayunos", "platillos": "chilaquiles, omelettes y su café", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/miravelas/", "situacion": "apps", "gancho": "Su carta de desayunos y café es larga; con categorías claras la mesa decide rápido.", "mejora": "Lo dejo con su carta de café separada.", "contacto": "directorio", "fuente": "Tripadvisor y Gastroranking dan el mismo número; Gastroranking lo marca con WhatsApp.", "region": "ags", "guion": "desayunos", "sucursal": "Trojes de Oriente", "direccion": "Ignacio Zaragoza 801-A esq. Silos, Valle de las Trojes, Aguascalientes", "lng": -102.30505, "lat": 21.928524, "q": {"n": 58, "f": 100, "c": 9, "d": 6, "h": true, "ld": true}},
@@ -644,26 +742,19 @@ const PRESETS = [
   {"lugar": "Birriería Don Pato", "ciudad": "Aguascalientes", "tel": "4499153518", "tipo": "taquería", "platillos": "birria, parrilladas y tacos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/don-pato/", "situacion": "apps", "gancho": "Tienen birria, parrillas, mariscos y cenaduría; con categorías y fotos la carta grande se vuelve fácil.", "mejora": "Pongo la birria al frente y un botón de pedido.", "contacto": "numero_propio", "fuente": "Su TikTok indica pedidos al 449 915 3518; su Facebook da también el celular 449 781 5842.", "region": "ags", "guion": "taqueria", "sucursal": "Obraje", "direccion": "José María Chávez 701-A, Obraje, Aguascalientes", "lng": -102.295383, "lat": 21.872915, "q": {"n": 83, "f": 100, "c": 21, "d": 6, "h": true, "ld": true}},
   {"lugar": "El Techo del Sabor", "ciudad": "Aguascalientes", "tel": "4492611187", "tipo": "restaurante", "platillos": "comida colombiana, combos y frappés", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-techo-del-sabor/", "situacion": "apps", "gancho": "La comida colombiana es nueva para muchos en Ags; con fotos y descripciones el cliente se anima a probar.", "mejora": "Lo dejo con sus combos y comida colombiana al frente.", "contacto": "solo_telefono", "fuente": "Número de Tripadvisor para Zaragoza 1510. Llama primero.", "region": "ags", "guion": "restaurante", "sucursal": "Circunvalación Norte", "direccion": "Gral. Ignacio Zaragoza 1510, Circunvalación Norte, Aguascalientes", "lng": -102.298478, "lat": 21.89832, "q": {"n": 43, "f": 100, "c": 9, "d": 6, "h": true, "ld": true}},
   {"lugar": "El Borrego de Oro", "ciudad": "Aguascalientes", "tel": "4499182857", "tipo": "taquería", "platillos": "birria, quesadillas y platos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/borrego-de-oro/", "situacion": "apps", "gancho": "Venden por kilo para reuniones; el menú digital les deja armar el pedido completo.", "mejora": "Pongo la birria por kilo al frente.", "contacto": "solo_telefono", "fuente": "Restaurant Guru, Guiamexico y Yango dan el mismo número para Ignacio T. Chávez 805. Llama primero.", "region": "ags", "guion": "taqueria", "sucursal": "Las Flores", "direccion": "Ignacio T. Chávez 805, Las Flores, Aguascalientes", "lng": -102.304751, "lat": 21.87236, "q": {"n": 28, "f": 96, "c": 4, "d": 3, "h": true, "ld": true}},
-  {"lugar": "La Casa del No Sé Qué", "ciudad": "Aguascalientes", "tel": "4496888979", "tipo": "restaurante de desayunos", "platillos": "desayunos, baguettes y ensaladas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/casa-del-no-se-que/", "situacion": "apps", "gancho": "Su nombre ya da curiosidad; un menú con fotos convierte esa curiosidad en pedido.", "mejora": "Puedo agregar su café y bebidas frías.", "contacto": "numero_propio", "fuente": "Número de su Facebook oficial.", "region": "ags", "guion": "desayunos", "sucursal": "Centro", "direccion": "Gral. Ignacio Zaragoza 106, Zona Centro, Aguascalientes", "lng": -102.290149, "lat": 21.8821, "q": {"n": 23, "f": 100, "c": 5, "d": 3, "h": true, "ld": true}},
   {"lugar": "Bellagamba", "ciudad": "Aguascalientes", "tel": "4493230714", "tipo": "restaurante de desayunos", "platillos": "omelettes, tacos y sándwiches", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/bellagamba/", "situacion": "apps", "gancho": "Ya ofrecen envío gratis por teléfono; el menú digital les manda el pedido escrito por WhatsApp sin errores.", "mejora": "Lo dejo con sus combos al frente.", "contacto": "numero_propio", "fuente": "Número de pedidos en su Facebook oficial (envío gratis).", "region": "ags", "guion": "desayunos", "sucursal": "Residencial del Valle", "direccion": "Nápoles 1107, Residencial del Valle II, Aguascalientes", "lng": -102.322803, "lat": 21.875664, "q": {"n": 53, "f": 100, "c": 12, "d": 6, "h": true, "ld": true}},
   {"lugar": "Patio Santo Domingo", "ciudad": "Aguascalientes", "tel": "4492624734", "tipo": "restaurante de desayunos", "platillos": "las bañadas, almuerzos combinados y licuados", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/patio-santo-domingo/", "situacion": "apps", "gancho": "Su carta de desayunos tiene más de 90 opciones; con categorías la familia elige rápido.", "mejora": "Lo dejo con su imagen y su barra de licuados.", "contacto": "numero_propio", "fuente": "Número de reservaciones en su sitio oficial (patio.grupoende.mx); directorios dan 449 971 0630.", "region": "ags", "guion": "desayunos", "sucursal": "Colosio", "direccion": "Blvd. Luis Donaldo Colosio 201, Aguascalientes", "lng": -102.310454, "lat": 21.92427, "q": {"n": 91, "f": 95, "c": 16, "d": 6, "h": true, "ld": true}},
-  {"lugar": "El Pescador Sinaloense", "ciudad": "Aguascalientes", "tel": "4494563703", "tipo": "marisquería", "platillos": "aguachiles, camarones y filetes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/pescador-sinaloense/", "situacion": "apps", "gancho": "Su carta tiene 120 platillos de mariscos; con fotos y categorías se antojan y la mesa pide más.", "mejora": "Pongo aguachiles y camarones al frente.", "contacto": "numero_propio", "fuente": "Número de su Facebook oficial; Wanderboat y Yandex coinciden.", "region": "ags", "guion": "mariscos", "sucursal": "Bosques del Prado", "direccion": "Sierra del Laurel 202 esq. San Julián, Bosques del Prado Norte, Aguascalientes", "lng": -102.307964, "lat": 21.916571, "q": {"n": 120, "f": 100, "c": 26, "d": 6, "h": true, "ld": true}},
   {"lugar": "El Mazatlán", "ciudad": "Aguascalientes", "tel": "4491531223", "tipo": "marisquería", "platillos": "aguachiles, tostitos con ceviche y tacos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-mazatlan/", "situacion": "apps", "gancho": "Ya toman pedidos para llevar por teléfono; el menú se los manda escrito por WhatsApp.", "mejora": "Pongo sus aguachiles y tostitos con ceviche al frente.", "contacto": "numero_propio", "fuente": "Número de su Facebook oficial (pide llamar para pedidos para llevar).", "region": "ags", "guion": "mariscos", "sucursal": "Miravalle", "direccion": "Arroyo de los Arellano 208, Miravalle, Aguascalientes", "lng": -102.307504, "lat": 21.889729, "q": {"n": 38, "f": 95, "c": 7, "d": 6, "h": true, "ld": true}},
-  {"lugar": "Holandés Fish Taco", "ciudad": "Aguascalientes", "tel": "4492646676", "tipo": "marisquería", "platillos": "tacos Baja, kecas y especialidades", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/holandes-fish-taco/", "situacion": "apps", "gancho": "El taco Baja se antoja por foto; en el celular con imágenes la gente pide combos completos.", "mejora": "Pongo sus combos y kecas al frente.", "contacto": "directorio", "fuente": "Tripadvisor, Restaurant Guru y Uber Eats dan el mismo número.", "region": "ags", "guion": "mariscos", "sucursal": "Centro", "direccion": "Av. Francisco I. Madero 475-A, Zona Centro, Aguascalientes", "lng": -102.288073, "lat": 21.883163, "q": {"n": 24, "f": 100, "c": 6, "d": 6, "h": true, "ld": true}},
-  {"lugar": "Don Cangrejo", "ciudad": "Aguascalientes", "tel": "4499963130", "tipo": "marisquería", "platillos": "aguachiles para dos, zarandeado y cócteles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/don-cangrejo/", "situacion": "apps", "gancho": "Sus platillos son para compartir y de buen ticket; con fotos la mesa se anima a pedir el zarandeado.", "mejora": "Lo dejo con sus dos sucursales en un mismo enlace.", "contacto": "numero_propio", "fuente": "Número de su Facebook oficial; Tripadvisor y Restaurant Guru coinciden.", "region": "ags", "guion": "mariscos", "sucursal": "Panorama", "direccion": "J. Encarnación Payen 204, Panorama, Aguascalientes", "lng": -102.31448, "lat": 21.89013, "q": {"n": 37, "f": 100, "c": 10, "d": 6, "h": true, "ld": true}},
   {"lugar": "Bendito Remedio", "ciudad": "Aguascalientes", "tel": "4499130052", "tipo": "taquería", "platillos": "tacos de birria, quesabirrias y paquetes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/bendito-remedio/", "situacion": "apps", "gancho": "Tienen hasta un platillo para mascotas; con fotos su carta divertida vende sola.", "mejora": "Lo dejo con sus dos sucursales en el mismo enlace.", "contacto": "numero_propio", "fuente": "Su página propia da 913 0052 y 449 353 2192 para pedidos (centro y sur) y tiene enlace de WhatsApp.", "region": "ags", "guion": "taqueria", "sucursal": "Sur", "direccion": "Av. de la Convención de 1914 Sur 315, Las Américas, Aguascalientes", "lng": -102.297662, "lat": 21.866163, "q": {"n": 30, "f": 90, "c": 13, "d": 6, "h": true, "ld": true}},
   {"lugar": "Cinco de Mayo Mesón", "ciudad": "Aguascalientes", "tel": "4499030138", "tipo": "restaurante", "platillos": "cochinita, desayunos y platos fuertes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/cinco-de-mayo-meson/", "situacion": "apps", "gancho": "Están dentro de un hotel: el mismo QR sirve en mesas y en habitaciones.", "mejora": "Puedo hacerlo bilingüe para los huéspedes.", "contacto": "solo_telefono", "fuente": "Uber Eats registra 449 903 0138 y Tripadvisor 449 434 4523 (dentro del Hotel Hacienda del Roble). Llama primero.", "region": "ags", "guion": "cocina_tradicional", "sucursal": "Centro", "direccion": "5 de Mayo 540-A, Zona Centro, Aguascalientes", "lng": -102.297075, "lat": 21.886782, "q": {"n": 43, "f": 100, "c": 8, "d": 6, "h": true, "ld": true}},
   {"lugar": "Amalfi VI", "ciudad": "Aguascalientes", "tel": "4496883888", "tipo": "restaurante", "platillos": "croques, scones y pizzas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/amalfi-vi/", "situacion": "apps", "gancho": "Tienen más de 100 productos de la mañana a la noche; con categorías claras se pide mucho más fácil.", "mejora": "Separo la carta de desayunos y la de noche.", "contacto": "directorio", "fuente": "Varias fuentes coinciden (Restaurant Guru, Tripadvisor); Instagram @vi.amalfi.vi.", "region": "ags", "guion": "restaurante", "sucursal": "Villas de Montenegro", "direccion": "Monte Coronado 402, Villas de Montenegro, Aguascalientes", "lng": -102.310557, "lat": 21.928022, "q": {"n": 99, "f": 100, "c": 20, "d": 6, "h": true, "ld": true}},
   {"lugar": "Xilaquil", "ciudad": "Aguascalientes", "tel": "4498068217", "tipo": "restaurante de desayunos", "platillos": "chilaquiles, enchiladas y antojería", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/xilaquil/", "situacion": "apps", "gancho": "Su especialidad son los chilaquiles; con fotos de cada salsa el cliente elige rápido.", "mejora": "Pongo sus promociones al frente.", "contacto": "solo_telefono", "fuente": "Wanderlog, Carta y Restaurant Guru dan el mismo número. Llama primero.", "region": "ags", "guion": "desayunos", "sucursal": "Jardines de la Concepción", "direccion": "Av. Independencia 1820 int. 1, Jardines de la Concepción, Aguascalientes", "lng": -102.298103, "lat": 21.921022, "q": {"n": 29, "f": 100, "c": 6, "d": 6, "h": true, "ld": true}},
-  {"lugar": "Restaurante De la Tierra", "ciudad": "Aguascalientes", "tel": "4497709730", "tipo": "restaurante de desayunos", "platillos": "enchiladas, molletes y desayunos", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/de-la-tierra/", "situacion": "apps", "gancho": "Abren todos los días; con el QR la mesa ve la carta con fotos y pide sin esperar.", "mejora": "Puedo agregar sus paquetes de desayuno.", "contacto": "numero_propio", "fuente": "Número de su Facebook oficial.", "region": "ags", "guion": "desayunos", "sucursal": "Santa Elena", "direccion": "Av. Las Américas 1602, Jardines de Santa Elena, Aguascalientes", "lng": -102.303186, "lat": 21.864653, "q": {"n": 62, "f": 100, "c": 6, "d": 5, "h": true, "ld": true}},
   {"lugar": "La Favorita", "ciudad": "Aguascalientes", "tel": "4494124827", "tipo": "restaurante de desayunos", "platillos": "birriaquiles, huevos hidrourbanos y waffles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-favorita/", "situacion": "apps", "gancho": "Ya tienen más de 1,300 opiniones en Google y piden por WhatsApp; un menú digital les ordena esos pedidos.", "mejora": "Lo dejo con sus dos sucursales (Centro y Sur) en el mismo enlace.", "contacto": "whatsapp_oficial", "fuente": "Su sitio oficial (lafavorita.com.mx) da este número para la sucursal Centro y dice que toman pedidos por WhatsApp.", "region": "ags", "guion": "desayunos", "sucursal": "Barrio de la Estación", "direccion": "Av. Francisco I. Madero 805, Barrio de la Estación, Aguascalientes", "lng": -102.282445, "lat": 21.884766, "q": {"n": 34, "f": 100, "c": 9, "d": 6, "h": true, "ld": true}},
   {"lugar": "SAS", "ciudad": "Aguascalientes", "tel": "4493910065", "tipo": "restaurante de desayunos", "platillos": "chilaquiles, sui-sas y guisados", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/sas/", "situacion": "apps", "gancho": "Su carta es corta y con personalidad; con fotos se lucen sus platillos de autor.", "mejora": "Puedo agregar sus guisados del día.", "contacto": "solo_telefono", "fuente": "Número del SAS de Sierra de la Canela 434 (Uber Eats y directorio), a una puerta. Llama primero y confirma.", "region": "ags", "guion": "desayunos", "sucursal": "Bosques del Prado", "direccion": "Sierra de la Canela 432, Bosques del Prado Norte, Aguascalientes", "lng": -102.306397, "lat": 21.917819, "q": {"n": 27, "f": 44, "c": 9, "d": 6, "h": true, "ld": true}},
-  {"lugar": "Las Costillas de Sancho", "ciudad": "Aguascalientes", "tel": "4499129212", "tipo": "restaurante", "platillos": "cortes Angus, costillas y sopas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/costillas-de-sancho/", "situacion": "apps", "gancho": "Su ticket es alto y su carta de cortes merece fotos y descripción; en papel se pierde.", "mejora": "Lo dejo con sus sucursales y un botón para reservar.", "contacto": "directorio", "fuente": "Número general en varias fuentes (con WhatsApp en Gastroranking); su sitio da 449 978 3067 para esta dirección.", "region": "ags", "guion": "restaurante", "sucursal": "Pilar Blanco", "direccion": "José María Chávez locales 8, 28 y 29, Pilar Blanco, Aguascalientes", "lng": -102.292805, "lat": 21.850526, "q": {"n": 25, "f": 100, "c": 7, "d": 6, "h": true, "ld": true}},
   {"lugar": "Ragazzi Bistro", "ciudad": "Aguascalientes", "tel": "4499965555", "tipo": "restaurante", "platillos": "pastas, pizzas y paninis", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/ragazzi/", "situacion": "apps", "gancho": "Su cocina italiana es de autor; con fotos y descripciones el cliente se antoja y pide vino.", "mejora": "Lo dejo con sus dos sucursales (Campestre y Centro).", "contacto": "solo_telefono", "fuente": "Wanderlog, Restaurantes México y Restaurant Guru dan el mismo número para Plaza Arcos Campestre. Llama primero.", "region": "ags", "guion": "restaurante", "sucursal": "Campestre", "direccion": "Blvd. Luis Donaldo Colosio 602, Plaza Arcos Campestre, Aguascalientes", "lng": -102.300693, "lat": 21.925383, "q": {"n": 58, "f": 97, "c": 9, "d": 6, "h": true, "ld": true}},
   {"lugar": "Tacos Felox", "ciudad": "Aguascalientes", "tel": "4492167644", "tipo": "taquería", "platillos": "tacos, volcanes y quesadillas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/tacos-felox/", "situacion": "apps", "gancho": "Ya hacen servicio a domicilio por teléfono; con el menú el pedido llega escrito y sin errores.", "mejora": "Pongo sus volcanes y órdenes al frente.", "contacto": "numero_propio", "fuente": "Número de información y servicio a domicilio en su Facebook oficial.", "region": "ags", "guion": "taqueria", "sucursal": "San Marcos", "direccion": "Av. Convención de 1914 Pte. 510, Barrio de San Marcos, Aguascalientes", "lng": -102.3126, "lat": 21.87943, "q": {"n": 38, "f": 100, "c": 8, "d": 6, "h": true, "ld": true}},
   {"lugar": "Taquería El Jacalito", "ciudad": "Aguascalientes", "tel": "4496881652", "tipo": "taquería", "platillos": "carnitas, quesadillas y paquetes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-jacalito/", "situacion": "apps", "gancho": "Frente al Palacio de Justicia: mucha gente con prisa; con el QR piden sin hacer fila.", "mejora": "Puedo juntar sus cuatro sucursales en el mismo enlace.", "contacto": "solo_telefono", "fuente": "Foodyas, Carta y Menuweb dan 449 688 1652; registro oficial: 449 868 0159. Llama primero.", "region": "ags", "guion": "taqueria", "sucursal": "Centro", "direccion": "Av. Adolfo López Mateos Pte. 105, Zona Centro, Aguascalientes", "lng": -102.296309, "lat": 21.87851, "q": {"n": 53, "f": 100, "c": 11, "d": 6, "h": true, "ld": true}},
   {"lugar": "La Paleo Kitchen", "ciudad": "Aguascalientes", "tel": "4499620465", "tipo": "restaurante", "platillos": "ensaladas, pescados y paninis", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/paleo-kitchen/", "situacion": "apps", "gancho": "Su cliente cuida lo que come; poner ingredientes y fotos en cada platillo les da confianza para pedir.", "mejora": "Puedo agregar información nutricional y opciones sin gluten.", "contacto": "solo_telefono", "fuente": "Tripadvisor, MapQuest, Foursquare y Restaurant Guru dan el mismo número. Llama primero.", "region": "ags", "guion": "restaurante", "sucursal": "Jardines de la Asunción", "direccion": "Av. José María Chávez 1308, Jardines de la Asunción, Aguascalientes", "lng": -102.293778, "lat": 21.864844, "q": {"n": 50, "f": 100, "c": 9, "d": 6, "h": true, "ld": true}},
-  {"lugar": "Lechón Mi Güerita", "ciudad": "Aguascalientes", "tel": "4495789596", "tipo": "taquería", "platillos": "tacos de lechón, tortas y paquetes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/lechon-mi-guerita/", "situacion": "apps", "gancho": "Abren de noche y se piden para llevar; con el menú el pedido llega completo por WhatsApp.", "mejora": "Pongo sus paquetes para compartir al frente.", "contacto": "directorio", "fuente": "Uber Eats y Club del Wateke (con su Instagram @lechonmiguerita) dan el mismo número.", "region": "ags", "guion": "taqueria", "sucursal": "El Caminero", "direccion": "Av. Convención de 1914 Sur 1208, El Caminero, Aguascalientes", "lng": -102.285129, "lat": 21.866482, "q": {"n": 36, "f": 100, "c": 5, "d": 6, "h": true, "ld": true}},
   {"lugar": "Taquería Jeque Juárez", "ciudad": "Aguascalientes", "tel": "4494270153", "tipo": "taquería", "platillos": "tacos árabes, sirloin y gringas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/jeque-juarez/", "situacion": "apps", "gancho": "Los tacos árabes con jocoque son su sello; con fotos se antojan y la mesa pide de más.", "mejora": "Pongo sus combos al frente.", "contacto": "numero_propio", "fuente": "Número de pedidos en su TikTok; Uber Eats coincide.", "region": "ags", "guion": "taqueria", "sucursal": "Colosio", "direccion": "Blvd. Luis Donaldo Colosio 403-A, Jardines de la Concepción, Aguascalientes", "lng": -102.30617, "lat": 21.9244, "q": {"n": 32, "f": 100, "c": 9, "d": 6, "h": true, "ld": true}},
   {"lugar": "Casa Tulipán", "ciudad": "Aguascalientes", "tel": "4491819130", "tipo": "restaurante", "platillos": "pastas, tablas de quesos y malteadas", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/casa-tulipan/", "situacion": "apps", "gancho": "Su carta tiene más de 110 productos; con categorías y fotos se recorre fácil y se piden más cosas.", "mejora": "Lo dejo con sus dos sucursales (Centro y Villasunción).", "contacto": "numero_propio", "fuente": "Número de su Facebook oficial (matriz Matamoros 216); Waze coincide.", "region": "ags", "guion": "restaurante", "sucursal": "Centro", "direccion": "Mariano Matamoros 216, Zona Centro, Aguascalientes", "lng": -102.300015, "lat": 21.880862, "q": {"n": 105, "f": 100, "c": 17, "d": 6, "h": true, "ld": true}},
   {"lugar": "Mariscos Save", "ciudad": "Guadalajara", "tel": "3330065241", "tipo": "marisquería", "platillos": "zarandeados, cóctel Save y ceviche de robalo", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/mariscos-save/", "situacion": "apps", "gancho": "Su carta es enorme (más de 150 platillos entre tostadas, zarandeados, cortes y filetes), así que el buscador y las categorías ayudan mucho a que la mesa pida rápido.", "mejora": "Lo dejo con sus precios de salón (los de Rappi traen comisión) y fotos propias de los zarandeados.", "contacto": "whatsapp_oficial", "fuente": "WhatsApp oficial de la sucursal Chapalita, publicado en restaurante-save.mx/sucursales (fijo: 33 3629 3124). El 33 3121 4476 que tenía antes no aparece en su sitio.", "region": "nacional", "guion": "mariscos", "sucursal": "Chapalita", "direccion": "Av. Guadalupe 721, Chapalita, Guadalajara, Jal.", "lng": -103.399605, "lat": 20.66604, "q": {"n": 131, "f": 100, "c": 14, "d": 6, "h": true, "ld": true}},
@@ -689,7 +780,6 @@ const PRESETS = [
   {"lugar": "Cenaduría La Guasaveña", "ciudad": "Mexicali", "tel": "6862512446", "tipo": "restaurante", "platillos": "chimichangas, huaraches y enchiladas de mole", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/la-guasavena/", "situacion": "apps", "gancho": "Las cenadurías se llenan de golpe en la noche: con el QR en la mesa la gente ve la carta y pide sin esperar al mesero.", "mejora": "Puedo mostrar precios en pesos y en dólares para sus clientes de Calexico.", "contacto": "solo_telefono", "fuente": "Alta: su Facebook, Restaurant Guru y Menufyy dan el mismo número.", "region": "nacional", "guion": "cocina_tradicional", "sucursal": "Nacionalista", "direccion": "Av. Australia 2898 esq. Yugoslavia, Col. Nacionalista, Mexicali, B.C.", "lng": -115.522562, "lat": 32.639547, "q": {"n": 39, "f": 100, "c": 4, "d": 6, "h": true, "ld": true}},
   {"lugar": "Restaurante Bar El Tapatío", "ciudad": "Guanajuato", "tel": "4737323291", "tipo": "restaurante", "platillos": "molcajete mar y tierra, enchiladas mineras y arrachera", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/el-tapatio/", "situacion": "apps", "gancho": "Están frente a la Universidad, con estudiantes y turistas todo el día; una carta de más de 90 platillos en el celular se recorre mucho más fácil.", "mejora": "Lo hago bilingüe y separo la carta del bar para la noche.", "contacto": "solo_telefono", "fuente": "Alta: varias fuentes coinciden en número y dirección (frente a la Universidad).", "region": "nacional", "guion": "restaurante", "sucursal": "Centro", "direccion": "Calle Pedro Lascuráin de Retana 20, Zona Centro, Guanajuato, Gto.", "lng": -101.253592, "lat": 21.016995, "q": {"n": 93, "f": 100, "c": 15, "d": 6, "h": true, "ld": true}},
   {"lugar": "Marisquería Las Brisas", "ciudad": "Pachuca", "tel": "7712665769", "tipo": "marisquería", "platillos": "mojarra rellena, molcajete mar y tierra y cócteles", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/las-brisas/", "situacion": "apps", "gancho": "Sus mojarras y molcajetes son de foto; en un menú digital se antojan y la mesa pide más.", "mejora": "Lo dejo con su especialidad de la casa al frente y pedidos para llevar por WhatsApp.", "contacto": "solo_telefono", "fuente": "Alta: TripTap y Polomap dan 771 266 5769 para Cofre de Perote.", "region": "nacional", "guion": "mariscos", "sucursal": "San Cayetano", "direccion": "Calle Cofre de Perote esq. Nevado de la Malinche, San Cayetano el Bordo, Pachuca, Hgo.", "lng": -98.772737, "lat": 20.106939, "q": {"n": 67, "f": 100, "c": 10, "d": 6, "h": true, "ld": true}},
-  {"lugar": "Clavo y Canela", "ciudad": "Irapuato", "tel": "4621356050", "tipo": "restaurante de desayunos", "platillos": "chilaquiles, enchiladas y sus platos fuertes", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/clavo-y-canela/", "situacion": "apps", "gancho": "Ya tienen su página web; lo que propongo es el QR para las mesas, que abre su carta de 120 platillos con buscador y fotos.", "mejora": "Puedo enlazarlo a su página actual para que todo quede en un mismo lugar.", "contacto": "whatsapp_oficial", "fuente": "Su sitio oficial (clavoycanela.mx/contacto) enlaza este número a WhatsApp.", "region": "nacional", "guion": "desayunos", "sucursal": "Las Heras", "direccion": "Héroe de Nacozari 1710, Local 3, Las Heras 2a Secc., Irapuato, Gto.", "lng": -101.376461, "lat": 20.681949, "q": {"n": 124, "f": 100, "c": 20, "d": 6, "h": true, "ld": true}},
   {"lugar": "Rincón del Bife", "ciudad": "Cuernavaca", "tel": "7773164428", "tipo": "restaurante de desayunos", "platillos": "chilaquiles de mole, huarache y tacos villarincón", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/rincon-del-bife/", "situacion": "apps", "gancho": "Ya tienen su sitio; el QR en la mesa abre directo la carta de desayunos con fotos, sin buscar en el sitio.", "mejora": "Lo dejo con su imagen y separo la carta de desayunos de la de cortes.", "contacto": "solo_telefono", "fuente": "Alta: su sitio oficial y Tripadvisor dan 777 316 4428.", "region": "nacional", "guion": "desayunos", "sucursal": "Vista Hermosa", "direccion": "Av. San Diego 1001, Vista Hermosa, Cuernavaca, Mor.", "lng": -99.215413, "lat": 18.940819, "q": {"n": 36, "f": 100, "c": 7, "d": 6, "h": true, "ld": true}},
   {"lugar": "Restaurante Samael", "ciudad": "La Paz", "tel": "6121257775", "tipo": "restaurante de desayunos", "platillos": "paquetes familiares, chilaquiles y lunch box", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/samael/", "situacion": "apps", "gancho": "Sus paquetes familiares y lunch box se piden mucho para llevar; el menú los arma y los manda por WhatsApp.", "mejora": "Lo hago bilingüe para los turistas del malecón.", "contacto": "numero_propio", "fuente": "Lo publica su TikTok oficial y los directorios lo marcan como WhatsApp.", "region": "nacional", "guion": "desayunos", "sucursal": "Los Olivos", "direccion": "Calle Ignacio Allende 1715, Los Olivos, La Paz, B.C.S.", "lng": -110.304164, "lat": 24.14545, "q": {"n": 77, "f": 100, "c": 11, "d": 6, "h": true, "ld": true}},
   {"lugar": "Mariscos 7 Mares", "ciudad": "Hermosillo", "tel": "6622608849", "tipo": "marisquería", "platillos": "aguachiles, molcajete con mango y botana de camarón y pulpo", "menu": "https://lukoffmon.github.io/WebDesignLKM/menus-qr/siete-mares/", "situacion": "apps", "gancho": "Ya tienen su sitio; el QR en la mesa abre directo su carta de aguachiles con fotos, que es lo que más se antoja.", "mejora": "Lo dejo con su imagen y los aguachiles numerados al frente.", "contacto": "solo_telefono", "fuente": "Alta: su sitio, su Instagram y la prensa local dan 662 260 8849.", "region": "nacional", "guion": "mariscos", "sucursal": "Navarrete", "direccion": "Blvd. Juan Navarrete 439, Santa Fe, Hermosillo, Son.", "lng": -110.994265, "lat": 29.088927, "q": {"n": 51, "f": 100, "c": 11, "d": 6, "h": true, "ld": true}},
@@ -1153,7 +1243,7 @@ drawHist(); render(true);
   const L = window.LKM; if (!L) return;
 
   // Lugares que ya cerraste. Cuando me pegues la exportación, los quito de PRESETS y sus nombres quedan aquí (sin más datos).
-  const NEGOCIADOS = [];
+  const NEGOCIADOS = ["Lonchería El Mono", "Delifresh", "Carnitas Mora", "La Bella Lola", "La Casa del No Sé Qué", "El Pescador Sinaloense", "Holandés Fish Taco", "Don Cangrejo", "Restaurante De la Tierra", "Las Costillas de Sancho", "Lechón Mi Güerita", "Clavo y Canela"];
 
   // Reglas anti-sanción de WhatsApp.
   const HORA_INI = 9, HORA_FIN = 20;   // solo se escribe a desconocidos en horario de negocio
@@ -1223,7 +1313,7 @@ drawHist(); render(true);
   const prow = tel => L.PRESETS.find(p => p.tel === tel);
   function syncState(st, extra) {
     const el = $('m-sync'); if (!el) return;
-    const quien = (L.settings().firma || '').trim() ? '' : ' · escribe "Tu nombre" en Protección de tu número para que tus socios sepan quién contactó';
+    const quien = (L.settings().firma || '').trim() ? '' : ' · escribe tu nombre en Ajustes para que tus socios sepan quién contactó';
     el.className = 'm-sync' + (st === 'ok' ? ' ok' : st === 'err' ? ' err' : '');
     el.textContent = st === 'ok' ? `☁ Guardado en la nube · lo ven tus socios${quien}`
       : st === 'sube' ? '☁ Guardando…' : st === 'baja' ? '☁ Actualizando…'
@@ -1361,6 +1451,9 @@ drawHist(); render(true);
     const abre = llamada ? pick(['Gracias por atenderme por teléfono.', 'Como le comenté por teléfono:'], s)
       : pick(['¡Muchas gracias por contestar!', 'Gracias por su respuesta.', 'Qué gusto, gracias.'], s);
     const link = pick([`Esta es la muestra de ${p.lugar}:\n${p.menu}`, `Aquí está su menú digital de prueba:\n${p.menu}`, `Le dejo la muestra de su menú:\n${p.menu}`], s >>> 2);
+    const qr = pick([`Y este es el código QR que ya le preparé para sus mesas, con sus colores:\n${p.menu}qr/`,
+      `También le dejo listo su código QR, para imprimir en mesas y mostrador:\n${p.menu}qr/`,
+      `Su QR ya está hecho, con el estilo de ${p.lugar}:\n${p.menu}qr/`], s >>> 3);
     const como = pick([
       'El cliente escanea el QR de la mesa, ve la carta con fotos y precios, y si quiere le manda su pedido por WhatsApp, sin apps ni comisiones.',
       'Funciona sin apps: escanean el QR, ven sus platillos con foto y el pedido le llega por WhatsApp ya escrito.',
@@ -1375,7 +1468,7 @@ drawHist(); render(true);
     ], s >>> 6);
     const local = p.region === 'ags' ? 'Como soy de aquí, si gusta le llevo en persona los QR impresos para las mesas.' : '';
     const cierre = pick(['¿Qué le parece? Si le gusta, lo dejo listo esta semana.', '¿Lo revisa con calma y me dice qué le cambiaría?', '¿Le gustaría que lo dejemos activo?'], s >>> 8);
-    return [abre, link, [p.gancho, como].filter(Boolean).join(' '), mejora, [precio, local].filter(Boolean).join(' '), cierre,
+    return [abre, link, qr, [p.gancho, como].filter(Boolean).join(' '), mejora, [precio, local].filter(Boolean).join(' '), cierre,
       st.firma ? `— ${st.firma} · ${st.marca}` : ''].filter(Boolean).join('\n\n');
   }
   function wa(p, txt) {
@@ -1549,7 +1642,7 @@ drawHist(); render(true);
     return `<li class="m-row s-${s || 'nuevo'}" data-i="${i}">
       <div><span class="m-name">${w ? '' : 'Llamar a '}${esc(p.lugar)}</span>
         <span class="m-sub">${esc(p.sucursal ? p.sucursal + ' · ' : '')}${esc(p.ciudad)} · ${L.fmtLocal(p.tel)}</span>
-        <span class="m-badges">${isNew(p) ? '<span class="m-new">Nuevo</span>' : ''}<span class="m-tier ${tier[1]}">${tierTxt}</span><span class="m-stage ${stCls}">${esc(stLabel)}</span>${excBadge(p)}</span></div>
+        <span class="m-badges">${isNew(p) ? '<span class="m-new">Nuevo</span>' : ''}${p.sin_web ? '<span class="m-new m-noweb">Sin sitio web</span>' : ''}<span class="m-tier ${tier[1]}">${tierTxt}</span><span class="m-stage ${stCls}">${esc(stLabel)}</span>${excBadge(p)}</span></div>
       <div class="m-main">${main}</div>
       ${secs.filter(Boolean).length ? `<div class="m-sec">${secs.join('')}</div>` : ''}
       ${why ? `<p class="m-why">${esc(why)}</p>` : ''}
@@ -1744,7 +1837,7 @@ drawHist(); render(true);
     ['Pedido por WhatsApp', 'Arma el pedido con total y lo manda al WhatsApp del negocio.', p => p.contacto !== 'solo_telefono' || ['contesto', 'venta'].includes(stage(p))],
     ['Contacto verificado', 'Número tomado de lo que publica el propio negocio, con fuente anotada.', p => !!p.fuente],
     ['Listo para compartir', 'Vista previa en WhatsApp y datos para Google.', p => !p.q || p.q.ld !== false],
-    ['QR y tarjeta de mesa', 'QR probado que abre su menú y tarjeta lista para imprimir.', () => true],
+    ['QR estilizado y tarjeta de mesa', 'QR con sus colores, probado, que va en la propuesta; tarjeta lista para imprimir.', () => true],
   ];
   const EXC_MAN = [
     ['m1', 'Lo abrí en mi celular', 'Fotos nítidas, nombre y sucursal correctos, nada cortado.'],
@@ -1776,7 +1869,7 @@ drawHist(); render(true);
     const st = L.settings(), i = money(inst()), m = money(mens()), fir = st.firma ? `\n\n— ${st.firma} · ${st.marca}` : '';
     return [
       ['¿Cuánto cuesta?', `El servicio inicia desde ${i} de instalación, una sola vez (menú y QR listos para imprimir), y ${m} al mes, que incluye los cambios de precios y platillos. Sin contratos largos.`],
-      ['¿Qué incluye?', `Incluye:\n• Su menú digital con su carta, fotos y precios\n• Código QR y tarjeta de mesa listos para imprimir\n• Botón para que le manden pedidos por WhatsApp, sin comisión\n• Cambios de precios y platillos cuando los necesite\n\nSu muestra: ${p.menu}`],
+      ['¿Qué incluye?', `Incluye:\n• Su menú digital con su carta, fotos y precios\n• Código QR con sus colores (ya está hecho: ${p.menu}qr/) y tarjeta de mesa para imprimir\n• Botón para que le manden pedidos por WhatsApp, sin comisión\n• Cambios de precios y platillos cuando los necesite\n\nSu muestra: ${p.menu}`],
       ['Mándame información', `Claro. Aquí está su menú de muestra; ábralo desde el celular, así lo vería su cliente al escanear el QR:\n${p.menu}\n\nSi le gusta, lo dejo listo con sus precios de salón. ¿Le marco 5 minutos para explicarle?`],
       ['Ya estamos en Rappi / Uber', 'No compite: las apps cobran comisión por cada pedido. Con su menú propio el pedido le llega directo por WhatsApp, sin comisión, y en sus mesas sirve con el QR. Puede tener las dos cosas.'],
       ['Lo voy a pensar', `Claro, sin presión. Le dejo la muestra para que la vea con calma:\n${p.menu}\n\n¿Le parece si le escribo el ${pick(['jueves', 'viernes', 'lunes'], hash(p.tel))} para ver qué le pareció?`],
@@ -1795,7 +1888,8 @@ drawHist(); render(true);
   function vistaKit(p) {
     return `<div class="m-kit"><div class="p-acts">
         <a class="ghost" href="${esc(p.menu)}" target="_blank" rel="noopener">Abrir menú</a>
-        <a class="ghost" href="${esc(p.menu)}qr.png" target="_blank" rel="noopener">QR</a>
+        <a class="ghost" href="${esc(p.menu)}qr/" target="_blank" rel="noopener">QR estilizado</a>
+        <a class="ghost" href="${esc(p.menu)}qr.png" target="_blank" rel="noopener">QR simple</a>
         <a class="ghost" href="${esc(p.menu)}tarjeta-mesa.png" target="_blank" rel="noopener">Tarjeta de mesa</a>
         <button type="button" class="ghost" data-copy="link">Copiar enlace</button></div>
       <p class="m-src" style="margin:4px 0 0">Para cerrar la venta:</p>
@@ -1829,7 +1923,7 @@ drawHist(); render(true);
     const pagados = mias.filter(e => e.pago === 'pagado').length, espera = mias.filter(e => e.s === 'venta' && (e.pago || 'pendiente') === 'pendiente').length;
     $('m-gana').innerHTML = `Tu parte por cliente: <b>${money(inst() * COMISION)}</b> (la mitad de la instalación). `
       + (firma ? `Llevas <b>${money(pagados * inst() * COMISION)}</b> ganados (${pagados} ${pagados === 1 ? 'cliente' : 'clientes'})${espera ? ` y <b>${money(espera * inst() * COMISION)}</b> más si pagan los ${espera} en espera` : ''}.`
-        : 'Escribe tu nombre en "Protección de tu número" para llevar la cuenta.');
+        : 'Escribe tu nombre en Ajustes para llevar la cuenta.');
     const n = sinVer().length, w = sinVer().filter(canWA).length;
     $('m-new-alert').hidden = !n;
     $('m-new-alert').textContent = n ? `🔔 ${n} ${n === 1 ? 'nuevo posible cliente' : 'nuevos posibles clientes'} con su menú ya hecho${w ? ` · ${w} con WhatsApp` : ''}. Toca para verlos.` : '';
@@ -1839,10 +1933,10 @@ drawHist(); render(true);
 
   // Primeros pasos para un socio nuevo.
   const PASOS = [
-    ['nombre', 'Escribe tu nombre', 'En "Protección de tu número". Así tus socios saben quién contactó.', () => !!(L.settings().firma || '').trim()],
+    ['nombre', 'Escribe tu nombre', 'En Ajustes (⚙). Así tus socios saben quién contactó.', () => !!(L.settings().firma || '').trim()],
     ['tour', 'Mira el tutorial (2 minutos)', 'Botón "? Guía" de arriba.', () => !!get('tour', false)],
     ['perfil', 'Deja listo tu WhatsApp Business', 'Logo, "LKM\'r Company", descripción, horario y enlace al portafolio.', null],
-    ['reglas', 'Lee las reglas para no ser sancionado', 'Abre "Reglas para que no te sancionen".', () => !!pasos.reglas],
+    ['reglas', 'Lee las reglas para no ser sancionado', 'En Hoy, abre "Reglas para que no te sancionen".', () => !!pasos.reglas],
     ['primer', 'Manda tu primer contacto inicial', 'A uno con WhatsApp, entre 9:00 y 20:00.', () => envios.length > 0 || Object.values(est).some(e => e.t && e.t.inicial && e.por === yo())],
     ['resp', 'Consigue tu primera respuesta', 'Cuando te contesten, toca "✓ Me contestó".', () => Object.values(est).some(e => e.t && e.t.contesto && e.por === yo())],
     ['venta', 'Cierra tu primera venta', 'Cuando pague, márcala con 💰 Pagó.', () => Object.values(est).some(e => e.pago === 'pagado' && e.por === yo())],
@@ -1868,7 +1962,7 @@ drawHist(); render(true);
     ['El camino de cada cliente', () => `<ol class="m-flow">
         <li><i>1</i><span><b>Contacto inicial.</b> Un saludo corto que pide permiso, <b>sin enlace ni precio</b>.</span></li>
         <li><i>✓</i><span><b>Te contesta.</b> Tocas "✓ Me contestó".</span></li>
-        <li><i>2</i><span><b>Iniciar venta.</b> Se manda su menú y el precio. Usa las <b>respuestas rápidas</b> para sus dudas.</span></li>
+        <li><i>2</i><span><b>Iniciar venta.</b> Se manda su menú, <b>su QR ya hecho con sus colores</b> y el precio. Usa las <b>respuestas rápidas</b> para sus dudas.</span></li>
         <li><i>💰</i><span><b>Pagó.</b> Lo marcas y queda tu comisión.</span></li></ol>
       <p>¿Sin WhatsApp publicado? Sale como <b>"Llamar a…"</b>: llamas con el guion y, si te da su WhatsApp, tocas "Me dio su WhatsApp".</p>`],
     ['Cuida tu número', () => `<ul><li>El macro te deja escribir a pocos desconocidos por día y te hace esperar entre uno y otro: <b>respétalo</b>.</li>
@@ -1913,12 +2007,13 @@ drawHist(); render(true);
     $('m-notif-sub').textContent = `Con su menú QR ya hecho y su contacto verificado. ${w} con WhatsApp: empieza por ellos, en este orden.`;
     $('m-notif-list').innerHTML = a.map(p => { const t = TIER[p.contacto] || TIER.solo_telefono; return `<li><div><b>${esc(p.lugar)}</b>
       <small>${esc([p.sucursal, p.ciudad].filter(Boolean).join(' · '))} · ${esc(p.tipo || '')}</small>
-      <span class="m-badges"><span class="m-tier ${t[1]}">${esc(canWA(p) ? t[0] : 'Sin WhatsApp · llamar')}</span>${excBadge(p)}</span></div>
+      <span class="m-badges"><span class="m-tier ${t[1]}">${esc(canWA(p) ? t[0] : 'Sin WhatsApp · llamar')}</span>${p.sin_web ? '<span class="m-new m-noweb">Sin sitio web</span>' : ''}${excBadge(p)}</span></div>
       <button type="button" class="ghost" data-ver="${esc(p.tel)}">Ver</button></li>`; }).join('');
     if (!$('m-notif').open) $('m-notif').showModal();
   }
   $('m-notif').addEventListener('close', () => { notifList.forEach(p => vistos.add(p.tel)); set('vistos', [...vistos]); drawHoy(); drawList(); });
   function irA(p) {
+    window.LKMView && LKMView.go('prospectos');
     soloNuevos = false; busca = p.lugar; $('m-q').value = p.lugar; region = p.region || region; set('region', region);
     drawCounts(); drawList();
     const r = document.querySelector(`.m-row[data-i="${LIST.indexOf(p)}"]`);
@@ -1930,7 +2025,7 @@ drawHist(); render(true);
   });
   $('m-notif-ver').addEventListener('click', () => {
     $('m-notif').close(); soloNuevos = true; busca = ''; $('m-q').value = ''; drawCounts(); drawList();
-    $('prospectos').scrollIntoView({ behavior: 'smooth' });
+    window.LKMView ? LKMView.go('prospectos') : $('prospectos').scrollIntoView({ behavior: 'smooth' });
   });
   $('m-bell').addEventListener('click', openNotif);
   $('m-new-alert').addEventListener('click', openNotif);
@@ -1953,13 +2048,13 @@ drawHist(); render(true);
   $('m-todo').addEventListener('click', e => {
     const b = e.target.closest('[data-hoy]'); if (!b) return;
     const k = b.dataset.hoy;
-    if (k === 'pagos') { $('pagos').scrollIntoView({ behavior: 'smooth' }); return; }
+    if (k === 'pagos') { window.LKMView ? LKMView.go('pagos') : $('pagos').scrollIntoView({ behavior: 'smooth' }); return; }
     const f = { contesto: 'contesto', seguimiento: 'espera', archivar: 'espera', nuevo: 'nuevo', llamar: 'nuevo' }[k];
     const cuenta = r => LIST.filter(p => p.region === r && enFiltro(p, f) && (k !== 'nuevo' || canWA(p)) && (k !== 'llamar' || !canWA(p))).length;
     if (cuenta(region) === 0 && cuenta(region === 'ags' ? 'nacional' : 'ags') > 0) { region = region === 'ags' ? 'nacional' : 'ags'; set('region', region); }
     filtro = f; soloNuevos = false; busca = ''; $('m-q').value = '';
     if (k === 'nuevo' || k === 'llamar') { soloWA = k === 'nuevo'; $('m-solo-wa').checked = soloWA; set('solo-wa', soloWA); }
-    drawCounts(); drawList(); $('prospectos').scrollIntoView({ behavior: 'smooth' });
+    drawCounts(); drawList(); window.LKMView ? LKMView.go('prospectos') : $('prospectos').scrollIntoView({ behavior: 'smooth' });
   });
   $('m-pasos').addEventListener('click', e => {
     const b = e.target.closest('[data-paso]'); if (!b) return;
@@ -2116,5 +2211,113 @@ drawHist(); render(true);
 })();
 </script>
 <!-- MACRO-JS:END -->
+<!-- MACRO-APP:START · entorno tipo app: vistas, ajustes, respaldo, app instalable y atajos -->
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const VIEWS = ['hoy', 'prospectos', 'pagos', 'mapa', 'excelencia', 'mensaje', 'ajustes', 'mas'];
+  const EN_MAS = new Set(['excelencia', 'mensaje', 'ajustes', 'mas']);
+  const get = (k, d) => { try { const v = localStorage.getItem('lkm-app-' + k); return v === null ? d : JSON.parse(v); } catch (_) { return d; } };
+  const set = (k, v) => { try { localStorage.setItem('lkm-app-' + k, JSON.stringify(v)); } catch (_) {} };
+  const toast = t => window.LKM && window.LKM.toast(t);
+  const secs = [...document.querySelectorAll('[data-views]')];
+  let cur = null;
+
+  // Una vista a la vez (como una app). La vista queda en la dirección (#prospectos) y se recuerda.
+  function go(v, opts = {}) {
+    if (!VIEWS.includes(v)) v = 'hoy';
+    const cambio = v !== cur; cur = v;
+    secs.forEach(el => { el.hidden = !el.dataset.views.split(' ').includes(v); });
+    document.querySelectorAll('a[data-go]').forEach(a => {
+      const on = a.dataset.go === v || (a.closest('.m-tabbar') && a.dataset.go === 'mas' && EN_MAS.has(v));
+      on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current');
+    });
+    if (v === 'mapa' && !$('m-map').open) $('m-map').open = true;   // abrirlo dispara el dibujo del mapa
+    set('vista', v);
+    if (location.hash !== '#' + v) history.replaceState(null, '', '#' + v);
+    if (cambio && !opts.keepScroll) window.scrollTo(0, 0);
+  }
+  window.LKMView = { go, get current() { return cur; } };
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-go]'); if (!a) return;
+    e.preventDefault(); go(a.dataset.go);
+  });
+  window.addEventListener('hashchange', () => { const v = location.hash.slice(1); if (VIEWS.includes(v) && v !== cur) go(v); });
+
+  // Ajustes en un solo lugar: se mueven los campos (conservan sus eventos).
+  const more = document.querySelector('main details.more');
+  if (more) { more.open = true; $('aj-firma').append(more); }
+  const mset = document.querySelector('.m-guard .m-set'); if (mset) $('aj-envio').append(mset);
+  const gyo = $('g-yo') && $('g-yo').closest('label'); if (gyo) gyo.hidden = true;   // es el mismo nombre de arriba
+  const web = $('web') && $('web').closest('label'); if (web) $('aj-web').append(web);
+  const nota = document.createElement('p'); nota.className = 'hint'; nota.style.margin = '8px 0 0';
+  nota.innerHTML = 'Los límites de envío protegen tu número: <b>Hoy te toca</b> te dice cuántos contactos nuevos te quedan.';
+  $('aj-envio').append(nota);
+  $('mas-guia').addEventListener('click', () => $('m-guia-btn').click());
+
+  // Estado de la nube en la barra (punto verde, amarillo o rojo).
+  const sync = $('m-sync'), cloud = $('m-cloud');
+  const nube = () => {
+    cloud.className = 'm-cloud ' + (sync.classList.contains('ok') ? 'ok' : sync.classList.contains('err') ? 'err' : 'sube');
+    cloud.title = sync.textContent;
+  };
+  new MutationObserver(nube).observe(sync, { attributes: true, childList: true, characterData: true, subtree: true }); nube();
+  // Aviso de pagos pendientes en la pestaña.
+  const pn = $('p-n'), tb = $('tab-pago');
+  const pago = () => { const n = +pn.textContent || 0; tb.hidden = !n; tb.textContent = n; };
+  new MutationObserver(pago).observe(pn, { childList: true, characterData: true, subtree: true }); pago();
+
+  // Respaldo de lo que vive en este celular. El avance de contactos no se incluye: la nube manda.
+  const FUERA = new Set(['lkm-pin', 'lkm-macro-estado', 'lkm-macro-synced']);
+  $('aj-export').addEventListener('click', () => {
+    const datos = {};
+    for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('lkm-') && !FUERA.has(k)) datos[k] = localStorage.getItem(k); }
+    const blob = new Blob([JSON.stringify({ app: 'lkm-macro', version: 1, fecha: new Date().toISOString(), datos }, null, 1)], { type: 'application/json' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `respaldo-macro-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast('Respaldo descargado');
+  });
+  $('aj-import').addEventListener('change', async e => {
+    const f = e.target.files[0]; if (!f) return;
+    try {
+      const j = JSON.parse(await f.text());
+      if (j.app !== 'lkm-macro' || !j.datos || typeof j.datos !== 'object') throw new Error('el archivo no es un respaldo del macro');
+      const keys = Object.keys(j.datos).filter(k => k.startsWith('lkm-') && !FUERA.has(k) && typeof j.datos[k] === 'string');
+      if (!confirm(`¿Cargar el respaldo del ${new Date(j.fecha).toLocaleDateString('es-MX')} (${keys.length} datos)? Reemplaza tus notas y ajustes de este celular.`)) return;
+      keys.forEach(k => localStorage.setItem(k, j.datos[k]));
+      location.reload();
+    } catch (err) { alert('No se pudo cargar el respaldo: ' + err.message); }
+    finally { e.target.value = ''; }
+  });
+
+  // App instalable (y funciona sin internet con lo último que cargó).
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register('sw.js').catch(() => {});
+  let instalar = null;
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); instalar = e; $('aj-instalar').hidden = false; });
+  $('aj-instalar').addEventListener('click', async () => {
+    if (!instalar) return; instalar.prompt(); await instalar.userChoice.catch(() => {}); instalar = null; $('aj-instalar').hidden = true;
+  });
+  if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) $('aj-app-txt').textContent = 'Ya lo tienes instalado como app ✓';
+  else if (/iphone|ipad/i.test(navigator.userAgent)) $('aj-app-txt').textContent += ' En iPhone: abre esta página en Safari, toca Compartir y luego "Agregar a pantalla de inicio".';
+
+  // Atajos de teclado (computadora).
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const t = e.target;
+    if (t && t.closest && t.closest('input, textarea, select, [contenteditable="true"]')) { if (e.key === 'Escape') t.blur(); return; }
+    if (document.querySelector('dialog[open]') || document.documentElement.classList.contains('pin-lock')) return;
+    if (e.key === '/') { e.preventDefault(); go('prospectos'); $('m-q').focus(); }
+    else if (/^[1-7]$/.test(e.key)) go(VIEWS[+e.key - 1]);
+    else if (e.key === '?') $('m-guia-btn').click();
+    else if (e.key === 'n' || e.key === 'N') $('m-bell').click();
+  });
+
+  const h = location.hash.slice(1);
+  go(VIEWS.includes(h) ? h : get('vista', 'hoy'), { keepScroll: true });
+  window.addEventListener('load', () => setTimeout(() => window.scrollTo(0, 0), 0));   // sin saltar al ancla de la vista
+})();
+</script>
+<!-- MACRO-APP:END -->
 </body>
 </html>
