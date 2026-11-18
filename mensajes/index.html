@@ -3,10 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mensajes WhatsApp</title>
+<title>Macro de ventas · LKM'r</title>
 <meta name="description" content="Herramienta interna de LKM'r: arma el mensaje de venta del menú digital con QR y lo abre en WhatsApp.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0d1110">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Macro LKM'r">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231fa855'/%3E%3Cpath d='M18 46l3-9a15 15 0 1 1 6 6z' fill='none' stroke='white' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap">
@@ -268,6 +272,39 @@ html { scroll-padding-top: 72px; }
 .m-notif-list li b { display: block; font-size: 14.5px; }
 .m-notif-list li small { display: block; color: var(--soft); font-size: 12.5px; margin-bottom: 4px; }
 .m-notif-list .ghost { min-height: 40px; }
+/* Entorno tipo app: una vista a la vez, barra inferior en celular */
+[data-views][hidden] { display: none !important; }
+.m-nav-l a[aria-current="page"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.m-cloud { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.m-cloud.ok { background: var(--wa); } .m-cloud.err { background: #d64545; } .m-cloud.sube { background: #e0a800; }
+.m-h3 { font: 700 12px/1 Inter, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--acc); margin: 18px 0 10px; }
+.m-h3:first-of-type { margin-top: 4px; }
+.m-ajustes .more { border: 0; padding: 0; }
+.m-ajustes .more > summary { display: none; }
+.m-keys { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13.5px; color: var(--soft); }
+kbd { font: 700 12px/1 'Space Grotesk', monospace; padding: 4px 7px; border-radius: 6px; border: 1px solid var(--line); border-bottom-width: 2px; background: var(--field); color: var(--fg); }
+.m-mas-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+.m-mas-grid button { text-align: left; display: grid; gap: 4px; padding: 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--field); color: var(--fg); cursor: pointer; min-height: 76px; }
+.m-mas-grid b { font: 700 16px/1.2 'Space Grotesk', sans-serif; }
+.m-mas-grid span { font-size: 13px; color: var(--soft); }
+.m-tabbar { display: none; }
+@media (max-width: 760px) {
+  .m-nav .m-nav-l { display: none; }
+  .m-nav { justify-content: flex-end; }
+  .m-tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; display: grid; grid-template-columns: repeat(5, 1fr);
+    background: color-mix(in srgb, var(--panel) 94%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line); padding: 4px 4px calc(4px + env(safe-area-inset-bottom)); }
+  .m-tabbar a { position: relative; display: grid; justify-items: center; gap: 2px; padding: 6px 2px; min-height: 52px; border-radius: 12px; color: var(--soft);
+    font: 600 11.5px/1.1 Inter, sans-serif; text-decoration: none; }
+  .m-tabbar a i { font-style: normal; font-size: 19px; line-height: 1.2; }
+  .m-tabbar a[aria-current="page"] { color: var(--acc); background: color-mix(in srgb, var(--acc) 12%, transparent); }
+  .m-tabbar b { position: absolute; top: 2px; right: calc(50% - 22px); min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; background: #d64545; color: #fff; font: 800 10.5px/18px Inter, sans-serif; }
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+  .toast { bottom: calc(80px + env(safe-area-inset-bottom)); }
+  header.top { padding: 16px 0 6px; }
+  header.top .sub { display: none; }
+  header.top h1 { font-size: 24px; }
+}
 /* /MACRO */
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -311,11 +348,11 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
   i.addEventListener('input', () => { i.value = i.value.replace(/\D/g, ''); if (i.value.length === 4) entrar(); });
 })();
 </script>
-<header class="top wrap">
+<header class="top wrap" id="top">
   <div>
     <div class="kick">LKM'r · Menús digitales y QR</div>
-    <h1>Mensajes de WhatsApp</h1>
-    <p class="sub">Pon el número y los datos del lugar. El mensaje se arma solo, nunca sale igual y se abre en WhatsApp listo para enviar.</p>
+    <h1>Macro de ventas</h1>
+    <p class="sub">Tus prospectos con su menú QR ya hecho: escríbeles, manda la venta y cobra, todo desde aquí.</p>
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="theme" id="theme" type="button">Tema</button><button class="theme" id="lock" type="button" title="Cierra el macro en este celular">🔒 Bloquear</button></div>
 </header>
@@ -323,12 +360,16 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
 <!-- MACRO:START · envío rápido de los prospectos. Para quitarlo, borra todo hasta MACRO:END (y el bloque MACRO-JS:START del final). -->
 <section class="wrap macro" aria-labelledby="t-macro">
   <nav class="m-nav" aria-label="Secciones del macro">
-    <span class="m-nav-l"><a href="#hoy">Hoy</a><a href="#prospectos">Prospectos</a><a href="#m-map">Mapa</a><a href="#pagos">Pagos</a><a href="#excelencia">Excelencia</a></span>
+    <span class="m-nav-l" role="tablist" aria-label="Vistas">
+      <a href="#hoy" data-go="hoy">Hoy</a><a href="#prospectos" data-go="prospectos">Prospectos</a><a href="#pagos" data-go="pagos">Pagos</a>
+      <a href="#mapa" data-go="mapa">Mapa</a><a href="#excelencia" data-go="excelencia">Excelencia</a><a href="#mensaje" data-go="mensaje">Mensaje libre</a><a href="#ajustes" data-go="ajustes">Ajustes</a>
+    </span>
+    <span class="m-cloud" id="m-cloud" title="Nube" aria-hidden="true"></span>
     <button type="button" class="m-bell" id="m-bell" aria-label="Nuevos posibles clientes">🔔<b id="m-bell-n" hidden>0</b></button>
     <button type="button" class="m-help" id="m-guia-btn">? Guía</button>
   </nav>
 
-  <div class="card m-hoy" id="hoy" aria-labelledby="t-hoy">
+  <div class="card m-hoy" id="hoy" data-views="hoy" aria-labelledby="t-hoy">
     <h2 id="t-hoy"><span id="m-hola">Hoy te toca</span> <span class="m-count" id="m-hoy-fecha">—</span></h2>
     <p class="m-new-alert" id="m-new-alert" hidden></p>
     <div class="m-todo" id="m-todo"></div>
@@ -340,7 +381,7 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     </details>
   </div>
 
-  <div class="card m-guard" aria-labelledby="t-guard">
+  <div class="card m-guard" data-views="hoy" aria-labelledby="t-guard">
     <h2 id="t-guard">Protección de tu número <span class="m-count" id="g-estado">—</span></h2>
     <p class="hint" style="margin:0 0 12px">WhatsApp castiga los números que <b>muchos desconocidos bloquean o reportan</b>. Por eso aquí nunca se manda el enlace ni el precio a quien no te ha contestado: primero un saludo corto que pide permiso, y la venta solo cuando te responden.</p>
     <div class="m-meter">
@@ -370,7 +411,7 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     </details>
   </div>
 
-  <div class="card" id="prospectos">
+  <div class="card" id="prospectos" data-views="prospectos">
     <h2 id="t-macro">Envío rápido · prospectos de menús QR <span class="m-count" id="m-count">0 / 0</span></h2>
     <p class="m-sync" id="m-sync" role="status">☁ Conectando…</p>
     <div class="m-prog" aria-hidden="true"><span id="m-bar"></span></div>
@@ -403,7 +444,7 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     <p class="m-done" id="m-done" hidden>🎉 Listo: ya trabajaste todos los de esta región.</p>
   </div>
 
-  <details class="card m-map" id="m-map">
+  <details class="card m-map" id="m-map" data-views="mapa">
     <summary><b>Mapa y rutas</b> <span class="m-count">para ir en persona</span></summary>
     <p class="hint" style="margin:10px 0 12px">Pon tu punto de partida y se arma la ruta más corta por los lugares de la pestaña que tengas abierta (Jesús María · Ags o Nacional). Tu dirección solo se guarda en este navegador.</p>
     <div class="mp-start">
@@ -422,14 +463,14 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     <a class="btn wa" id="mp-gmaps" href="#" target="_blank" rel="noopener" hidden>Abrir la ruta en Google Maps</a>
   </details>
 
-  <div class="card m-pago" id="pagos">
+  <div class="card m-pago" id="pagos" data-views="pagos">
     <h2>Contactados · en espera de pago <span class="m-count" id="p-n">0</span></h2>
     <p class="hint" style="margin:0 0 12px">Los lugares a los que ya se les mandó la venta. Lo ven todos tus socios con el PIN. Marca <b>💰 Pagó</b> cuando paguen la instalación.</p>
     <ol class="p-list" id="p-list"></ol>
     <details class="p-ok"><summary>Clientes que ya pagaron <span class="m-count" id="p-ok-n">0</span></summary><ul id="p-ok"></ul></details>
   </div>
 
-  <div class="card m-archive">
+  <div class="card m-archive" data-views="pagos">
     <h2>Trabajados · listos para archivar <span class="m-count" id="m-arch-n">0</span></h2>
     <p class="hint" style="margin:0 0 12px">Aquí caen los lugares a los que ya les mandaste la venta, los que dijeron que no y los que no contestaron tras el seguimiento. Toca <b>Exportar · copiar</b> y pégame la lista en el chat: los quito del macro y quedan en "Lugares ya negociados".</p>
     <ol class="m-arch-list" id="m-arch-list"></ol>
@@ -439,7 +480,7 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     </div>
   </div>
 
-  <div class="card m-exc" id="excelencia" aria-labelledby="t-exc">
+  <div class="card m-exc" id="excelencia" data-views="excelencia" aria-labelledby="t-exc">
     <h2 id="t-exc">Estándar de excelencia · mínimo por menú <span class="m-count" id="m-exc-n">—</span></h2>
     <p class="hint" style="margin:0 0 12px">Un menú solo se ofrece si <b>cumple todo el mínimo automático</b>: así el dueño ve algo mejor que su carta actual y la compra se cierra sola. Antes de mandar la venta, palomea tú los puntos de revisión en <b>Ver mensajes → Excelencia</b> de cada lugar.</p>
     <div class="m-exc-cols">
@@ -449,10 +490,46 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
     <p class="m-sub" id="m-exc-bajo" style="margin-top:10px"></p>
   </div>
 
-  <details class="card m-nego">
+  <details class="card m-nego" data-views="pagos">
     <summary><b>Lugares ya negociados</b> <span class="m-count" id="m-nego-n">0</span></summary>
     <ul id="m-nego-list"></ul>
   </details>
+  <div class="card m-ajustes" id="ajustes" data-views="ajustes" aria-labelledby="t-aj">
+    <h2 id="t-aj">Ajustes <span class="m-count">se guardan en este celular</span></h2>
+    <h3 class="m-h3">Tú y tus mensajes</h3>
+    <div id="aj-firma"></div>
+    <h3 class="m-h3">Envíos a desconocidos</h3>
+    <div id="aj-envio"></div>
+    <div id="aj-web" class="toggles" style="margin-top:12px"></div>
+    <h3 class="m-h3">Respaldo</h3>
+    <p class="hint" style="margin:0 0 10px">Tus notas, revisiones de excelencia, avisos vistos y ajustes viven en este celular. Descarga un respaldo para pasarlos a otro (el avance de contactos ya está en la nube).</p>
+    <div class="p-acts"><button type="button" class="btn" id="aj-export">⬇ Descargar respaldo</button><label class="btn" for="aj-import" style="cursor:pointer">⬆ Cargar respaldo</label>
+      <input type="file" id="aj-import" accept="application/json,.json" hidden></div>
+    <h3 class="m-h3">App en tu celular</h3>
+    <p class="hint" id="aj-app-txt" style="margin:0 0 10px">Instálalo como app: se abre desde tu pantalla de inicio, a pantalla completa, y funciona aunque se vaya el internet (con lo último que cargaste).</p>
+    <div class="p-acts"><button type="button" class="btn wa" id="aj-instalar" hidden style="grid-column:auto">📲 Instalar la app</button></div>
+    <h3 class="m-h3">Atajos de teclado (computadora)</h3>
+    <ul class="m-keys"><li><kbd>/</kbd> buscar prospecto</li><li><kbd>1</kbd>–<kbd>7</kbd> cambiar de vista</li><li><kbd>N</kbd> nuevos posibles clientes</li><li><kbd>?</kbd> guía</li><li><kbd>Esc</kbd> cerrar</li></ul>
+  </div>
+
+  <div class="card m-mas" id="mas" data-views="mas">
+    <h2>Más</h2>
+    <div class="m-mas-grid">
+      <button type="button" data-go="excelencia"><b>★ Excelencia</b><span>El mínimo que debe cumplir cada menú</span></button>
+      <button type="button" data-go="mensaje"><b>✉ Mensaje libre</b><span>Arma un mensaje para un lugar que no está en la lista</span></button>
+      <button type="button" data-go="ajustes"><b>⚙ Ajustes y respaldo</b><span>Tu nombre, precios, límites, app y respaldo</span></button>
+      <button type="button" id="mas-guia"><b>? Guía</b><span>Vuelve a ver el tutorial</span></button>
+    </div>
+  </div>
+
+  <nav class="m-tabbar" aria-label="Vistas principales">
+    <a href="#hoy" data-go="hoy"><i aria-hidden="true">☀</i>Hoy</a>
+    <a href="#prospectos" data-go="prospectos"><i aria-hidden="true">☰</i>Prospectos</a>
+    <a href="#pagos" data-go="pagos"><i aria-hidden="true">$</i>Pagos<b id="tab-pago" hidden></b></a>
+    <a href="#mapa" data-go="mapa"><i aria-hidden="true">⌖</i>Mapa</a>
+    <a href="#mas" data-go="mas"><i aria-hidden="true">⋯</i>Más</a>
+  </nav>
+
   <dialog class="m-dlg" id="m-tour" aria-labelledby="m-tour-t">
     <form method="dialog" class="m-dlg-in">
       <p class="kick" id="m-tour-k">Paso 1 de 6</p>
@@ -482,7 +559,7 @@ if (window.LKM_PIN() !== window.LKM_PIN_VALOR) document.documentElement.classLis
 </section>
 <!-- MACRO:END -->
 
-<main class="wrap layout">
+<main class="wrap layout" id="mensaje" data-views="mensaje">
   <section class="card" aria-labelledby="t-datos">
     <h2 id="t-datos">Datos del cliente <button class="ghost" id="clear" type="button">Limpiar</button></h2>
 
@@ -1248,7 +1325,7 @@ drawHist(); render(true);
   const prow = tel => L.PRESETS.find(p => p.tel === tel);
   function syncState(st, extra) {
     const el = $('m-sync'); if (!el) return;
-    const quien = (L.settings().firma || '').trim() ? '' : ' · escribe "Tu nombre" en Protección de tu número para que tus socios sepan quién contactó';
+    const quien = (L.settings().firma || '').trim() ? '' : ' · escribe tu nombre en Ajustes para que tus socios sepan quién contactó';
     el.className = 'm-sync' + (st === 'ok' ? ' ok' : st === 'err' ? ' err' : '');
     el.textContent = st === 'ok' ? `☁ Guardado en la nube · lo ven tus socios${quien}`
       : st === 'sube' ? '☁ Guardando…' : st === 'baja' ? '☁ Actualizando…'
@@ -1858,7 +1935,7 @@ drawHist(); render(true);
     const pagados = mias.filter(e => e.pago === 'pagado').length, espera = mias.filter(e => e.s === 'venta' && (e.pago || 'pendiente') === 'pendiente').length;
     $('m-gana').innerHTML = `Tu parte por cliente: <b>${money(inst() * COMISION)}</b> (la mitad de la instalación). `
       + (firma ? `Llevas <b>${money(pagados * inst() * COMISION)}</b> ganados (${pagados} ${pagados === 1 ? 'cliente' : 'clientes'})${espera ? ` y <b>${money(espera * inst() * COMISION)}</b> más si pagan los ${espera} en espera` : ''}.`
-        : 'Escribe tu nombre en "Protección de tu número" para llevar la cuenta.');
+        : 'Escribe tu nombre en Ajustes para llevar la cuenta.');
     const n = sinVer().length, w = sinVer().filter(canWA).length;
     $('m-new-alert').hidden = !n;
     $('m-new-alert').textContent = n ? `🔔 ${n} ${n === 1 ? 'nuevo posible cliente' : 'nuevos posibles clientes'} con su menú ya hecho${w ? ` · ${w} con WhatsApp` : ''}. Toca para verlos.` : '';
@@ -1868,10 +1945,10 @@ drawHist(); render(true);
 
   // Primeros pasos para un socio nuevo.
   const PASOS = [
-    ['nombre', 'Escribe tu nombre', 'En "Protección de tu número". Así tus socios saben quién contactó.', () => !!(L.settings().firma || '').trim()],
+    ['nombre', 'Escribe tu nombre', 'En Ajustes (⚙). Así tus socios saben quién contactó.', () => !!(L.settings().firma || '').trim()],
     ['tour', 'Mira el tutorial (2 minutos)', 'Botón "? Guía" de arriba.', () => !!get('tour', false)],
     ['perfil', 'Deja listo tu WhatsApp Business', 'Logo, "LKM\'r Company", descripción, horario y enlace al portafolio.', null],
-    ['reglas', 'Lee las reglas para no ser sancionado', 'Abre "Reglas para que no te sancionen".', () => !!pasos.reglas],
+    ['reglas', 'Lee las reglas para no ser sancionado', 'En Hoy, abre "Reglas para que no te sancionen".', () => !!pasos.reglas],
     ['primer', 'Manda tu primer contacto inicial', 'A uno con WhatsApp, entre 9:00 y 20:00.', () => envios.length > 0 || Object.values(est).some(e => e.t && e.t.inicial && e.por === yo())],
     ['resp', 'Consigue tu primera respuesta', 'Cuando te contesten, toca "✓ Me contestó".', () => Object.values(est).some(e => e.t && e.t.contesto && e.por === yo())],
     ['venta', 'Cierra tu primera venta', 'Cuando pague, márcala con 💰 Pagó.', () => Object.values(est).some(e => e.pago === 'pagado' && e.por === yo())],
@@ -1948,6 +2025,7 @@ drawHist(); render(true);
   }
   $('m-notif').addEventListener('close', () => { notifList.forEach(p => vistos.add(p.tel)); set('vistos', [...vistos]); drawHoy(); drawList(); });
   function irA(p) {
+    window.LKMView && LKMView.go('prospectos');
     soloNuevos = false; busca = p.lugar; $('m-q').value = p.lugar; region = p.region || region; set('region', region);
     drawCounts(); drawList();
     const r = document.querySelector(`.m-row[data-i="${LIST.indexOf(p)}"]`);
@@ -1959,7 +2037,7 @@ drawHist(); render(true);
   });
   $('m-notif-ver').addEventListener('click', () => {
     $('m-notif').close(); soloNuevos = true; busca = ''; $('m-q').value = ''; drawCounts(); drawList();
-    $('prospectos').scrollIntoView({ behavior: 'smooth' });
+    window.LKMView ? LKMView.go('prospectos') : $('prospectos').scrollIntoView({ behavior: 'smooth' });
   });
   $('m-bell').addEventListener('click', openNotif);
   $('m-new-alert').addEventListener('click', openNotif);
@@ -1982,13 +2060,13 @@ drawHist(); render(true);
   $('m-todo').addEventListener('click', e => {
     const b = e.target.closest('[data-hoy]'); if (!b) return;
     const k = b.dataset.hoy;
-    if (k === 'pagos') { $('pagos').scrollIntoView({ behavior: 'smooth' }); return; }
+    if (k === 'pagos') { window.LKMView ? LKMView.go('pagos') : $('pagos').scrollIntoView({ behavior: 'smooth' }); return; }
     const f = { contesto: 'contesto', seguimiento: 'espera', archivar: 'espera', nuevo: 'nuevo', llamar: 'nuevo' }[k];
     const cuenta = r => LIST.filter(p => p.region === r && enFiltro(p, f) && (k !== 'nuevo' || canWA(p)) && (k !== 'llamar' || !canWA(p))).length;
     if (cuenta(region) === 0 && cuenta(region === 'ags' ? 'nacional' : 'ags') > 0) { region = region === 'ags' ? 'nacional' : 'ags'; set('region', region); }
     filtro = f; soloNuevos = false; busca = ''; $('m-q').value = '';
     if (k === 'nuevo' || k === 'llamar') { soloWA = k === 'nuevo'; $('m-solo-wa').checked = soloWA; set('solo-wa', soloWA); }
-    drawCounts(); drawList(); $('prospectos').scrollIntoView({ behavior: 'smooth' });
+    drawCounts(); drawList(); window.LKMView ? LKMView.go('prospectos') : $('prospectos').scrollIntoView({ behavior: 'smooth' });
   });
   $('m-pasos').addEventListener('click', e => {
     const b = e.target.closest('[data-paso]'); if (!b) return;
@@ -2145,5 +2223,113 @@ drawHist(); render(true);
 })();
 </script>
 <!-- MACRO-JS:END -->
+<!-- MACRO-APP:START · entorno tipo app: vistas, ajustes, respaldo, app instalable y atajos -->
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const VIEWS = ['hoy', 'prospectos', 'pagos', 'mapa', 'excelencia', 'mensaje', 'ajustes', 'mas'];
+  const EN_MAS = new Set(['excelencia', 'mensaje', 'ajustes', 'mas']);
+  const get = (k, d) => { try { const v = localStorage.getItem('lkm-app-' + k); return v === null ? d : JSON.parse(v); } catch (_) { return d; } };
+  const set = (k, v) => { try { localStorage.setItem('lkm-app-' + k, JSON.stringify(v)); } catch (_) {} };
+  const toast = t => window.LKM && window.LKM.toast(t);
+  const secs = [...document.querySelectorAll('[data-views]')];
+  let cur = null;
+
+  // Una vista a la vez (como una app). La vista queda en la dirección (#prospectos) y se recuerda.
+  function go(v, opts = {}) {
+    if (!VIEWS.includes(v)) v = 'hoy';
+    const cambio = v !== cur; cur = v;
+    secs.forEach(el => { el.hidden = !el.dataset.views.split(' ').includes(v); });
+    document.querySelectorAll('a[data-go]').forEach(a => {
+      const on = a.dataset.go === v || (a.closest('.m-tabbar') && a.dataset.go === 'mas' && EN_MAS.has(v));
+      on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current');
+    });
+    if (v === 'mapa' && !$('m-map').open) $('m-map').open = true;   // abrirlo dispara el dibujo del mapa
+    set('vista', v);
+    if (location.hash !== '#' + v) history.replaceState(null, '', '#' + v);
+    if (cambio && !opts.keepScroll) window.scrollTo(0, 0);
+  }
+  window.LKMView = { go, get current() { return cur; } };
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-go]'); if (!a) return;
+    e.preventDefault(); go(a.dataset.go);
+  });
+  window.addEventListener('hashchange', () => { const v = location.hash.slice(1); if (VIEWS.includes(v) && v !== cur) go(v); });
+
+  // Ajustes en un solo lugar: se mueven los campos (conservan sus eventos).
+  const more = document.querySelector('main details.more');
+  if (more) { more.open = true; $('aj-firma').append(more); }
+  const mset = document.querySelector('.m-guard .m-set'); if (mset) $('aj-envio').append(mset);
+  const gyo = $('g-yo') && $('g-yo').closest('label'); if (gyo) gyo.hidden = true;   // es el mismo nombre de arriba
+  const web = $('web') && $('web').closest('label'); if (web) $('aj-web').append(web);
+  const nota = document.createElement('p'); nota.className = 'hint'; nota.style.margin = '8px 0 0';
+  nota.innerHTML = 'Los límites de envío protegen tu número: <b>Hoy te toca</b> te dice cuántos contactos nuevos te quedan.';
+  $('aj-envio').append(nota);
+  $('mas-guia').addEventListener('click', () => $('m-guia-btn').click());
+
+  // Estado de la nube en la barra (punto verde, amarillo o rojo).
+  const sync = $('m-sync'), cloud = $('m-cloud');
+  const nube = () => {
+    cloud.className = 'm-cloud ' + (sync.classList.contains('ok') ? 'ok' : sync.classList.contains('err') ? 'err' : 'sube');
+    cloud.title = sync.textContent;
+  };
+  new MutationObserver(nube).observe(sync, { attributes: true, childList: true, characterData: true, subtree: true }); nube();
+  // Aviso de pagos pendientes en la pestaña.
+  const pn = $('p-n'), tb = $('tab-pago');
+  const pago = () => { const n = +pn.textContent || 0; tb.hidden = !n; tb.textContent = n; };
+  new MutationObserver(pago).observe(pn, { childList: true, characterData: true, subtree: true }); pago();
+
+  // Respaldo de lo que vive en este celular. El avance de contactos no se incluye: la nube manda.
+  const FUERA = new Set(['lkm-pin', 'lkm-macro-estado', 'lkm-macro-synced']);
+  $('aj-export').addEventListener('click', () => {
+    const datos = {};
+    for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('lkm-') && !FUERA.has(k)) datos[k] = localStorage.getItem(k); }
+    const blob = new Blob([JSON.stringify({ app: 'lkm-macro', version: 1, fecha: new Date().toISOString(), datos }, null, 1)], { type: 'application/json' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `respaldo-macro-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast('Respaldo descargado');
+  });
+  $('aj-import').addEventListener('change', async e => {
+    const f = e.target.files[0]; if (!f) return;
+    try {
+      const j = JSON.parse(await f.text());
+      if (j.app !== 'lkm-macro' || !j.datos || typeof j.datos !== 'object') throw new Error('el archivo no es un respaldo del macro');
+      const keys = Object.keys(j.datos).filter(k => k.startsWith('lkm-') && !FUERA.has(k) && typeof j.datos[k] === 'string');
+      if (!confirm(`¿Cargar el respaldo del ${new Date(j.fecha).toLocaleDateString('es-MX')} (${keys.length} datos)? Reemplaza tus notas y ajustes de este celular.`)) return;
+      keys.forEach(k => localStorage.setItem(k, j.datos[k]));
+      location.reload();
+    } catch (err) { alert('No se pudo cargar el respaldo: ' + err.message); }
+    finally { e.target.value = ''; }
+  });
+
+  // App instalable (y funciona sin internet con lo último que cargó).
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register('sw.js').catch(() => {});
+  let instalar = null;
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); instalar = e; $('aj-instalar').hidden = false; });
+  $('aj-instalar').addEventListener('click', async () => {
+    if (!instalar) return; instalar.prompt(); await instalar.userChoice.catch(() => {}); instalar = null; $('aj-instalar').hidden = true;
+  });
+  if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) $('aj-app-txt').textContent = 'Ya lo tienes instalado como app ✓';
+  else if (/iphone|ipad/i.test(navigator.userAgent)) $('aj-app-txt').textContent += ' En iPhone: abre esta página en Safari, toca Compartir y luego "Agregar a pantalla de inicio".';
+
+  // Atajos de teclado (computadora).
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const t = e.target;
+    if (t && t.closest && t.closest('input, textarea, select, [contenteditable="true"]')) { if (e.key === 'Escape') t.blur(); return; }
+    if (document.querySelector('dialog[open]') || document.documentElement.classList.contains('pin-lock')) return;
+    if (e.key === '/') { e.preventDefault(); go('prospectos'); $('m-q').focus(); }
+    else if (/^[1-7]$/.test(e.key)) go(VIEWS[+e.key - 1]);
+    else if (e.key === '?') $('m-guia-btn').click();
+    else if (e.key === 'n' || e.key === 'N') $('m-bell').click();
+  });
+
+  const h = location.hash.slice(1);
+  go(VIEWS.includes(h) ? h : get('vista', 'hoy'), { keepScroll: true });
+  window.addEventListener('load', () => setTimeout(() => window.scrollTo(0, 0), 0));   // sin saltar al ancla de la vista
+})();
+</script>
+<!-- MACRO-APP:END -->
 </body>
 </html>
