@@ -55,8 +55,8 @@ const ok = (cond, msg) => { console.log(`${cond ? '✓' : '✗'} ${msg}`); if (!
   ok(resp.app === 'lkm-macro' && !('lkm-pin' in resp.datos) && !('lkm-macro-estado' in resp.datos), 'el respaldo se descarga sin PIN ni avance de la nube');
 
   await p.click('.m-tabbar [data-go="prospectos"]');
-  await p.fill('#m-q', 'Taco Sireno'); await p.waitForTimeout(200);
-  ok((await p.$$eval('.m-row .m-name', a => a.map(x => x.textContent))).includes('Taco Sireno'), 'el buscador encuentra un prospecto');
+  await p.fill('#m-q', 'A La Tostada'); await p.waitForTimeout(200);
+  ok((await p.$$eval('.m-row .m-name', a => a.map(x => x.textContent))).includes('A La Tostada'), 'el buscador encuentra un prospecto');
   ctx.on('page', pg => pg.close().catch(() => {}));
   const wa = []; ctx.on('request', r => { if (/wa\.me|whatsapp/.test(r.url())) wa.push(decodeURIComponent(r.url())); });
   await p.click('.m-row [data-act="inicial"]'); await p.waitForTimeout(400);
@@ -64,7 +64,28 @@ const ok = (cond, msg) => { console.log(`${cond ? '✓' : '✗'} ${msg}`); if (!
   await p.click('.m-row [data-act="contesto"]'); await p.waitForTimeout(200);
   await p.click('.m-row [data-act="venta"]'); await p.waitForTimeout(400);
   const venta = wa[wa.length - 1] || '';
-  ok(/menus-qr\/taco-sireno\//.test(venta) && /menus-qr\/taco-sireno\/qr\//.test(venta) && /\$650/.test(venta), 'la venta lleva su menú, su QR y el precio');
+  ok(/menus-qr\/a-la-tostada\//.test(venta) && /menus-qr\/a-la-tostada\/qr\//.test(venta) && /\$650/.test(venta), 'la venta lleva su menú, su QR y el precio');
+
+  // Recordatorio: se guarda, sale en Hoy y filtra la lista.
+  await p.click('.m-row details summary').catch(() => {});
+  await p.click('.m-row [data-rec="manana"]'); await p.waitForTimeout(200);
+  ok(await p.isVisible('.m-row .m-tag-rec'), 'el recordatorio sale en la ficha del lugar');
+  ok(/recordatorio/.test(await p.textContent('#m-todo')), 'Hoy cuenta los recordatorios');
+
+  // Cliente con sitio propio y propuesta (El Temorense): la venta usa su sitio, su QR, su propuesta y su paquete.
+  await p.fill('#m-q', 'El Temorense'); await p.waitForTimeout(200);
+  ok(/Sitio \+ propuesta/.test(await p.textContent('.m-row')), 'El Temorense sale marcado con sitio y propuesta');
+  await p.click('.m-row details summary').catch(() => {});
+  await p.click('.m-row [data-tab="venta"]'); await p.waitForTimeout(150);
+  const vt = await p.textContent('.m-row pre');
+  ok(/WebDesignLKM\/el-temorense\/\n/.test(vt) && /el-temorense\/qr\//.test(vt) && /el-temorense\/propuesta\//.test(vt) && /\$1,500/.test(vt) && !/Rappi; se lo dejo/.test(vt),
+    'la venta de El Temorense lleva su sitio, QR, propuesta y paquete de $1,500');
+  ok(!(await p.textContent('#m-nego-list')).includes('El Temorense') && (await p.textContent('#m-nego-list')).includes('Amalfi VI'), 'los 18 trabajados están en "Lugares ya negociados"');
+
+  // Resultados: embudo con los contactos de hoy.
+  await p.click('.m-tabbar [data-go="pagos"]'); await p.waitForTimeout(150);
+  ok(await p.isVisible('#resultados') && /Contactados/.test(await p.textContent('#r-funnel')), 'Pagos muestra el embudo de resultados');
+  await p.click('.m-tabbar [data-go="prospectos"]');
 
   await p.keyboard.press('Escape'); await p.click('body');
   await p.keyboard.press('3'); await p.waitForTimeout(150);
