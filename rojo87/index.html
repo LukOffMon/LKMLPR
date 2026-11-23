@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Rojo 87 · La luz roja de tu restaurante</title>
+<meta name="description" content="Rojo 87: una sola app para restaurantes, bares y cafés. Reservas, carta, pedidos desde la mesa, cocina en orden y la luz roja para llamar al mesero. Sin aparatos, 0% comisión. Primer mes por $1." />
+<meta name="theme-color" content="#0b0b0b" />
+<meta property="og:title" content="Rojo 87 · La luz roja de tu restaurante" />
+<meta property="og:description" content="Sin aparatos. Sin instalación. 0% comisión. Primer mes por $1." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23e10600'/%3E%3Ctext x='32' y='42' font-family='Arial Black,Arial' font-weight='900' font-size='28' text-anchor='middle' fill='%23efe9df'%3E87%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="is-loading">
+
+<!-- Patrones de grabado compartidos -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#efe9df" stroke-width="1.1" />
+    </pattern>
+    <pattern id="hatchFine" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#efe9df" stroke-width=".7" />
+    </pattern>
+    <pattern id="hatchInk" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+      <line x1="0" y1="0" x2="0" y2="5" stroke="#0b0b0b" stroke-width="1.2" />
+    </pattern>
+    <pattern id="crossInk" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+      <path d="M0 0V6M0 0H6" stroke="#0b0b0b" stroke-width="1" />
+    </pattern>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#ff2a1a" stop-opacity="1" />
+      <stop offset=".35" stop-color="#e10600" stop-opacity=".75" />
+      <stop offset="1" stop-color="#e10600" stop-opacity="0" />
+    </radialGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" /></filter>
+  </defs>
+</svg>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div>
+
+<!-- Cargador -->
+<div class="loader" aria-hidden="true">
+  <div class="loader__num"><span id="loaderNum">00</span></div>
+  <div class="loader__word">ROJO</div>
+</div>
+
+<!-- Navegación -->
+<header class="nav">
+  <a href="#top" class="nav__logo" aria-label="Rojo 87">
+    <span class="nav__dot"></span>ROJO<b>87</b>
+  </a>
+  <nav class="nav__links" aria-label="Secciones">
+    <a href="#momentos" data-i18n="nav.how"></a>
+    <a href="#luces" data-i18n="nav.lights"></a>
+    <a href="#demo" data-i18n="nav.demo"></a>
+    <a href="#precios" data-i18n="nav.price"></a>
+    <a href="#vision" data-i18n="nav.vision"></a>
+  </nav>
+  <div class="nav__right">
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button data-lang="es">ES</button>
+      <button data-lang="en">EN</button>
+      <button data-lang="zh">中文</button>
+      <button data-lang="fr">FR</button>
+    </div>
+    <a href="#empezar" class="btn btn--red btn--sm" data-i18n="nav.cta"></a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 1 · HERO -->
+  <section class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="hero__copy">
+      <p class="kicker" data-i18n="hero.kicker"></p>
+      <h1 class="hero__title split" data-i18n="hero.title"></h1>
+      <p class="hero__sub" data-i18n="hero.sub"></p>
+      <div class="hero__ctas">
+        <a href="#empezar" class="btn btn--red" data-i18n="hero.cta1"></a>
+        <a href="#problema" class="btn btn--ghost" data-i18n="hero.cta2"></a>
+      </div>
+      <p class="hero__note" data-i18n="hero.note"></p>
+    </div>
+
+    <div class="hero__art" aria-hidden="true">
+      <svg viewBox="0 0 800 800" class="table-art">
+        <g class="layer l1">
+          <circle cx="400" cy="400" r="340" fill="url(#hatch)" opacity=".18" />
+          <circle cx="400" cy="400" r="340" fill="none" stroke="#efe9df" stroke-width="2" />
+          <circle cx="400" cy="400" r="318" fill="none" stroke="#efe9df" stroke-width=".8" stroke-dasharray="2 6" />
+        </g>
+        <g class="layer l2">
+          <!-- platos -->
+          <g transform="translate(250 270)">
+            <circle r="92" fill="#0b0b0b" stroke="#efe9df" stroke-width="2" />
+            <circle r="68" fill="url(#hatchFine)" opacity=".35" stroke="#efe9df" stroke-width="1" />
+            <path d="M-38 -10c18-26 58-26 76 0c-14 30-62 30-76 0z" fill="#0b0b0b" stroke="#efe9df" stroke-width="1.5" />
+            <path d="M-26 -6c10-12 40-12 52 0M-20 4c8 6 32 6 40 0" stroke="#efe9df" stroke-width="1" fill="none" />
+          </g>
+          <g transform="translate(560 300)">
+            <circle r="78" fill="#0b0b0b" stroke="#efe9df" stroke-width="2" />
+            <circle r="56" fill="url(#hatchFine)" opacity=".3" stroke="#efe9df" stroke-width="1" />
+            <circle cx="-14" cy="-8" r="12" fill="#0b0b0b" stroke="#efe9df" />
+            <circle cx="10" cy="-14" r="10" fill="#0b0b0b" stroke="#efe9df" />
+            <circle cx="6" cy="12" r="13" fill="#0b0b0b" stroke="#efe9df" />
+            <circle cx="-16" cy="18" r="9" fill="#0b0b0b" stroke="#efe9df" />
+          </g>
+          <g transform="translate(300 560)">
+            <circle r="70" fill="#0b0b0b" stroke="#efe9df" stroke-width="2" />
+            <circle r="50" fill="url(#hatch)" opacity=".28" stroke="#efe9df" stroke-width="1" />
+          </g>
+          <!-- cubiertos -->
+          <g stroke="#efe9df" stroke-width="2" fill="#0b0b0b">
+            <rect x="128" y="220" width="10" height="120" rx="5" />
+            <path d="M118 200v38M128 200v38M138 200v38M148 200v38" stroke-width="1.4" />
+            <rect x="660" y="230" width="12" height="130" rx="6" />
+            <path d="M660 230c0-30 12-40 12-40v40z" />
+          </g>
+        </g>
+        <g class="layer l3">
+          <!-- vasos -->
+          <g transform="translate(520 520)">
+            <circle r="40" fill="#0b0b0b" stroke="#efe9df" stroke-width="2" />
+            <circle r="31" fill="url(#hatchFine)" opacity=".5" />
+            <path d="M-20 -18a28 28 0 0 1 18 -10" stroke="#efe9df" stroke-width="3" fill="none" stroke-linecap="round" />
+          </g>
+          <g transform="translate(445 205)">
+            <circle r="30" fill="#0b0b0b" stroke="#efe9df" stroke-width="2" />
+            <circle r="22" fill="url(#hatch)" opacity=".45" />
+          </g>
+          <!-- celular con la luz -->
+          <g class="phone-on-table" transform="translate(430 420) rotate(-14)">
+            <circle r="150" fill="url(#glow)" class="pulse" />
+            <rect x="-46" y="-86" width="92" height="172" rx="16" fill="#0b0b0b" stroke="#efe9df" stroke-width="2.5" />
+            <rect x="-38" y="-74" width="76" height="148" rx="9" fill="#e10600" />
+            <text x="0" y="12" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="44" fill="#efe9df">87</text>
+            <rect x="-26" y="34" width="52" height="16" rx="8" fill="#efe9df" />
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true"><span data-i18n="hero.scroll"></span><i></i></div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track"><span data-i18n="marquee"></span><span data-i18n="marquee"></span><span data-i18n="marquee"></span><span data-i18n="marquee"></span></div>
+  </div>
+
+  <!-- 2 · PROBLEMA: plano del salón -->
+  <section class="problem" id="problema">
+    <div class="problem__pin">
+      <div class="problem__copy">
+        <p class="kicker" data-i18n="p.kicker"></p>
+        <h2 class="problem__t problem__t1" data-i18n="p.t1"></h2>
+        <h2 class="problem__t problem__t2" data-i18n="p.t2"></h2>
+        <div class="problem__counter"><b id="waitCount">0</b> <span data-i18n="p.waiting"></span></div>
+        <p class="problem__note" data-i18n="p.note"></p>
+      </div>
+      <div class="floor">
+        <svg viewBox="0 0 1000 640" id="floorSvg" role="img" aria-label="Plano del salón">
+          <rect x="10" y="10" width="980" height="620" fill="none" stroke="#efe9df" stroke-width="2" />
+          <rect x="10" y="10" width="980" height="620" fill="url(#hatchFine)" opacity=".06" />
+          <!-- barra y cocina -->
+          <rect x="30" y="30" width="230" height="70" fill="url(#hatch)" opacity=".5" stroke="#efe9df" />
+          <text x="145" y="74" text-anchor="middle" class="floor__lbl" data-i18n="p.kitchen"></text>
+          <path d="M760 610 v-60 a60 60 0 0 1 60 -60" stroke="#efe9df" fill="none" stroke-dasharray="4 5" />
+          <g id="floorTables"></g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · CUATRO MOMENTOS (horizontal) -->
+  <section class="moments" id="momentos">
+    <div class="moments__head">
+      <p class="kicker kicker--ink" data-i18n="m.kicker"></p>
+      <h2 class="h2 split" data-i18n="m.title"></h2>
+    </div>
+    <div class="moments__pin">
+      <div class="moments__track">
+        <article class="moment">
+          <div class="moment__num">01</div>
+          <div class="moment__body">
+            <span class="tag" data-i18n="m1.tag"></span>
+            <h3 data-i18n="m1.h"></h3>
+            <p data-i18n="m1.p"></p>
+          </div>
+          <div class="moment__mock mock-chat">
+            <div class="bubble in"><span data-i18n="c.m1"></span><i>23:47</i></div>
+            <div class="bubble out"><span data-i18n="c.m2"></span><i>23:47</i></div>
+            <div class="bubble in"><span data-i18n="c.m3"></span><i>23:48</i></div>
+          </div>
+        </article>
+        <article class="moment">
+          <div class="moment__num">02</div>
+          <div class="moment__body">
+            <span class="tag" data-i18n="m2.tag"></span>
+            <h3 data-i18n="m2.h"></h3>
+            <p data-i18n="m2.p"></p>
+          </div>
+          <div class="moment__mock mock-phone">
+            <div class="mp__head"><b data-i18n="d.table"></b><span>●</span></div>
+            <div class="mp__btn red" data-i18n="d.call"></div>
+            <div class="mp__btn" data-i18n="d.bill"></div>
+            <div class="mp__btn" data-i18n="d.round"></div>
+          </div>
+        </article>
+        <article class="moment">
+          <div class="moment__num">03</div>
+          <div class="moment__body">
+            <span class="tag" data-i18n="m3.tag"></span>
+            <h3 data-i18n="m3.h"></h3>
+            <p data-i18n="m3.p"></p>
+          </div>
+          <div class="moment__mock mock-kitchen">
+            <div class="mk__row"><b>#1</b><span data-i18n="d.i1"></span><i>08:16</i><em class="ok" data-i18n="d.ready"></em></div>
+            <div class="mk__row"><b>#2</b><span data-i18n="d.i2"></span><i>05:42</i><em data-i18n="m3.cooking"></em></div>
+            <div class="mk__row"><b>#3</b><span data-i18n="d.i3"></span><i>01:05</i><em data-i18n="m3.cooking"></em></div>
+            <div class="mk__row out"><b>—</b><span data-i18n="m3.octopus"></span><i></i><em class="no" data-i18n="m3.soldout"></em></div>
+          </div>
+        </article>
+        <article class="moment">
+          <div class="moment__num">04</div>
+          <div class="moment__body">
+            <span class="tag" data-i18n="m4.tag"></span>
+            <h3 data-i18n="m4.h"></h3>
+            <p data-i18n="m4.p"></p>
+          </div>
+          <div class="moment__mock mock-loyal">
+            <div class="ml__stars">★★★★★</div>
+            <div class="ml__stamps"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="gift">★</i></div>
+            <div class="ml__txt" data-i18n="m4.mock"></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · LAS 5 LUCES -->
+  <section class="lights" id="luces">
+    <div class="wrap">
+      <p class="kicker" data-i18n="l.kicker"></p>
+      <h2 class="h2 split" data-i18n="l.title"></h2>
+      <ol class="lights__list">
+        <li class="reveal"><span class="ln">01</span><h3 data-i18n="l1.h"></h3><p data-i18n="l1.p"></p><span class="lamp"></span></li>
+        <li class="reveal"><span class="ln">02</span><h3 data-i18n="l2.h"></h3><p data-i18n="l2.p"></p><span class="lamp"></span></li>
+        <li class="reveal"><span class="ln">03</span><h3 data-i18n="l3.h"></h3><p data-i18n="l3.p"></p><span class="lamp"></span></li>
+        <li class="reveal"><span class="ln">04</span><h3 data-i18n="l4.h"></h3><p data-i18n="l4.p"></p><span class="lamp"></span></li>
+        <li class="reveal"><span class="ln">05</span><h3 data-i18n="l5.h"></h3><p data-i18n="l5.p"></p><span class="lamp"></span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 5 · DEMO EN VIVO -->
+  <section class="demo" id="demo">
+    <div class="wrap">
+      <p class="kicker kicker--ink" data-i18n="d.kicker"></p>
+      <h2 class="h2 split" data-i18n="d.title"></h2>
+      <p class="lead" data-i18n="d.sub"></p>
+
+      <div class="demo__grid">
+        <!-- Cliente -->
+        <div class="phone" aria-label="Cliente">
+          <div class="phone__notch"></div>
+          <div class="phone__screen">
+            <div class="cl__head">
+              <span class="cl__brand">ROJO<b>87</b></span>
+              <span class="cl__table" data-i18n="d.table"></span>
+            </div>
+            <div class="cl__status" id="clStatus" role="status" aria-live="polite"></div>
+            <p class="cl__label" data-i18n="d.menu"></p>
+            <ul class="cl__menu" id="clMenu"></ul>
+            <div class="cl__actions">
+              <button class="cl__btn cl__btn--red" data-act="call"><span data-i18n="d.call"></span></button>
+              <button class="cl__btn" data-act="bill"><span data-i18n="d.bill"></span></button>
+              <button class="cl__btn" data-act="round"><span data-i18n="d.round"></span></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal -->
+        <div class="staff">
+          <div class="staff__panel">
+            <div class="staff__title"><span data-i18n="d.staff"></span><i id="staffClock">21:44</i></div>
+            <div class="staff__floor" id="staffFloor"></div>
+          </div>
+          <div class="staff__panel">
+            <div class="staff__title"><span data-i18n="d.kitchen"></span><i id="kitchenCount">0</i></div>
+            <ul class="kitchen" id="kitchenList"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · OTRA RONDA (escena roja) -->
+  <section class="pour" id="ronda">
+    <div class="pour__pin">
+      <div class="pour__copy">
+        <h2 class="pour__title" data-i18n="r.title"></h2>
+        <p data-i18n="r.sub"></p>
+      </div>
+      <svg class="pour__art" viewBox="0 0 700 800" aria-hidden="true">
+        <!-- botella -->
+        <g id="bottle" style="transform-origin: 470px 210px">
+          <path d="M440 40h60v90c0 22 40 40 40 90v300c0 18-14 30-30 30h-80c-16 0-30-12-30-30V220c0-50 40-68 40-90z" fill="#efe9df" stroke="#0b0b0b" stroke-width="4" />
+          <path d="M440 40h60v90c0 22 40 40 40 90v300c0 18-14 30-30 30h-80c-16 0-30-12-30-30V220c0-50 40-68 40-90z" fill="url(#hatchInk)" opacity=".55" />
+          <rect x="412" y="300" width="116" height="130" fill="#0b0b0b" />
+          <text x="470" y="372" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="46" fill="#efe9df">87</text>
+          <text x="470" y="404" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" letter-spacing="4" fill="#efe9df">ROJO</text>
+          <rect x="436" y="28" width="68" height="18" fill="#0b0b0b" />
+        </g>
+        <!-- chorro -->
+        <rect id="stream" x="282" y="246" width="10" height="320" fill="#efe9df" stroke="#0b0b0b" stroke-width="2" style="transform-origin: 267px 250px; transform: scaleY(0)" />
+        <!-- copa -->
+        <g>
+          <clipPath id="glassClip"><path d="M150 560h240l-120 130z" /></clipPath>
+          <rect id="liquid" x="150" y="690" width="240" height="140" fill="#efe9df" clip-path="url(#glassClip)" />
+          <rect x="150" y="560" width="240" height="140" fill="url(#crossInk)" opacity=".35" clip-path="url(#glassClip)" />
+          <path d="M150 560h240l-120 130z" fill="none" stroke="#0b0b0b" stroke-width="4" stroke-linejoin="round" />
+          <path d="M270 690v80M220 780h100" stroke="#0b0b0b" stroke-width="5" stroke-linecap="round" />
+          <circle cx="330" cy="585" r="9" fill="#efe9df" stroke="#0b0b0b" stroke-width="3" />
+        </g>
+      </svg>
+      <div class="pour__ticket">
+        <span data-i18n="r.ticket"></span><b>#87</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · CONCIERGE 23:47 -->
+  <section class="night" id="noche">
+    <div class="night__pin">
+      <div class="night__copy">
+        <p class="kicker" data-i18n="c.kicker"></p>
+        <h2 class="h2" data-i18n="c.title"></h2>
+        <p class="night__note" data-i18n="c.note"></p>
+      </div>
+      <div class="night__chat">
+        <div class="chat__head"><span class="chat__avatar">87</span><div><b data-i18n="c.who"></b><i data-i18n="c.online"></i></div></div>
+        <div class="chat__body">
+          <div class="bubble in nb"><span data-i18n="c.m1"></span><i>23:47</i></div>
+          <div class="bubble out nb"><span data-i18n="c.m2"></span><i>23:47</i></div>
+          <div class="bubble in nb"><span data-i18n="c.m3"></span><i>23:48</i></div>
+          <div class="bubble out nb"><span data-i18n="c.m4"></span><i>23:48</i></div>
+        </div>
+      </div>
+      <div class="night__morning"><b>08:00</b><span data-i18n="c.morning"></span></div>
+    </div>
+  </section>
+
+  <!-- 8 · RECETAS -->
+  <section class="recipes" id="recetas">
+    <div class="wrap">
+      <p class="kicker kicker--ink" data-i18n="rc.kicker"></p>
+      <h2 class="h2 split" data-i18n="rc.title"></h2>
+      <p class="lead" data-i18n="rc.sub"></p>
+      <div class="chips" role="tablist" id="recipeChips"></div>
+      <div class="recipe" id="recipeCard" role="tabpanel">
+        <div class="recipe__left">
+          <h3 id="recipeName"></h3>
+          <p id="recipeDesc"></p>
+        </div>
+        <div class="recipe__lamps" id="recipeLamps"></div>
+        <div class="recipe__plan">
+          <span data-i18n="rc.plan"></span>
+          <b id="recipePlan"></b>
+          <strong id="recipePrice"></strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · CALCULADORA -->
+  <section class="calc" id="calculadora">
+    <div class="wrap calc__grid">
+      <div>
+        <p class="kicker" data-i18n="k.kicker"></p>
+        <h2 class="h2 split" data-i18n="k.title"></h2>
+        <div class="sliders">
+          <label><span data-i18n="k.tables"></span><output id="oTables"></output><input type="range" id="sTables" min="2" max="60" value="12" /></label>
+          <label><span data-i18n="k.turns"></span><output id="oTurns"></output><input type="range" id="sTurns" min="1" max="5" value="2" /></label>
+          <label><span data-i18n="k.nights"></span><output id="oNights"></output><input type="range" id="sNights" min="4" max="31" value="26" /></label>
+          <label><span data-i18n="k.share"></span><output id="oShare"></output><input type="range" id="sShare" min="1" max="50" value="10" /></label>
+          <label><span data-i18n="k.ticket"></span><output id="oTicket"></output><input type="range" id="sTicket" min="1" max="100" value="40" /></label>
+        </div>
+      </div>
+      <div class="calc__result">
+        <span data-i18n="k.extra"></span>
+        <b id="calcExtra">0</b>
+        <div class="calc__vs"><span id="calcCostLbl"></span><em id="calcCost"></em></div>
+        <div class="calc__x"><strong id="calcX">0×</strong><span data-i18n="k.x"></span></div>
+        <p class="calc__note" data-i18n="k.note"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · PRECIOS -->
+  <section class="pricing" id="precios">
+    <div class="wrap">
+      <p class="kicker kicker--ink" data-i18n="pr.kicker"></p>
+      <h2 class="h2 split" data-i18n="pr.title"></h2>
+      <p class="lead" data-i18n="pr.sub"></p>
+
+      <div class="pricing__bar">
+        <div class="seg" role="group" aria-label="Moneda" id="curSeg">
+          <button data-cur="MXN">MXN</button><button data-cur="USD">USD</button><button data-cur="EUR">EUR</button>
+        </div>
+        <div class="seg" role="group" id="billSeg">
+          <button data-bill="m" data-i18n="pr.monthly"></button><button data-bill="y" data-i18n="pr.annual"></button>
+        </div>
+      </div>
+
+      <div class="trial reveal">
+        <div class="trial__big" id="trialBig">$1</div>
+        <div class="trial__txt">
+          <b data-i18n="pr.trialH"></b>
+          <p data-i18n="pr.trialP"></p>
+        </div>
+        <a href="#empezar" class="btn btn--ink" data-i18n="pr.cta"></a>
+      </div>
+
+      <div class="plans" id="plans"></div>
+      <p class="pricing__foot" data-i18n="pr.foot"></p>
+    </div>
+  </section>
+
+  <!-- 11 · COMPARATIVO -->
+  <section class="compare">
+    <div class="wrap">
+      <h2 class="h2 split" data-i18n="v.title"></h2>
+      <div class="table-wrap">
+        <table class="cmp">
+          <thead><tr><th></th><th class="me">ROJO 87</th><th data-i18n="v.c2"></th><th data-i18n="v.c3"></th></tr></thead>
+          <tbody>
+            <tr><th data-i18n="v.r1"></th><td class="me" data-i18n="v.no"></td><td data-i18n="v.yes"></td><td data-i18n="v.no"></td></tr>
+            <tr><th data-i18n="v.r2"></th><td class="me" data-i18n="v.no"></td><td data-i18n="v.yes"></td><td data-i18n="v.no"></td></tr>
+            <tr><th data-i18n="v.r3"></th><td class="me">0%</td><td>—</td><td data-i18n="v.perorder"></td></tr>
+            <tr><th data-i18n="v.r4"></th><td class="me" data-i18n="v.yes"></td><td data-i18n="v.no"></td><td data-i18n="v.yes"></td></tr>
+            <tr><th data-i18n="v.r5"></th><td class="me" data-i18n="v.yes"></td><td data-i18n="v.no"></td><td data-i18n="v.no"></td></tr>
+            <tr><th data-i18n="v.r6"></th><td class="me" data-i18n="v.yes"></td><td data-i18n="v.yes"></td><td data-i18n="v.no"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · VISIÓN -->
+  <section class="vision" id="vision">
+    <div class="wrap">
+      <p class="kicker kicker--ink" data-i18n="x.kicker"></p>
+      <h2 class="vision__title split" data-i18n="x.title"></h2>
+      <p class="lead lead--ink" data-i18n="x.sub"></p>
+      <div class="stages">
+        <div class="stage reveal"><i>I</i><b data-i18n="x.s1"></b><strong data-i18n="x.s1n"></strong><p data-i18n="x.s1p"></p></div>
+        <div class="stage reveal"><i>II</i><b data-i18n="x.s2"></b><strong data-i18n="x.s2n"></strong><p data-i18n="x.s2p"></p></div>
+        <div class="stage reveal"><i>III</i><b data-i18n="x.s3"></b><strong data-i18n="x.s3n"></strong><p data-i18n="x.s3p"></p></div>
+        <div class="stage reveal"><i>IV</i><b data-i18n="x.s4"></b><strong data-i18n="x.s4n"></strong><p data-i18n="x.s4p"></p></div>
+      </div>
+      <div class="vision__math reveal">
+        <span data-i18n="x.math"></span>
+        <small data-i18n="x.foot"></small>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · FAQ -->
+  <section class="faq">
+    <div class="wrap faq__grid">
+      <h2 class="h2 split" data-i18n="f.title"></h2>
+      <div class="faq__list" id="faqList"></div>
+    </div>
+  </section>
+
+  <!-- 14 · CTA FINAL -->
+  <section class="end" id="empezar">
+    <div class="wrap end__grid">
+      <div>
+        <h2 class="end__title split" data-i18n="e.title"></h2>
+        <p class="end__sub" data-i18n="e.sub"></p>
+      </div>
+      <form class="form" id="leadForm">
+        <label><span data-i18n="e.name"></span><input name="name" required autocomplete="organization" /></label>
+        <label><span data-i18n="e.type"></span><select name="type" id="leadType"></select></label>
+        <label><span data-i18n="e.city"></span><input name="city" autocomplete="address-level2" /></label>
+        <button class="btn btn--ink btn--block" type="submit" data-i18n="e.send"></button>
+        <small data-i18n="e.small"></small>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div class="foot__logo">ROJO<b>87</b></div>
+    <p data-i18n="ft.tag"></p>
+    <p><a href="https://github.com/LukOffMon/LKMLPR/blob/main/rojo87/PLAN_MAESTRO.md" data-i18n="ft.plan"></a> · <span data-i18n="ft.by"></span> · © 2026</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
