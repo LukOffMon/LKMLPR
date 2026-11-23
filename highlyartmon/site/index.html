@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HighlyArtMon — pixel art con Claude, en vivo</title>
+<meta name="description" content="Estudio de pixel art que corre en tu PC y se conecta a Claude: Claude dibuja, ve el resultado y tú lo ves en tiempo real. Exporta sprites listos para GameMaker.">
+<meta property="og:title" content="HighlyArtMon">
+<meta property="og:description" content="El estudio de sprites donde Claude dibuja contigo, en vivo.">
+<link rel="icon" href="app/icon.svg">
+<style>
+:root{--bg:#0f1016;--panel:#161822;--panel2:#1c1f2c;--line:#2a2e40;--text:#e7e8f0;--dim:#a2a7bf;--faint:#6a6f8c;--a:#ff4fa3;--b:#3ee0ff;--c:#ffc24b;
+  --mono:ui-monospace,"Cascadia Code","SF Mono",Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--b)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:5;background:#0f1016e6;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:18px;height:58px}
+.brand{display:flex;gap:9px;align-items:center;font-weight:800;color:var(--text);text-decoration:none;font-size:17px}
+.brand b{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand svg{width:26px;height:26px}
+nav .links{margin-left:auto;display:flex;gap:18px}
+nav .links a{color:var(--dim);text-decoration:none;font-size:14px}
+nav .links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:11px;font-weight:650;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--panel2);cursor:pointer;font-size:15px}
+.btn.primary{background:linear-gradient(135deg,var(--a),#b63dff);border:0;color:#fff;box-shadow:0 8px 30px #ff4fa340}
+.btn:hover{filter:brightness(1.1)}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:70px 20px 50px}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.05;margin:0 0 18px;letter-spacing:-.5px}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:19px;color:var(--dim);margin:0 0 26px;max-width:560px}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.stagecard{background:radial-gradient(circle at 50% 40%,#203046,#141724 70%);border:1px solid var(--line);border-radius:20px;aspect-ratio:1;display:grid;place-items:center;position:relative;overflow:hidden}
+.stagecard canvas{image-rendering:pixelated;width:62%;height:auto}
+.bubble{position:absolute;left:16px;right:16px;bottom:16px;background:#1a1426f0;border:1px solid var(--a);border-radius:12px;padding:9px 13px;font-size:13.5px;min-height:42px}
+.bubble b{color:var(--a)}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font-size:30px;margin:0 0 8px}
+.sub{color:var(--dim);margin:0 0 28px;max-width:700px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card h3{margin:6px 0 6px;font-size:18px}
+.card p{margin:0;color:var(--dim);font-size:15px}
+.num{font:700 13px var(--mono);color:var(--b)}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.feat .card{padding:16px}
+.feat .ic{font-size:22px}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+.tabs button{background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:9px;padding:7px 13px;cursor:pointer;font:inherit;font-size:14px}
+.tabs button[aria-selected=true]{color:var(--text);border-color:var(--a)}
+pre{margin:0;background:#0a0b10;border:1px solid var(--line);border-radius:12px;padding:16px 56px 16px 16px;overflow-x:auto;font:14px/1.5 var(--mono);color:#dfe3ff;position:relative}
+.copy{position:absolute;right:8px;top:8px;background:var(--panel2);border:1px solid var(--line);color:var(--dim);border-radius:7px;padding:4px 9px;cursor:pointer;font:12px var(--sans)}
+.note{color:var(--faint);font-size:14px;margin-top:10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tools{display:flex;flex-wrap:wrap;gap:6px}
+.tools code{font:13px var(--mono);background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:3px 8px;color:var(--b)}
+details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px}
+summary{cursor:pointer;font-weight:650}
+details p{color:var(--dim);margin:8px 0 0}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--faint);font-size:14px}
+@media (max-width:820px){.hero,.two{grid-template-columns:1fr}.steps,.feat{grid-template-columns:1fr}.stagecard{max-width:380px;margin:0 auto;width:100%}nav .links{display:none}.hero{padding-top:36px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#"><svg viewBox="0 0 16 16" shape-rendering="crispEdges"><rect width="16" height="16" rx="3" fill="#161822"/><path fill="#ff4fa3" d="M3 3h2v10H3zM5 7h4v2H5zM9 3h2v10H9z"/><path fill="#3ee0ff" d="M12 3h1v1h-1zM13 4h1v1h-1zM12 11h2v2h-2z"/></svg><span>Highly<b>ArtMon</b></span></a>
+  <div class="links"><a href="#como">Cómo funciona</a><a href="#funciones">Funciones</a><a href="#instalar">Instalar</a><a href="#faq">Preguntas</a></div>
+</div></nav>
+
+<header class="wrap hero">
+  <div>
+    <h1>Tu estudio de pixel art, <em>con Claude dibujando en vivo</em>.</h1>
+    <p class="lead">HighlyArtMon corre en tu PC y se conecta a Claude. Claude dibuja con precisión de píxel, ve lo que dibujó y lo corrige. Tú lo ves aparecer en tiempo real y puedes pintar encima. Los sprites salen listos para GameMaker.</p>
+    <div class="cta"><a class="btn primary" href="#instalar">⬇ Instalar en mi PC</a><a class="btn" href="app/">Abrir el editor en el navegador</a></div>
+    <p class="note">Gratis · sin dependencias · Windows, macOS y Linux · funciona con Claude Code, Claude Desktop y cualquier cliente MCP.</p>
+  </div>
+  <div class="stagecard" aria-label="Animación de ejemplo: un hongo de 16×16 dibujado por Claude"><div class="grid-bg"></div><canvas id="hero" width="16" height="16"></canvas><div class="bubble" id="bubble"></div></div>
+</header>
+
+<section id="como"><div class="wrap">
+  <h2>Cómo funciona</h2>
+  <p class="sub">El problema de pedirle sprites a una IA es que dibuja a ciegas. HighlyArtMon cierra el ciclo <b>dibujar → ver → corregir</b>.</p>
+  <div class="steps">
+    <div class="card"><span class="num">01 · DIBUJA</span><h3>Claude pinta con operaciones</h3><p>Rejillas de texto, líneas, elipses, relleno, contorno, sombreado por rampas y luz automática. Todo indexado a una paleta, sin colores sucios.</p></div>
+    <div class="card"><span class="num">02 · VE</span><h3>Recibe el render como imagen</h3><p>Ampliado, sobre el fondo de tu juego, en silueta y a tamaño real. Además, una revisión automática le marca los errores típicos con coordenadas.</p></div>
+    <div class="card"><span class="num">03 · EN VIVO</span><h3>Tú lo ves y participas</h3><p>Cada cambio aparece al instante en tu editor, con lo que Claude está haciendo. Pinta tú encima: Claude lee tus píxeles y sabe qué tienes abierto.</p></div>
+  </div>
+</div></section>
+
+<section id="funciones"><div class="wrap">
+  <h2>Un editor completo, no un juguete</h2>
+  <p class="sub">Todo lo que esperas de un editor de sprites, más lo que necesita una IA para diseñar bien.</p>
+  <div class="feat">
+    <div class="card"><div class="ic">✎</div><h3>Herramientas de pixel art</h3><p>Lápiz pixel-perfect, línea, rectángulo, elipse, relleno, selección y mover, tramado, sombreado por rampas, simetría X/Y, pinceles de 1 a 8 px.</p></div>
+    <div class="card"><div class="ic">🎞</div><h3>Animación</h3><p>Frames con duración, tags (idle, walk, attack), piel de cebolla, vista previa en bucle y hoja completa.</p></div>
+    <div class="card"><div class="ic">🧊</div><h3>2.5D y más</h3><p>Vista <i>sprite stacking</i> que gira en tiempo real, guías isométricas 2:1 y mosaico 3×3 para tiles sin costuras.</p></div>
+    <div class="card"><div class="ic">🎨</div><h3>Paletas</h3><p>PICO-8, Sweetie 16, Endesga 32, Game Boy y otras, o tus rampas a medida con desplazamiento de tono.</p></div>
+    <div class="card"><div class="ic">🔍</div><h3>Revisión automática</h3><p>Píxeles huérfanos, contornos dobles, esquinas en L, deriva entre frames, valores planos y contraste con el fondo, con nota sobre 100.</p></div>
+    <div class="card"><div class="ic">🎮</div><h3>Exporta a GameMaker</h3><p>Archivos <code>spr_x_idle_strip4.png</code> que GameMaker corta solo al importarlos, un <code>.gml</code> con el origen, PNG por frame u hoja + JSON.</p></div>
+    <div class="card"><div class="ic">🖼</div><h3>Importa y limpia</h3><p>Trae un PNG (por ejemplo, arte generado con IA): detecta el escalado, reduce colores y lo deja editable para retocarlo a nivel de píxel.</p></div>
+    <div class="card"><div class="ic">🧠</div><h3>Guía de oficio para Claude</h3><p>Silueta primero, rampas, una sola dirección de luz, contorno selectivo, tiempos de animación. Claude la sigue en cada sesión.</p></div>
+    <div class="card"><div class="ic">🔒</div><h3>Local y privado</h3><p>Tus sprites se quedan en tu PC (<code>~/HighlyArtMon</code>). El servidor solo escucha en tu equipo y pide un token.</p></div>
+  </div>
+</div></section>
+
+<section id="instalar"><div class="wrap">
+  <h2>Instalar y conectar a Claude</h2>
+  <p class="sub">Un solo comando. Instala la app, crea accesos directos, la conecta a Claude Code (en todos tus proyectos) y a Claude Desktop si lo tienes, y la abre.</p>
+  <div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-os="win">Windows</button><button role="tab" aria-selected="false" data-os="nix">macOS / Linux</button></div>
+  <pre id="cmd-win"><button class="copy">Copiar</button>irm https://raw.githubusercontent.com/LukOffMon/LKMLPR/main/highlyartmon/install.ps1 | iex</pre>
+  <pre id="cmd-nix" hidden><button class="copy">Copiar</button>curl -fsSL https://raw.githubusercontent.com/LukOffMon/LKMLPR/main/highlyartmon/install.sh | sh</pre>
+  <p class="note">Windows: pégalo en PowerShell. Necesita Python 3.9+ (si falta en Windows, el instalador lo trae con winget). Puedes leer el instalador antes: <a href="install.ps1">install.ps1</a> · <a href="install.sh">install.sh</a>.</p>
+  <div class="two" style="margin-top:26px">
+    <div class="card"><h3>Luego pídele a Claude</h3><pre><button class="copy">Copiar</button>Diseña con HighlyArtMon un caballero de 32×32,
+vista lateral, con idle de 4 frames y caminar de 6.
+Revísalo y expórtalo a mi proyecto de GameMaker.</pre></div>
+    <div class="card"><h3>Conexión manual (otro cliente MCP)</h3><pre><button class="copy">Copiar</button>{"mcpServers": {"highlyartmon": {
+  "command": "python",
+  "args": ["-m", "highlyartmon", "mcp"]}}}</pre>
+      <p class="note">O en Claude Code: <code>claude mcp add highlyartmon -- python -m highlyartmon mcp</code></p></div>
+  </div>
+  <h3 style="margin-top:28px">Herramientas que recibe Claude</h3>
+  <div class="tools"><code>ham_guide</code><code>ham_status</code><code>ham_new</code><code>ham_read</code><code>ham_edit</code><code>ham_view</code><code>ham_lint</code><code>ham_export</code><code>ham_import_png</code><code>ham_focus</code><code>ham_say</code></div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <h2>Preguntas</h2>
+  <details><summary>¿Qué tan buenos salen los sprites?</summary><p>Brilla en pixel art de 16 a 64 px: personajes, objetos, íconos, tiles y animaciones como idle, caminar o ataque. Como Claude ve cada resultado y la revisión le marca los errores, itera hasta que el sprite se lee bien a tamaño real. Para piezas grandes muy detalladas, combínalo con arte generado e impórtalo para limpiarlo.</p></details>
+  <details><summary>¿Funciona sin Claude?</summary><p>Sí. Es un editor completo por sí solo. El <a href="app/">modo navegador</a> guarda en tu navegador y exporta con descargas. La revisión automática y la conexión con Claude necesitan la app local.</p></details>
+  <details><summary>¿Dónde se guardan mis sprites?</summary><p>En <code>~/HighlyArtMon</code>, como archivos <code>.ham.json</code>. Lo que borras va a <code>~/HighlyArtMon/.trash</code>.</p></details>
+  <details><summary>¿Cómo lo desinstalo?</summary><p><code>highlyartmon disconnect</code> y luego <code>pip uninstall highlyartmon</code>. Borra los accesos directos si quieres.</p></details>
+</div></section>
+
+<footer><div class="wrap">HighlyArtMon · hecho por LKM'r · <a href="https://github.com/LukOffMon/LKMLPR/tree/main/highlyartmon">código en GitHub</a></div></footer>
+
+<script>
+// Hero: the sprite drawing itself pixel by pixel, then breathing (idle).
+(function(){
+  var pal=[null,"#1b1020","#5a1e3a","#a2263f","#e43b44","#f6757a","#fff4d6","#e8d3a8","#b89a78","#6b4f45","#3a2a35","#7a2440"];
+  var rows=["................",".....bb1111.....","...bb33443311...","..b33445543331..",".b3344555433331.",".b3345534433321.","1334433333333221","1333366333663221","1223366223663211",".11111111111111.","....1777777.....","....17766671....","....17766671....","....18777781....",".....188881.....","......1111......"];
+  var C="0123456789abcdefghijklmnopqrstuvwxyz";
+  var cv=document.getElementById("hero"),x=cv.getContext("2d"),bub=document.getElementById("bubble");
+  var px=[];rows.forEach(function(r,y){r.split("").forEach(function(ch,xx){var v=C.indexOf(ch);if(v>0)px.push([xx,y,v]);});});
+  var order=px.slice().sort(function(a,b){return (a[2]===1?0:1)-(b[2]===1?0:1)||a[1]-b[1];});
+  var msgs=["silueta y contorno","colores base del sombrero","luz desde arriba a la izquierda","contorno selectivo en el lado iluminado","revisado: 0 píxeles huérfanos · idle de 2 frames"];
+  var n=0,t=0,reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function say(i){bub.innerHTML='<b>✦ Claude</b> '+msgs[i];}
+  function paint(k,dy){x.clearRect(0,0,16,16);for(var i=0;i<k;i++){var p=order[i];x.fillStyle=pal[p[2]];x.fillRect(p[0],p[1]+dy,1,1);}}
+  if(reduce){paint(order.length,0);say(4);return;}
+  say(0);
+  function step(){
+    if(n<order.length){n+=3;paint(Math.min(n,order.length),0);
+      var f=n/order.length;say(f<.3?0:f<.6?1:f<.85?2:3);setTimeout(step,45);}
+    else{say(4);t++;paint(order.length,t%2);setTimeout(step,t>14?1600:420);if(t>14){t=0;n=0;}}
+  }
+  step();
+})();
+document.querySelectorAll(".tabs button").forEach(function(b){b.onclick=function(){document.querySelectorAll(".tabs button").forEach(function(o){o.setAttribute("aria-selected",o===b);});document.getElementById("cmd-win").hidden=b.dataset.os!=="win";document.getElementById("cmd-nix").hidden=b.dataset.os!=="nix";};});
+if(/Mac|Linux/.test(navigator.platform)&&!/Win/.test(navigator.platform))document.querySelector('[data-os="nix"]').click();
+document.querySelectorAll(".copy").forEach(function(b){b.onclick=function(){var t=b.parentElement.textContent.replace(/^Copiar/,"").trim();navigator.clipboard.writeText(t).then(function(){b.textContent="✓ Copiado";setTimeout(function(){b.textContent="Copiar";},1600);});};});
+</script>
+</body>
+</html>

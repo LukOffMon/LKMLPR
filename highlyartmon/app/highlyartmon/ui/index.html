@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="ham-token" content="__HAM_TOKEN__">
+<title>HighlyArtMon</title>
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo"><svg viewBox="0 0 16 16" shape-rendering="crispEdges"><rect width="16" height="16" rx="3" fill="#161822"/><path fill="#ff4fa3" d="M3 3h2v10H3zM5 7h4v2H5zM9 3h2v10H9z"/><path fill="#3ee0ff" d="M12 3h1v1h-1zM13 4h1v1h-1zM12 11h2v2h-2z"/></svg><span>Highly<b>ArtMon</b></span></div>
+    <select id="docSel" title="Sprites" aria-label="Sprite abierto"></select>
+    <button id="bNew" title="Nuevo sprite (Ctrl+N)">＋ Nuevo</button>
+    <button id="bImport" title="Importar PNG como sprite editable">Importar PNG</button>
+    <input type="file" id="fImport" accept="image/png,image/*,.json" hidden>
+    <div class="sep"></div>
+    <button id="bUndo" title="Deshacer (Ctrl+Z)">↶</button>
+    <button id="bRedo" title="Rehacer (Ctrl+Y)">↷</button>
+    <div class="sep"></div>
+    <button id="bExport" title="Exportar">Exportar ▾</button>
+    <button id="bResize" title="Tamaño del lienzo">Lienzo</button>
+    <button id="bDelete" title="Mover a la papelera">🗑</button>
+    <div class="grow"></div>
+    <label class="row" title="Cambiar solo al sprite que Claude esté editando"><input type="checkbox" id="follow" checked> Seguir a Claude</label>
+    <div class="pill" id="conn"><i></i><span>…</span></div>
+  </header>
+
+  <nav id="tools" aria-label="Herramientas"></nav>
+
+  <main id="stage">
+    <canvas id="cv"></canvas>
+    <div class="overlay">
+      <div class="chip">
+        <button id="tGrid" aria-pressed="true" title="Cuadrícula (#)">▦</button>
+        <button id="tOnion" aria-pressed="false" title="Piel de cebolla (O)">◐</button>
+        <button id="tSil" aria-pressed="false" title="Silueta">◼</button>
+        <button id="tTile" aria-pressed="false" title="Vista en mosaico 3×3">⊞</button>
+        <button id="tIso" aria-pressed="false" title="Guías isométricas 2:1">◇</button>
+        <button id="tPP" aria-pressed="true" title="Pixel perfect (sin esquinas en L)">PP</button>
+      </div>
+      <div class="chip">
+        <span>Simetría</span>
+        <button id="tSymX" aria-pressed="false" title="Espejo horizontal">⇆</button>
+        <button id="tSymY" aria-pressed="false" title="Espejo vertical">⇅</button>
+      </div>
+      <div class="chip"><span>Pincel</span><input id="brush" type="range" min="1" max="8" value="1" style="width:70px"><span id="brushV">1</span></div>
+      <div class="chip"><button id="zFit" title="Ajustar (0)">Ajustar</button><span id="zoomV">×8</span></div>
+    </div>
+    <div id="claudeToast"></div>
+    <div class="empty" id="empty" hidden><div><h2>Sin sprites todavía</h2><p>Crea uno con <b>＋ Nuevo</b>, importa un PNG o pídele a Claude: <code>diseña un slime de 32×32</code>.</p></div></div>
+  </main>
+
+  <section id="timeline">
+    <div class="tbar">
+      <button id="fPlay" title="Reproducir (Enter)">▶</button>
+      <button id="fAdd" title="Frame vacío">＋ frame</button>
+      <button id="fDup" title="Duplicar frame">⧉ duplicar</button>
+      <button id="fDel" title="Borrar frame">− borrar</button>
+      <button id="fLeft" title="Mover a la izquierda">◀</button>
+      <button id="fRight" title="Mover a la derecha">▶</button>
+      <label>ms <input id="fDur" type="number" min="10" step="10" value="100"></label>
+      <div class="sep"></div>
+      <label>Tag</label><input id="tagName" type="text" placeholder="idle" style="width:80px">
+      <button id="tagSet" title="Etiquetar los frames desde el marcado hasta el actual">marcar rango</button>
+      <span id="tags" class="hint"></span>
+    </div>
+    <div id="frames"></div>
+  </section>
+
+  <aside>
+    <details open><summary>Paleta <span class="badge" id="palCount"></span></summary>
+      <div class="pbody">
+        <div class="cur2"><div class="big" id="cPrim"></div><div class="big" id="cSec" style="width:24px;height:24px"></div>
+          <input type="color" id="cEdit" title="Editar el color principal"><button id="cAdd" title="Añadir color">＋</button><button id="cDel" title="Quitar último color">−</button>
+          <select id="palPreset" title="Cargar paleta"></select></div>
+        <div id="swatches"></div>
+        <div class="hint">Clic: principal · clic derecho: secundario · X intercambia · índice 0 = transparente</div>
+      </div>
+    </details>
+    <details open><summary>Capas <span class="badge" id="lyCount"></span></summary>
+      <div class="pbody">
+        <div class="row"><button id="lAdd">＋ capa</button><button id="lDup">⧉</button><button id="lUp">▲</button><button id="lDown">▼</button><button id="lMerge" title="Fusionar abajo">⤓</button><button id="lDel">−</button></div>
+        <div class="row"><label>Opacidad</label><input type="range" id="lOp" min="0" max="100" value="100" style="flex:1"></div>
+        <div id="layers"></div>
+      </div>
+    </details>
+    <details open><summary>Vista previa</summary>
+      <div class="pbody">
+        <div class="preview"><canvas id="pv"></canvas></div>
+        <div class="row"><label>Escala</label><select id="pvScale"><option>1</option><option selected>2</option><option>3</option><option>4</option></select>
+          <label>Fondo</label><input type="color" id="pvBg" value="#2b2f3a"></div>
+      </div>
+    </details>
+    <details><summary>2.5D · Sprite stack</summary>
+      <div class="pbody">
+        <div class="preview"><canvas id="sv"></canvas></div>
+        <div class="row"><label>Ángulo</label><input type="range" id="svAng" min="0" max="359" value="30" style="flex:1"><button id="svSpin" aria-pressed="true">⟳</button></div>
+        <div class="row"><label>Separación</label><input type="range" id="svGap" min="1" max="4" value="1"><label>Aplanado</label><input type="range" id="svSq" min="30" max="100" value="60"></div>
+        <div class="hint">Cada capa es una rebanada vista desde arriba (abajo → arriba).</div>
+      </div>
+    </details>
+    <details open><summary>Revisión automática <span class="badge" id="lintScore"></span></summary>
+      <div class="pbody"><div class="row"><button id="bLint">Revisar ahora</button><button id="bClean" title="Quitar píxeles huérfanos de la capa actual">Limpiar huérfanos</button></div><div id="lintOut" class="hint">Detecta píxeles huérfanos, contornos dobles, esquinas en L, deriva entre frames, poco contraste y colores repetidos.</div></div>
+    </details>
+    <details open><summary>Claude en vivo <span class="badge" id="viewers"></span></summary>
+      <div class="pbody"><div id="feed"><div class="hint">Cuando Claude dibuje, lo verás aquí y en el lienzo en tiempo real.</div></div>
+        <div class="hint">Conéctalo con <code>highlyartmon connect</code> y pídele un sprite.</div></div>
+    </details>
+  </aside>
+
+  <footer><span id="sPos">–</span><span id="sCol">–</span><span id="sSize">–</span><span id="sTool">–</span><span class="grow"></span><span id="sSave">–</span></footer>
+</div>
+
+<dialog id="dNew"><form method="dialog">
+  <h3>Nuevo sprite</h3>
+  <div class="grid2">
+    <label for="nName">Nombre</label><input id="nName" type="text" value="spr_nuevo" pattern="[A-Za-z0-9_\-]{1,64}" required>
+    <label>Tamaño</label><div><div class="row"><input id="nW" type="number" value="32" min="1" max="1024"> × <input id="nH" type="number" value="32" min="1" max="1024"></div>
+      <div class="sizes" id="nSizes"></div></div>
+    <label for="nPal">Paleta</label><select id="nPal"></select>
+    <label for="nMode">Modo</label><select id="nMode"><option value="2d">2D</option><option value="iso">Isométrico</option><option value="stack">2.5D sprite stack</option></select>
+    <label for="nFrames">Frames</label><input id="nFrames" type="number" value="1" min="1" max="512">
+    <label for="nBg">Fondo del juego</label><input id="nBg" type="color" value="#2b2f3a">
+  </div>
+  <menu><button value="cancel" formnovalidate>Cancelar</button><button class="primary" value="ok">Crear</button></menu>
+</form></dialog>
+
+<dialog id="dExport"><form method="dialog">
+  <h3>Exportar</h3>
+  <div class="grid2">
+    <label for="eFmt">Formato</label><select id="eFmt"><option value="gamemaker">GameMaker (spr_x_stripN.png + .gml)</option><option value="frames">PNG por frame</option><option value="sheet">Hoja + JSON</option><option value="layers">Tira por capa</option></select>
+    <label for="eScale">Escala</label><select id="eScale"><option>1</option><option>2</option><option>3</option><option>4</option><option>8</option></select>
+    <label for="eDir">Carpeta</label><input id="eDir" type="text" placeholder="(por defecto ~/HighlyArtMon/exports/<nombre>)">
+  </div>
+  <p class="hint" id="eNote"></p>
+  <menu><button value="cancel" formnovalidate>Cancelar</button><button class="primary" value="ok">Exportar</button></menu>
+</form></dialog>
+
+<dialog id="dResize"><form method="dialog">
+  <h3>Tamaño del lienzo</h3>
+  <div class="grid2">
+    <label>Tamaño</label><div class="row"><input id="rW" type="number" min="1" max="1024"> × <input id="rH" type="number" min="1" max="1024"></div>
+    <label for="rAnchor">Anclaje</label><select id="rAnchor"><option value="center">centro</option><option value="bottom">abajo</option><option value="top">arriba</option><option value="top-left">arriba-izq</option><option value="bottom-left">abajo-izq</option></select>
+    <label>Origen</label><div class="row"><input id="rOx" type="number"> , <input id="rOy" type="number"></div>
+  </div>
+  <menu><button value="cancel" formnovalidate>Cancelar</button><button class="primary" value="ok">Aplicar</button></menu>
+</form></dialog>
+
+<script src="app.js"></script>
+</body>
+</html>

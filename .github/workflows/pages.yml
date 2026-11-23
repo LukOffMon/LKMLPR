@@ -42,6 +42,11 @@ jobs:
           cp -r maletin/dist _site/maletin
           # Proyectos anteriores (se mantienen sus enlaces)
           for d in candyos encuesta nexus mensajes socios; do [ -d "$d" ] && cp -r "$d" "_site/$d"; done
+          # HighlyArtMon: sitio público + editor en modo navegador + instaladores
+          mkdir -p _site/highlyartmon/app
+          cp highlyartmon/site/index.html _site/highlyartmon/index.html
+          cp highlyartmon/app/highlyartmon/ui/* _site/highlyartmon/app/
+          cp highlyartmon/install.ps1 highlyartmon/install.sh _site/highlyartmon/
           touch _site/.nojekyll
           ls -R _site | head -50
 
