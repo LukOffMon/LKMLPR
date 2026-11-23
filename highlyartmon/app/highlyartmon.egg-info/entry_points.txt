@@ -1,2 +1,0 @@
-[console_scripts]
-highlyartmon = highlyartmon.__main__:main
