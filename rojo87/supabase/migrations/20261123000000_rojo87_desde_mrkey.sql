@@ -18,6 +18,15 @@ alter index public.mk_events_merchant_created rename to r87_events_merchant_crea
 alter index public.mk_events_customer rename to r87_events_customer;
 alter index public.mk_payments_merchant rename to r87_payments_merchant;
 
+-- La migración de diseño de Mr Key (20261029) nunca se aplicó en la base real: se completa aquí.
+alter table public.r87_merchants
+  add column if not exists design jsonb not null default '{}'::jsonb,
+  add column if not exists nearby text not null default 'inactive' check (nearby in ('all', 'inactive', 'off'));
+insert into public.r87_settings (key, value)
+values ('cron_secret', replace(gen_random_uuid()::text || gen_random_uuid()::text, '-', ''))
+on conflict (key) do nothing;
+create extension if not exists pg_net;
+
 -- Planes de Rojo 87 (ver supabase/functions/rojo87/admin.ts → PLANS).
 update public.r87_merchants set plan = 'completo' where plan in ('emprendedor', 'pro');
 update public.r87_merchants set plan = 'cadena' where plan = 'franquicias';
