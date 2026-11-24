@@ -1,4 +1,4 @@
-// Generado por _build.py desde mundo.json. No editar a mano.
+// Generado por _build.py desde mundo.json + contactos.json. No editar a mano.
 window.PROSPECTOS = [
 {
 "id": "mx-contramar-ciudad-de-mexico",
@@ -6,7 +6,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+525555143169",
+"wa": false,
+"alt": "",
+"fuente": "https://www.opentable.com/r/contramar-ciudad-de-mexico",
+"conf": "media",
+"nota": "OpenTable lo da como línea de pedidos para llevar"
 },
 {
 "id": "mx-el-califa-ciudad-de-mexico",
@@ -14,7 +19,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado; buscar en Maps (Altata 22, Condesa)"
 },
 {
 "id": "mx-taqueria-los-cocuyos-ciudad-de-mexico",
@@ -22,7 +32,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "+525555184231",
+"wa": false,
+"alt": "",
+"fuente": "https://www.chilango.com/comida/los-cocuyos-los-mejores-tacos-de-suadero-de-la-ciudad/",
+"conf": "baja",
+"nota": "nota de Chilango antigua"
 },
 {
 "id": "mx-cafe-de-tacuba-ciudad-de-mexico",
@@ -30,7 +45,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+525555212048",
+"wa": false,
+"alt": "",
+"fuente": "https://indagare.com/restaurant/cafe-de-tacuba",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-el-cardenal-ciudad-de-mexico",
@@ -38,7 +58,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+525555213080",
+"wa": false,
+"alt": "",
+"fuente": "https://www.restauranteelcardenal.com/en/espacios/palma",
+"conf": "alta",
+"nota": "sucursal Palma 23"
 },
 {
 "id": "mx-rosetta-ciudad-de-mexico",
@@ -46,7 +71,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+525555337804",
+"wa": false,
+"alt": "",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/restaurants-rosetta-AA45801",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-pujol-ciudad-de-mexico",
@@ -54,7 +84,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+525532126206",
+"wa": true,
+"alt": "+525555454111",
+"fuente": "Instagram oficial de Pujol (WhatsApp) · fijo en guide.michelin / oadguides",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-maximo-ciudad-de-mexico",
@@ -62,7 +97,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+525552644291",
+"wa": false,
+"alt": "+525555252687",
+"fuente": "https://www.maximobistrot.com.mx/en/",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-el-turix-ciudad-de-mexico",
@@ -70,7 +110,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "+525552806449",
+"wa": false,
+"alt": "",
+"fuente": "https://www.theinfatuation.com/mexico-city/reviews/el-turix",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-bar-la-opera-ciudad-de-mexico",
@@ -78,7 +123,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "bar",
-"tel": ""
+"tel": "+525555128959",
+"wa": false,
+"alt": "",
+"fuente": "https://foodandpleasure.com/cantinas-historicas-en-cdmx/",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-salon-rios-ciudad-de-mexico",
@@ -86,7 +136,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "bar",
-"tel": ""
+"tel": "+525552075272",
+"wa": false,
+"alt": "",
+"fuente": "https://foodandpleasure.com/salon-rios/",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-casa-oaxaca-oaxaca",
@@ -94,7 +149,12 @@ window.PROSPECTOS = [
 "ciudad": "Oaxaca",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+529515168889",
+"wa": false,
+"alt": "",
+"fuente": "https://www.oadguides.com/restaurant/casa-oaxaca",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-las-quince-letras-oaxaca",
@@ -102,7 +162,12 @@ window.PROSPECTOS = [
 "ciudad": "Oaxaca",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+529511281365",
+"wa": false,
+"alt": "+529515143769",
+"fuente": "https://tianguisturistico.cie.com.mx (catálogo Cocina Tradicional Oaxaca)",
+"conf": "media",
+"nota": "celular; puede tener WhatsApp"
 },
 {
 "id": "mx-alcalde-guadalajara",
@@ -110,7 +175,12 @@ window.PROSPECTOS = [
 "ciudad": "Guadalajara",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+523336157400",
+"wa": false,
+"alt": "",
+"fuente": "https://www.oadguides.com/restaurant/alcalde",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-karne-garibaldi-guadalajara",
@@ -118,7 +188,12 @@ window.PROSPECTOS = [
 "ciudad": "Guadalajara",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+523347374884",
+"wa": false,
+"alt": "+523316016820",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/karne-garibaldi-AA91829",
+"conf": "media",
+"nota": "sucursal Mariano Otero"
 },
 {
 "id": "mx-el-rey-del-cabrito-monterrey",
@@ -126,7 +201,12 @@ window.PROSPECTOS = [
 "ciudad": "Monterrey",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+528136021734",
+"wa": true,
+"alt": "+528183453232",
+"fuente": "https://www.posta.com.mx/nuevo-leon/el-restaurante-de-tradicion-icono-de-la-gastronomia-de-nuevo-leon/vl2076359",
+"conf": "media",
+"nota": "Publimetro reportó cierre de la sucursal Centro en 2023"
 },
 {
 "id": "mx-pangea-monterrey",
@@ -134,7 +214,12 @@ window.PROSPECTOS = [
 "ciudad": "Monterrey",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+528181146603",
+"wa": false,
+"alt": "+528181146601",
+"fuente": "https://foodandpleasure.com/pangea-restaurante-san-pedro-garza-garcia/",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-la-chaya-maya-merida",
@@ -142,7 +227,12 @@ window.PROSPECTOS = [
 "ciudad": "Mérida",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+529999284780",
+"wa": false,
+"alt": "",
+"fuente": "https://www.enprimeurclub.com/restaurants/la-chaya-maya-merida-restaurant",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-tacos-el-franc-tijuana",
@@ -150,7 +240,12 @@ window.PROSPECTOS = [
 "ciudad": "Tijuana",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado; buscar en Maps o Instagram"
 },
 {
 "id": "mx-caesar-s-tijuana",
@@ -158,7 +253,12 @@ window.PROSPECTOS = [
 "ciudad": "Tijuana",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+526646851927",
+"wa": false,
+"alt": "",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/caesar's-AA74645",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-el-mural-de-los-poblanos-puebla",
@@ -166,7 +266,12 @@ window.PROSPECTOS = [
 "ciudad": "Puebla",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+522222420503",
+"wa": false,
+"alt": "+522222250650",
+"fuente": "https://foodandpleasure.com/restaurantes-tradicionales-puebla/",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-katz-s-delicatessen-new-york",
@@ -174,7 +279,12 @@ window.PROSPECTOS = [
 "ciudad": "New York",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+12122542246",
+"wa": false,
+"alt": "",
+"fuente": "https://www.dinerville.info/ny/manhattan/katzs-delicatessen",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-joe-s-pizza-new-york",
@@ -182,7 +292,12 @@ window.PROSPECTOS = [
 "ciudad": "New York",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+12123661182",
+"wa": false,
+"alt": "",
+"fuente": "https://www.nyctourism.com/venues/famous-joes-pizza",
+"conf": "alta",
+"nota": "7 Carmine St"
 },
 {
 "id": "us-russ-daughters-cafe-new-york",
@@ -190,7 +305,12 @@ window.PROSPECTOS = [
 "ciudad": "New York",
 "pais": "US",
 "giro": "cafe",
-"tel": ""
+"tel": "+12124754880",
+"wa": false,
+"alt": "",
+"fuente": "https://shop.russanddaughters.com/locations",
+"conf": "alta",
+"nota": "extensión 2 para el café"
 },
 {
 "id": "us-los-tacos-no-1-new-york",
@@ -198,7 +318,12 @@ window.PROSPECTOS = [
 "ciudad": "New York",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+12122560343",
+"wa": false,
+"alt": "",
+"fuente": "https://www.foodnetwork.com/restaurants/ny/new-york/los-tacos-no-1-restaurant",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-peter-luger-steak-house-new-york",
@@ -206,7 +331,12 @@ window.PROSPECTOS = [
 "ciudad": "New York",
 "pais": "US",
 "giro": "alta",
-"tel": ""
+"tel": "+17183877400",
+"wa": false,
+"alt": "",
+"fuente": "https://www.foodnetwork.com/restaurants/ny/brooklyn/peter-luger-steakhouse-restaurant.html",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-guelaguetza-los-angeles",
@@ -214,7 +344,12 @@ window.PROSPECTOS = [
 "ciudad": "Los Angeles",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+12134270608",
+"wa": false,
+"alt": "",
+"fuente": "https://ww1.aaa.com/tripcanvas/restaurant/guelaguetza-AA14589",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-langer-s-delicatessen-los-angeles",
@@ -222,7 +357,12 @@ window.PROSPECTOS = [
 "ciudad": "Los Angeles",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+12134838050",
+"wa": false,
+"alt": "",
+"fuente": "https://www.langersdeli.com/?p=2497",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-howlin-ray-s-los-angeles",
@@ -230,7 +370,12 @@ window.PROSPECTOS = [
 "ciudad": "Los Angeles",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+12139358399",
+"wa": false,
+"alt": "",
+"fuente": "https://laist.com/news/food/howlin-rays",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-republique-los-angeles",
@@ -238,7 +383,12 @@ window.PROSPECTOS = [
 "ciudad": "Los Angeles",
 "pais": "US",
 "giro": "cafe",
-"tel": ""
+"tel": "+13103626115",
+"wa": false,
+"alt": "",
+"fuente": "https://frankiapp.com/business/republique-714",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-lou-malnati-s-pizzeria-chicago",
@@ -246,7 +396,12 @@ window.PROSPECTOS = [
 "ciudad": "Chicago",
 "pais": "US",
 "giro": "cadena",
-"tel": ""
+"tel": "+13128289800",
+"wa": false,
+"alt": "",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/lou-malnatis-river-north-AA47273",
+"conf": "alta",
+"nota": "sucursal River North"
 },
 {
 "id": "us-au-cheval-chicago",
@@ -254,7 +409,12 @@ window.PROSPECTOS = [
 "ciudad": "Chicago",
 "pais": "US",
 "giro": "bar",
-"tel": ""
+"tel": "+13129294580",
+"wa": false,
+"alt": "",
+"fuente": "https://frankiapp.com/business/au-cheval-9029.md",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-girl-the-goat-chicago",
@@ -262,7 +422,12 @@ window.PROSPECTOS = [
 "ciudad": "Chicago",
 "pais": "US",
 "giro": "alta",
-"tel": ""
+"tel": "+13124926262",
+"wa": false,
+"alt": "",
+"fuente": "https://www.foodnetwork.com/restaurants/il/chicago/girl-the-goat-restaurant",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-ninfa-s-on-navigation-houston",
@@ -270,7 +435,12 @@ window.PROSPECTOS = [
 "ciudad": "Houston",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+17132281175",
+"wa": false,
+"alt": "",
+"fuente": "https://www.foodnetwork.com/restaurants/tx/houston/the-original-ninfarsquos-on-navigation-restaurant",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-killen-s-barbecue-houston",
@@ -278,7 +448,12 @@ window.PROSPECTOS = [
 "ciudad": "Houston",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+12814852272",
+"wa": false,
+"alt": "",
+"fuente": "https://www.oadguides.com/restaurant/killens-barbecue",
+"conf": "alta",
+"nota": "Pearland"
 },
 {
 "id": "us-mi-tierra-cafe-y-panaderia-san-antonio",
@@ -286,7 +461,12 @@ window.PROSPECTOS = [
 "ciudad": "San Antonio",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+12102251262",
+"wa": false,
+"alt": "",
+"fuente": "https://lafamiliacortez.com/restaurants/mi-tierra/",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-franklin-barbecue-austin",
@@ -294,7 +474,12 @@ window.PROSPECTOS = [
 "ciudad": "Austin",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+15126531187",
+"wa": false,
+"alt": "",
+"fuente": "https://franklinbbq.com/",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-veracruz-all-natural-austin",
@@ -302,7 +487,12 @@ window.PROSPECTOS = [
 "ciudad": "Austin",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+15129811760",
+"wa": false,
+"alt": "",
+"fuente": "https://www.foodnetwork.com/restaurants/tx/austin/veracruz-all-natural-tacos-",
+"conf": "media",
+"nota": "varias sucursales; ver veracruzallnatural.com"
 },
 {
 "id": "us-versailles-restaurant-miami",
@@ -310,7 +500,12 @@ window.PROSPECTOS = [
 "ciudad": "Miami",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+13054440240",
+"wa": false,
+"alt": "",
+"fuente": "https://www.foodnetwork.com/restaurants/fl/miami/versailles-restaurant-restaurant",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-joe-s-stone-crab-miami",
@@ -318,7 +513,12 @@ window.PROSPECTOS = [
 "ciudad": "Miami",
 "pais": "US",
 "giro": "alta",
-"tel": ""
+"tel": "+13056730365",
+"wa": false,
+"alt": "",
+"fuente": "https://ww2.aaa.com/tripcanvas/restaurant/joe's-stone-crab-AA75158",
+"conf": "media",
+"nota": "su sitio muestra 305-673-9035"
 },
 {
 "id": "es-sobrino-de-botin-madrid",
@@ -326,7 +526,12 @@ window.PROSPECTOS = [
 "ciudad": "Madrid",
 "pais": "ES",
 "giro": "resto",
-"tel": ""
+"tel": "+34913664217",
+"wa": false,
+"alt": "+34913663026",
+"fuente": "https://www.esmadrid.com/node/68596",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-casa-lucio-madrid",
@@ -334,7 +539,12 @@ window.PROSPECTOS = [
 "ciudad": "Madrid",
 "pais": "ES",
 "giro": "resto",
-"tel": ""
+"tel": "+34913658217",
+"wa": false,
+"alt": "+34913653252",
+"fuente": "https://www.timeout.es/madrid/es/restaurantes/casa-lucio",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-chocolateria-san-gines-madrid",
@@ -342,7 +552,12 @@ window.PROSPECTOS = [
 "ciudad": "Madrid",
 "pais": "ES",
 "giro": "cafe",
-"tel": ""
+"tel": "+34913656546",
+"wa": false,
+"alt": "",
+"fuente": "https://www.esmadrid.com/en/nightlife/chocolateria-de-san-gines",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-casa-labra-madrid",
@@ -350,7 +565,12 @@ window.PROSPECTOS = [
 "ciudad": "Madrid",
 "pais": "ES",
 "giro": "bar",
-"tel": ""
+"tel": "+34915310081",
+"wa": false,
+"alt": "+34915310616",
+"fuente": "https://www.esmadrid.com/en/restaurants/casa-labra",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-el-xampanyet-barcelona",
@@ -358,7 +578,12 @@ window.PROSPECTOS = [
 "ciudad": "Barcelona",
 "pais": "ES",
 "giro": "bar",
-"tel": ""
+"tel": "+34933197003",
+"wa": false,
+"alt": "",
+"fuente": "https://www.oadguides.com/restaurant/el-xampanyet",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-cal-pep-barcelona",
@@ -366,7 +591,12 @@ window.PROSPECTOS = [
 "ciudad": "Barcelona",
 "pais": "ES",
 "giro": "resto",
-"tel": ""
+"tel": "+34933107961",
+"wa": false,
+"alt": "",
+"fuente": "https://guia.barcelona.cat/en/detall/bar-restaurant-cal-pep_75990095014.html",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-bar-canete-barcelona",
@@ -374,7 +604,12 @@ window.PROSPECTOS = [
 "ciudad": "Barcelona",
 "pais": "ES",
 "giro": "bar",
-"tel": ""
+"tel": "+34932703458",
+"wa": false,
+"alt": "",
+"fuente": "https://www.oadguides.com/restaurant/bar-canete",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-els-quatre-gats-barcelona",
@@ -382,7 +617,12 @@ window.PROSPECTOS = [
 "ciudad": "Barcelona",
 "pais": "ES",
 "giro": "resto",
-"tel": ""
+"tel": "+34933024140",
+"wa": false,
+"alt": "",
+"fuente": "https://guia.barcelona.cat/en/detall/bar-restaurant-els-quatre-gats_75990089341.html",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-el-rinconcillo-sevilla",
@@ -390,7 +630,12 @@ window.PROSPECTOS = [
 "ciudad": "Sevilla",
 "pais": "ES",
 "giro": "bar",
-"tel": ""
+"tel": "+34954223183",
+"wa": false,
+"alt": "+34628150995",
+"fuente": "https://www.elrinconcillo.es/en/home",
+"conf": "alta",
+"nota": "el alterno es móvil (OpenTable); puede tener WhatsApp"
 },
 {
 "id": "es-bar-nestor-san-sebastian",
@@ -398,7 +643,12 @@ window.PROSPECTOS = [
 "ciudad": "San Sebastián",
 "pais": "ES",
 "giro": "bar",
-"tel": ""
+"tel": "+34943424873",
+"wa": false,
+"alt": "",
+"fuente": "https://inyourpocket.com/spain/san-sebastian/venues/bar-nestor",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-la-cuchara-de-san-telmo-san-sebastian",
@@ -406,7 +656,12 @@ window.PROSPECTOS = [
 "ciudad": "San Sebastián",
 "pais": "ES",
 "giro": "bar",
-"tel": ""
+"tel": "+34943441655",
+"wa": false,
+"alt": "",
+"fuente": "https://www.oadguides.com/restaurant/cuchara-de-san-telmo",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "fr-bouillon-chartier-paris",
@@ -414,7 +669,12 @@ window.PROSPECTOS = [
 "ciudad": "Paris",
 "pais": "FR",
 "giro": "resto",
-"tel": ""
+"tel": "+33147708629",
+"wa": false,
+"alt": "",
+"fuente": "https://parisjetaime.com/restaurant-paris/70552/Bouillon-Chartier",
+"conf": "alta",
+"nota": "Grands Boulevards"
 },
 {
 "id": "fr-le-comptoir-du-relais-paris",
@@ -422,7 +682,12 @@ window.PROSPECTOS = [
 "ciudad": "Paris",
 "pais": "FR",
 "giro": "resto",
-"tel": ""
+"tel": "+33144270797",
+"wa": false,
+"alt": "",
+"fuente": "https://www.hotel-paris-relais-saint-germain.com/restaurant-le-comptoir",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "fr-l-as-du-fallafel-paris",
@@ -430,7 +695,12 @@ window.PROSPECTOS = [
 "ciudad": "Paris",
 "pais": "FR",
 "giro": "fonda",
-"tel": ""
+"tel": "+33148876360",
+"wa": false,
+"alt": "",
+"fuente": "https://www.frommers.com/destinations/paris/restaurants/las-du-fallafel",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "fr-cafe-de-flore-paris",
@@ -438,7 +708,12 @@ window.PROSPECTOS = [
 "ciudad": "Paris",
 "pais": "FR",
 "giro": "cafe",
-"tel": ""
+"tel": "+33145485526",
+"wa": false,
+"alt": "",
+"fuente": "https://www.schlouk-map.com/fr/places/cafe-de-flore",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "fr-le-train-bleu-paris",
@@ -446,7 +721,12 @@ window.PROSPECTOS = [
 "ciudad": "Paris",
 "pais": "FR",
 "giro": "alta",
-"tel": ""
+"tel": "+33143430906",
+"wa": false,
+"alt": "",
+"fuente": "https://www.slate.fr/story/245312/le-train-bleu-la-maison-rostang-excellence-cuisine-buffet-gare-lyon-restaurant-paris",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "co-andres-carne-de-res-chia",
@@ -454,7 +734,12 @@ window.PROSPECTOS = [
 "ciudad": "Chía",
 "pais": "CO",
 "giro": "bar",
-"tel": ""
+"tel": "+573184559745",
+"wa": true,
+"alt": "+5718612233",
+"fuente": "Respuestas del restaurante en Tripadvisor (2026): WhatsApp 318-4559745, PBX 8612233",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "co-la-puerta-falsa-bogota",
@@ -462,7 +747,12 @@ window.PROSPECTOS = [
 "ciudad": "Bogotá",
 "pais": "CO",
 "giro": "cafe",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado; Instagram @lapuertafalsaoficial"
 },
 {
 "id": "co-el-chato-bogota",
@@ -470,7 +760,12 @@ window.PROSPECTOS = [
 "ciudad": "Bogotá",
 "pais": "CO",
 "giro": "alta",
-"tel": ""
+"tel": "+5716017439931",
+"wa": false,
+"alt": "+573102475061",
+"fuente": "https://www.theworlds50best.com/the-list/el-chato.html",
+"conf": "alta",
+"nota": "el alterno es celular (OAD Guides)"
 },
 {
 "id": "co-hacienda-medellin",
@@ -478,7 +773,12 @@ window.PROSPECTOS = [
 "ciudad": "Medellín",
 "pais": "CO",
 "giro": "resto",
-"tel": ""
+"tel": "+5744489030",
+"wa": false,
+"alt": "",
+"fuente": "https://au.trip.com/restaurant/country/medellin/detail/hacienda-junn-19883689",
+"conf": "baja",
+"nota": "sucursal Junín; formato antiguo"
 },
 {
 "id": "co-carmen-medellin",
@@ -486,7 +786,12 @@ window.PROSPECTOS = [
 "ciudad": "Medellín",
 "pais": "CO",
 "giro": "alta",
-"tel": ""
+"tel": "+573166254896",
+"wa": false,
+"alt": "",
+"fuente": "https://www.diffordsguide.com/bars/9XAnD5/carmen-medellin",
+"conf": "alta",
+"nota": "celular; puede tener WhatsApp"
 },
 {
 "id": "co-la-cevicheria-cartagena",
@@ -494,7 +799,12 @@ window.PROSPECTOS = [
 "ciudad": "Cartagena",
 "pais": "CO",
 "giro": "resto",
-"tel": ""
+"tel": "+573148949877",
+"wa": false,
+"alt": "+5756645255",
+"fuente": "https://wanderlog.com/place/details/423135/la-cevichera",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "co-celele-cartagena",
@@ -502,7 +812,12 @@ window.PROSPECTOS = [
 "ciudad": "Cartagena",
 "pais": "CO",
 "giro": "alta",
-"tel": ""
+"tel": "+573017420389",
+"wa": false,
+"alt": "",
+"fuente": "https://theworlds50best.com/the-list/celele.html",
+"conf": "alta",
+"nota": "celular; puede tener WhatsApp"
 },
 {
 "id": "ar-don-julio-buenos-aires",
@@ -510,7 +825,12 @@ window.PROSPECTOS = [
 "ciudad": "Buenos Aires",
 "pais": "AR",
 "giro": "alta",
-"tel": ""
+"tel": "+541148319564",
+"wa": false,
+"alt": "",
+"fuente": "https://theworlds50best.com/the-list/11-20/don-julio.html",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "ar-el-preferido-de-palermo-buenos-aires",
@@ -518,7 +838,12 @@ window.PROSPECTOS = [
 "ciudad": "Buenos Aires",
 "pais": "AR",
 "giro": "resto",
-"tel": ""
+"tel": "+5491128812969",
+"wa": true,
+"alt": "+541147746585",
+"fuente": "https://www.lanacion.com.ar/la-nacion-revista/donde-comer-lo-mejor-y-lo-peor-de-el-preferido-de-palermo-nid05052022/",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "ar-cafe-tortoni-buenos-aires",
@@ -526,7 +851,12 @@ window.PROSPECTOS = [
 "ciudad": "Buenos Aires",
 "pais": "AR",
 "giro": "cafe",
-"tel": ""
+"tel": "+541143424328",
+"wa": false,
+"alt": "",
+"fuente": "https://turismo.buenosaires.gob.ar/es/gastronomico/cafe-tortoni",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "ar-el-cuartito-buenos-aires",
@@ -534,7 +864,12 @@ window.PROSPECTOS = [
 "ciudad": "Buenos Aires",
 "pais": "AR",
 "giro": "fonda",
-"tel": ""
+"tel": "+541148317176",
+"wa": false,
+"alt": "",
+"fuente": "https://turismo.buenosaires.gob.ar/es/otros-establecimientos/el-cuartito",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "pe-central-lima",
@@ -542,7 +877,12 @@ window.PROSPECTOS = [
 "ciudad": "Lima",
 "pais": "PE",
 "giro": "alta",
-"tel": ""
+"tel": "+5112428515",
+"wa": false,
+"alt": "",
+"fuente": "https://foodandpleasure.com/restaurantes-en-barranco-lima/",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "pe-maido-lima",
@@ -550,7 +890,12 @@ window.PROSPECTOS = [
 "ciudad": "Lima",
 "pais": "PE",
 "giro": "alta",
-"tel": ""
+"tel": "+5113135100",
+"wa": false,
+"alt": "",
+"fuente": "https://www.oadguides.com/restaurant/maido",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "pe-la-mar-cebicheria-lima",
@@ -558,7 +903,12 @@ window.PROSPECTOS = [
 "ciudad": "Lima",
 "pais": "PE",
 "giro": "resto",
-"tel": ""
+"tel": "+5114213365",
+"wa": false,
+"alt": "",
+"fuente": "https://www.kollka.com/es/la-mar-detail-16",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "pe-isolina-taberna-peruana-lima",
@@ -566,7 +916,12 @@ window.PROSPECTOS = [
 "ciudad": "Lima",
 "pais": "PE",
 "giro": "resto",
-"tel": ""
+"tel": "+51943833031",
+"wa": false,
+"alt": "+5112475075",
+"fuente": "https://elcomercio.pe/provecho/isolina-cuanto-cuesta-comer-en-la-prestigiosa-taberna-criolla-barranco-surco-jose-del-castillo-chef-noticia/",
+"conf": "alta",
+"nota": "celular; puede tener WhatsApp"
 },
 {
 "id": "pe-el-chinito-lima",
@@ -574,7 +929,12 @@ window.PROSPECTOS = [
 "ciudad": "Lima",
 "pais": "PE",
 "giro": "fonda",
-"tel": ""
+"tel": "+51994077343",
+"wa": false,
+"alt": "+5114232197",
+"fuente": "https://indagare.com/restaurant/sangucheria-el-chinito",
+"conf": "media",
+"nota": "celular; puede tener WhatsApp"
 },
 {
 "id": "cl-liguria-santiago",
@@ -582,7 +942,12 @@ window.PROSPECTOS = [
 "ciudad": "Santiago",
 "pais": "CL",
 "giro": "bar",
-"tel": ""
+"tel": "+56222357914",
+"wa": false,
+"alt": "",
+"fuente": "https://guia.melhoresdestinos.com.br/liguria-56-293-l.html",
+"conf": "media",
+"nota": "Providencia 1353"
 },
 {
 "id": "cl-fuente-alemana-santiago",
@@ -590,7 +955,12 @@ window.PROSPECTOS = [
 "ciudad": "Santiago",
 "pais": "CL",
 "giro": "fonda",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado; ver fuentealemana.cl"
 },
 {
 "id": "cl-borago-santiago",
@@ -598,7 +968,12 @@ window.PROSPECTOS = [
 "ciudad": "Santiago",
 "pais": "CL",
 "giro": "alta",
-"tel": ""
+"tel": "+56229538893",
+"wa": false,
+"alt": "",
+"fuente": "https://www.theworlds50best.com/discovery/Establishments/Chile/Santiago/Boragó.html",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-taqueria-el-greco-ciudad-de-mexico",
@@ -606,7 +981,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "+525555535742",
+"wa": false,
+"alt": "",
+"fuente": "https://www.chilango.com/restaurantes/condesa/el-greco",
+"conf": "media",
+"nota": "dato de 2017"
 },
 {
 "id": "mx-tacos-los-parados-ciudad-de-mexico",
@@ -614,7 +994,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado (Av. Monterrey 333, Roma Sur)"
 },
 {
 "id": "mx-el-huequito-ciudad-de-mexico",
@@ -622,7 +1007,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "+525555103746",
+"wa": false,
+"alt": "+525555183313",
+"fuente": "https://www.enprimeurclub.com/restaurants/tacos-el-huequito-mexico-city-restaurant",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-fonda-fina-ciudad-de-mexico",
@@ -630,7 +1020,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+525552083925",
+"wa": false,
+"alt": "",
+"fuente": "https://www.opentable.com/r/fonda-fina-ciudad-mexico",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-lardo-ciudad-de-mexico",
@@ -638,7 +1033,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "cafe",
-"tel": ""
+"tel": "+525552117731",
+"wa": false,
+"alt": "",
+"fuente": "https://foodandpleasure.com/lardo-restaurante/",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-quintonil-ciudad-de-mexico",
@@ -646,7 +1046,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+525552801660",
+"wa": false,
+"alt": "+525552800254",
+"fuente": "https://quintonil.com/en",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-sud-777-ciudad-de-mexico",
@@ -654,7 +1059,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+525555684777",
+"wa": false,
+"alt": "+525574932492",
+"fuente": "https://foodandpleasure.com/restaurantes-jardines-del-pedregal/",
+"conf": "alta",
+"nota": "el alterno es celular de reservas"
 },
 {
 "id": "mx-nicos-ciudad-de-mexico",
@@ -662,7 +1072,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+525553967090",
+"wa": false,
+"alt": "",
+"fuente": "https://opentable.co.uk/nicos-mexico",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-azul-historico-ciudad-de-mexico",
@@ -670,7 +1085,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado (Isabel la Católica 30)"
 },
 {
 "id": "mx-licoreria-limantour-ciudad-de-mexico",
@@ -678,7 +1098,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "bar",
-"tel": ""
+"tel": "+525552644122",
+"wa": false,
+"alt": "",
+"fuente": "https://www.chilango.com/antros-y-bares/roma-2/licoreria-limantour-roma/",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-baltra-bar-ciudad-de-mexico",
@@ -686,7 +1111,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "bar",
-"tel": ""
+"tel": "+525552641279",
+"wa": false,
+"alt": "",
+"fuente": "https://www.theworlds50best.com/bars/northamerica/the-list/Baltra-bar.html",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-cafe-avellaneda-ciudad-de-mexico",
@@ -694,7 +1124,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "cafe",
-"tel": ""
+"tel": "+525565533441",
+"wa": false,
+"alt": "",
+"fuente": "https://foodandpleasure.com/cafe-avellaneda-coyoacan/",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-churreria-el-moro-ciudad-de-mexico",
@@ -702,7 +1137,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "cadena",
-"tel": ""
+"tel": "+525555120896",
+"wa": false,
+"alt": "",
+"fuente": "https://www.afar.com/places/churreria-el-moro-mexico-city",
+"conf": "media",
+"nota": "sucursal Eje Central (matriz)"
 },
 {
 "id": "mx-la-docena-ciudad-de-mexico",
@@ -710,7 +1150,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+525552080833",
+"wa": false,
+"alt": "+525552080748",
+"fuente": "https://myartguides.com/leisure/restaurants/mexico-city/la-docena-oyster-bar",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-mercado-roma-ciudad-de-mexico",
@@ -718,7 +1163,12 @@ window.PROSPECTOS = [
 "ciudad": "Ciudad de México",
 "pais": "MX",
 "giro": "cadena",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "mercado gastronómico, sin número; mejor contactar a cada local"
 },
 {
 "id": "mx-hueso-guadalajara",
@@ -726,7 +1176,12 @@ window.PROSPECTOS = [
 "ciudad": "Guadalajara",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+523336153591",
+"wa": false,
+"alt": "",
+"fuente": "https://www.ejecentral.com.mx/guadalajara-deliciosa",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-la-chata-guadalajara",
@@ -734,7 +1189,12 @@ window.PROSPECTOS = [
 "ciudad": "Guadalajara",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+523336131315",
+"wa": false,
+"alt": "+523336130588",
+"fuente": "https://www.fodors.com/world/mexico-and-central-america/mexico/guadalajara/neighborhoods/centro-historico/restaurants",
+"conf": "media",
+"nota": "sucursal Centro"
 },
 {
 "id": "mx-tortas-ahogadas-jose-el-de-la-bicicleta-guadalaj",
@@ -742,7 +1202,12 @@ window.PROSPECTOS = [
 "ciudad": "Guadalajara",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado (José María Vigil 1874)"
 },
 {
 "id": "mx-cantina-la-fuente-guadalajara",
@@ -750,7 +1215,12 @@ window.PROSPECTOS = [
 "ciudad": "Guadalajara",
 "pais": "MX",
 "giro": "bar",
-"tel": ""
+"tel": "+523314964837",
+"wa": false,
+"alt": "",
+"fuente": "https://www.enprimeurclub.com/bars/cantina-la-fuente-guadalajara-bar",
+"conf": "baja",
+"nota": "celular; una sola fuente"
 },
 {
 "id": "mx-koli-cocina-de-origen-monterrey",
@@ -758,15 +1228,12 @@ window.PROSPECTOS = [
 "ciudad": "Monterrey",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
-},
-{
-"id": "mx-tacos-juanito-monterrey",
-"lugar": "Tacos Juanito",
-"ciudad": "Monterrey",
-"pais": "MX",
-"giro": "fonda",
-"tel": ""
+"tel": "+528196887333",
+"wa": false,
+"alt": "",
+"fuente": "https://guide.michelin.com/en/nuevo-leon/monterrey_2041973/restaurant/koli-cocina-de-origen",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-el-gran-pastor-monterrey",
@@ -774,7 +1241,12 @@ window.PROSPECTOS = [
 "ciudad": "Monterrey",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+528181294457",
+"wa": false,
+"alt": "+528181294453",
+"fuente": "https://www.posta.com.mx/share/el-gran-pastor-hambre-descubre-su-exquisito-menu/vl1591437",
+"conf": "media",
+"nota": "sucursal Gonzalitos; 7 sucursales"
 },
 {
 "id": "mx-la-nacional-monterrey",
@@ -782,15 +1254,12 @@ window.PROSPECTOS = [
 "ciudad": "Monterrey",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
-},
-{
-"id": "mx-cafe-brasil-monterrey",
-"lugar": "Café Brasil",
-"ciudad": "Monterrey",
-"pais": "MX",
-"giro": "cafe",
-"tel": ""
+"tel": "+528183753890",
+"wa": false,
+"alt": "+528183479205",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/la-nacional-madero-AA1404",
+"conf": "media",
+"nota": "sucursal Madero; alterno San Jerónimo"
 },
 {
 "id": "mx-manzanilla-ensenada",
@@ -798,7 +1267,12 @@ window.PROSPECTOS = [
 "ciudad": "Ensenada",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+526461757073",
+"wa": false,
+"alt": "",
+"fuente": "https://foodandpleasure.com/restaurantes-en-ensenada-donde-comer-rico/",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-la-guerrerense-ensenada",
@@ -806,7 +1280,12 @@ window.PROSPECTOS = [
 "ciudad": "Ensenada",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "+526461740006",
+"wa": false,
+"alt": "",
+"fuente": "https://www.enprimeurclub.com/restaurants/la-guerrerense-ensenada-restaurant",
+"conf": "baja",
+"nota": ""
 },
 {
 "id": "mx-deckman-s-en-el-mogor-valle-de-guadalupe",
@@ -814,7 +1293,12 @@ window.PROSPECTOS = [
 "ciudad": "Valle de Guadalupe",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+526461883960",
+"wa": false,
+"alt": "",
+"fuente": "https://guide.michelin.com/en/baja-california/valle-de-guadalupe_7770290/restaurant/deckman-s-en-el-mogor",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-fauna-valle-de-guadalupe",
@@ -822,7 +1306,12 @@ window.PROSPECTOS = [
 "ciudad": "Valle de Guadalupe",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+526461036403",
+"wa": false,
+"alt": "",
+"fuente": "https://www.theworlds50best.com/latinamerica/en/the-list/fauna.html",
+"conf": "alta",
+"nota": "celular; puede tener WhatsApp"
 },
 {
 "id": "mx-criollo-oaxaca",
@@ -830,7 +1319,12 @@ window.PROSPECTOS = [
 "ciudad": "Oaxaca",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+529513200709",
+"wa": false,
+"alt": "",
+"fuente": "https://foodandpleasure.com/criollo-oaxaca/",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-levadura-de-olla-oaxaca",
@@ -838,7 +1332,12 @@ window.PROSPECTOS = [
 "ciudad": "Oaxaca",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+529512699068",
+"wa": false,
+"alt": "",
+"fuente": "https://foodle.pro/restaurants/oaxaca/levadura-de-olla-restaurante",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-mezcaleria-in-situ-oaxaca",
@@ -846,7 +1345,12 @@ window.PROSPECTOS = [
 "ciudad": "Oaxaca",
 "pais": "MX",
 "giro": "bar",
-"tel": ""
+"tel": "+529515141811",
+"wa": false,
+"alt": "",
+"fuente": "https://www.afar.com/places/in-situ-mezcaleria-oaxaca",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-nectar-merida",
@@ -854,7 +1358,12 @@ window.PROSPECTOS = [
 "ciudad": "Mérida",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+529992441785",
+"wa": false,
+"alt": "",
+"fuente": "https://opentable.ca/r/nectar-merida",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-manjar-blanco-merida",
@@ -862,7 +1371,12 @@ window.PROSPECTOS = [
 "ciudad": "Mérida",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+529995476237",
+"wa": false,
+"alt": "+529999230003",
+"fuente": "https://www.enprimeurclub.com/restaurants/manjar-blanco-merida-restaurant",
+"conf": "media",
+"nota": "celular; puede tener WhatsApp"
 },
 {
 "id": "mx-la-negrita-cantina-merida",
@@ -870,7 +1384,12 @@ window.PROSPECTOS = [
 "ciudad": "Mérida",
 "pais": "MX",
 "giro": "bar",
-"tel": ""
+"tel": "+529992728020",
+"wa": false,
+"alt": "+529992679582",
+"fuente": "https://yucatantoday.com/en/directory/restaurants/la-negrita-cantina",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-harry-s-cancun",
@@ -878,7 +1397,12 @@ window.PROSPECTOS = [
 "ciudad": "Cancún",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+529988406550",
+"wa": false,
+"alt": "",
+"fuente": "https://AAA.com/tripcanvas/restaurant/harry's-cancun-prime-steakhouse-%26-raw-bar-AA2064",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-la-habichuela-cancun",
@@ -886,7 +1410,12 @@ window.PROSPECTOS = [
 "ciudad": "Cancún",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+529988843158",
+"wa": false,
+"alt": "",
+"fuente": "https://www.opentable.com/r/la-habichuela-centro",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-el-fish-fritanga-cancun",
@@ -894,7 +1423,12 @@ window.PROSPECTOS = [
 "ciudad": "Cancún",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "+529988406216",
+"wa": false,
+"alt": "",
+"fuente": "https://www.foodnetwork.com/restaurants/no-state/cancun/el-fish-fritanga-restaurant",
+"conf": "alta",
+"nota": "Zona Hotelera"
 },
 {
 "id": "mx-hartwood-tulum",
@@ -902,7 +1436,12 @@ window.PROSPECTOS = [
 "ciudad": "Tulum",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+529849806079",
+"wa": false,
+"alt": "",
+"fuente": "https://www.oadguides.com/restaurant/hartwood",
+"conf": "media",
+"nota": "celular; puede tener WhatsApp"
 },
 {
 "id": "mx-taqueria-honorio-tulum",
@@ -910,15 +1449,12 @@ window.PROSPECTOS = [
 "ciudad": "Tulum",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
-},
-{
-"id": "mx-cafe-tito-puerto-vallarta",
-"lugar": "Café Tito",
-"ciudad": "Puerto Vallarta",
-"pais": "MX",
-"giro": "cafe",
-"tel": ""
+"tel": "+529848025778",
+"wa": false,
+"alt": "+529847450674",
+"fuente": "https://www.oadguides.com/restaurant/taqueria-honorio",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-cafe-des-artistes-puerto-vallarta",
@@ -926,7 +1462,12 @@ window.PROSPECTOS = [
 "ciudad": "Puerto Vallarta",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+523221595675",
+"wa": true,
+"alt": "+523222267200",
+"fuente": "https://cafedesartistes.com/en/experiencias",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-pancho-s-takos-puerto-vallarta",
@@ -934,7 +1475,12 @@ window.PROSPECTOS = [
 "ciudad": "Puerto Vallarta",
 "pais": "MX",
 "giro": "fonda",
-"tel": ""
+"tel": "+523222221693",
+"wa": false,
+"alt": "",
+"fuente": "https://tasteatlas.com/PanchosTakos",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-la-casa-de-la-marquesa-queretaro",
@@ -942,15 +1488,12 @@ window.PROSPECTOS = [
 "ciudad": "Querétaro",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
-},
-{
-"id": "mx-cafe-del-fondo-queretaro",
-"lugar": "Café del Fondo",
-"ciudad": "Querétaro",
-"pais": "MX",
-"giro": "cafe",
-"tel": ""
+"tel": "+524422270500",
+"wa": false,
+"alt": "",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/hotel-la-casa-de-la-marquesa-AA65060",
+"conf": "alta",
+"nota": "es hotel con restaurante"
 },
 {
 "id": "mx-la-casa-del-mendrugo-puebla",
@@ -958,7 +1501,12 @@ window.PROSPECTOS = [
 "ciudad": "Puebla",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+522223268060",
+"wa": false,
+"alt": "",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/la-casa-del-mendruga-AA94804",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-fonda-de-santa-clara-puebla",
@@ -966,7 +1514,12 @@ window.PROSPECTOS = [
 "ciudad": "Puebla",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+522222461952",
+"wa": false,
+"alt": "",
+"fuente": "https://www.seccionamarilla.com.mx/mapas/restaurantes-mexicanos/puebla/5",
+"conf": "media",
+"nota": "sucursal 3 Poniente 307"
 },
 {
 "id": "mx-augurio-puebla",
@@ -974,7 +1527,12 @@ window.PROSPECTOS = [
 "ciudad": "Puebla",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+522222902378",
+"wa": false,
+"alt": "+522222908996",
+"fuente": "https://opentable.ca/r/augurio-restaurante-puebla",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "mx-la-posada-del-virrey-san-luis-potosi",
@@ -982,7 +1540,12 @@ window.PROSPECTOS = [
 "ciudad": "San Luis Potosí",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado (Jardín Hidalgo 3); ver su Facebook"
 },
 {
 "id": "mx-los-arcos-culiacan",
@@ -990,31 +1553,25 @@ window.PROSPECTOS = [
 "ciudad": "Culiacán",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "+526677138355",
+"wa": false,
+"alt": "+526677121340",
+"fuente": "https://noroeste.com.mx/entretenimiento/cultura/sabor-y-frescura-flavor-and-freshness-XBNO47808",
+"conf": "alta",
+"nota": ""
 },
 {
-"id": "mx-mariscos-el-guero-mazatlan",
-"lugar": "Mariscos El Güero",
-"ciudad": "Mazatlán",
-"pais": "MX",
-"giro": "fonda",
-"tel": ""
-},
-{
-"id": "mx-pedro-y-pablo-mazatlan",
-"lugar": "Pedro y Pablo",
+"id": "mx-pedro-y-lola-mazatlan",
+"lugar": "Pedro y Lola",
 "ciudad": "Mazatlán",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
-},
-{
-"id": "mx-mi-tierra-bar-leon",
-"lugar": "Mi Tierra (Bar)",
-"ciudad": "León",
-"pais": "MX",
-"giro": "bar",
-"tel": ""
+"tel": "+526699822589",
+"wa": false,
+"alt": "",
+"fuente": "https://www.seccionamarilla.com.mx/resultados/restaurantes/sinaloa/mazatlan/12",
+"conf": "baja",
+"nota": "el nombre correcto es Pedro y Lola (Plazuela Machado)"
 },
 {
 "id": "mx-la-martina-san-miguel-de-allende",
@@ -1022,7 +1579,12 @@ window.PROSPECTOS = [
 "ciudad": "San Miguel de Allende",
 "pais": "MX",
 "giro": "resto",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado (Sollano 21)"
 },
 {
 "id": "mx-the-restaurant-san-miguel-de-allende",
@@ -1030,15 +1592,12 @@ window.PROSPECTOS = [
 "ciudad": "San Miguel de Allende",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
-},
-{
-"id": "mx-cafe-tacuba-morelia",
-"lugar": "Café Tacuba",
-"ciudad": "Morelia",
-"pais": "MX",
-"giro": "resto",
-"tel": ""
+"tel": "+524151547862",
+"wa": false,
+"alt": "",
+"fuente": "https://indagare.com/restaurant/the-restaurant",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "mx-lu-cocina-michoacana-morelia",
@@ -1046,7 +1605,12 @@ window.PROSPECTOS = [
 "ciudad": "Morelia",
 "pais": "MX",
 "giro": "alta",
-"tel": ""
+"tel": "+524436836745",
+"wa": false,
+"alt": "+524433131328",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/lu-cocina-michoacana-AA5141",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-mi-tocaya-antojeria-chicago",
@@ -1054,7 +1618,12 @@ window.PROSPECTOS = [
 "ciudad": "Chicago",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+18723153947",
+"wa": false,
+"alt": "",
+"fuente": "https://www.frommers.com/destinations/chicago/restaurants/mi-tocaya-antojeria",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-big-star-chicago",
@@ -1062,7 +1631,12 @@ window.PROSPECTOS = [
 "ciudad": "Chicago",
 "pais": "US",
 "giro": "bar",
-"tel": ""
+"tel": "+17732354039",
+"wa": false,
+"alt": "",
+"fuente": "https://www.city-data.com/guides/il/chicago/restaurants-big-star-7561.html",
+"conf": "alta",
+"nota": "Wicker Park"
 },
 {
 "id": "us-carnitas-uruapan-chicago",
@@ -1070,7 +1644,12 @@ window.PROSPECTOS = [
 "ciudad": "Chicago",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+13122262654",
+"wa": false,
+"alt": "",
+"fuente": "https://www.toasttab.com/local/order/carnitasuruapanpilsen",
+"conf": "alta",
+"nota": "Pilsen"
 },
 {
 "id": "us-sonoratown-los-angeles",
@@ -1078,7 +1657,12 @@ window.PROSPECTOS = [
 "ciudad": "Los Angeles",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+12132225071",
+"wa": false,
+"alt": "",
+"fuente": "https://frankiapp.com/business/sonoratown-8310.md",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "us-gish-bac-los-angeles",
@@ -1086,7 +1670,12 @@ window.PROSPECTOS = [
 "ciudad": "Los Angeles",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+13237375050",
+"wa": false,
+"alt": "",
+"fuente": "https://frankiapp.com/business/gish-bac-8303",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-leo-s-tacos-truck-los-angeles",
@@ -1094,7 +1683,12 @@ window.PROSPECTOS = [
 "ciudad": "Los Angeles",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+13233462001",
+"wa": false,
+"alt": "",
+"fuente": "https://www.discoverlosangeles.com/eat-drink/leos-taco-truck",
+"conf": "alta",
+"nota": "1515 S La Brea"
 },
 {
 "id": "us-cosme-new-york",
@@ -1102,7 +1696,12 @@ window.PROSPECTOS = [
 "ciudad": "New York",
 "pais": "US",
 "giro": "alta",
-"tel": ""
+"tel": "+12129139659",
+"wa": false,
+"alt": "",
+"fuente": "https://ww1.aaa.com/tripcanvas/restaurant/cosme-AA45468",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-taqueria-ramirez-new-york",
@@ -1110,7 +1709,12 @@ window.PROSPECTOS = [
 "ciudad": "New York",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado (94 Franklin St, Greenpoint)"
 },
 {
 "id": "us-atla-new-york",
@@ -1118,7 +1722,12 @@ window.PROSPECTOS = [
 "ciudad": "New York",
 "pais": "US",
 "giro": "cafe",
-"tel": ""
+"tel": "+13476623522",
+"wa": false,
+"alt": "",
+"fuente": "https://www.opentable.com/r/atla-new-york?ref=8101",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "us-xochi-houston",
@@ -1126,15 +1735,12 @@ window.PROSPECTOS = [
 "ciudad": "Houston",
 "pais": "US",
 "giro": "alta",
-"tel": ""
-},
-{
-"id": "us-the-original-ninfa-s-houston",
-"lugar": "The Original Ninfa's",
-"ciudad": "Houston",
-"pais": "US",
-"giro": "resto",
-"tel": ""
+"tel": "+17134003330",
+"wa": false,
+"alt": "",
+"fuente": "https://www.yellowpages.com/houston-tx/mip/xochi-533601292",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-la-calle-tacos-houston",
@@ -1142,7 +1748,12 @@ window.PROSPECTOS = [
 "ciudad": "Houston",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+18327358226",
+"wa": false,
+"alt": "",
+"fuente": "https://www.houstoniamag.com/businesses/la-calle-tacos",
+"conf": "alta",
+"nota": "downtown, 909 Franklin St"
 },
 {
 "id": "us-rosario-s-san-antonio",
@@ -1150,15 +1761,25 @@ window.PROSPECTOS = [
 "ciudad": "San Antonio",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+12102231806",
+"wa": false,
+"alt": "",
+"fuente": "https://www.sacurrent.com/location/rosarios-mexican-cafe-y-cantina-2320677",
+"conf": "media",
+"nota": "se mudó a 722 S St Mary's St"
 },
 {
-"id": "us-ro-ho-pizza-san-antonio",
-"lugar": "Ro-Ho Pizza",
+"id": "us-ro-ho-pork-bread-san-antonio",
+"lugar": "Ro-Ho Pork & Bread",
 "ciudad": "San Antonio",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+12108003487",
+"wa": false,
+"alt": "",
+"fuente": "https://www.datalane.com/contacts/restaurants/ro-ho-pork-bread-tortas-ahogadas",
+"conf": "media",
+"nota": "el nombre correcto es Ro-Ho Pork & Bread (tortas ahogadas)"
 },
 {
 "id": "us-suerte-austin",
@@ -1166,7 +1787,12 @@ window.PROSPECTOS = [
 "ciudad": "Austin",
 "pais": "US",
 "giro": "alta",
-"tel": ""
+"tel": "+15125223031",
+"wa": false,
+"alt": "",
+"fuente": "https://opentable.co.uk/r/suerte-austin",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-valentina-s-tex-mex-bbq-austin",
@@ -1174,7 +1800,12 @@ window.PROSPECTOS = [
 "ciudad": "Austin",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado; ahora en Buda (308 S Main St)"
 },
 {
 "id": "us-garcia-s-seafood-grille-miami",
@@ -1182,7 +1813,12 @@ window.PROSPECTOS = [
 "ciudad": "Miami",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+13053750765",
+"wa": false,
+"alt": "",
+"fuente": "https://indagare.com/restaurant/garcias-seafood-grille",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-ball-chain-miami",
@@ -1190,7 +1826,12 @@ window.PROSPECTOS = [
 "ciudad": "Miami",
 "pais": "US",
 "giro": "bar",
-"tel": ""
+"tel": "+13056437820",
+"wa": false,
+"alt": "",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/ball-chain-AA80885",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-bacanora-phoenix",
@@ -1198,7 +1839,12 @@ window.PROSPECTOS = [
 "ciudad": "Phoenix",
 "pais": "US",
 "giro": "alta",
-"tel": ""
+"tel": "+16026124018",
+"wa": false,
+"alt": "",
+"fuente": "https://opentable.co.uk/r/bacanora-phoenix",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "us-pizzeria-bianco-phoenix",
@@ -1206,7 +1852,12 @@ window.PROSPECTOS = [
 "ciudad": "Phoenix",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+16022588300",
+"wa": false,
+"alt": "",
+"fuente": "https://dtphx.org/go/pizzeria-bianco",
+"conf": "alta",
+"nota": "Heritage Square"
 },
 {
 "id": "us-tacos-el-gordo-las-vegas",
@@ -1214,7 +1865,12 @@ window.PROSPECTOS = [
 "ciudad": "Las Vegas",
 "pais": "US",
 "giro": "cadena",
-"tel": ""
+"tel": "+17026418226",
+"wa": false,
+"alt": "",
+"fuente": "https://vegasinc.lasvegassun.com/places/tacos-el-gordo-strip",
+"conf": "baja",
+"nota": "fuentes no coinciden"
 },
 {
 "id": "us-lotus-of-siam-las-vegas",
@@ -1222,7 +1878,12 @@ window.PROSPECTOS = [
 "ciudad": "Las Vegas",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+17027353033",
+"wa": false,
+"alt": "",
+"fuente": "https://www.lotusofsiamlv.com/accessibility",
+"conf": "alta",
+"nota": "Flamingo"
 },
 {
 "id": "us-las-cuatro-milpas-san-diego",
@@ -1230,7 +1891,12 @@ window.PROSPECTOS = [
 "ciudad": "San Diego",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+16192344460",
+"wa": false,
+"alt": "",
+"fuente": "https://www.theinfatuation.com/san-diego/reviews/las-cuatro-milpas",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-oscars-mexican-seafood-san-diego",
@@ -1238,7 +1904,12 @@ window.PROSPECTOS = [
 "ciudad": "San Diego",
 "pais": "US",
 "giro": "cadena",
-"tel": ""
+"tel": "+18584124009",
+"wa": false,
+"alt": "",
+"fuente": "https://www.enprimeurclub.com/restaurants/oscars-mexican-seafood-san-diego-restaurant",
+"conf": "alta",
+"nota": "Pacific Beach"
 },
 {
 "id": "us-la-taqueria-san-francisco",
@@ -1246,7 +1917,12 @@ window.PROSPECTOS = [
 "ciudad": "San Francisco",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+14152857117",
+"wa": false,
+"alt": "",
+"fuente": "https://projects.sfchronicle.com/2017/top-100-restaurants/la-taqueria",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-zuni-cafe-san-francisco",
@@ -1254,7 +1930,12 @@ window.PROSPECTOS = [
 "ciudad": "San Francisco",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+14155522522",
+"wa": false,
+"alt": "",
+"fuente": "https://www.timeout.com/san-francisco/restaurants/Zuni-Cafe",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-revolver-taco-lounge-dallas",
@@ -1262,7 +1943,12 @@ window.PROSPECTOS = [
 "ciudad": "Dallas",
 "pais": "US",
 "giro": "fonda",
-"tel": ""
+"tel": "+12142585900",
+"wa": false,
+"alt": "",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/revolver-taco-lounge-AA46680",
+"conf": "alta",
+"nota": "Elm St"
 },
 {
 "id": "us-meso-maya-dallas",
@@ -1270,7 +1956,12 @@ window.PROSPECTOS = [
 "ciudad": "Dallas",
 "pais": "US",
 "giro": "resto",
-"tel": ""
+"tel": "+12144846555",
+"wa": false,
+"alt": "",
+"fuente": "https://www.aaa.com/tripcanvas/restaurant/meso-maya-AA7684",
+"conf": "media",
+"nota": "Downtown; varias sucursales"
 },
 {
 "id": "us-frontera-grill-chicago",
@@ -1278,7 +1969,12 @@ window.PROSPECTOS = [
 "ciudad": "Chicago",
 "pais": "US",
 "giro": "alta",
-"tel": ""
+"tel": "+13126611434",
+"wa": false,
+"alt": "",
+"fuente": "https://www.rickbayless.com/restaurants/grill.html",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "us-topolobampo-chicago",
@@ -1286,23 +1982,12 @@ window.PROSPECTOS = [
 "ciudad": "Chicago",
 "pais": "US",
 "giro": "alta",
-"tel": ""
-},
-{
-"id": "es-casa-mono-madrid",
-"lugar": "Casa Mono",
-"ciudad": "Madrid",
-"pais": "ES",
-"giro": "bar",
-"tel": ""
-},
-{
-"id": "es-punto-mx-madrid",
-"lugar": "Punto MX",
-"ciudad": "Madrid",
-"pais": "ES",
-"giro": "alta",
-"tel": ""
+"tel": "+13126611434",
+"wa": false,
+"alt": "",
+"fuente": "https://www.rickbayless.com/restaurants/grill.html",
+"conf": "media",
+"nota": "mismo edificio y grupo que Frontera Grill (445 N Clark)"
 },
 {
 "id": "es-taberna-la-bola-madrid",
@@ -1310,7 +1995,12 @@ window.PROSPECTOS = [
 "ciudad": "Madrid",
 "pais": "ES",
 "giro": "resto",
-"tel": ""
+"tel": "+34915476930",
+"wa": false,
+"alt": "+34915417164",
+"fuente": "https://www.esmadrid.com/en/restaurants/bola",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-bodega-de-la-ardosa-madrid",
@@ -1318,7 +2008,12 @@ window.PROSPECTOS = [
 "ciudad": "Madrid",
 "pais": "ES",
 "giro": "bar",
-"tel": ""
+"tel": "+34915214979",
+"wa": false,
+"alt": "",
+"fuente": "https://www.esmadrid.com/en/restaurants/bodega-ardosa",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-can-culleretes-barcelona",
@@ -1326,7 +2021,12 @@ window.PROSPECTOS = [
 "ciudad": "Barcelona",
 "pais": "ES",
 "giro": "resto",
-"tel": ""
+"tel": "+34933173022",
+"wa": false,
+"alt": "",
+"fuente": "https://www.barcelona.com/barcelona_directory/restaurants/catalan/can_culleretes",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-bar-del-pla-barcelona",
@@ -1334,7 +2034,12 @@ window.PROSPECTOS = [
 "ciudad": "Barcelona",
 "pais": "ES",
 "giro": "bar",
-"tel": ""
+"tel": "+34932683003",
+"wa": false,
+"alt": "",
+"fuente": "https://www.timeout.com/barcelona/restaurants/bar-del-pla",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-casa-montana-valencia",
@@ -1342,7 +2047,12 @@ window.PROSPECTOS = [
 "ciudad": "Valencia",
 "pais": "ES",
 "giro": "bar",
-"tel": ""
+"tel": "+34963672314",
+"wa": false,
+"alt": "",
+"fuente": "https://www.guiarepsol.com/es/fichas/casa-montana-9089/",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "es-casa-carmela-valencia",
@@ -1350,7 +2060,12 @@ window.PROSPECTOS = [
 "ciudad": "Valencia",
 "pais": "ES",
 "giro": "resto",
-"tel": ""
+"tel": "+34963710073",
+"wa": false,
+"alt": "",
+"fuente": "https://www.guiarepsol.com/es/fichas/casa-carmela-9136/",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "fr-le-bouillon-pigalle-paris",
@@ -1358,7 +2073,12 @@ window.PROSPECTOS = [
 "ciudad": "Paris",
 "pais": "FR",
 "giro": "resto",
-"tel": ""
+"tel": "+33142596931",
+"wa": false,
+"alt": "",
+"fuente": "https://www.parisbouge.com/mag/articles/bouillon-pigalle-paris-2963",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "fr-breizh-cafe-paris",
@@ -1366,7 +2086,12 @@ window.PROSPECTOS = [
 "ciudad": "Paris",
 "pais": "FR",
 "giro": "cafe",
-"tel": ""
+"tel": "+33142721377",
+"wa": false,
+"alt": "",
+"fuente": "https://en.breizhcafe.com/le-marais",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "fr-candelaria-paris",
@@ -1374,7 +2099,12 @@ window.PROSPECTOS = [
 "ciudad": "Paris",
 "pais": "FR",
 "giro": "bar",
-"tel": ""
+"tel": "+33142744128",
+"wa": false,
+"alt": "",
+"fuente": "https://www.timeout.fr/paris/bar/candelaria",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "co-leo-cocina-y-cava-bogota",
@@ -1382,7 +2112,12 @@ window.PROSPECTOS = [
 "ciudad": "Bogotá",
 "pais": "CO",
 "giro": "alta",
-"tel": ""
+"tel": "+573176616866",
+"wa": false,
+"alt": "+5712867091",
+"fuente": "https://www.theworlds50best.com/latinamerica/en/the-list/leo.html",
+"conf": "alta",
+"nota": "celular; puede tener WhatsApp"
 },
 {
 "id": "co-abasto-bogota",
@@ -1390,15 +2125,12 @@ window.PROSPECTOS = [
 "ciudad": "Bogotá",
 "pais": "CO",
 "giro": "cafe",
-"tel": ""
-},
-{
-"id": "ar-parrilla-don-julio-buenos-aires",
-"lugar": "Parrilla Don Julio",
-"ciudad": "Buenos Aires",
-"pais": "AR",
-"giro": "alta",
-"tel": ""
+"tel": "",
+"wa": false,
+"alt": "",
+"fuente": "",
+"conf": "",
+"nota": "sin número publicado; Instagram @abasto.restaurante"
 },
 {
 "id": "ar-bar-el-federal-buenos-aires",
@@ -1406,7 +2138,12 @@ window.PROSPECTOS = [
 "ciudad": "Buenos Aires",
 "pais": "AR",
 "giro": "bar",
-"tel": ""
+"tel": "+541143617328",
+"wa": false,
+"alt": "",
+"fuente": "https://turismo.buenosaires.gob.ar/es/gastronomico/bar-el-federal",
+"conf": "alta",
+"nota": ""
 },
 {
 "id": "ar-la-cabrera-buenos-aires",
@@ -1414,7 +2151,12 @@ window.PROSPECTOS = [
 "ciudad": "Buenos Aires",
 "pais": "AR",
 "giro": "resto",
-"tel": ""
+"tel": "+541148325754",
+"wa": false,
+"alt": "+541148317002",
+"fuente": "https://www.ellgeebe.com/en/destinations/latin-america/argentina/buenos-aires/restaurants/la-cabrera",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "pe-panchita-lima",
@@ -1422,7 +2164,12 @@ window.PROSPECTOS = [
 "ciudad": "Lima",
 "pais": "PE",
 "giro": "resto",
-"tel": ""
+"tel": "+5114478272",
+"wa": false,
+"alt": "",
+"fuente": "https://oas.org/cicaddocs/Document.aspx?Id=4729",
+"conf": "baja",
+"nota": "directorio antiguo"
 },
 {
 "id": "pe-kjolle-lima",
@@ -1430,7 +2177,12 @@ window.PROSPECTOS = [
 "ciudad": "Lima",
 "pais": "PE",
 "giro": "alta",
-"tel": ""
+"tel": "+5112428575",
+"wa": false,
+"alt": "",
+"fuente": "https://foodandpleasure.com/restaurantes-en-barranco-lima/",
+"conf": "media",
+"nota": ""
 },
 {
 "id": "cl-peumayen-santiago",
@@ -1438,7 +2190,12 @@ window.PROSPECTOS = [
 "ciudad": "Santiago",
 "pais": "CL",
 "giro": "alta",
-"tel": ""
+"tel": "+56949580141",
+"wa": false,
+"alt": "",
+"fuente": "https://www.latercera.com/la-tercera-sabado/noticia/critica-gastronomica-de-don-tinto-peumayen-un-paseo-sabroso/",
+"conf": "media",
+"nota": "celular; puede tener WhatsApp"
 },
 {
 "id": "cl-bar-the-clinic-santiago",
@@ -1446,6 +2203,11 @@ window.PROSPECTOS = [
 "ciudad": "Santiago",
 "pais": "CL",
 "giro": "bar",
-"tel": ""
+"tel": "+56222664440",
+"wa": false,
+"alt": "",
+"fuente": "https://www.afar.com/places/the-clinic-santiago",
+"conf": "media",
+"nota": "Monjitas 578"
 }
 ];

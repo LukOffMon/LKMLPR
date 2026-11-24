@@ -57,6 +57,9 @@
   .p h3 { margin: 0; font-size: 17px; }
   .meta { color: var(--mute); font-size: 13px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .tag { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; border: 1px solid #3a3633; border-radius: 99px; padding: 2px 8px; }
+  .tag.ok { border-color: var(--ok); color: #7fe2a8; }
+  a.tag { text-decoration: none; }
+  .tag.conf-alta { color: #7fe2a8; } .tag.conf-media { color: #ffd27a; } .tag.conf-baja { color: #ff8f86; }
   .st { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; border-radius: 99px; padding: 3px 9px; background: #2c2927; }
   .st.invitado { background: #3b2f12; color: #ffd27a; } .st.interesado { background: #3a1a17; color: #ff8f86; }
   .st.enlace { background: #1d2a3d; color: #9cc3ff; } .st.cuenta { background: #20314a; color: #c6dcff; }
@@ -123,7 +126,7 @@
         <li><b>Espera a que respondan</b> antes del segundo mensaje. El segundo (con enlace y QR) solo va a quien dijo que sí.</li>
         <li>Si alguien dice que no, márcalo como <b>No interesado</b>: desaparece de la lista y no se le vuelve a escribir.</li>
         <li>Usa WhatsApp Business con foto, nombre "Rojo 87" y descripción. Escribe en horario de oficina del país del lugar.</li>
-        <li>Los teléfonos de esta lista <b>no vienen incluidos</b>: búscalos con el botón de Maps (el número público del lugar) y guárdalos aquí.</li>
+        <li>Los teléfonos son los <b>oficiales publicados</b> (sitio del lugar, Michelin, 50 Best, AAA, turismo oficial o prensa), con su fuente y confianza. Muchos son fijos: si WhatsApp dice que el número no existe, <b>llama</b> o prueba el <b>alterno</b>.</li>
       </ul>
     </details>
 
@@ -386,10 +389,16 @@
     $("#count").textContent = `${rows.length} lugares`;
     $("#list").innerHTML = rows.map((p) => {
       const s = st(p.id), tel = intl(p), maps = "https://www.google.com/maps/search/" + encodeURIComponent(p.lugar + " " + p.ciudad);
+      const propio = !!s.tel && s.tel !== p.tel;
+      const waTag = propio ? `<span class="tag">número tuyo</span>`
+        : p.wa ? `<span class="tag ok">WhatsApp ✓</span>`
+        : p.tel ? `<span class="tag" title="Es el teléfono público del lugar; puede no tener WhatsApp. Si wa.me dice que no existe, llama o usa el alterno.">tel. oficial · WhatsApp sin confirmar</span>` : "";
+      const conf = !propio && p.conf ? `<a class="tag conf-${p.conf}" ${/^https?:/.test(p.fuente) ? `href="${esc(p.fuente)}" target="_blank" rel="noopener"` : ""} title="${esc(p.fuente)}">fuente · ${esc(p.conf)}</a>` : "";
       return `<article class="p" data-id="${esc(p.id)}">
         <div><h3>${esc(p.lugar)}</h3>
-          <div class="meta"><span>${esc(p.ciudad)}, ${esc(PAISES[p.pais]?.n || p.pais)}</span><span class="tag">${esc(GIROS[p.giro] || p.giro)}</span><span class="st ${s.estado}">${ESTADOS[s.estado]}</span>${s.fechas.invitado ? `<span>invitado ${s.fechas.invitado}</span>` : ""}</div></div>
-        <div class="tel"><input data-tel placeholder="WhatsApp del lugar" value="${esc(s.tel || p.tel)}" inputmode="tel" aria-label="WhatsApp de ${esc(p.lugar)}" /><a class="btn sm" href="${maps}" target="_blank" rel="noopener" title="Buscar el teléfono en Google Maps">Maps</a></div>
+          <div class="meta"><span>${esc(p.ciudad)}, ${esc(PAISES[p.pais]?.n || p.pais)}</span><span class="tag">${esc(GIROS[p.giro] || p.giro)}</span><span class="st ${s.estado}">${ESTADOS[s.estado]}</span>${s.fechas.invitado ? `<span>invitado ${s.fechas.invitado}</span>` : ""}</div>
+          <div class="meta" style="margin-top:4px">${waTag}${conf}${p.nota ? `<span>${esc(p.nota)}</span>` : ""}</div></div>
+        <div class="tel"><input data-tel placeholder="WhatsApp del lugar" value="${esc(s.tel || p.tel)}" inputmode="tel" aria-label="WhatsApp de ${esc(p.lugar)}" />${tel ? `<a class="btn sm" href="tel:+${tel}" title="Llamar">Llamar</a>` : ""}${p.alt && !propio ? `<button class="btn sm" data-alt="${esc(p.alt)}" title="Usar el número alterno ${esc(p.alt)}">Alterno</button>` : ""}<a class="btn sm" href="${maps}" target="_blank" rel="noopener" title="Ver en Google Maps">Maps</a></div>
         <div class="acts">
           <button class="btn sm red" data-m1 ${tel ? "" : "disabled title='Primero guarda su WhatsApp'"}>1 · Invitar</button>
           <button class="btn sm" data-m2 ${tel ? "" : "disabled"}>2 · Enlace + QR</button>
@@ -421,6 +430,8 @@
     }
     if (e.target.closest("[data-m2]")) showMsg(p, 2);
     if (e.target.closest("h3")) { st(p.id).open = !st(p.id).open; save(); render(); }
+    const alt = e.target.closest("[data-alt]");
+    if (alt) { st(p.id).tel = alt.dataset.alt; save(); render(); toast("Usando el número alterno"); }
   });
   $("#list").addEventListener("change", (e) => {
     const card = e.target.closest(".p"); if (!card) return;

@@ -1,0 +1,1139 @@
+{
+ "0": {
+  "tel": "+525555143169",
+  "wa": false,
+  "fuente": "https://www.opentable.com/r/contramar-ciudad-de-mexico",
+  "conf": "media",
+  "nota": "OpenTable lo da como línea de pedidos para llevar"
+ },
+ "1": {
+  "tel": "",
+  "nota": "sin número publicado; buscar en Maps (Altata 22, Condesa)"
+ },
+ "2": {
+  "tel": "+525555184231",
+  "wa": false,
+  "fuente": "https://www.chilango.com/comida/los-cocuyos-los-mejores-tacos-de-suadero-de-la-ciudad/",
+  "conf": "baja",
+  "nota": "nota de Chilango antigua"
+ },
+ "3": {
+  "tel": "+525555212048",
+  "wa": false,
+  "fuente": "https://indagare.com/restaurant/cafe-de-tacuba",
+  "conf": "media"
+ },
+ "4": {
+  "tel": "+525555213080",
+  "wa": false,
+  "fuente": "https://www.restauranteelcardenal.com/en/espacios/palma",
+  "conf": "alta",
+  "nota": "sucursal Palma 23"
+ },
+ "5": {
+  "tel": "+525555337804",
+  "wa": false,
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/restaurants-rosetta-AA45801",
+  "conf": "alta"
+ },
+ "6": {
+  "tel": "+525532126206",
+  "wa": true,
+  "alt": "+525555454111",
+  "fuente": "Instagram oficial de Pujol (WhatsApp) · fijo en guide.michelin / oadguides",
+  "conf": "alta"
+ },
+ "7": {
+  "tel": "+525552644291",
+  "wa": false,
+  "alt": "+525555252687",
+  "fuente": "https://www.maximobistrot.com.mx/en/",
+  "conf": "alta"
+ },
+ "8": {
+  "tel": "+525552806449",
+  "wa": false,
+  "fuente": "https://www.theinfatuation.com/mexico-city/reviews/el-turix",
+  "conf": "media"
+ },
+ "9": {
+  "tel": "+525555128959",
+  "wa": false,
+  "fuente": "https://foodandpleasure.com/cantinas-historicas-en-cdmx/",
+  "conf": "alta"
+ },
+ "10": {
+  "tel": "+525552075272",
+  "wa": false,
+  "fuente": "https://foodandpleasure.com/salon-rios/",
+  "conf": "alta"
+ },
+ "11": {
+  "tel": "+529515168889",
+  "wa": false,
+  "fuente": "https://www.oadguides.com/restaurant/casa-oaxaca",
+  "conf": "alta"
+ },
+ "12": {
+  "tel": "+529511281365",
+  "wa": false,
+  "alt": "+529515143769",
+  "fuente": "https://tianguisturistico.cie.com.mx (catálogo Cocina Tradicional Oaxaca)",
+  "conf": "media",
+  "nota": "celular; puede tener WhatsApp"
+ },
+ "13": {
+  "tel": "+523336157400",
+  "wa": false,
+  "fuente": "https://www.oadguides.com/restaurant/alcalde",
+  "conf": "alta"
+ },
+ "14": {
+  "tel": "+523347374884",
+  "wa": false,
+  "alt": "+523316016820",
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/karne-garibaldi-AA91829",
+  "conf": "media",
+  "nota": "sucursal Mariano Otero"
+ },
+ "15": {
+  "tel": "+528136021734",
+  "wa": true,
+  "alt": "+528183453232",
+  "fuente": "https://www.posta.com.mx/nuevo-leon/el-restaurante-de-tradicion-icono-de-la-gastronomia-de-nuevo-leon/vl2076359",
+  "conf": "media",
+  "nota": "Publimetro reportó cierre de la sucursal Centro en 2023"
+ },
+ "16": {
+  "tel": "+528181146603",
+  "wa": false,
+  "alt": "+528181146601",
+  "fuente": "https://foodandpleasure.com/pangea-restaurante-san-pedro-garza-garcia/",
+  "conf": "media"
+ },
+ "17": {
+  "tel": "+529999284780",
+  "wa": false,
+  "fuente": "https://www.enprimeurclub.com/restaurants/la-chaya-maya-merida-restaurant",
+  "conf": "alta"
+ },
+ "18": {
+  "tel": "",
+  "nota": "sin número publicado; buscar en Maps o Instagram"
+ },
+ "19": {
+  "tel": "+526646851927",
+  "wa": false,
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/caesar's-AA74645",
+  "conf": "alta"
+ },
+ "20": {
+  "tel": "+522222420503",
+  "wa": false,
+  "alt": "+522222250650",
+  "fuente": "https://foodandpleasure.com/restaurantes-tradicionales-puebla/",
+  "conf": "alta"
+ },
+ "21": {
+  "tel": "+12122542246",
+  "wa": false,
+  "fuente": "https://www.dinerville.info/ny/manhattan/katzs-delicatessen",
+  "conf": "alta"
+ },
+ "22": {
+  "tel": "+12123661182",
+  "wa": false,
+  "fuente": "https://www.nyctourism.com/venues/famous-joes-pizza",
+  "conf": "alta",
+  "nota": "7 Carmine St"
+ },
+ "23": {
+  "tel": "+12124754880",
+  "wa": false,
+  "fuente": "https://shop.russanddaughters.com/locations",
+  "conf": "alta",
+  "nota": "extensión 2 para el café"
+ },
+ "24": {
+  "tel": "+12122560343",
+  "wa": false,
+  "fuente": "https://www.foodnetwork.com/restaurants/ny/new-york/los-tacos-no-1-restaurant",
+  "conf": "alta"
+ },
+ "25": {
+  "tel": "+17183877400",
+  "wa": false,
+  "fuente": "https://www.foodnetwork.com/restaurants/ny/brooklyn/peter-luger-steakhouse-restaurant.html",
+  "conf": "alta"
+ },
+ "26": {
+  "tel": "+12134270608",
+  "wa": false,
+  "fuente": "https://ww1.aaa.com/tripcanvas/restaurant/guelaguetza-AA14589",
+  "conf": "alta"
+ },
+ "27": {
+  "tel": "+12134838050",
+  "wa": false,
+  "fuente": "https://www.langersdeli.com/?p=2497",
+  "conf": "alta"
+ },
+ "28": {
+  "tel": "+12139358399",
+  "wa": false,
+  "fuente": "https://laist.com/news/food/howlin-rays",
+  "conf": "alta"
+ },
+ "29": {
+  "tel": "+13103626115",
+  "wa": false,
+  "fuente": "https://frankiapp.com/business/republique-714",
+  "conf": "alta"
+ },
+ "30": {
+  "tel": "+13128289800",
+  "wa": false,
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/lou-malnatis-river-north-AA47273",
+  "conf": "alta",
+  "nota": "sucursal River North"
+ },
+ "31": {
+  "tel": "+13129294580",
+  "wa": false,
+  "fuente": "https://frankiapp.com/business/au-cheval-9029.md",
+  "conf": "alta"
+ },
+ "32": {
+  "tel": "+13124926262",
+  "wa": false,
+  "fuente": "https://www.foodnetwork.com/restaurants/il/chicago/girl-the-goat-restaurant",
+  "conf": "alta"
+ },
+ "33": {
+  "tel": "+17132281175",
+  "wa": false,
+  "fuente": "https://www.foodnetwork.com/restaurants/tx/houston/the-original-ninfarsquos-on-navigation-restaurant",
+  "conf": "alta"
+ },
+ "34": {
+  "tel": "+12814852272",
+  "wa": false,
+  "fuente": "https://www.oadguides.com/restaurant/killens-barbecue",
+  "conf": "alta",
+  "nota": "Pearland"
+ },
+ "35": {
+  "tel": "+12102251262",
+  "wa": false,
+  "fuente": "https://lafamiliacortez.com/restaurants/mi-tierra/",
+  "conf": "alta"
+ },
+ "36": {
+  "tel": "+15126531187",
+  "wa": false,
+  "fuente": "https://franklinbbq.com/",
+  "conf": "alta"
+ },
+ "37": {
+  "tel": "+15129811760",
+  "wa": false,
+  "fuente": "https://www.foodnetwork.com/restaurants/tx/austin/veracruz-all-natural-tacos-",
+  "conf": "media",
+  "nota": "varias sucursales; ver veracruzallnatural.com"
+ },
+ "38": {
+  "tel": "+13054440240",
+  "wa": false,
+  "fuente": "https://www.foodnetwork.com/restaurants/fl/miami/versailles-restaurant-restaurant",
+  "conf": "alta"
+ },
+ "39": {
+  "tel": "+13056730365",
+  "wa": false,
+  "fuente": "https://ww2.aaa.com/tripcanvas/restaurant/joe's-stone-crab-AA75158",
+  "conf": "media",
+  "nota": "su sitio muestra 305-673-9035"
+ },
+ "40": {
+  "tel": "+34913664217",
+  "wa": false,
+  "alt": "+34913663026",
+  "fuente": "https://www.esmadrid.com/node/68596",
+  "conf": "alta"
+ },
+ "41": {
+  "tel": "+34913658217",
+  "wa": false,
+  "alt": "+34913653252",
+  "fuente": "https://www.timeout.es/madrid/es/restaurantes/casa-lucio",
+  "conf": "alta"
+ },
+ "42": {
+  "tel": "+34913656546",
+  "wa": false,
+  "fuente": "https://www.esmadrid.com/en/nightlife/chocolateria-de-san-gines",
+  "conf": "alta"
+ },
+ "43": {
+  "tel": "+34915310081",
+  "wa": false,
+  "alt": "+34915310616",
+  "fuente": "https://www.esmadrid.com/en/restaurants/casa-labra",
+  "conf": "alta"
+ },
+ "44": {
+  "tel": "+34933197003",
+  "wa": false,
+  "fuente": "https://www.oadguides.com/restaurant/el-xampanyet",
+  "conf": "alta"
+ },
+ "45": {
+  "tel": "+34933107961",
+  "wa": false,
+  "fuente": "https://guia.barcelona.cat/en/detall/bar-restaurant-cal-pep_75990095014.html",
+  "conf": "alta"
+ },
+ "46": {
+  "tel": "+34932703458",
+  "wa": false,
+  "fuente": "https://www.oadguides.com/restaurant/bar-canete",
+  "conf": "alta"
+ },
+ "47": {
+  "tel": "+34933024140",
+  "wa": false,
+  "fuente": "https://guia.barcelona.cat/en/detall/bar-restaurant-els-quatre-gats_75990089341.html",
+  "conf": "alta"
+ },
+ "48": {
+  "tel": "+34954223183",
+  "wa": false,
+  "alt": "+34628150995",
+  "fuente": "https://www.elrinconcillo.es/en/home",
+  "conf": "alta",
+  "nota": "el alterno es móvil (OpenTable); puede tener WhatsApp"
+ },
+ "49": {
+  "tel": "+34943424873",
+  "wa": false,
+  "fuente": "https://inyourpocket.com/spain/san-sebastian/venues/bar-nestor",
+  "conf": "alta"
+ },
+ "50": {
+  "tel": "+34943441655",
+  "wa": false,
+  "fuente": "https://www.oadguides.com/restaurant/cuchara-de-san-telmo",
+  "conf": "media"
+ },
+ "51": {
+  "tel": "+33147708629",
+  "wa": false,
+  "fuente": "https://parisjetaime.com/restaurant-paris/70552/Bouillon-Chartier",
+  "conf": "alta",
+  "nota": "Grands Boulevards"
+ },
+ "52": {
+  "tel": "+33144270797",
+  "wa": false,
+  "fuente": "https://www.hotel-paris-relais-saint-germain.com/restaurant-le-comptoir",
+  "conf": "alta"
+ },
+ "53": {
+  "tel": "+33148876360",
+  "wa": false,
+  "fuente": "https://www.frommers.com/destinations/paris/restaurants/las-du-fallafel",
+  "conf": "alta"
+ },
+ "54": {
+  "tel": "+33145485526",
+  "wa": false,
+  "fuente": "https://www.schlouk-map.com/fr/places/cafe-de-flore",
+  "conf": "alta"
+ },
+ "55": {
+  "tel": "+33143430906",
+  "wa": false,
+  "fuente": "https://www.slate.fr/story/245312/le-train-bleu-la-maison-rostang-excellence-cuisine-buffet-gare-lyon-restaurant-paris",
+  "conf": "media"
+ },
+ "56": {
+  "tel": "+573184559745",
+  "wa": true,
+  "alt": "+5718612233",
+  "fuente": "Respuestas del restaurante en Tripadvisor (2026): WhatsApp 318-4559745, PBX 8612233",
+  "conf": "media"
+ },
+ "57": {
+  "tel": "",
+  "nota": "sin número publicado; Instagram @lapuertafalsaoficial"
+ },
+ "58": {
+  "tel": "+5716017439931",
+  "wa": false,
+  "alt": "+573102475061",
+  "fuente": "https://www.theworlds50best.com/the-list/el-chato.html",
+  "conf": "alta",
+  "nota": "el alterno es celular (OAD Guides)"
+ },
+ "59": {
+  "tel": "+5744489030",
+  "wa": false,
+  "fuente": "https://au.trip.com/restaurant/country/medellin/detail/hacienda-junn-19883689",
+  "conf": "baja",
+  "nota": "sucursal Junín; formato antiguo"
+ },
+ "60": {
+  "tel": "+573166254896",
+  "wa": false,
+  "fuente": "https://www.diffordsguide.com/bars/9XAnD5/carmen-medellin",
+  "conf": "alta",
+  "nota": "celular; puede tener WhatsApp"
+ },
+ "61": {
+  "tel": "+573148949877",
+  "wa": false,
+  "alt": "+5756645255",
+  "fuente": "https://wanderlog.com/place/details/423135/la-cevichera",
+  "conf": "media"
+ },
+ "62": {
+  "tel": "+573017420389",
+  "wa": false,
+  "fuente": "https://theworlds50best.com/the-list/celele.html",
+  "conf": "alta",
+  "nota": "celular; puede tener WhatsApp"
+ },
+ "63": {
+  "tel": "+541148319564",
+  "wa": false,
+  "fuente": "https://theworlds50best.com/the-list/11-20/don-julio.html",
+  "conf": "alta"
+ },
+ "64": {
+  "tel": "+5491128812969",
+  "wa": true,
+  "alt": "+541147746585",
+  "fuente": "https://www.lanacion.com.ar/la-nacion-revista/donde-comer-lo-mejor-y-lo-peor-de-el-preferido-de-palermo-nid05052022/",
+  "conf": "alta"
+ },
+ "65": {
+  "tel": "+541143424328",
+  "wa": false,
+  "fuente": "https://turismo.buenosaires.gob.ar/es/gastronomico/cafe-tortoni",
+  "conf": "alta"
+ },
+ "66": {
+  "tel": "+541148317176",
+  "wa": false,
+  "fuente": "https://turismo.buenosaires.gob.ar/es/otros-establecimientos/el-cuartito",
+  "conf": "alta"
+ },
+ "67": {
+  "tel": "+5112428515",
+  "wa": false,
+  "fuente": "https://foodandpleasure.com/restaurantes-en-barranco-lima/",
+  "conf": "media"
+ },
+ "68": {
+  "tel": "+5113135100",
+  "wa": false,
+  "fuente": "https://www.oadguides.com/restaurant/maido",
+  "conf": "alta"
+ },
+ "69": {
+  "tel": "+5114213365",
+  "wa": false,
+  "fuente": "https://www.kollka.com/es/la-mar-detail-16",
+  "conf": "alta"
+ },
+ "70": {
+  "tel": "+51943833031",
+  "wa": false,
+  "alt": "+5112475075",
+  "fuente": "https://elcomercio.pe/provecho/isolina-cuanto-cuesta-comer-en-la-prestigiosa-taberna-criolla-barranco-surco-jose-del-castillo-chef-noticia/",
+  "conf": "alta",
+  "nota": "celular; puede tener WhatsApp"
+ },
+ "71": {
+  "tel": "+51994077343",
+  "wa": false,
+  "alt": "+5114232197",
+  "fuente": "https://indagare.com/restaurant/sangucheria-el-chinito",
+  "conf": "media",
+  "nota": "celular; puede tener WhatsApp"
+ },
+ "72": {
+  "tel": "+56222357914",
+  "wa": false,
+  "fuente": "https://guia.melhoresdestinos.com.br/liguria-56-293-l.html",
+  "conf": "media",
+  "nota": "Providencia 1353"
+ },
+ "73": {
+  "tel": "",
+  "nota": "sin número publicado; ver fuentealemana.cl"
+ },
+ "74": {
+  "tel": "+56229538893",
+  "wa": false,
+  "fuente": "https://www.theworlds50best.com/discovery/Establishments/Chile/Santiago/Boragó.html",
+  "conf": "alta"
+ },
+ "75": {
+  "tel": "+525555535742",
+  "wa": false,
+  "fuente": "https://www.chilango.com/restaurantes/condesa/el-greco",
+  "conf": "media",
+  "nota": "dato de 2017"
+ },
+ "76": {
+  "tel": "",
+  "nota": "sin número publicado (Av. Monterrey 333, Roma Sur)"
+ },
+ "77": {
+  "tel": "+525555103746",
+  "wa": false,
+  "alt": "+525555183313",
+  "fuente": "https://www.enprimeurclub.com/restaurants/tacos-el-huequito-mexico-city-restaurant",
+  "conf": "media"
+ },
+ "78": {
+  "tel": "+525552083925",
+  "wa": false,
+  "fuente": "https://www.opentable.com/r/fonda-fina-ciudad-mexico",
+  "conf": "alta"
+ },
+ "79": {
+  "tel": "+525552117731",
+  "wa": false,
+  "fuente": "https://foodandpleasure.com/lardo-restaurante/",
+  "conf": "alta"
+ },
+ "80": {
+  "tel": "+525552801660",
+  "wa": false,
+  "alt": "+525552800254",
+  "fuente": "https://quintonil.com/en",
+  "conf": "alta"
+ },
+ "81": {
+  "tel": "+525555684777",
+  "wa": false,
+  "alt": "+525574932492",
+  "fuente": "https://foodandpleasure.com/restaurantes-jardines-del-pedregal/",
+  "conf": "alta",
+  "nota": "el alterno es celular de reservas"
+ },
+ "82": {
+  "tel": "+525553967090",
+  "wa": false,
+  "fuente": "https://opentable.co.uk/nicos-mexico",
+  "conf": "alta"
+ },
+ "83": {
+  "tel": "",
+  "nota": "sin número publicado (Isabel la Católica 30)"
+ },
+ "84": {
+  "tel": "+525552644122",
+  "wa": false,
+  "fuente": "https://www.chilango.com/antros-y-bares/roma-2/licoreria-limantour-roma/",
+  "conf": "media"
+ },
+ "85": {
+  "tel": "+525552641279",
+  "wa": false,
+  "fuente": "https://www.theworlds50best.com/bars/northamerica/the-list/Baltra-bar.html",
+  "conf": "alta"
+ },
+ "86": {
+  "tel": "+525565533441",
+  "wa": false,
+  "fuente": "https://foodandpleasure.com/cafe-avellaneda-coyoacan/",
+  "conf": "media"
+ },
+ "87": {
+  "tel": "+525555120896",
+  "wa": false,
+  "fuente": "https://www.afar.com/places/churreria-el-moro-mexico-city",
+  "conf": "media",
+  "nota": "sucursal Eje Central (matriz)"
+ },
+ "88": {
+  "tel": "+525552080833",
+  "wa": false,
+  "alt": "+525552080748",
+  "fuente": "https://myartguides.com/leisure/restaurants/mexico-city/la-docena-oyster-bar",
+  "conf": "media"
+ },
+ "89": {
+  "tel": "",
+  "nota": "mercado gastronómico, sin número; mejor contactar a cada local"
+ },
+ "90": {
+  "tel": "+523336153591",
+  "wa": false,
+  "fuente": "https://www.ejecentral.com.mx/guadalajara-deliciosa",
+  "conf": "media"
+ },
+ "91": {
+  "tel": "+523336131315",
+  "wa": false,
+  "alt": "+523336130588",
+  "fuente": "https://www.fodors.com/world/mexico-and-central-america/mexico/guadalajara/neighborhoods/centro-historico/restaurants",
+  "conf": "media",
+  "nota": "sucursal Centro"
+ },
+ "92": {
+  "tel": "",
+  "nota": "sin número publicado (José María Vigil 1874)"
+ },
+ "93": {
+  "tel": "+523314964837",
+  "wa": false,
+  "fuente": "https://www.enprimeurclub.com/bars/cantina-la-fuente-guadalajara-bar",
+  "conf": "baja",
+  "nota": "celular; una sola fuente"
+ },
+ "94": {
+  "tel": "+528196887333",
+  "wa": false,
+  "fuente": "https://guide.michelin.com/en/nuevo-leon/monterrey_2041973/restaurant/koli-cocina-de-origen",
+  "conf": "alta"
+ },
+ "95": {
+  "tel": "",
+  "nota": "no se encontró el negocio; quitar",
+  "quitar": true
+ },
+ "96": {
+  "tel": "+528181294457",
+  "wa": false,
+  "alt": "+528181294453",
+  "fuente": "https://www.posta.com.mx/share/el-gran-pastor-hambre-descubre-su-exquisito-menu/vl1591437",
+  "conf": "media",
+  "nota": "sucursal Gonzalitos; 7 sucursales"
+ },
+ "97": {
+  "tel": "+528183753890",
+  "wa": false,
+  "alt": "+528183479205",
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/la-nacional-madero-AA1404",
+  "conf": "media",
+  "nota": "sucursal Madero; alterno San Jerónimo"
+ },
+ "98": {
+  "tel": "",
+  "nota": "no se encontró el negocio; quitar",
+  "quitar": true
+ },
+ "99": {
+  "tel": "+526461757073",
+  "wa": false,
+  "fuente": "https://foodandpleasure.com/restaurantes-en-ensenada-donde-comer-rico/",
+  "conf": "media"
+ },
+ "100": {
+  "tel": "+526461740006",
+  "wa": false,
+  "fuente": "https://www.enprimeurclub.com/restaurants/la-guerrerense-ensenada-restaurant",
+  "conf": "baja"
+ },
+ "101": {
+  "tel": "+526461883960",
+  "wa": false,
+  "fuente": "https://guide.michelin.com/en/baja-california/valle-de-guadalupe_7770290/restaurant/deckman-s-en-el-mogor",
+  "conf": "alta"
+ },
+ "102": {
+  "tel": "+526461036403",
+  "wa": false,
+  "fuente": "https://www.theworlds50best.com/latinamerica/en/the-list/fauna.html",
+  "conf": "alta",
+  "nota": "celular; puede tener WhatsApp"
+ },
+ "103": {
+  "tel": "+529513200709",
+  "wa": false,
+  "fuente": "https://foodandpleasure.com/criollo-oaxaca/",
+  "conf": "media"
+ },
+ "104": {
+  "tel": "+529512699068",
+  "wa": false,
+  "fuente": "https://foodle.pro/restaurants/oaxaca/levadura-de-olla-restaurante",
+  "conf": "media"
+ },
+ "105": {
+  "tel": "+529515141811",
+  "wa": false,
+  "fuente": "https://www.afar.com/places/in-situ-mezcaleria-oaxaca",
+  "conf": "media"
+ },
+ "106": {
+  "tel": "+529992441785",
+  "wa": false,
+  "fuente": "https://opentable.ca/r/nectar-merida",
+  "conf": "media"
+ },
+ "107": {
+  "tel": "+529995476237",
+  "wa": false,
+  "alt": "+529999230003",
+  "fuente": "https://www.enprimeurclub.com/restaurants/manjar-blanco-merida-restaurant",
+  "conf": "media",
+  "nota": "celular; puede tener WhatsApp"
+ },
+ "108": {
+  "tel": "+529992728020",
+  "wa": false,
+  "alt": "+529992679582",
+  "fuente": "https://yucatantoday.com/en/directory/restaurants/la-negrita-cantina",
+  "conf": "media"
+ },
+ "109": {
+  "tel": "+529988406550",
+  "wa": false,
+  "fuente": "https://AAA.com/tripcanvas/restaurant/harry's-cancun-prime-steakhouse-%26-raw-bar-AA2064",
+  "conf": "media"
+ },
+ "110": {
+  "tel": "+529988843158",
+  "wa": false,
+  "fuente": "https://www.opentable.com/r/la-habichuela-centro",
+  "conf": "alta"
+ },
+ "111": {
+  "tel": "+529988406216",
+  "wa": false,
+  "fuente": "https://www.foodnetwork.com/restaurants/no-state/cancun/el-fish-fritanga-restaurant",
+  "conf": "alta",
+  "nota": "Zona Hotelera"
+ },
+ "112": {
+  "tel": "+529849806079",
+  "wa": false,
+  "fuente": "https://www.oadguides.com/restaurant/hartwood",
+  "conf": "media",
+  "nota": "celular; puede tener WhatsApp"
+ },
+ "113": {
+  "tel": "+529848025778",
+  "wa": false,
+  "alt": "+529847450674",
+  "fuente": "https://www.oadguides.com/restaurant/taqueria-honorio",
+  "conf": "media"
+ },
+ "114": {
+  "tel": "",
+  "nota": "no se encontró el negocio; quitar",
+  "quitar": true
+ },
+ "115": {
+  "tel": "+523221595675",
+  "wa": true,
+  "alt": "+523222267200",
+  "fuente": "https://cafedesartistes.com/en/experiencias",
+  "conf": "alta"
+ },
+ "116": {
+  "tel": "+523222221693",
+  "wa": false,
+  "fuente": "https://tasteatlas.com/PanchosTakos",
+  "conf": "media"
+ },
+ "117": {
+  "tel": "+524422270500",
+  "wa": false,
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/hotel-la-casa-de-la-marquesa-AA65060",
+  "conf": "alta",
+  "nota": "es hotel con restaurante"
+ },
+ "118": {
+  "tel": "",
+  "nota": "CERRADO desde 2020 (UAQ); quitar",
+  "quitar": true
+ },
+ "119": {
+  "tel": "+522223268060",
+  "wa": false,
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/la-casa-del-mendruga-AA94804",
+  "conf": "alta"
+ },
+ "120": {
+  "tel": "+522222461952",
+  "wa": false,
+  "fuente": "https://www.seccionamarilla.com.mx/mapas/restaurantes-mexicanos/puebla/5",
+  "conf": "media",
+  "nota": "sucursal 3 Poniente 307"
+ },
+ "121": {
+  "tel": "+522222902378",
+  "wa": false,
+  "alt": "+522222908996",
+  "fuente": "https://opentable.ca/r/augurio-restaurante-puebla",
+  "conf": "media"
+ },
+ "122": {
+  "tel": "",
+  "nota": "sin número publicado (Jardín Hidalgo 3); ver su Facebook"
+ },
+ "123": {
+  "tel": "+526677138355",
+  "wa": false,
+  "alt": "+526677121340",
+  "fuente": "https://noroeste.com.mx/entretenimiento/cultura/sabor-y-frescura-flavor-and-freshness-XBNO47808",
+  "conf": "alta"
+ },
+ "124": {
+  "tel": "",
+  "nota": "no existe en Mazatlán según la búsqueda; quitar",
+  "quitar": true
+ },
+ "125": {
+  "tel": "+526699822589",
+  "wa": false,
+  "fuente": "https://www.seccionamarilla.com.mx/resultados/restaurantes/sinaloa/mazatlan/12",
+  "conf": "baja",
+  "renombrar": "Pedro y Lola",
+  "nota": "el nombre correcto es Pedro y Lola (Plazuela Machado)"
+ },
+ "126": {
+  "tel": "",
+  "nota": "no se encontró el negocio; quitar",
+  "quitar": true
+ },
+ "127": {
+  "tel": "",
+  "nota": "sin número publicado (Sollano 21)"
+ },
+ "128": {
+  "tel": "+524151547862",
+  "wa": false,
+  "fuente": "https://indagare.com/restaurant/the-restaurant",
+  "conf": "alta"
+ },
+ "129": {
+  "tel": "",
+  "nota": "no existe en Morelia; quitar",
+  "quitar": true
+ },
+ "130": {
+  "tel": "+524436836745",
+  "wa": false,
+  "alt": "+524433131328",
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/lu-cocina-michoacana-AA5141",
+  "conf": "alta"
+ },
+ "131": {
+  "tel": "+18723153947",
+  "wa": false,
+  "fuente": "https://www.frommers.com/destinations/chicago/restaurants/mi-tocaya-antojeria",
+  "conf": "alta"
+ },
+ "132": {
+  "tel": "+17732354039",
+  "wa": false,
+  "fuente": "https://www.city-data.com/guides/il/chicago/restaurants-big-star-7561.html",
+  "conf": "alta",
+  "nota": "Wicker Park"
+ },
+ "133": {
+  "tel": "+13122262654",
+  "wa": false,
+  "fuente": "https://www.toasttab.com/local/order/carnitasuruapanpilsen",
+  "conf": "alta",
+  "nota": "Pilsen"
+ },
+ "134": {
+  "tel": "+12132225071",
+  "wa": false,
+  "fuente": "https://frankiapp.com/business/sonoratown-8310.md",
+  "conf": "media"
+ },
+ "135": {
+  "tel": "+13237375050",
+  "wa": false,
+  "fuente": "https://frankiapp.com/business/gish-bac-8303",
+  "conf": "alta"
+ },
+ "136": {
+  "tel": "+13233462001",
+  "wa": false,
+  "fuente": "https://www.discoverlosangeles.com/eat-drink/leos-taco-truck",
+  "conf": "alta",
+  "nota": "1515 S La Brea"
+ },
+ "137": {
+  "tel": "+12129139659",
+  "wa": false,
+  "fuente": "https://ww1.aaa.com/tripcanvas/restaurant/cosme-AA45468",
+  "conf": "alta"
+ },
+ "138": {
+  "tel": "",
+  "nota": "sin número publicado (94 Franklin St, Greenpoint)"
+ },
+ "139": {
+  "tel": "+13476623522",
+  "wa": false,
+  "fuente": "https://www.opentable.com/r/atla-new-york?ref=8101",
+  "conf": "media"
+ },
+ "140": {
+  "tel": "+17134003330",
+  "wa": false,
+  "fuente": "https://www.yellowpages.com/houston-tx/mip/xochi-533601292",
+  "conf": "alta"
+ },
+ "141": {
+  "tel": "",
+  "nota": "duplicado de Ninfa's on Navigation; quitar",
+  "quitar": true
+ },
+ "142": {
+  "tel": "+18327358226",
+  "wa": false,
+  "fuente": "https://www.houstoniamag.com/businesses/la-calle-tacos",
+  "conf": "alta",
+  "nota": "downtown, 909 Franklin St"
+ },
+ "143": {
+  "tel": "+12102231806",
+  "wa": false,
+  "fuente": "https://www.sacurrent.com/location/rosarios-mexican-cafe-y-cantina-2320677",
+  "conf": "media",
+  "nota": "se mudó a 722 S St Mary's St"
+ },
+ "144": {
+  "tel": "+12108003487",
+  "wa": false,
+  "fuente": "https://www.datalane.com/contacts/restaurants/ro-ho-pork-bread-tortas-ahogadas",
+  "conf": "media",
+  "renombrar": "Ro-Ho Pork & Bread",
+  "nota": "el nombre correcto es Ro-Ho Pork & Bread (tortas ahogadas)"
+ },
+ "145": {
+  "tel": "+15125223031",
+  "wa": false,
+  "fuente": "https://opentable.co.uk/r/suerte-austin",
+  "conf": "alta"
+ },
+ "146": {
+  "tel": "",
+  "nota": "sin número publicado; ahora en Buda (308 S Main St)"
+ },
+ "147": {
+  "tel": "+13053750765",
+  "wa": false,
+  "fuente": "https://indagare.com/restaurant/garcias-seafood-grille",
+  "conf": "alta"
+ },
+ "148": {
+  "tel": "+13056437820",
+  "wa": false,
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/ball-chain-AA80885",
+  "conf": "alta"
+ },
+ "149": {
+  "tel": "+16026124018",
+  "wa": false,
+  "fuente": "https://opentable.co.uk/r/bacanora-phoenix",
+  "conf": "media"
+ },
+ "150": {
+  "tel": "+16022588300",
+  "wa": false,
+  "fuente": "https://dtphx.org/go/pizzeria-bianco",
+  "conf": "alta",
+  "nota": "Heritage Square"
+ },
+ "151": {
+  "tel": "+17026418226",
+  "wa": false,
+  "fuente": "https://vegasinc.lasvegassun.com/places/tacos-el-gordo-strip",
+  "conf": "baja",
+  "nota": "fuentes no coinciden"
+ },
+ "152": {
+  "tel": "+17027353033",
+  "wa": false,
+  "fuente": "https://www.lotusofsiamlv.com/accessibility",
+  "conf": "alta",
+  "nota": "Flamingo"
+ },
+ "153": {
+  "tel": "+16192344460",
+  "wa": false,
+  "fuente": "https://www.theinfatuation.com/san-diego/reviews/las-cuatro-milpas",
+  "conf": "alta"
+ },
+ "154": {
+  "tel": "+18584124009",
+  "wa": false,
+  "fuente": "https://www.enprimeurclub.com/restaurants/oscars-mexican-seafood-san-diego-restaurant",
+  "conf": "alta",
+  "nota": "Pacific Beach"
+ },
+ "155": {
+  "tel": "+14152857117",
+  "wa": false,
+  "fuente": "https://projects.sfchronicle.com/2017/top-100-restaurants/la-taqueria",
+  "conf": "alta"
+ },
+ "156": {
+  "tel": "+14155522522",
+  "wa": false,
+  "fuente": "https://www.timeout.com/san-francisco/restaurants/Zuni-Cafe",
+  "conf": "alta"
+ },
+ "157": {
+  "tel": "+12142585900",
+  "wa": false,
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/revolver-taco-lounge-AA46680",
+  "conf": "alta",
+  "nota": "Elm St"
+ },
+ "158": {
+  "tel": "+12144846555",
+  "wa": false,
+  "fuente": "https://www.aaa.com/tripcanvas/restaurant/meso-maya-AA7684",
+  "conf": "media",
+  "nota": "Downtown; varias sucursales"
+ },
+ "159": {
+  "tel": "+13126611434",
+  "wa": false,
+  "fuente": "https://www.rickbayless.com/restaurants/grill.html",
+  "conf": "alta"
+ },
+ "160": {
+  "tel": "+13126611434",
+  "wa": false,
+  "fuente": "https://www.rickbayless.com/restaurants/grill.html",
+  "conf": "media",
+  "nota": "mismo edificio y grupo que Frontera Grill (445 N Clark)"
+ },
+ "161": {
+  "tel": "",
+  "nota": "Casa Mono es de Nueva York, no de Madrid; quitar",
+  "quitar": true
+ },
+ "162": {
+  "tel": "",
+  "nota": "CERRADO (Time Out); quitar",
+  "quitar": true
+ },
+ "163": {
+  "tel": "+34915476930",
+  "wa": false,
+  "alt": "+34915417164",
+  "fuente": "https://www.esmadrid.com/en/restaurants/bola",
+  "conf": "alta"
+ },
+ "164": {
+  "tel": "+34915214979",
+  "wa": false,
+  "fuente": "https://www.esmadrid.com/en/restaurants/bodega-ardosa",
+  "conf": "alta"
+ },
+ "165": {
+  "tel": "+34933173022",
+  "wa": false,
+  "fuente": "https://www.barcelona.com/barcelona_directory/restaurants/catalan/can_culleretes",
+  "conf": "alta"
+ },
+ "166": {
+  "tel": "+34932683003",
+  "wa": false,
+  "fuente": "https://www.timeout.com/barcelona/restaurants/bar-del-pla",
+  "conf": "alta"
+ },
+ "167": {
+  "tel": "+34963672314",
+  "wa": false,
+  "fuente": "https://www.guiarepsol.com/es/fichas/casa-montana-9089/",
+  "conf": "alta"
+ },
+ "168": {
+  "tel": "+34963710073",
+  "wa": false,
+  "fuente": "https://www.guiarepsol.com/es/fichas/casa-carmela-9136/",
+  "conf": "alta"
+ },
+ "169": {
+  "tel": "+33142596931",
+  "wa": false,
+  "fuente": "https://www.parisbouge.com/mag/articles/bouillon-pigalle-paris-2963",
+  "conf": "alta"
+ },
+ "170": {
+  "tel": "+33142721377",
+  "wa": false,
+  "fuente": "https://en.breizhcafe.com/le-marais",
+  "conf": "alta"
+ },
+ "171": {
+  "tel": "+33142744128",
+  "wa": false,
+  "fuente": "https://www.timeout.fr/paris/bar/candelaria",
+  "conf": "alta"
+ },
+ "172": {
+  "tel": "+573176616866",
+  "wa": false,
+  "alt": "+5712867091",
+  "fuente": "https://www.theworlds50best.com/latinamerica/en/the-list/leo.html",
+  "conf": "alta",
+  "nota": "celular; puede tener WhatsApp"
+ },
+ "173": {
+  "tel": "",
+  "nota": "sin número publicado; Instagram @abasto.restaurante"
+ },
+ "174": {
+  "tel": "",
+  "nota": "duplicado de Don Julio; quitar",
+  "quitar": true
+ },
+ "175": {
+  "tel": "+541143617328",
+  "wa": false,
+  "fuente": "https://turismo.buenosaires.gob.ar/es/gastronomico/bar-el-federal",
+  "conf": "alta"
+ },
+ "176": {
+  "tel": "+541148325754",
+  "wa": false,
+  "alt": "+541148317002",
+  "fuente": "https://www.ellgeebe.com/en/destinations/latin-america/argentina/buenos-aires/restaurants/la-cabrera",
+  "conf": "media"
+ },
+ "177": {
+  "tel": "+5114478272",
+  "wa": false,
+  "fuente": "https://oas.org/cicaddocs/Document.aspx?Id=4729",
+  "conf": "baja",
+  "nota": "directorio antiguo"
+ },
+ "178": {
+  "tel": "+5112428575",
+  "wa": false,
+  "fuente": "https://foodandpleasure.com/restaurantes-en-barranco-lima/",
+  "conf": "media"
+ },
+ "179": {
+  "tel": "+56949580141",
+  "wa": false,
+  "fuente": "https://www.latercera.com/la-tercera-sabado/noticia/critica-gastronomica-de-don-tinto-peumayen-un-paseo-sabroso/",
+  "conf": "media",
+  "nota": "celular; puede tener WhatsApp"
+ },
+ "180": {
+  "tel": "+56222664440",
+  "wa": false,
+  "fuente": "https://www.afar.com/places/the-clinic-santiago",
+  "conf": "media",
+  "nota": "Monjitas 578"
+ }
+}
