@@ -62,7 +62,7 @@ No se cobra más al que puede pagar más. **Se cobra lo que el lugar necesita.**
 | **Alta cocina** | Reservas, experiencia y turistas. | Agenda + Concierge + Luz Roja en modo silencioso (solo la ve el capitán) + carta en 4 idiomas. Opcional: lámparas físicas (fase 2). | **Completo** |
 | **Cadena / franquicia** | Varias sucursales. | Completo + panel por sucursal y comparativo. | **Cadena** |
 
-**Adaptación física (sin costo para el cliente):** tarjeta de mesa con QR y número (ya existe la plantilla en `WebDesignLKM/menus-qr`), cartel de "Toca para llamar" y la cocina usa la tablet o celular viejo que ya tiene.
+**Adaptación física (sin costo para el cliente):** tarjeta de mesa con QR y número, cartel de "Toca para llamar" y la cocina usa la tablet o celular viejo que ya tiene.
 
 ---
 
@@ -83,7 +83,7 @@ Un dólar por probar **todas** las luces durante un mes: 1 USD · $20 MXN · 1 �
 - **Pago anual:** 2 meses gratis.
 - **0 % de comisión por pedido.** Las apps de reparto cobran comisión por cada pedido; Rojo 87 cobra una cuota fija.
 - **Sin plazo forzoso:** se cancela cuando se quiera.
-- **Alta gratis:** nosotros capturamos la carta (protocolo ya probado: `menus-qr/PROTOCOLO.md`).
+- **Alta gratis:** nosotros capturamos la carta.
 
 ### Por qué hasta el dueño más tacaño lo paga
 El argumento no es "la tecnología": **es una ronda**.
@@ -98,7 +98,8 @@ El argumento no es "la tecnología": **es una ronda**.
 | Pieza | Fase 0 (hoy, sin capital) | Fase 1 (con capital) |
 |---|---|---|
 | Sitio y app | GitHub Pages (estático, PWA) | Igual + dominio `rojo87.app` |
-| Datos en tiempo real (pedidos, luces) | Supabase gratis: Postgres + Realtime + Auth (ya se usa en `mensajes/`) | Supabase Pro ($25 USD/mes): se paga con 3 clientes del plan Carta |
+| Cuentas, licencias y lealtad | **Ya existe:** Edge Function `rojo87` en Supabase (`rojo87/supabase/`), tablas `r87_*`. Antes era Mr Key. | Igual |
+| Datos en tiempo real (pedidos, luces) | Supabase gratis: Postgres + Realtime (mismo proyecto) | Supabase Pro ($25 USD/mes): se paga con 3 clientes del plan Carta |
 | WhatsApp | Enlaces `wa.me` + respuestas rápidas preescritas | WhatsApp Cloud API + IA: audio → texto → intención → agenda (el "agente del dentista") |
 | Pagos del cliente final | "Pedir la cuenta" + efectivo, terminal o transferencia | Pago en mesa (Stripe / Mercado Pago) |
 | Cobro de la suscripción | Liga de pago de Stripe / Mercado Pago (sin código) | Suscripciones automáticas |
@@ -110,13 +111,14 @@ El argumento no es "la tecnología": **es una ronda**.
 
 ## 6. Cómo se vende (empezar mañana)
 
-1. **Lista caliente:** los 98 restaurantes de `menus-qr` ya tienen menú de muestra hecho. Se les ofrece la mejora: "tu menú ahora también recibe pedidos y prende una luz cuando la mesa te necesita. Primer mes, $1".
-2. **Socios:** el Macro de `mensajes/` ya organiza prospectos, mensajes y seguimiento. Se agrega la propuesta Rojo 87. Comisión sugerida para socios: **30 % del primer año** de cada cliente que cierren.
-3. **Demo en 60 segundos:** el vendedor deja la tarjeta en una mesa, el dueño escanea, toca *Llamar* y ve cómo se prende la mesa en el celular del vendedor. Es el momento "wow" de las 6 referencias en uno.
-4. **Contenido:** reels con el formato de las referencias (problema → escena → solución → precio). Guion base: *"Tu mesero no puede estar en 12 mesas. La luz roja sí."*
-5. **Clientes actuales de LKM'r** (Crunchy Corner, Texas BBQ, Hannah & Michael, Oaxakita, Cantina Real…): se migra su menú al plan Carta y se ofrece el primer mes a $1 de Servicio.
+Las herramientas ya están hechas (sección 10):
 
----
+1. **Panel de prospectos** (`rojo87/prospectos/`): restaurantes, bares y cafés conocidos de México, Estados Unidos, España, Francia y Latinoamérica. Por cada uno, un **primer mensaje de invitación sin enlaces** (tres versiones por idioma que se alternan, con el nombre y el giro del lugar). Solo a quien responde que sí se le manda el **segundo mensaje**: el sitio, el tráiler y un **QR de su prueba de $20 MXN / $1 USD** que abre el alta con el nombre de su lugar ya escrito.
+2. **Demo en 60 segundos:** el vendedor deja la tarjeta en una mesa, el dueño escanea, toca *Llamar* y ve cómo se prende la mesa en el celular del vendedor (sección "Pruébalo" del sitio).
+3. **Tráiler de 60 s** (`rojo87/promo/`) para Reels, TikTok y estados de WhatsApp, con su estrategia en `promo/MARKETING.md`.
+4. **Socios:** comisión sugerida del **30 % del primer año** de cada cliente que cierren.
+
+Los prospectos de `menus-qr` **no** son prospectos de Rojo 87: es otro negocio y no se mezclan.
 
 ## 7. El camino a 5 millones de euros
 
@@ -128,7 +130,7 @@ Es una meta, no una promesa. Así se ve en números:
 
 | Etapa | Locales | Ingreso anual aprox. | Qué la desbloquea |
 |---|---|---|---|
-| Validación | 10 | ~5 k € | Lista de `menus-qr` + demo en mesa |
+| Validación | 10 | ~5 k € | Panel de prospectos + demo en mesa |
 | Tracción | 100 | ~55 k € | Socios con comisión, primer caso de éxito con números |
 | Capital | 1,000 | ~540 k € | Inversión semilla → servidor, Concierge con IA, pago en mesa |
 | Escala | 9,300 | **~5 M €** | Cadenas, España/LatAm, lámparas premium |
@@ -155,3 +157,18 @@ Es una meta, no una promesa. Así se ve en números:
 - Dominio propio.
 - Liga de cobro del primer mes ($1).
 - Primer local piloto para grabar el caso de éxito.
+
+---
+
+## 10. Lo que ya está construido
+
+| Pieza | Dónde | Para quién |
+|---|---|---|
+| Sitio de venta en 4 idiomas | `rojo87/index.html` | Dueños de restaurantes |
+| Tráiler de 60 s + estrategia | `rojo87/promo/` | Redes y WhatsApp |
+| **Cuenta del restaurante + lealtad** (luz 5): panel del dueño, QR del mostrador, sellado del equipo, tarjeta del cliente, campañas y métricas | `rojo87/lealtad/` (antes Mr Key) | Restaurante, equipo y clientes |
+| **Licencias y pagos** (llave maestra): aprobar cuentas, registrar el pago de $20 del primer mes o del plan, renovar, cancelar, ingreso mensual | `rojo87/lealtad/llave-maestra.html` (oculta) | Solo tú |
+| **Prospectos**: lista por país, invitación por WhatsApp, segundo mensaje con QR de prueba, embudo y límite diario | `rojo87/prospectos/` (oculta, con PIN) | Solo tú |
+| API y base de datos | `rojo87/supabase/` | — |
+
+**Flujo completo de una venta:** invitación (prospectos) → dice que sí → segundo mensaje con QR → el dueño crea su cuenta (queda pendiente 12 h) → paga $20 MXN → en la llave maestra registras el pago con el plan *Primer mes ($1)* → su cuenta queda activa 1 mes → al terminar registras su plan (Carta, Servicio, Completo o Cadena).

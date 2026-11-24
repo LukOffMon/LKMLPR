@@ -1,0 +1,17 @@
+﻿{
+  "voice": "es-MX-JorgeNeural",
+  "rate": "+10%",
+  "pitch": "-4Hz",
+  "scenes": [
+    { "id": "s1", "pad": 0.5, "vo": "Viernes. Nueve de la noche. Tu restaurante, lleno." },
+    { "id": "s2", "pad": 0.3, "vo": "La mesa cuatro quiere pedir. La siete, la cuenta. La doce, otra ronda. Y tu mesero... no puede estar en doce mesas." },
+    { "id": "s3", "pad": 0.6, "vo": "La luz roja, sí." },
+    { "id": "s4", "pad": 0.5, "vo": "Esto es Rojo ochenta y siete." },
+    { "id": "s5", "pad": 0.3, "vo": "Tu cliente pide desde su celular. Llama al mesero, o pide la cuenta, con un solo toque. Y tu equipo ve qué mesa lo necesita." },
+    { "id": "s6", "pad": 0.3, "vo": "La cocina recibe cada pedido en orden, con su tiempo. Y lo que se acabó, se marca en un segundo." },
+    { "id": "s7", "pad": 0.3, "vo": "Y cuando te escriben a medianoche, la mesa queda apartada antes de que despiertes." },
+    { "id": "s8", "pad": 0.3, "vo": "Sin aparatos. Sin instalación. Cero comisión por pedido." },
+    { "id": "s9", "pad": 0.4, "vo": "Pruébalo un mes entero... por un dólar." },
+    { "id": "s10", "pad": 2.2, "vo": "Rojo ochenta y siete. Enciende tu luz." }
+  ]
+}

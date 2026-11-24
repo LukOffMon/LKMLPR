@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Rojo 87 · Prospectos</title>
+<meta name="theme-color" content="#0b0b0b" />
+<link rel="icon" type="image/png" href="../lealtad/assets/icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root { --rojo:#e10600; --rojo2:#ff2a1a; --ink:#0b0b0b; --ink2:#161514; --ink3:#211f1e; --hueso:#efe9df; --mute:#a59f95; --line:#2f2c29; --ok:#1f9d55; --warn:#d9a21b; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ink); color: var(--hueso); font: 15px/1.5 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  .hidden { display: none !important; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+  .disp { font-family: Anton, Impact, sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: .01em; line-height: .95; }
+  .logo { font-family: Anton, Impact, sans-serif; font-size: 26px; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .logo b { color: var(--rojo); font-weight: 400; }
+  .logo i { width: 11px; height: 11px; border-radius: 50%; background: var(--rojo); box-shadow: 0 0 14px var(--rojo); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1.5px solid #3a3633; background: var(--ink2); font-weight: 700; cursor: pointer; text-decoration: none; white-space: nowrap; }
+  .btn:hover { border-color: var(--hueso); }
+  .btn.red { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+  .btn.green { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .btn.sm { min-height: 40px; padding: 0 12px; font-size: 13px; }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+  input, select, textarea { background: var(--ink2); border: 1.5px solid #3a3633; border-radius: 12px; padding: 10px 12px; min-height: 44px; width: 100%; }
+  textarea { min-height: 120px; resize: vertical; }
+  label { display: grid; gap: 4px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+  :focus-visible { outline: 2px solid var(--rojo2); outline-offset: 2px; }
+
+  /* candado */
+  #lock { min-height: 100svh; display: grid; place-items: center; padding: 24px; }
+  #lock form { width: min(380px, 100%); display: grid; gap: 14px; text-align: center; }
+  #lock input { text-align: center; font-size: 28px; letter-spacing: .4em; }
+
+  header { position: sticky; top: 0; z-index: 20; background: rgba(11,11,11,.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; gap: 12px; align-items: center; min-height: 64px; flex-wrap: wrap; padding-block: 8px; }
+  header nav { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .kpis { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin: 20px 0; }
+  .kpi { background: var(--ink2); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; cursor: pointer; text-align: left; }
+  .kpi b { display: block; font-family: Anton; font-weight: 400; font-size: 30px; line-height: 1; }
+  .kpi span { font-size: 12px; color: var(--mute); font-weight: 600; }
+  .kpi[aria-pressed="true"] { border-color: var(--rojo); box-shadow: inset 0 0 0 1px var(--rojo); }
+  .today { display: flex; align-items: center; gap: 12px; background: #2a1210; border: 1px solid var(--rojo); border-radius: 14px; padding: 12px 16px; margin-bottom: 16px; font-weight: 600; flex-wrap: wrap; }
+  .bar { flex: 1; min-width: 160px; height: 8px; background: #3a1a17; border-radius: 99px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--rojo2); }
+
+  .filters { display: grid; grid-template-columns: 2fr repeat(4, 1fr) auto; gap: 10px; margin-bottom: 16px; align-items: end; }
+  .list { display: grid; gap: 10px; padding-bottom: 80px; }
+  .p { display: grid; grid-template-columns: 1.4fr 1fr auto; gap: 14px; align-items: center; background: var(--ink2); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+  .p h3 { margin: 0; font-size: 17px; }
+  .meta { color: var(--mute); font-size: 13px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .tag { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; border: 1px solid #3a3633; border-radius: 99px; padding: 2px 8px; }
+  .st { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; border-radius: 99px; padding: 3px 9px; background: #2c2927; }
+  .st.invitado { background: #3b2f12; color: #ffd27a; } .st.interesado { background: #3a1a17; color: #ff8f86; }
+  .st.enlace { background: #1d2a3d; color: #9cc3ff; } .st.cuenta { background: #20314a; color: #c6dcff; }
+  .st.activo { background: #143d27; color: #7fe2a8; } .st.no { background: #222; color: #777; text-decoration: line-through; }
+  .tel { display: flex; gap: 6px; }
+  .tel input { min-height: 40px; font-variant-numeric: tabular-nums; }
+  .acts { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .note { grid-column: 1 / -1; }
+  .note textarea { min-height: 44px; }
+  @media (max-width: 1000px) { .kpis { grid-template-columns: repeat(4, 1fr); } .filters { grid-template-columns: 1fr 1fr; } .p { grid-template-columns: 1fr; } .acts { justify-content: flex-start; } }
+
+  dialog { background: var(--ink2); color: var(--hueso); border: 1px solid var(--line); border-radius: 22px; padding: 22px; width: min(640px, 94vw); }
+  dialog::backdrop { background: rgba(0,0,0,.7); }
+  dialog h2 { margin: 0 0 12px; font-size: 30px; }
+  .msg { white-space: pre-wrap; background: #0f0e0d; border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin: 10px 0; max-height: 280px; overflow: auto; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .qrbox { display: grid; grid-template-columns: 220px 1fr; gap: 16px; align-items: center; margin: 12px 0; }
+  .qrbox canvas { width: 220px; height: auto; border-radius: 12px; background: #fff; }
+  .tips { background: var(--ink2); border: 1px solid var(--line); border-radius: 16px; padding: 14px 18px; margin-bottom: 16px; }
+  .tips summary { cursor: pointer; font-weight: 800; min-height: 32px; display: flex; align-items: center; }
+  .tips li { margin: 4px 0; color: #d8d1c5; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(120px); background: var(--hueso); color: var(--ink); font-weight: 800; padding: 12px 18px; border-radius: 99px; transition: transform .3s; z-index: 50; }
+  #toast.show { transform: translateX(-50%); }
+</style>
+</head>
+<body>
+
+<!-- Candado (solo protege este navegador; los datos viven aquí) -->
+<section id="lock">
+  <form id="lockForm">
+    <a class="logo" style="justify-content:center"><i></i>ROJO<b>87</b></a>
+    <h1 class="disp" style="font-size:42px;margin:0">Prospectos</h1>
+    <p id="lockHint" style="color:var(--mute);margin:0"></p>
+    <input id="pin" type="password" inputmode="numeric" autocomplete="off" minlength="4" maxlength="8" pattern="[0-9]{4,8}" required aria-label="PIN" />
+    <button class="btn red" type="submit" id="lockBtn"></button>
+    <p id="lockErr" style="color:#ff8f86;margin:0" role="alert"></p>
+  </form>
+</section>
+
+<div id="app" class="hidden">
+  <header>
+    <div class="wrap">
+      <a class="logo" href="../" target="_blank" rel="noopener"><i></i>ROJO<b>87</b></a>
+      <span class="disp" style="font-size:20px;color:var(--mute)">· Prospectos</span>
+      <nav>
+        <a class="btn sm" href="../lealtad/llave-maestra.html" target="_blank" rel="noopener">Licencias y pagos</a>
+        <button class="btn sm" id="btnAdd">+ Agregar lugar</button>
+        <button class="btn sm" id="btnCfg">Ajustes</button>
+        <button class="btn sm" id="btnLock">Bloquear</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="kpis" id="kpis"></div>
+    <div class="today" id="today"></div>
+
+    <details class="tips">
+      <summary>Cómo escribir sin que WhatsApp te marque como spam</summary>
+      <ul>
+        <li><b>Máximo de invitaciones nuevas al día</b> (lo ajustas en Ajustes, 20 por defecto). Sube poco a poco si tu número es nuevo.</li>
+        <li>El primer mensaje <b>no lleva enlaces</b> y pregunta si quieren verlo. Cada lugar recibe una versión distinta, con su nombre y su giro.</li>
+        <li><b>Espera a que respondan</b> antes del segundo mensaje. El segundo (con enlace y QR) solo va a quien dijo que sí.</li>
+        <li>Si alguien dice que no, márcalo como <b>No interesado</b>: desaparece de la lista y no se le vuelve a escribir.</li>
+        <li>Usa WhatsApp Business con foto, nombre "Rojo 87" y descripción. Escribe en horario de oficina del país del lugar.</li>
+        <li>Los teléfonos de esta lista <b>no vienen incluidos</b>: búscalos con el botón de Maps (el número público del lugar) y guárdalos aquí.</li>
+      </ul>
+    </details>
+
+    <div class="filters">
+      <label>Buscar<input id="fQ" placeholder="Nombre o ciudad" /></label>
+      <label>País<select id="fPais"></select></label>
+      <label>Ciudad<select id="fCiudad"></select></label>
+      <label>Giro<select id="fGiro"></select></label>
+      <label>Estado<select id="fEstado"></select></label>
+      <label style="align-self:end"><span style="display:flex;gap:8px;align-items:center;min-height:44px;text-transform:none;letter-spacing:0;font-size:14px;color:var(--hueso)"><input type="checkbox" id="fTel" style="width:20px;min-height:20px" /> Con teléfono</span></label>
+    </div>
+    <p id="count" style="color:var(--mute);margin:0 0 10px"></p>
+    <div class="list" id="list"></div>
+  </main>
+</div>
+
+<!-- Mensaje -->
+<dialog id="dlgMsg">
+  <h2 class="disp" id="msgTitle"></h2>
+  <p id="msgSub" style="color:var(--mute);margin:0"></p>
+  <div class="msg" id="msgText"></div>
+  <div class="qrbox hidden" id="qrBox">
+    <canvas id="qrCanvas" width="600" height="720"></canvas>
+    <div style="display:grid;gap:8px">
+      <p style="margin:0;color:var(--mute)">Manda este QR como imagen en el mismo chat, junto con el tráiler.</p>
+      <button class="btn sm" id="qrCopy">Copiar imagen del QR</button>
+      <button class="btn sm" id="qrDown">Descargar QR</button>
+      <a class="btn sm" id="trailer" href="../promo/rojo87-trailer-60s.mp4" download>Descargar tráiler (60 s)</a>
+    </div>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <a class="btn red" id="msgOpen" target="_blank" rel="noopener">Abrir WhatsApp</a>
+    <button class="btn" id="msgCopy">Copiar texto</button>
+    <button class="btn" id="msgOther">Otra versión</button>
+    <button class="btn" id="msgClose" style="margin-left:auto">Cerrar</button>
+  </div>
+</dialog>
+
+<!-- Agregar lugar -->
+<dialog id="dlgAdd">
+  <form method="dialog" id="addForm">
+    <h2 class="disp">Agregar lugar</h2>
+    <div class="grid2">
+      <label>Nombre<input name="lugar" required maxlength="80" /></label>
+      <label>Ciudad<input name="ciudad" required maxlength="60" /></label>
+      <label>País<select name="pais" id="addPais"></select></label>
+      <label>Giro<select name="giro" id="addGiro"></select></label>
+      <label style="grid-column:1/-1">WhatsApp (con lada del país si no es México o EE. UU.)<input name="tel" inputmode="tel" /></label>
+    </div>
+    <div class="row" style="margin-top:14px"><button class="btn red" value="ok">Guardar</button><button class="btn" value="cancel" formnovalidate>Cancelar</button></div>
+  </form>
+</dialog>
+
+<!-- Ajustes -->
+<dialog id="dlgCfg">
+  <form method="dialog" id="cfgForm">
+    <h2 class="disp">Ajustes</h2>
+    <div class="grid2">
+      <label>Tu nombre (va en los mensajes)<input name="yo" required maxlength="40" /></label>
+      <label>Invitaciones nuevas por día<input name="limite" type="number" min="1" max="200" /></label>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn red" value="ok">Guardar</button>
+      <button class="btn" type="button" id="btnExport">Respaldar datos</button>
+      <label class="btn" style="text-transform:none;letter-spacing:0;font-size:15px;color:var(--hueso)">Restaurar<input type="file" id="fileImport" accept="application/json" hidden /></label>
+      <button class="btn" type="button" id="btnPin">Cambiar PIN</button>
+    </div>
+    <p style="color:var(--mute);font-size:13px">Todo se guarda solo en este navegador. Respalda de vez en cuando para no perder teléfonos, notas y estados.</p>
+  </form>
+</dialog>
+
+<div id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="data.js"></script>
+<script>
+(() => {
+  "use strict";
+  const SITE = "https://lukoffmon.github.io/LKMLPR/rojo87/";
+  const TRIAL = SITE + "lealtad/panel.html";
+  const PAISES = {
+    MX: { n: "México", cc: "52", lang: "es", precio: "$20 MXN" },
+    US: { n: "Estados Unidos", cc: "1", lang: "en", precio: "$1 USD" },
+    ES: { n: "España", cc: "34", lang: "es", precio: "1 €" },
+    FR: { n: "Francia", cc: "33", lang: "fr", precio: "1 €" },
+    CO: { n: "Colombia", cc: "57", lang: "es", precio: "$1 USD" },
+    AR: { n: "Argentina", cc: "54", lang: "es", precio: "$1 USD" },
+    PE: { n: "Perú", cc: "51", lang: "es", precio: "$1 USD" },
+    CL: { n: "Chile", cc: "56", lang: "es", precio: "$1 USD" },
+  };
+  const GIROS = { resto: "Restaurante", fonda: "Fonda · taquería", cafe: "Café · brunch", bar: "Bar · antro", alta: "Alta cocina", cadena: "Cadena" };
+  const ESTADOS = { nuevo: "Nuevo", invitado: "Invitado", interesado: "Dijo que sí", enlace: "Enlace enviado", cuenta: "Creó su cuenta", activo: "Pagó · activo", no: "No interesado" };
+
+  // ── Mensajes. El primero no lleva enlaces: invita y pide permiso.
+  const HOOK = {
+    es: { resto: "que la mesa pida y llame al mesero desde su celular, y la cocina reciba todo en orden",
+          fonda: "que los pedidos lleguen ordenados, con número de mesa o para recoger, sin papelitos",
+          cafe: "que pidan desde la mesa y la barra reciba cada pedido en orden, sin filas",
+          bar: "que pidan otra ronda con un toque desde su lugar, sin hacer fila en la barra",
+          alta: "que las reservas por WhatsApp se aparten solas y la mesa avise sin hacer señas",
+          cadena: "tener pedidos, cocina, reservas y lealtad de todas tus sucursales en un solo panel" },
+    en: { resto: "let guests order and call their server from their own phone, while the kitchen gets every order in sequence",
+          fonda: "get orders in clean and numbered, for the table or for pickup, with no paper tickets",
+          cafe: "let guests order from their table so the counter gets every order in sequence, no lines",
+          bar: "let guests order another round in one tap from their seat, no waiting at the bar",
+          alta: "have WhatsApp reservations booked on their own and let tables ask for service without waving",
+          cadena: "run orders, kitchen, bookings and loyalty for every location from one dashboard" },
+    fr: { resto: "que la table commande et appelle le serveur depuis son téléphone, et que la cuisine reçoive tout dans l'ordre",
+          fonda: "recevoir les commandes en ordre, à table ou à emporter, sans tickets papier",
+          cafe: "que les clients commandent depuis leur table et que le comptoir reçoive tout dans l'ordre",
+          bar: "commander une autre tournée d'un geste depuis sa place, sans faire la queue au bar",
+          alta: "que les réservations WhatsApp se fassent seules et que la table appelle sans faire de signe",
+          cadena: "gérer commandes, cuisine, réservations et fidélité de tous vos établissements depuis un seul tableau" },
+  };
+  const M1 = {
+    es: [
+      "Hola, buen día 👋 ¿Hablo con {lugar}?\n\nSoy {yo}. Estamos invitando a pocos lugares de {ciudad} a conocer Rojo 87, una idea nueva para {hook}. Sin aparatos y sin comisión por pedido.\n\n¿Te mando un video de 1 minuto para que veas de qué se trata? Si no te interesa, con un \"no\" basta y no vuelvo a escribir. 🙏",
+      "¡Hola! Soy {yo} 🙂\n\nVi {lugar} y creo que le quedaría muy bien algo que estamos lanzando en {ciudad}: Rojo 87. Sirve para {hook}, usando el celular de tus propios clientes.\n\n¿Te puedo compartir un video corto? Si prefieres que no, me dices y listo.",
+      "Hola, equipo de {lugar} 👋\n\nSoy {yo}, de Rojo 87. Tengo una propuesta corta para ustedes: {hook}, sin instalar nada.\n\n¿Les interesa ver un video de 1 minuto? Cualquier respuesta está bien, no insisto.",
+    ],
+    en: [
+      "Hi there 👋 Is this {lugar}?\n\nI'm {yo}. We're inviting a few places in {ciudad} to see Rojo 87, a new way to {hook}. No hardware and no commission on orders.\n\nCan I send you a 1-minute video so you can see what it's about? If you're not interested, just say \"no\" and I won't write again. 🙏",
+      "Hi! I'm {yo} 🙂\n\nI came across {lugar} and thought you'd like something we're launching in {ciudad}: Rojo 87. It helps you {hook}, using your guests' own phones.\n\nMind if I share a short video? If you'd rather not, just let me know.",
+      "Hello {lugar} team 👋\n\nI'm {yo} from Rojo 87. Quick idea for you: {hook}, with nothing to install.\n\nWould you like to see a 1-minute video? Any answer is fine, I won't insist.",
+    ],
+    fr: [
+      "Bonjour 👋 Je suis bien chez {lugar} ?\n\nJe m'appelle {yo}. Nous invitons quelques adresses de {ciudad} à découvrir Rojo 87, une nouvelle idée pour {hook}. Sans matériel et sans commission.\n\nPuis-je vous envoyer une vidéo d'une minute ? Si cela ne vous intéresse pas, un simple « non » suffit et je ne vous écrirai plus. 🙏",
+      "Bonjour ! Je suis {yo} 🙂\n\nJ'ai découvert {lugar} et je pense que ce que nous lançons à {ciudad} vous plairait : Rojo 87, pour {hook}, avec le téléphone de vos clients.\n\nJe peux vous partager une courte vidéo ? Sinon, dites-le-moi simplement.",
+      "Bonjour à l'équipe de {lugar} 👋\n\nJe suis {yo}, de Rojo 87. Une proposition rapide : {hook}, sans rien installer.\n\nUne vidéo d'une minute vous intéresse ? Toute réponse me va, je n'insiste pas.",
+    ],
+  };
+  const M2 = {
+    es: "¡Gracias por responder, {lugar}! 🔴\n\nTe mando el video de 1 minuto y aquí está el sitio con todo: {site}\n\nTu prueba: *1 mes completo por {precio}*, con todo incluido: pedidos desde la mesa, luz roja para llamar al mesero, cocina en orden, reservas y tarjetas de lealtad. Sin aparatos y sin comisión.\n\nEscanea el QR que te envío o entra aquí; tu cuenta ya viene con el nombre de tu lugar:\n{trial}\n\nCuando la crees, te paso los datos para el pago de {precio} y la activo el mismo día. Cualquier duda, aquí estoy.",
+    en: "Thanks for getting back to me, {lugar}! 🔴\n\nHere's the 1-minute video, and the site with everything: {site}\n\nYour trial: *one full month for {precio}*, all included: ordering from the table, the red light to call a server, an organized kitchen, bookings and loyalty cards. No hardware, no commission.\n\nScan the QR I'm sending or sign up here; your account already has your restaurant's name:\n{trial}\n\nOnce it's created, I'll send you the details to pay the {precio} and activate it the same day. Any questions, I'm here.",
+    fr: "Merci pour votre réponse, {lugar} ! 🔴\n\nVoici la vidéo d'une minute et le site avec tous les détails : {site}\n\nVotre essai : *un mois complet pour {precio}*, tout compris : commande depuis la table, lumière rouge pour appeler le serveur, cuisine organisée, réservations et cartes de fidélité. Sans matériel, sans commission.\n\nScannez le QR que je vous envoie ou inscrivez-vous ici ; votre compte porte déjà le nom de votre établissement :\n{trial}\n\nUne fois le compte créé, je vous envoie les informations pour régler {precio} et je l'active le jour même. Je reste disponible.",
+  };
+
+  // ── Estado local
+  const KEY = "r87_prospectos_v1";
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+  let S = Object.assign({ cfg: { yo: "", limite: 20 }, p: {}, extra: [], pin: "" }, load());
+  const save = () => localStorage.setItem(KEY, JSON.stringify(S));
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  const today = () => new Date().toISOString().slice(0, 10);
+  const toast = (m) => { const t = $("#toast"); t.textContent = m; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 2400); };
+  const all = () => [...window.PROSPECTOS, ...S.extra];
+  const st = (id) => (S.p[id] ||= { estado: "nuevo", tel: "", nota: "", fechas: {} });
+  const hash = async (s) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode("r87:" + s)))].map((b) => b.toString(16).padStart(2, "0")).join("");
+
+  // ── Candado
+  const lockMode = () => {
+    const first = !S.pin;
+    $("#lockHint").textContent = first ? "Crea un PIN de 4 a 8 números para este navegador." : "Escribe tu PIN.";
+    $("#lockBtn").textContent = first ? "Crear PIN y entrar" : "Entrar";
+  };
+  $("#lockForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const h = await hash($("#pin").value);
+    if (!S.pin) { S.pin = h; save(); }
+    if (h !== S.pin) { $("#lockErr").textContent = "PIN incorrecto."; $("#pin").value = ""; return; }
+    sessionStorage.setItem("r87_open", "1");
+    open();
+  });
+  const open = () => { $("#lock").classList.add("hidden"); $("#app").classList.remove("hidden"); if (!S.cfg.yo) cfg(); render(); };
+  $("#btnLock").onclick = () => { sessionStorage.removeItem("r87_open"); location.reload(); };
+
+  // ── Teléfono internacional
+  const intl = (p) => {
+    let d = String(st(p.id).tel || p.tel || "").replace(/[^\d+]/g, "");
+    if (!d) return "";
+    if (d.startsWith("+")) return d.slice(1);
+    const cc = PAISES[p.pais]?.cc || "";
+    if (p.pais === "MX" && d.length === 10) return "52" + d;
+    if (p.pais === "US" && d.length === 10) return "1" + d;
+    return d.startsWith(cc) ? d : cc + d;
+  };
+
+  // ── Mensajes
+  const lang = (p) => PAISES[p.pais]?.lang || "es";
+  const fill = (tpl, p) => tpl.replace(/\{(\w+)\}/g, (_, k) => ({
+    lugar: p.lugar, ciudad: p.ciudad, yo: S.cfg.yo || "…", hook: HOOK[lang(p)][p.giro] || HOOK[lang(p)].resto,
+    precio: PAISES[p.pais]?.precio || "$1 USD", site: SITE + "?lang=" + lang(p), trial: trialUrl(p),
+  })[k] ?? "");
+  const trialUrl = (p) => TRIAL + "?lugar=" + encodeURIComponent(p.lugar) + "&giro=" + encodeURIComponent(p.giro);
+  const variant = (p, n) => { let h = 0; for (const c of p.id) h = (h * 31 + c.charCodeAt(0)) >>> 0; return (h + n) % M1[lang(p)].length; };
+
+  let cur = null;
+  const showMsg = (p, kind, n = 0) => {
+    cur = { p, kind, n };
+    const text = kind === 1 ? fill(M1[lang(p)][variant(p, n)], p) : fill(M2[lang(p)], p);
+    $("#msgTitle").textContent = (kind === 1 ? "Invitación · " : "Segundo mensaje · ") + p.lugar;
+    $("#msgSub").textContent = kind === 1 ? "Sin enlaces. Al abrir WhatsApp se marca como Invitado." : "Solo para quien dijo que sí. Envía también el QR y el tráiler.";
+    $("#msgText").textContent = text;
+    const tel = intl(p);
+    $("#msgOpen").href = "https://wa.me/" + tel + "?text=" + encodeURIComponent(text);
+    $("#msgOpen").classList.toggle("hidden", !tel);
+    $("#msgOther").classList.toggle("hidden", kind !== 1);
+    $("#qrBox").classList.toggle("hidden", kind !== 2);
+    if (kind === 2) drawQr(p);
+    $("#dlgMsg").showModal();
+  };
+  $("#msgOther").onclick = () => showMsg(cur.p, 1, cur.n + 1);
+  $("#msgClose").onclick = () => $("#dlgMsg").close();
+  $("#msgCopy").onclick = async () => { await navigator.clipboard.writeText($("#msgText").textContent); toast("Texto copiado"); mark(cur); };
+  $("#msgOpen").addEventListener("click", () => mark(cur));
+  const mark = ({ p, kind }) => {
+    const s = st(p.id);
+    if (kind === 1 && s.estado === "nuevo") { s.estado = "invitado"; s.fechas.invitado = today(); }
+    if (kind === 2 && ["nuevo", "invitado", "interesado"].includes(s.estado)) { s.estado = "enlace"; s.fechas.enlace = today(); }
+    save(); render();
+  };
+
+  // ── QR de la prueba
+  const drawQr = (p) => {
+    const c = $("#qrCanvas"), x = c.getContext("2d");
+    const qr = qrcode(0, "M"); qr.addData(trialUrl(p)); qr.make();
+    const n = qr.getModuleCount(), size = 480, cell = Math.floor(size / n), off = (600 - cell * n) / 2;
+    x.fillStyle = "#ffffff"; x.fillRect(0, 0, 600, 720);
+    x.fillStyle = "#0b0b0b";
+    for (let r = 0; r < n; r++) for (let k = 0; k < n; k++) if (qr.isDark(r, k)) x.fillRect(off + k * cell, 50 + r * cell, cell, cell);
+    x.fillStyle = "#e10600"; x.beginPath(); x.arc(300, 50 + (cell * n) / 2, 34, 0, 7); x.fill();
+    x.fillStyle = "#ffffff"; x.font = "bold 30px Anton, Impact"; x.textAlign = "center"; x.fillText("87", 300, 61 + (cell * n) / 2);
+    x.fillStyle = "#0b0b0b"; x.font = "34px Anton, Impact"; x.fillText("ROJO 87 · " + (lang(p) === "en" ? "1 MONTH FOR " : lang(p) === "fr" ? "1 MOIS POUR " : "1 MES POR ") + PAISES[p.pais].precio, 300, 600);
+    x.font = "600 24px Inter, sans-serif"; x.fillStyle = "#5f5a52"; x.fillText(p.lugar.slice(0, 40), 300, 645);
+  };
+  $("#qrDown").onclick = () => { const a = document.createElement("a"); a.href = $("#qrCanvas").toDataURL("image/png"); a.download = "rojo87-prueba-" + cur.p.id + ".png"; a.click(); };
+  $("#qrCopy").onclick = () => $("#qrCanvas").toBlob(async (b) => {
+    try { await navigator.clipboard.write([new ClipboardItem({ "image/png": b })]); toast("QR copiado: pégalo en el chat"); }
+    catch { toast("Tu navegador no deja copiar imágenes: usa Descargar"); }
+  });
+
+  // ── Filtros y lista
+  const opts = (sel, pairs, allLabel) => { sel.innerHTML = `<option value="">${allLabel}</option>` + pairs.map(([v, l]) => `<option value="${esc(v)}">${esc(l)}</option>`).join(""); };
+  const setupFilters = () => {
+    opts($("#fPais"), Object.entries(PAISES).map(([k, v]) => [k, v.n]), "Todos");
+    opts($("#fGiro"), Object.entries(GIROS), "Todos");
+    opts($("#fEstado"), Object.entries(ESTADOS).filter(([k]) => k !== "no"), "Activos (sin «no»)");
+    $("#fEstado").insertAdjacentHTML("beforeend", `<option value="no">No interesado</option>`);
+    const ciudades = () => opts($("#fCiudad"), [...new Set(all().filter((p) => !$("#fPais").value || p.pais === $("#fPais").value).map((p) => p.ciudad))].sort().map((c) => [c, c]), "Todas");
+    ciudades();
+    $("#fPais").addEventListener("change", ciudades);
+    ["#fQ", "#fPais", "#fCiudad", "#fGiro", "#fEstado", "#fTel"].forEach((s) => $(s).addEventListener("input", render));
+    opts($("#addPais"), Object.entries(PAISES).map(([k, v]) => [k, v.n]), "—"); $("#addPais").value = "MX";
+    opts($("#addGiro"), Object.entries(GIROS), "—"); $("#addGiro").value = "resto";
+  };
+
+  const render = () => {
+    const q = $("#fQ").value.trim().toLowerCase(), pais = $("#fPais").value, ciudad = $("#fCiudad").value, giro = $("#fGiro").value, est = $("#fEstado").value, conTel = $("#fTel").checked;
+    const rows = all().filter((p) => {
+      const s = st(p.id);
+      if (est ? s.estado !== est : s.estado === "no") return false;
+      if (pais && p.pais !== pais) return false;
+      if (ciudad && p.ciudad !== ciudad) return false;
+      if (giro && p.giro !== giro) return false;
+      if (conTel && !intl(p)) return false;
+      if (q && !(p.lugar + " " + p.ciudad).toLowerCase().includes(q)) return false;
+      return true;
+    });
+    $("#count").textContent = `${rows.length} lugares`;
+    $("#list").innerHTML = rows.map((p) => {
+      const s = st(p.id), tel = intl(p), maps = "https://www.google.com/maps/search/" + encodeURIComponent(p.lugar + " " + p.ciudad);
+      return `<article class="p" data-id="${esc(p.id)}">
+        <div><h3>${esc(p.lugar)}</h3>
+          <div class="meta"><span>${esc(p.ciudad)}, ${esc(PAISES[p.pais]?.n || p.pais)}</span><span class="tag">${esc(GIROS[p.giro] || p.giro)}</span><span class="st ${s.estado}">${ESTADOS[s.estado]}</span>${s.fechas.invitado ? `<span>invitado ${s.fechas.invitado}</span>` : ""}</div></div>
+        <div class="tel"><input data-tel placeholder="WhatsApp del lugar" value="${esc(s.tel || p.tel)}" inputmode="tel" aria-label="WhatsApp de ${esc(p.lugar)}" /><a class="btn sm" href="${maps}" target="_blank" rel="noopener" title="Buscar el teléfono en Google Maps">Maps</a></div>
+        <div class="acts">
+          <button class="btn sm red" data-m1 ${tel ? "" : "disabled title='Primero guarda su WhatsApp'"}>1 · Invitar</button>
+          <button class="btn sm" data-m2 ${tel ? "" : "disabled"}>2 · Enlace + QR</button>
+          <select data-st class="btn sm" aria-label="Estado">${Object.entries(ESTADOS).map(([k, v]) => `<option value="${k}" ${k === s.estado ? "selected" : ""}>${v}</option>`).join("")}</select>
+        </div>
+        ${s.nota || s.open ? `<div class="note"><textarea data-nota placeholder="Notas">${esc(s.nota)}</textarea></div>` : ""}
+      </article>`;
+    }).join("") || `<p style="color:var(--mute)">Nada con estos filtros.</p>`;
+    renderKpis();
+  };
+
+  const renderKpis = () => {
+    const list = all(), c = (e) => list.filter((p) => st(p.id).estado === e).length;
+    const sent = Object.values(S.p).filter((s) => s.fechas?.invitado === today()).length, lim = Number(S.cfg.limite) || 20;
+    $("#kpis").innerHTML = [["", "Lugares", list.length], ...Object.entries(ESTADOS).map(([k, v]) => [k, v, c(k)])]
+      .filter(([k]) => k !== "nuevo").map(([k, v, n]) => `<button class="kpi" data-k="${k}" aria-pressed="${$("#fEstado").value === k}"><b>${n}</b><span>${v}</span></button>`).join("");
+    $("#today").innerHTML = `<span>Invitaciones de hoy: <b>${sent}</b> de ${lim}</span><div class="bar"><i style="width:${Math.min(100, (sent / lim) * 100)}%"></i></div><span>${sent >= lim ? "Llegaste al límite de hoy. Sigue mañana." : `Te quedan ${lim - sent}.`}</span>`;
+    S.overLimit = sent >= lim;
+  };
+  $("#kpis").addEventListener("click", (e) => { const b = e.target.closest(".kpi"); if (!b) return; $("#fEstado").value = $("#fEstado").value === b.dataset.k ? "" : b.dataset.k; render(); });
+
+  const byId = (id) => all().find((p) => p.id === id);
+  $("#list").addEventListener("click", (e) => {
+    const card = e.target.closest(".p"); if (!card) return;
+    const p = byId(card.dataset.id);
+    if (e.target.closest("[data-m1]")) {
+      if (S.overLimit && st(p.id).estado === "nuevo") { toast("Ya llegaste al límite de invitaciones de hoy"); return; }
+      showMsg(p, 1);
+    }
+    if (e.target.closest("[data-m2]")) showMsg(p, 2);
+    if (e.target.closest("h3")) { st(p.id).open = !st(p.id).open; save(); render(); }
+  });
+  $("#list").addEventListener("change", (e) => {
+    const card = e.target.closest(".p"); if (!card) return;
+    const s = st(card.dataset.id);
+    if (e.target.matches("[data-tel]")) { s.tel = e.target.value.trim(); save(); render(); toast("WhatsApp guardado"); }
+    if (e.target.matches("[data-st]")) { s.estado = e.target.value; s.fechas[s.estado] = today(); save(); render(); }
+    if (e.target.matches("[data-nota]")) { s.nota = e.target.value; save(); }
+  });
+
+  // ── Agregar, ajustes, respaldo
+  $("#btnAdd").onclick = () => $("#dlgAdd").showModal();
+  $("#addForm").addEventListener("submit", (e) => {
+    if (e.submitter?.value !== "ok") return;
+    const f = Object.fromEntries(new FormData(e.target));
+    const id = "x-" + Date.now().toString(36);
+    S.extra.push({ id, lugar: f.lugar.trim(), ciudad: f.ciudad.trim(), pais: f.pais, giro: f.giro, tel: "" });
+    st(id).tel = f.tel.trim(); save(); e.target.reset(); setupFilters(); render(); toast("Lugar agregado");
+  });
+  const cfg = () => { const f = $("#cfgForm"); f.yo.value = S.cfg.yo; f.limite.value = S.cfg.limite; $("#dlgCfg").showModal(); };
+  $("#btnCfg").onclick = cfg;
+  $("#cfgForm").addEventListener("submit", (e) => {
+    if (e.submitter?.value !== "ok") return;
+    const f = e.target; S.cfg.yo = f.yo.value.trim(); S.cfg.limite = Math.max(1, Number(f.limite.value) || 20); save(); render();
+  });
+  $("#btnExport").onclick = () => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify({ ...S, pin: undefined }, null, 1)], { type: "application/json" }));
+    a.download = "rojo87-prospectos-" + today() + ".json"; a.click();
+  };
+  $("#fileImport").onchange = async (e) => {
+    try { const d = JSON.parse(await e.target.files[0].text()); S = { ...S, cfg: d.cfg || S.cfg, p: d.p || {}, extra: d.extra || [] }; save(); setupFilters(); render(); toast("Datos restaurados"); }
+    catch { toast("Ese archivo no es un respaldo válido"); }
+  };
+  $("#btnPin").onclick = () => { S.pin = ""; save(); sessionStorage.removeItem("r87_open"); location.reload(); };
+
+  setupFilters();
+  lockMode();
+  if (sessionStorage.getItem("r87_open") && S.pin) open();
+})();
+</script>
+</body>
+</html>

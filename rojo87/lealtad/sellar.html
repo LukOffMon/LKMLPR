@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Rojo 87 · Sellar</title>
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest" href="sellar.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script>try{var t=localStorage.getItem("r87_theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="logo-r87" href="./">ROJO<b>87</b></a>
+      <div class="row" style="gap:4px">
+        <div data-theme-picker></div>
+        <span id="who" class="pill hidden"></span>
+        <button id="logout" class="btn sm ghost hidden" type="button">Salir</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="narrow stack">
+    <!-- Acceso del personal -->
+    <section id="loginView" class="hidden stack">
+      <p class="eyebrow" style="margin-top:12px">Modo mostrador</p>
+      <h1 style="font-size:2.2rem">Sella visitas en segundos.</h1>
+      <p class="mute">Entra con el código del negocio y el PIN que te dio el dueño.</p>
+      <form id="loginForm" class="card-box stack">
+        <label class="field"><span>Código del negocio</span><input name="slug" autocapitalize="none" autocomplete="off" required placeholder="ej. taqueria-don-luis" /></label>
+        <label class="field"><span>PIN del personal</span><input name="pin" type="password" inputmode="numeric" pattern="\d*" maxlength="8" required placeholder="••••" /></label>
+        <label class="field"><span>Tu nombre</span><input name="staff_name" maxlength="40" placeholder="Para saber quién selló" /></label>
+        <div id="loginErr" class="alert hidden"></div>
+        <button class="btn gold block" type="submit">Entrar</button>
+      </form>
+      <p class="mute small center">¿Eres el dueño? Si ya iniciaste sesión en el <a href="panel.html">panel</a>, entras directo.</p>
+    </section>
+
+    <!-- Escáner -->
+    <section id="scanView" class="hidden stack">
+      <div class="row" style="margin-top:4px"><h2 class="grow" style="font-size:1.5rem" id="bizName">Escanear tarjeta</h2></div>
+      <div class="scanner" id="scanner">
+        <video id="video" playsinline muted></video>
+        <div class="frame"></div>
+        <div class="msg" id="scanMsg">Apunta al código QR de la tarjeta</div>
+      </div>
+      <button id="startCam" class="btn gold block hidden" type="button">Activar cámara</button>
+      <form id="manualForm" class="row">
+        <input class="grow" name="code" placeholder="Teléfono del cliente o código" autocomplete="off" style="flex:1;min-width:0" />
+        <button class="btn" type="submit">Buscar</button>
+      </form>
+      <p class="mute small center">Si el cliente no trae su tarjeta, búscalo por su número de celular.</p>
+    </section>
+  </main>
+
+  <div class="backdrop" id="backdrop"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetName">
+    <div id="sheetBody" class="stack"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const params = new URLSearchParams(location.search);
+    let token = R87.store("r87_staff_token") || R87.store("r87_owner_token");
+    let stream = null, scanning = false, busy = false, current = null;
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const detector = "BarcodeDetector" in window ? new BarcodeDetector({ formats: ["qr_code"] }) : null;
+
+    async function boot() {
+      if (!token) return showLogin();
+      try {
+        const me = await R87.api("/me", { token });
+        $("bizName").textContent = me.merchant.name;
+        $("who").textContent = me.role === "owner" ? "Dueño" : "Personal";
+        $("who").classList.remove("hidden");
+        $("logout").classList.remove("hidden");
+        $("loginView").classList.add("hidden");
+        $("scanView").classList.remove("hidden");
+        startCamera();
+      } catch (e) {
+        if (e.status === 401) {
+          R87.store(R87.store("r87_staff_token") ? "r87_staff_token" : "r87_owner_token", null);
+          token = null;
+          return showLogin();
+        }
+        R87.toast(e.message);
+      }
+    }
+
+    function showLogin() {
+      $("loginView").classList.remove("hidden");
+      $("scanView").classList.add("hidden");
+      if (params.get("m")) $("loginForm").slug.value = params.get("m");
+    }
+
+    $("loginForm").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const f = ev.target, btn = f.querySelector("button");
+      btn.disabled = true;
+      $("loginErr").classList.add("hidden");
+      try {
+        const r = await R87.api("/staff-login", { method: "POST", body: { slug: f.slug.value.trim(), pin: f.pin.value, staff_name: f.staff_name.value } });
+        R87.store("r87_staff_token", r.token);
+        token = r.token;
+        boot();
+      } catch (e) {
+        $("loginErr").textContent = e.message;
+        $("loginErr").classList.remove("hidden");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    $("logout").addEventListener("click", async () => {
+      if (R87.store("r87_staff_token")) {
+        await R87.api("/logout", { method: "POST", token }).catch(() => {});
+        R87.store("r87_staff_token", null);
+      }
+      location.href = R87.store("r87_owner_token") ? "panel.html" : "sellar.html";
+    });
+
+    // ----- Cámara -----
+    async function startCamera() {
+      if (!navigator.mediaDevices?.getUserMedia) {
+        $("scanMsg").textContent = "Este navegador no permite usar la cámara. Busca por teléfono.";
+        return;
+      }
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+        $("video").srcObject = stream;
+        await $("video").play();
+        $("startCam").classList.add("hidden");
+        scanning = true;
+        requestAnimationFrame(tick);
+      } catch (e) {
+        $("scanMsg").textContent = "Permite el acceso a la cámara para escanear.";
+        $("startCam").classList.remove("hidden");
+      }
+    }
+    $("startCam").addEventListener("click", startCamera);
+
+    let lastScan = 0;
+    async function tick() {
+      if (!scanning) return;
+      const v = $("video");
+      if (!busy && v.readyState >= 2 && Date.now() - lastScan > 180) {
+        lastScan = Date.now();
+        let text = null;
+        try {
+          if (detector) {
+            const codes = await detector.detect(v);
+            text = codes[0]?.rawValue ?? null;
+          } else if (window.jsQR) {
+            const w = 480, h = Math.round((v.videoHeight / v.videoWidth) * 480) || 640;
+            canvas.width = w; canvas.height = h;
+            ctx.drawImage(v, 0, 0, w, h);
+            const img = ctx.getImageData(0, 0, w, h);
+            text = jsQR(img.data, w, h, { inversionAttempts: "dontInvert" })?.data ?? null;
+          }
+        } catch (_) {}
+        if (text) await handleCode(text);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    $("manualForm").addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      const code = ev.target.code.value.trim();
+      if (code) handleCode(code);
+    });
+
+    async function handleCode(code) {
+      if (busy) return;
+      busy = true;
+      if (navigator.vibrate) navigator.vibrate(40);
+      try {
+        const r = await R87.api(`/lookup?code=${encodeURIComponent(code)}`, { token });
+        current = r;
+        showCustomer();
+      } catch (e) {
+        R87.toast(e.message);
+        setTimeout(() => (busy = false), 1500);
+      }
+    }
+
+    // ----- Hoja de acciones -----
+    function openSheet(html) {
+      $("sheetBody").innerHTML = html;
+      $("sheet").classList.add("open");
+      $("backdrop").classList.add("open");
+    }
+    function closeSheet() {
+      $("sheet").classList.remove("open");
+      $("backdrop").classList.remove("open");
+      current = null;
+      $("manualForm").code.value = "";
+      setTimeout(() => (busy = false), 600);
+    }
+    $("backdrop").addEventListener("click", closeSheet);
+
+    function showCustomer() {
+      const c = current.customer, req = current.stamps_required;
+      openSheet(`
+        
+        <h2 id="sheetName" style="font-size:1.7rem">${R87.esc(c.name)}</h2>
+        <div class="row">
+          <span class="pill gold">${c.stamps} de ${req} sellos</span>
+          ${c.rewards_available ? `<span class="pill ok">${c.rewards_available} premio(s)</span>` : ""}
+          <span class="pill">Última visita: ${R87.ago(c.last_visit_at)}</span>
+        </div>
+        <button class="btn gold block" id="doStamp" style="min-height:60px;font-size:1.1rem">+1 sello</button>
+        ${c.rewards_available ? `<button class="btn block" id="doRedeem">Canjear premio: ${R87.esc(current.reward_text)}</button>` : ""}
+        <button class="btn ghost block" id="cancel">Cancelar</button>`);
+      $("doStamp").onclick = () => doStamp(false);
+      if ($("doRedeem")) $("doRedeem").onclick = doRedeem;
+      $("cancel").onclick = closeSheet;
+    }
+
+    async function doStamp(force) {
+      const btn = $("doStamp");
+      if (btn) btn.disabled = true;
+      try {
+        const r = await R87.api("/stamp", { method: "POST", token, body: { code: current.customer.serial, force } });
+        if (r.cooldown) {
+          openSheet(`
+            <div class="big-check wait" aria-hidden="true">!</div>
+            <h2 style="font-size:1.5rem">Ya se selló hace ${r.minutes_ago} min</h2>
+            <p class="mute">Para evitar sellos dobles, confirma que es una visita nueva.</p>
+            <button class="btn gold block" id="force">Sí, es otra visita</button>
+            <button class="btn ghost block" id="cancel">Cancelar</button>`);
+          $("force").onclick = () => doStamp(true);
+          $("cancel").onclick = closeSheet;
+          return;
+        }
+        if (navigator.vibrate) navigator.vibrate([80, 50, 80]);
+        const c = r.customer;
+        openSheet(`
+          <div class="big-check" aria-hidden="true">${R87.stampSvg(0)}</div>
+          <h2 style="font-size:1.6rem">${r.unlocked ? "¡Premio desbloqueado!" : "Sello agregado"}</h2>
+          <p class="mute">${R87.esc(c.name)} lleva ${c.stamps} de ${r.stamps_required} sellos.${c.rewards_available ? ` Tiene ${c.rewards_available} premio(s) por canjear.` : ""}</p>
+          ${r.reactivated ? `<div class="note">Cliente recuperado: llevaba tiempo sin venir.</div>` : ""}
+          <button class="btn gold block" id="next">Siguiente cliente</button>`);
+        $("next").onclick = closeSheet;
+        setTimeout(() => $("sheet").classList.contains("open") && $("next") && closeSheet(), 4000);
+      } catch (e) {
+        R87.toast(e.message);
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    async function doRedeem() {
+      const btn = $("doRedeem");
+      btn.disabled = true;
+      try {
+        const r = await R87.api("/redeem", { method: "POST", token, body: { code: current.customer.serial } });
+        openSheet(`
+          <div class="big-check" aria-hidden="true">${R87.stampSvg(3)}</div>
+          <h2 style="font-size:1.6rem">Premio canjeado</h2>
+          <p class="mute">Entrega: <b style="color:var(--text)">${R87.esc(current.reward_text)}</b> a ${R87.esc(r.customer.name)}.</p>
+          <button class="btn gold block" id="next">Listo</button>`);
+        $("next").onclick = closeSheet;
+      } catch (e) {
+        R87.toast(e.message);
+        btn.disabled = false;
+      }
+    }
+
+    document.querySelectorAll("[data-theme-picker]").forEach(R87.mountThemePicker);
+    boot();
+  </script>
+</body>
+</html>

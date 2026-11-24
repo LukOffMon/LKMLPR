@@ -1,0 +1,24 @@
+# Rojo 87 · Regreso (tarjetas de lealtad)
+
+> Luz 5 de Rojo 87, la app para restaurantes, bares y cafés que une reservas, carta, pedidos desde la mesa, cocina en orden y la "luz roja" para llamar al mesero. Esta parte es la lealtad: tarjetas de sellos en Apple Wallet, Google Wallet o como tarjeta web, sin que el cliente descargue ninguna app.
+
+## Cómo funciona
+
+- El cliente escanea el QR del mostrador, escribe su nombre y celular y guarda su tarjeta.
+- El equipo sella desde su celular escaneando la tarjeta, con el código del negocio y un PIN.
+- Al juntar los sellos se desbloquea el premio (por ejemplo, 8 sellos = postre gratis).
+- El dueño ve clientes, visitas, clientes inactivos e ingresos recuperados.
+- Campañas a la tarjeta, solo para clientes que aceptaron promociones.
+- Recordatorio por cercanía en Apple Wallet; Rojo 87 nunca recibe la ubicación del cliente.
+
+## Precio
+
+- Incluida en los planes Completo ($1,290 MXN al mes) y Cadena ($990 MXN por sucursal al mes).
+- Primer mes por $1 USD ($20 MXN) con todas las luces.
+- Sin comisión por pedido y sin plazo forzoso.
+
+## Enlaces
+
+- Sitio de Rojo 87: https://lukoffmon.github.io/LKMLPR/rojo87/
+- Lealtad: https://lukoffmon.github.io/LKMLPR/rojo87/lealtad/
+- Aviso de privacidad: https://lukoffmon.github.io/LKMLPR/rojo87/lealtad/aviso.html

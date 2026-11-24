@@ -79,6 +79,9 @@ body.is-loading { animation: unlock 0s 5s forwards; }
 .nav__links a { white-space: nowrap; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
 .nav__links a:hover { opacity: 1; color: var(--rojo-2); }
 .nav__right { display: flex; align-items: center; gap: 14px; }
+.nav__panel { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; opacity: .85; white-space: nowrap; }
+.nav__panel:hover { color: var(--rojo-2); opacity: 1; }
+@media (max-width: 760px) { .nav__panel { display: none; } }
 .lang { display: flex; border: 1px solid rgba(239,233,223,.3); border-radius: 99px; padding: 3px; }
 .lang button { background: none; border: 0; padding: 5px 10px; border-radius: 99px; font-size: 12px; font-weight: 700; letter-spacing: .04em; }
 .lang button[aria-pressed="true"] { background: var(--hueso); color: var(--ink); }

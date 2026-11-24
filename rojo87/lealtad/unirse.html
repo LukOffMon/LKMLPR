@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Tu tarjeta de lealtad</title>
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <main class="narrow stack">
+    <div id="loading" class="center mute" style="padding:80px 0">Cargando…</div>
+    <div id="notfound" class="hidden center stack" style="padding:80px 0">
+      <h1>Negocio no encontrado</h1>
+      <p class="mute">Revisa que el código QR sea el correcto.</p>
+    </div>
+    <section id="view" class="hidden stack">
+      <p class="eyebrow center" style="margin-top:8px">Tarjeta de lealtad</p>
+      <h1 class="center" style="font-size:2rem">Únete a <em id="mname"></em></h1>
+      <p class="center mute">Junta sellos en cada visita y gana <b id="mreward" style="color:var(--text)"></b>. Sin descargar ninguna app.</p>
+      <div id="preview" style="margin:20px 0 8px"></div>
+      <form id="form" class="card-box stack" novalidate>
+        <label class="field"><span>Tu nombre</span><input name="name" autocomplete="name" required maxlength="60" placeholder="Ej. Marco Pérez" /></label>
+        <label class="field"><span>Tu celular</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="10 dígitos" /></label>
+        <label class="field"><span>Correo (opcional)</span><input name="email" type="email" autocomplete="email" placeholder="tu@correo.com" /></label>
+        <label class="check"><input type="checkbox" name="marketing_opt_in" /> Quiero recibir recordatorios y promociones de este negocio en mi tarjeta. Puedo cancelarlo cuando quiera.</label>
+        <label class="check"><input type="checkbox" name="accept_terms" required /> <span>Acepto el <a href="aviso.html" target="_blank">aviso de privacidad</a>.</span></label>
+        <div id="err" class="alert hidden"></div>
+        <button class="btn gold block" type="submit">Obtener mi tarjeta</button>
+      </form>
+      <p class="center mute small">Tarjeta digital creada con <a href="../">Rojo 87</a></p>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    const slug = new URLSearchParams(location.search).get("m");
+    const $ = (id) => document.getElementById(id);
+
+    async function init() {
+      if (!slug) return showNotFound();
+      // Si ya tiene tarjeta en este teléfono, lo mandamos directo.
+      const saved = R87.store(`r87_card_${slug}`);
+      if (saved) return location.replace(`tarjeta.html?s=${encodeURIComponent(saved)}`);
+      try {
+        const { merchant } = await R87.api(`/public/m/${encodeURIComponent(slug)}`);
+        if (!merchant.accepting) {
+          $("loading").classList.add("hidden");
+          $("notfound").querySelector("h1").textContent = `${merchant.name} no está entregando tarjetas por ahora`;
+          $("notfound").querySelector("p").textContent = "Pregunta en el negocio cuándo vuelve a estar disponible.";
+          return $("notfound").classList.remove("hidden");
+        }
+        document.title = `Tarjeta de ${merchant.name}`;
+        $("mname").textContent = merchant.name;
+        $("mreward").textContent = merchant.reward_text.toLowerCase();
+        R87.applyPageTheme(merchant);
+        R87.renderCard($("preview"), merchant, null, { qr: false });
+        $("loading").classList.add("hidden");
+        $("view").classList.remove("hidden");
+      } catch (e) {
+        showNotFound();
+      }
+    }
+    function showNotFound() {
+      $("loading").classList.add("hidden");
+      $("notfound").classList.remove("hidden");
+    }
+
+    $("form").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const f = ev.target;
+      const btn = f.querySelector("button");
+      $("err").classList.add("hidden");
+      if (!f.accept_terms.checked) {
+        $("err").textContent = "Acepta el aviso de privacidad para continuar.";
+        return $("err").classList.remove("hidden");
+      }
+      btn.disabled = true;
+      btn.textContent = "Creando tu tarjeta…";
+      try {
+        const { serial } = await R87.api(`/public/m/${encodeURIComponent(slug)}/join`, {
+          method: "POST",
+          body: {
+            name: f.name.value,
+            phone: f.phone.value,
+            email: f.email.value,
+            marketing_opt_in: f.marketing_opt_in.checked,
+            accept_terms: true,
+          },
+        });
+        R87.store(`r87_card_${slug}`, serial);
+        location.replace(`tarjeta.html?s=${encodeURIComponent(serial)}&nueva=1`);
+      } catch (e) {
+        $("err").textContent = e.message;
+        $("err").classList.remove("hidden");
+        btn.disabled = false;
+        btn.textContent = "Obtener mi tarjeta";
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>

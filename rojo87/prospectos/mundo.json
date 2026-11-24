@@ -1,0 +1,1091 @@
+{
+ "nota": "Lugares conocidos por país, sin teléfono: se busca en Google Maps desde el panel y se guarda ahí. Verifica que sigan abiertos antes de escribir.",
+ "lugares": [
+  {
+   "lugar": "Contramar",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "El Califa",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Taquería Los Cocuyos",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Café de Tacuba",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "El Cardenal",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Rosetta",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Pujol",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Máximo",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "El Turix",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Bar La Ópera",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Salón Ríos",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Casa Oaxaca",
+   "ciudad": "Oaxaca",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Las Quince Letras",
+   "ciudad": "Oaxaca",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Alcalde",
+   "ciudad": "Guadalajara",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Karne Garibaldi",
+   "ciudad": "Guadalajara",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "El Rey del Cabrito",
+   "ciudad": "Monterrey",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Pangea",
+   "ciudad": "Monterrey",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "La Chaya Maya",
+   "ciudad": "Mérida",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Tacos El Franc",
+   "ciudad": "Tijuana",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Caesar's",
+   "ciudad": "Tijuana",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "El Mural de los Poblanos",
+   "ciudad": "Puebla",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Katz's Delicatessen",
+   "ciudad": "New York",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Joe's Pizza",
+   "ciudad": "New York",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Russ & Daughters Cafe",
+   "ciudad": "New York",
+   "pais": "US",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Los Tacos No. 1",
+   "ciudad": "New York",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Peter Luger Steak House",
+   "ciudad": "New York",
+   "pais": "US",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Guelaguetza",
+   "ciudad": "Los Angeles",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Langer's Delicatessen",
+   "ciudad": "Los Angeles",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Howlin' Ray's",
+   "ciudad": "Los Angeles",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "République",
+   "ciudad": "Los Angeles",
+   "pais": "US",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Lou Malnati's Pizzeria",
+   "ciudad": "Chicago",
+   "pais": "US",
+   "giro": "cadena"
+  },
+  {
+   "lugar": "Au Cheval",
+   "ciudad": "Chicago",
+   "pais": "US",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Girl & the Goat",
+   "ciudad": "Chicago",
+   "pais": "US",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Ninfa's on Navigation",
+   "ciudad": "Houston",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Killen's Barbecue",
+   "ciudad": "Houston",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Mi Tierra Café y Panadería",
+   "ciudad": "San Antonio",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Franklin Barbecue",
+   "ciudad": "Austin",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Veracruz All Natural",
+   "ciudad": "Austin",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Versailles Restaurant",
+   "ciudad": "Miami",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Joe's Stone Crab",
+   "ciudad": "Miami",
+   "pais": "US",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Sobrino de Botín",
+   "ciudad": "Madrid",
+   "pais": "ES",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Casa Lucio",
+   "ciudad": "Madrid",
+   "pais": "ES",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Chocolatería San Ginés",
+   "ciudad": "Madrid",
+   "pais": "ES",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Casa Labra",
+   "ciudad": "Madrid",
+   "pais": "ES",
+   "giro": "bar"
+  },
+  {
+   "lugar": "El Xampanyet",
+   "ciudad": "Barcelona",
+   "pais": "ES",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Cal Pep",
+   "ciudad": "Barcelona",
+   "pais": "ES",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Bar Cañete",
+   "ciudad": "Barcelona",
+   "pais": "ES",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Els Quatre Gats",
+   "ciudad": "Barcelona",
+   "pais": "ES",
+   "giro": "resto"
+  },
+  {
+   "lugar": "El Rinconcillo",
+   "ciudad": "Sevilla",
+   "pais": "ES",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Bar Nestor",
+   "ciudad": "San Sebastián",
+   "pais": "ES",
+   "giro": "bar"
+  },
+  {
+   "lugar": "La Cuchara de San Telmo",
+   "ciudad": "San Sebastián",
+   "pais": "ES",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Bouillon Chartier",
+   "ciudad": "Paris",
+   "pais": "FR",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Le Comptoir du Relais",
+   "ciudad": "Paris",
+   "pais": "FR",
+   "giro": "resto"
+  },
+  {
+   "lugar": "L'As du Fallafel",
+   "ciudad": "Paris",
+   "pais": "FR",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Café de Flore",
+   "ciudad": "Paris",
+   "pais": "FR",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Le Train Bleu",
+   "ciudad": "Paris",
+   "pais": "FR",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Andrés Carne de Res",
+   "ciudad": "Chía",
+   "pais": "CO",
+   "giro": "bar"
+  },
+  {
+   "lugar": "La Puerta Falsa",
+   "ciudad": "Bogotá",
+   "pais": "CO",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "El Chato",
+   "ciudad": "Bogotá",
+   "pais": "CO",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Hacienda",
+   "ciudad": "Medellín",
+   "pais": "CO",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Carmen",
+   "ciudad": "Medellín",
+   "pais": "CO",
+   "giro": "alta"
+  },
+  {
+   "lugar": "La Cevichería",
+   "ciudad": "Cartagena",
+   "pais": "CO",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Celele",
+   "ciudad": "Cartagena",
+   "pais": "CO",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Don Julio",
+   "ciudad": "Buenos Aires",
+   "pais": "AR",
+   "giro": "alta"
+  },
+  {
+   "lugar": "El Preferido de Palermo",
+   "ciudad": "Buenos Aires",
+   "pais": "AR",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Café Tortoni",
+   "ciudad": "Buenos Aires",
+   "pais": "AR",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "El Cuartito",
+   "ciudad": "Buenos Aires",
+   "pais": "AR",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Central",
+   "ciudad": "Lima",
+   "pais": "PE",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Maido",
+   "ciudad": "Lima",
+   "pais": "PE",
+   "giro": "alta"
+  },
+  {
+   "lugar": "La Mar Cebichería",
+   "ciudad": "Lima",
+   "pais": "PE",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Isolina Taberna Peruana",
+   "ciudad": "Lima",
+   "pais": "PE",
+   "giro": "resto"
+  },
+  {
+   "lugar": "El Chinito",
+   "ciudad": "Lima",
+   "pais": "PE",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Liguria",
+   "ciudad": "Santiago",
+   "pais": "CL",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Fuente Alemana",
+   "ciudad": "Santiago",
+   "pais": "CL",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Boragó",
+   "ciudad": "Santiago",
+   "pais": "CL",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Taquería El Greco",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Tacos Los Parados",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "El Huequito",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Fonda Fina",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Lardo",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Quintonil",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Sud 777",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Nicos",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Azul Histórico",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Licorería Limantour",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Baltra Bar",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Café Avellaneda",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Churrería El Moro",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "cadena"
+  },
+  {
+   "lugar": "La Docena",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Mercado Roma",
+   "ciudad": "Ciudad de México",
+   "pais": "MX",
+   "giro": "cadena"
+  },
+  {
+   "lugar": "Hueso",
+   "ciudad": "Guadalajara",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "La Chata",
+   "ciudad": "Guadalajara",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Tortas Ahogadas José El de la Bicicleta",
+   "ciudad": "Guadalajara",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Cantina La Fuente",
+   "ciudad": "Guadalajara",
+   "pais": "MX",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Koli Cocina de Origen",
+   "ciudad": "Monterrey",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Tacos Juanito",
+   "ciudad": "Monterrey",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "El Gran Pastor",
+   "ciudad": "Monterrey",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "La Nacional",
+   "ciudad": "Monterrey",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Café Brasil",
+   "ciudad": "Monterrey",
+   "pais": "MX",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Manzanilla",
+   "ciudad": "Ensenada",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "La Guerrerense",
+   "ciudad": "Ensenada",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Deckman's en El Mogor",
+   "ciudad": "Valle de Guadalupe",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Fauna",
+   "ciudad": "Valle de Guadalupe",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Criollo",
+   "ciudad": "Oaxaca",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Levadura de Olla",
+   "ciudad": "Oaxaca",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Mezcalería In Situ",
+   "ciudad": "Oaxaca",
+   "pais": "MX",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Néctar",
+   "ciudad": "Mérida",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Manjar Blanco",
+   "ciudad": "Mérida",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "La Negrita Cantina",
+   "ciudad": "Mérida",
+   "pais": "MX",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Harry's",
+   "ciudad": "Cancún",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "La Habichuela",
+   "ciudad": "Cancún",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "El Fish Fritanga",
+   "ciudad": "Cancún",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Hartwood",
+   "ciudad": "Tulum",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Taquería Honorio",
+   "ciudad": "Tulum",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Café Tito",
+   "ciudad": "Puerto Vallarta",
+   "pais": "MX",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Café des Artistes",
+   "ciudad": "Puerto Vallarta",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Pancho's Takos",
+   "ciudad": "Puerto Vallarta",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "La Casa de la Marquesa",
+   "ciudad": "Querétaro",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Café del Fondo",
+   "ciudad": "Querétaro",
+   "pais": "MX",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "La Casa del Mendrugo",
+   "ciudad": "Puebla",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Fonda de Santa Clara",
+   "ciudad": "Puebla",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Augurio",
+   "ciudad": "Puebla",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "La Posada del Virrey",
+   "ciudad": "San Luis Potosí",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Los Arcos",
+   "ciudad": "Culiacán",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Mariscos El Güero",
+   "ciudad": "Mazatlán",
+   "pais": "MX",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Pedro y Pablo",
+   "ciudad": "Mazatlán",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Mi Tierra (Bar)",
+   "ciudad": "León",
+   "pais": "MX",
+   "giro": "bar"
+  },
+  {
+   "lugar": "La Martina",
+   "ciudad": "San Miguel de Allende",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "The Restaurant",
+   "ciudad": "San Miguel de Allende",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Café Tacuba",
+   "ciudad": "Morelia",
+   "pais": "MX",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Lu Cocina Michoacana",
+   "ciudad": "Morelia",
+   "pais": "MX",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Mi Tocaya Antojería",
+   "ciudad": "Chicago",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Big Star",
+   "ciudad": "Chicago",
+   "pais": "US",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Carnitas Uruapan",
+   "ciudad": "Chicago",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Sonoratown",
+   "ciudad": "Los Angeles",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Gish Bac",
+   "ciudad": "Los Angeles",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Leo's Tacos Truck",
+   "ciudad": "Los Angeles",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Cosme",
+   "ciudad": "New York",
+   "pais": "US",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Taqueria Ramirez",
+   "ciudad": "New York",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Atla",
+   "ciudad": "New York",
+   "pais": "US",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Xochi",
+   "ciudad": "Houston",
+   "pais": "US",
+   "giro": "alta"
+  },
+  {
+   "lugar": "The Original Ninfa's",
+   "ciudad": "Houston",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "La Calle Tacos",
+   "ciudad": "Houston",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Rosario's",
+   "ciudad": "San Antonio",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Ro-Ho Pizza",
+   "ciudad": "San Antonio",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Suerte",
+   "ciudad": "Austin",
+   "pais": "US",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Valentina's Tex Mex BBQ",
+   "ciudad": "Austin",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Garcia's Seafood Grille",
+   "ciudad": "Miami",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Ball & Chain",
+   "ciudad": "Miami",
+   "pais": "US",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Bacanora",
+   "ciudad": "Phoenix",
+   "pais": "US",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Pizzeria Bianco",
+   "ciudad": "Phoenix",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Tacos El Gordo",
+   "ciudad": "Las Vegas",
+   "pais": "US",
+   "giro": "cadena"
+  },
+  {
+   "lugar": "Lotus of Siam",
+   "ciudad": "Las Vegas",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Las Cuatro Milpas",
+   "ciudad": "San Diego",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Oscars Mexican Seafood",
+   "ciudad": "San Diego",
+   "pais": "US",
+   "giro": "cadena"
+  },
+  {
+   "lugar": "La Taqueria",
+   "ciudad": "San Francisco",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Zuni Café",
+   "ciudad": "San Francisco",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Revolver Taco Lounge",
+   "ciudad": "Dallas",
+   "pais": "US",
+   "giro": "fonda"
+  },
+  {
+   "lugar": "Meso Maya",
+   "ciudad": "Dallas",
+   "pais": "US",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Frontera Grill",
+   "ciudad": "Chicago",
+   "pais": "US",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Topolobampo",
+   "ciudad": "Chicago",
+   "pais": "US",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Casa Mono",
+   "ciudad": "Madrid",
+   "pais": "ES",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Punto MX",
+   "ciudad": "Madrid",
+   "pais": "ES",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Taberna La Bola",
+   "ciudad": "Madrid",
+   "pais": "ES",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Bodega de la Ardosa",
+   "ciudad": "Madrid",
+   "pais": "ES",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Can Culleretes",
+   "ciudad": "Barcelona",
+   "pais": "ES",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Bar del Pla",
+   "ciudad": "Barcelona",
+   "pais": "ES",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Casa Montaña",
+   "ciudad": "Valencia",
+   "pais": "ES",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Casa Carmela",
+   "ciudad": "Valencia",
+   "pais": "ES",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Le Bouillon Pigalle",
+   "ciudad": "Paris",
+   "pais": "FR",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Breizh Café",
+   "ciudad": "Paris",
+   "pais": "FR",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Candelaria",
+   "ciudad": "Paris",
+   "pais": "FR",
+   "giro": "bar"
+  },
+  {
+   "lugar": "Leo Cocina y Cava",
+   "ciudad": "Bogotá",
+   "pais": "CO",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Abasto",
+   "ciudad": "Bogotá",
+   "pais": "CO",
+   "giro": "cafe"
+  },
+  {
+   "lugar": "Parrilla Don Julio",
+   "ciudad": "Buenos Aires",
+   "pais": "AR",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Bar El Federal",
+   "ciudad": "Buenos Aires",
+   "pais": "AR",
+   "giro": "bar"
+  },
+  {
+   "lugar": "La Cabrera",
+   "ciudad": "Buenos Aires",
+   "pais": "AR",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Panchita",
+   "ciudad": "Lima",
+   "pais": "PE",
+   "giro": "resto"
+  },
+  {
+   "lugar": "Kjolle",
+   "ciudad": "Lima",
+   "pais": "PE",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Peumayén",
+   "ciudad": "Santiago",
+   "pais": "CL",
+   "giro": "alta"
+  },
+  {
+   "lugar": "Bar The Clinic",
+   "ciudad": "Santiago",
+   "pais": "CL",
+   "giro": "bar"
+  }
+ ]
+}

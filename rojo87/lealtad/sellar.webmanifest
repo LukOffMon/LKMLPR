@@ -1,0 +1,9 @@
+{
+  "name": "Rojo 87 · Sellar",
+  "short_name": "Rojo 87",
+  "start_url": "sellar.html",
+  "display": "standalone",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
+  "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+}

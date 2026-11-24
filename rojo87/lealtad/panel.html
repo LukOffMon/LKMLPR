@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Rojo 87 · Panel</title>
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script>try{var t=localStorage.getItem("r87_theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <style>
+    .poster { display: none; }
+    @media print {
+      .poster { display: flex !important; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 100vh; gap: 18px; font-family: Archivo, sans-serif; }
+      .poster h1 { font-size: 40pt; color: #000; }
+      .poster p { font-size: 16pt; color: #333; }
+      .poster .pq svg { width: 9cm; height: 9cm; }
+      body > *:not(.poster) { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Acceso ===== -->
+  <section id="authView" class="hidden">
+    <header class="topbar"><div class="wrap"><a class="logo-r87" href="./">ROJO<b>87</b></a><div data-theme-picker></div></div></header>
+    <main class="narrow stack">
+      <div class="chips" style="margin-top:12px">
+        <button class="chip on" data-auth="signup" type="button">Crear cuenta</button>
+        <button class="chip" data-auth="login" type="button">Ya tengo cuenta</button>
+      </div>
+      <form id="signupForm" class="stack">
+        <h1 style="font-size:2.2rem">Tu tarjeta de lealtad, lista en 2 minutos.</h1>
+        <p class="mute">Tu cuenta queda activa 12 horas para que la conozcas. Para seguir, activa tu primer mes por $1 USD ($20 MXN) con todas las luces de Rojo 87.</p>
+        <div class="card-box stack">
+          <label class="field"><span>Nombre del negocio</span><input name="name" required maxlength="60" placeholder="Ej. Taquería Don Luis" /></label>
+          <label class="field"><span>Giro</span>
+            <select name="vertical">
+              <option value="resto">Restaurante</option>
+              <option value="fonda">Fonda · taquería</option>
+              <option value="cafe">Café · brunch</option>
+              <option value="bar">Bar · antro</option>
+              <option value="alta">Alta cocina</option>
+              <option value="cadena">Cadena / varias sucursales</option>
+              <option value="otro">Otro</option>
+            </select>
+          </label>
+          <label class="field"><span>Correo</span><input name="email" type="email" autocomplete="email" required /></label>
+          <label class="field"><span>Contraseña (mínimo 8)</span><input name="password" type="password" autocomplete="new-password" minlength="8" required /></label>
+          <div class="alert hidden" data-err></div>
+          <button class="btn gold block" type="submit">Crear mi cuenta</button>
+        </div>
+      </form>
+      <form id="loginForm" class="stack hidden">
+        <h1 style="font-size:2.2rem">Qué bueno verte de nuevo.</h1>
+        <div class="card-box stack">
+          <label class="field"><span>Correo</span><input name="email" type="email" autocomplete="email" required /></label>
+          <label class="field"><span>Contraseña</span><input name="password" type="password" autocomplete="current-password" required /></label>
+          <div class="alert hidden" data-err></div>
+          <button class="btn gold block" type="submit">Entrar</button>
+        </div>
+        <p class="mute small center">¿Eres del personal? Entra al <a href="sellar.html">modo mostrador</a>.</p>
+      </form>
+    </main>
+  </section>
+
+  <!-- ===== Panel ===== -->
+  <section id="appView" class="hidden">
+    <header class="topbar">
+      <div class="wrap">
+        <a class="logo-r87" href="./">ROJO<b>87</b></a>
+        <div class="row" style="gap:4px">
+          <div data-theme-picker></div>
+          <a class="btn sm gold" href="sellar.html">Sellar</a>
+          <button class="btn sm ghost" id="logoutBtn" type="button">Salir</button>
+        </div>
+      </div>
+      <nav class="wrap tabs" id="tabs">
+        <button class="tab on" data-tab="home" type="button">Inicio</button>
+        <button class="tab" data-tab="customers" type="button">Clientes</button>
+        <button class="tab" data-tab="campaigns" type="button">Campañas</button>
+        <button class="tab" data-tab="card" type="button">Mi tarjeta</button>
+        <button class="tab" data-tab="counter" type="button">Mostrador y QR</button>
+      </nav>
+    </header>
+
+    <main class="wrap" style="padding-top:24px;padding-bottom:64px">
+      <div id="acctBanner" class="hidden" style="margin-bottom:20px"></div>
+      <!-- Inicio -->
+      <section data-view="home" class="stack">
+        <div class="row">
+          <div class="grow">
+            <p class="eyebrow" id="trialInfo"></p>
+            <h1 style="font-size:clamp(1.8rem,5vw,2.6rem);margin-top:6px" id="bizTitle"></h1>
+          </div>
+        </div>
+        <div id="onboarding" class="card-box stack hidden">
+          <b>Pon tu programa a funcionar</b>
+          <div class="steps" id="steps"></div>
+        </div>
+        <div class="kpis" id="kpis"></div>
+        <div class="split">
+          <div class="card-box">
+            <div class="row"><b class="grow">Visitas selladas en los últimos 14 días</b></div>
+            <div class="bars" id="bars"></div>
+            <div class="bar-days" id="barDays"></div>
+          </div>
+          <div class="card-box stack">
+            <b>Actividad reciente</b>
+            <div class="list" id="recent"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Clientes -->
+      <section data-view="customers" class="stack hidden">
+        <div class="row">
+          <h2 class="grow" style="font-size:1.8rem">Clientes</h2>
+          <button class="btn sm" id="winbackBtn" type="button">Recuperar inactivos</button>
+        </div>
+        <div class="chips" id="custFilters">
+          <button class="chip on" data-filter="all" type="button">Todos</button>
+          <button class="chip" data-filter="inactive" type="button">Inactivos</button>
+          <button class="chip" data-filter="near" type="button">A 1 sello del premio</button>
+          <button class="chip" data-filter="rewards" type="button">Con premio</button>
+        </div>
+        <input id="custSearch" placeholder="Buscar por nombre o teléfono" />
+        <p class="mute small" id="custHint"></p>
+        <div class="list" id="custList"></div>
+      </section>
+
+      <!-- Campañas -->
+      <section data-view="campaigns" class="stack hidden">
+        <h2 style="font-size:1.8rem">Campañas a la pantalla de bloqueo</h2>
+        <p class="mute">El mensaje aparece en la tarjeta del cliente y, con Wallet activado, como notificación en su teléfono. Sin SMS ni costos extra.</p>
+        <div class="split">
+          <form id="campForm" class="card-box stack">
+            <label class="field"><span>¿A quién?</span>
+              <select name="segment" id="campSegment">
+                <option value="inactive">Clientes inactivos</option>
+                <option value="near">A 1 sello del premio</option>
+                <option value="rewards">Tienen un premio sin canjear</option>
+                <option value="all">Todos los clientes</option>
+              </select>
+            </label>
+            <label class="field"><span>Mensaje (máx. 160)</span><textarea name="message" maxlength="160" required id="campMsg"></textarea></label>
+            <div class="chips" id="templates"></div>
+            <p class="mute small" id="campCount"></p>
+            <button class="btn gold block" type="submit">Enviar campaña</button>
+          </form>
+          <div class="card-box stack">
+            <b>Historial</b>
+            <div class="list" id="campHistory"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mi tarjeta -->
+      <section data-view="card" class="hidden">
+        <div class="split">
+          <form id="cardForm" class="stack designer">
+            <div class="row">
+              <h2 class="grow" style="font-size:1.8rem">Diseña tu tarjeta</h2>
+              <button class="btn sm" type="button" id="tourBtn">Ver tutorial</button>
+            </div>
+            <div class="card-box stack" id="dzThemes">
+              <h3>1. Elige un tema</h3>
+              <p class="mute small">Cada tema trae colores, sello, fondo y letra pensados para un giro. Después puedes cambiar lo que quieras.</p>
+              <div class="theme-grid" id="themeGrid"></div>
+            </div>
+            <div class="card-box stack" id="dzBrand">
+              <h3>2. Tu marca</h3>
+              <label class="field"><span>Nombre del negocio</span><input name="name" maxlength="60" required /></label>
+              <div id="logoBox"></div>
+              <div class="grid3">
+                <label class="field"><span>Fondo</span><input type="color" name="color_bg" /></label>
+                <label class="field"><span>Texto</span><input type="color" name="color_fg" /></label>
+                <label class="field"><span>Sellos</span><input type="color" name="color_accent" /></label>
+              </div>
+            </div>
+            <div class="card-box stack" id="dzStamp">
+              <h3>3. Tus sellos</h3>
+              <p class="small" style="font-weight:600">Ícono</p>
+              <div class="icon-grid" id="iconGrid" role="group" aria-label="Ícono del sello"></div>
+              <p class="small" style="font-weight:600">Estilo</p>
+              <div class="opt-row" data-opt="stamp" role="group" aria-label="Estilo del sello"></div>
+            </div>
+            <div class="card-box stack" id="dzLook">
+              <h3>4. Fondo y letra</h3>
+              <p class="small" style="font-weight:600">Fondo</p>
+              <div class="opt-row" data-opt="pattern" role="group" aria-label="Fondo de la tarjeta"></div>
+              <p class="small" style="font-weight:600">Letra</p>
+              <div class="opt-row" data-opt="font" role="group" aria-label="Letra de la tarjeta"></div>
+              <p class="small" style="font-weight:600">Esquinas</p>
+              <div class="opt-row" data-opt="corners" role="group" aria-label="Esquinas de la tarjeta"></div>
+            </div>
+            <div class="card-box stack" id="dzPage">
+              <h3>5. La página de tus clientes</h3>
+              <p class="mute small">Es la página donde tus clientes se registran y ven su tarjeta.</p>
+              <div class="opt-row" data-opt="page" role="group" aria-label="Estilo de la página de tus clientes"></div>
+            </div>
+            <div class="card-box stack" id="dzReward">
+              <h3>6. Tu programa de recompensas</h3>
+              <div class="grid2">
+                <label class="field"><span>Sellos para el premio</span><input type="number" name="stamps_required" min="3" max="20" required /></label>
+                <label class="field"><span>Premio</span><input name="reward_text" maxlength="60" required /></label>
+              </div>
+              <div class="grid2">
+                <label class="field"><span>Ticket promedio (MXN)</span><input type="number" name="ticket_avg" min="1" required /></label>
+                <label class="field"><span>Inactivo después de (días)</span><input type="number" name="inactive_days" min="3" max="365" required /></label>
+              </div>
+              <label class="field"><span>Minutos mínimos entre sellos del mismo cliente (antifraude)</span><input type="number" name="stamp_cooldown_min" min="0" max="1440" required /></label>
+            </div>
+            <div class="card-box stack" id="dzNear">
+              <h3>7. Recordatorio cuando pasen cerca</h3>
+              <p class="mute small">En iPhone con Apple Wallet, tu tarjeta le aparece al cliente en la pantalla de bloqueo cuando pasa cerca de tu local. Rojo 87 nunca ve la ubicación de tus clientes.</p>
+              <label class="field"><span>¿A quién recordarle?</span>
+                <select name="nearby">
+                  <option value="all">A todos mis clientes</option>
+                  <option value="inactive">Solo a los que dejaron de venir</option>
+                  <option value="off">A nadie</option>
+                </select>
+              </label>
+              <label class="field"><span>Dirección</span><input name="address" maxlength="160" placeholder="Calle, número, colonia" /></label>
+              <div class="grid2">
+                <label class="field"><span>Latitud</span><input name="lat" inputmode="decimal" /></label>
+                <label class="field"><span>Longitud</span><input name="lng" inputmode="decimal" /></label>
+              </div>
+              <button class="btn sm" type="button" id="geoBtn">Usar mi ubicación actual (estando en el local)</button>
+            </div>
+            <div class="alert hidden" data-err></div>
+            <button class="btn gold block" type="submit" id="saveCard">Guardar mi tarjeta</button>
+          </form>
+          <div class="sticky stack" id="dzPreview">
+            <p class="eyebrow">Vista previa</p>
+            <div id="cardPreview"></div>
+            <button class="btn block" type="button" id="testStamp">Probar un sello</button>
+            <p class="mute small">Así se verá en la tarjeta web de tus clientes. En Wallet se usan tus colores, tu logo y tu premio.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mostrador y QR -->
+      <section data-view="counter" class="stack hidden">
+        <h2 style="font-size:1.8rem">Mostrador y QR</h2>
+        <div class="split">
+          <div class="stack">
+            <div class="card-box stack">
+              <b>1. QR para que tus clientes se unan</b>
+              <p class="mute small">Imprímelo y ponlo en el mostrador, el espejo o la mesa. El cliente lo escanea con su cámara y obtiene su tarjeta en segundos.</p>
+              <div class="row">
+                <input id="joinLink" readonly class="grow" style="flex:1;min-width:0" />
+                <button class="btn sm" type="button" id="copyJoin">Copiar</button>
+              </div>
+              <div class="row">
+                <button class="btn gold" type="button" onclick="window.print()">Imprimir cartel</button>
+                <a class="btn" id="openJoin" target="_blank">Probar como cliente</a>
+              </div>
+            </div>
+            <div class="card-box stack">
+              <b>2. Acceso para tu personal</b>
+              <p class="mute small">Tu personal sella desde su celular en <b>sellar.html</b> con el código del negocio y un PIN. No ven tus clientes ni tus campañas.</p>
+              <div class="row"><span class="mute grow">Código del negocio</span><b id="slugView"></b></div>
+              <div class="row"><span class="mute grow">PIN configurado</span><b id="pinState"></b></div>
+              <form id="pinForm" class="row">
+                <input name="pin" inputmode="numeric" pattern="\d{4,8}" maxlength="8" placeholder="Nuevo PIN (4–8 dígitos)" class="grow" style="flex:1;min-width:0" required />
+                <button class="btn" type="submit">Guardar PIN</button>
+              </form>
+              <div class="row">
+                <input id="staffLink" readonly class="grow" style="flex:1;min-width:0" />
+                <button class="btn sm" type="button" id="copyStaff">Copiar</button>
+              </div>
+            </div>
+            <div class="card-box stack">
+              <b>3. Guion para el mostrador</b>
+              <p class="note">“¿Te la pongo en el celular? Así no pierdes tus sellos y te avisamos de promociones.”</p>
+              <p class="mute small">Ofrécela a cada cliente al cobrar. Los negocios que lo hacen siempre llenan su base de clientes en 2–3 semanas.</p>
+            </div>
+          </div>
+          <div class="card-box center stack">
+            <p class="eyebrow">Tu QR de alta</p>
+            <div id="joinQr" style="background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px;display:inline-block"></div>
+            <p class="mute small">Escanéalo con la cámara de tu teléfono para probar.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <!-- Membresía bloqueada -->
+  <div id="blocked" class="hidden" style="position:fixed;inset:0;z-index:45;background:var(--paper);display:grid;place-items:center;padding:24px">
+    <div class="narrow stack center">
+      <h1 style="font-size:2rem" id="blockedTitle"></h1>
+      <p class="mute" id="blockedText"></p>
+      <a class="btn gold block hidden" id="blockedWa" target="_blank" rel="noopener">Hablar por WhatsApp para renovar</a>
+      <button class="btn ghost block" type="button" onclick="document.getElementById('logoutBtn').click()">Salir</button>
+    </div>
+  </div>
+
+  <!-- Cartel para imprimir -->
+  <div class="poster" id="poster">
+    <h1 id="posterName"></h1>
+    <p>Escanea y obtén tu tarjeta de lealtad en el celular</p>
+    <div class="pq" id="posterQr"></div>
+    <p id="posterReward"></p>
+    <p style="font-size:10pt;color:#888">Sin descargar apps. Tarjeta creada con Rojo 87.</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let token = R87.store("r87_owner_token");
+    let state = null; // respuesta de /me
+    let custFilter = "all";
+    let pendingLogo; // undefined = sin cambios, null = quitar, string = nuevo
+
+    // ---------- Acceso ----------
+    document.querySelectorAll("[data-auth]").forEach((b) => b.addEventListener("click", () => {
+      document.querySelectorAll("[data-auth]").forEach((x) => x.classList.toggle("on", x === b));
+      $("signupForm").classList.toggle("hidden", b.dataset.auth !== "signup");
+      $("loginForm").classList.toggle("hidden", b.dataset.auth !== "login");
+    }));
+    if (location.hash === "#entrar") document.querySelector('[data-auth="login"]').click();
+    // Alta prellenada desde el QR de prueba que manda el vendedor: panel.html?lugar=Nombre&giro=resto
+    (() => {
+      const q = new URLSearchParams(location.search), f = $("signupForm");
+      const name = f.elements.namedItem("name"), giro = f.elements.namedItem("vertical");
+      if (q.get("lugar")) name.value = q.get("lugar").slice(0, 60);
+      if (q.get("giro") && [...giro.options].some((o) => o.value === q.get("giro"))) giro.value = q.get("giro");
+    })();
+
+    async function authSubmit(ev, path) {
+      ev.preventDefault();
+      const f = ev.target, btn = f.querySelector("button[type=submit]"), err = f.querySelector("[data-err]");
+      const body = Object.fromEntries(new FormData(f));
+      btn.disabled = true;
+      err.classList.add("hidden");
+      try {
+        const r = await R87.api(path, { method: "POST", body });
+        token = r.token;
+        R87.store("r87_owner_token", token);
+        await boot(path === "/signup" ? "card" : "home");
+      } catch (e) {
+        err.textContent = e.message;
+        err.classList.remove("hidden");
+      } finally {
+        btn.disabled = false;
+      }
+    }
+    $("signupForm").addEventListener("submit", (e) => authSubmit(e, "/signup"));
+    $("loginForm").addEventListener("submit", (e) => authSubmit(e, "/login"));
+    $("logoutBtn").addEventListener("click", async () => {
+      await R87.api("/logout", { method: "POST", token }).catch(() => {});
+      R87.store("r87_owner_token", null);
+      location.reload();
+    });
+
+    async function boot(tab) {
+      if (!token) {
+        $("authView").classList.remove("hidden");
+        return;
+      }
+      try {
+        state = await R87.api("/me", { token });
+      } catch (e) {
+        if (e.status === 401 || e.status === 403) {
+          R87.store("r87_owner_token", null);
+          token = null;
+          $("authView").classList.remove("hidden");
+          return;
+        }
+        return R87.toast(e.message);
+      }
+      $("authView").classList.add("hidden");
+      $("appView").classList.remove("hidden");
+      renderAll();
+      showTab(tab || location.hash.slice(1) || "home");
+      if (tab === "card" && !R87.store("r87_tour_done") && state.account?.state !== "cancelled" && state.account?.state !== "expired") setTimeout(startTour, 400);
+    }
+
+    // ---------- Pestañas ----------
+    function showTab(name) {
+      if (!document.querySelector(`[data-view="${name}"]`)) name = "home";
+      document.querySelectorAll("[data-tab]").forEach((t) => t.classList.toggle("on", t.dataset.tab === name));
+      document.querySelectorAll("[data-view]").forEach((v) => v.classList.toggle("hidden", v.dataset.view !== name));
+      history.replaceState(null, "", `#${name}`);
+      if (name === "customers") loadCustomers();
+      if (name === "campaigns") loadCampaigns();
+      window.scrollTo(0, 0);
+    }
+    document.querySelectorAll("[data-tab]").forEach((t) => t.addEventListener("click", () => showTab(t.dataset.tab)));
+
+    function renderAll() {
+      const m = state.merchant, s = state.stats;
+      document.title = `${m.name} · Rojo 87`;
+      $("bizTitle").textContent = m.name;
+      renderAccount();
+
+      // Primeros pasos
+      const steps = [
+        { t: "Personaliza tu tarjeta (logo y colores)", done: !!m.logo_png, tab: "card" },
+        { t: "Crea el PIN de tu personal", done: m.has_staff_pin, tab: "counter" },
+        { t: "Imprime tu QR y consigue tus primeros 10 clientes", done: s.customers >= 10, tab: "counter" },
+        { t: "Sella tu primera visita", done: s.visits_30d > 0, href: "sellar.html" },
+      ];
+      $("onboarding").classList.toggle("hidden", steps.every((x) => x.done));
+      $("steps").innerHTML = steps.map((x, i) => `<div class="st${x.done ? " done" : ""}"><span class="t grow">${x.t}</span>${x.done ? "" : `<button class="btn sm" data-step="${i}" type="button">Ir</button>`}</div>`).join("");
+      $("steps").querySelectorAll("[data-step]").forEach((b) => b.addEventListener("click", () => {
+        const st = steps[b.dataset.step];
+        st.href ? (location.href = st.href) : showTab(st.tab);
+      }));
+
+      // KPIs
+      const k = (label, n, cls = "", extra = "") => `<div class="kpi ${cls}"><div class="eyebrow">${label}</div><div class="n ${cls ? "gold" : ""}">${n}</div>${extra}</div>`;
+      $("kpis").innerHTML = [
+        k("Ingresos recuperados en 30 días", R87.money(s.recovered_revenue_30d), "hl", `<p class="mute small">${s.reactivated_30d} clientes inactivos volvieron</p>`),
+        k("Clientes", s.customers, "", `<p class="mute small">+${s.new_30d} este mes</p>`),
+        k("Visitas en 30 días", s.visits_30d),
+        k("Inactivos", s.inactive, "", `<p class="mute small">más de ${m.inactive_days} días sin venir</p>`),
+        k("A 1 sello del premio", s.near_reward),
+        k("Premios canjeados en 30 días", s.redeemed_30d),
+      ].join("");
+
+      // Gráfica
+      const max = Math.max(1, ...state.daily.map((d) => d.visits));
+      $("bars").innerHTML = state.daily.map((d) => `<div style="height:${(d.visits / max) * 100}%" title="${d.day}: ${d.visits} visitas"></div>`).join("");
+      $("barDays").innerHTML = state.daily.map((d, i) => `<span>${i % 2 === 1 ? Number(d.day.slice(8)) : ""}</span>`).join("");
+
+      // Actividad
+      const label = { join: "se unió", stamp: "recibió un sello", redeem: "canjeó su premio", campaign: "Campaña enviada" };
+      $("recent").innerHTML = state.recent.length ? state.recent.map((e) => {
+        const who = e.kind === "campaign" ? `Campaña a ${e.meta?.recipients ?? 0} clientes` : `${R87.esc(e.name || "Cliente")} ${label[e.kind]}`;
+        const tag = e.meta?.reactivated ? '<span class="pill gold">recuperado</span>' : e.meta?.unlocked ? '<span class="pill ok">premio</span>' : "";
+        return `<div class="item"><div class="who"><b>${who}</b><span class="mute small">${R87.ago(e.created_at)}${e.staff_name ? ` · ${R87.esc(e.staff_name)}` : ""}</span></div>${tag}</div>`;
+      }).join("") : `<p class="mute small">Aún no hay actividad. Imprime tu QR y comparte la tarjeta.</p>`;
+
+      fillCardForm();
+      renderCounter();
+      renderTemplates();
+    }
+
+    // ---------- Membresía ----------
+    function waLink(text) {
+      const wa = state.account.contact_whatsapp;
+      if (!wa) return null;
+      return `https://wa.me/${wa.length === 10 ? "52" + wa : wa}?text=${encodeURIComponent(text)}`;
+    }
+    function timeLeft(iso) {
+      const ms = Math.max(0, new Date(iso) - Date.now());
+      return `${Math.floor(ms / 3600000)} h ${Math.floor((ms % 3600000) / 60000)} min`;
+    }
+    function renderAccount() {
+      const a = state.account, m = state.merchant, box = $("acctBanner");
+      const fecha = (iso) => new Date(iso).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" });
+      const askText = `Hola, quiero activar Rojo 87 para ${m.name} (código ${m.slug}).`;
+      $("blocked").classList.add("hidden");
+      if (a.state === "pending") {
+        $("trialInfo").textContent = `Cuenta de prueba: se borra en ${timeLeft(a.deletes_at)}`;
+        const wa = waLink(askText);
+        box.className = "card-box stack";
+        box.style.borderColor = "var(--warn)";
+        box.innerHTML = `<b>Tu cuenta de prueba se borra en <span id="acctLeft">${timeLeft(a.deletes_at)}</span> si no se activa.</b>
+          <p class="mute small">Para quedarte con Rojo 87 (y con tus clientes), activa tu primer mes por $1 USD ($20 MXN) o tu plan, por transferencia o en efectivo, y envía tu comprobante. Te activamos el mismo día.</p>
+          <div class="row">${wa ? `<a class="btn gold sm" href="${wa}" target="_blank" rel="noopener">Activar por WhatsApp</a>` : ""}<a class="btn sm" href="../#precios" target="_blank">Ver planes</a></div>`;
+        return;
+      }
+      if (a.state === "active") {
+        const days = Math.ceil((new Date(a.paid_until) - Date.now()) / 86400000);
+        $("trialInfo").textContent = `Plan ${a.plan_name}, activo hasta el ${fecha(a.paid_until)}`;
+        if (days <= 5) {
+          const wa = waLink(`Hola, quiero renovar Rojo 87 para ${m.name} (código ${m.slug}).`);
+          box.className = "card-box stack";
+          box.style.borderColor = "var(--warn)";
+          box.innerHTML = `<b>${days > 0 ? `Tu plan vence en ${days} día(s).` : "Tu plan venció."} Renueva para no perder el acceso.</b>
+            ${wa ? `<div><a class="btn gold sm" href="${wa}" target="_blank" rel="noopener">Renovar por WhatsApp</a></div>` : ""}`;
+        } else box.className = "hidden";
+        return;
+      }
+      // Cancelada o vencida: el panel queda bloqueado.
+      box.className = "hidden";
+      $("trialInfo").textContent = a.state === "cancelled" ? "Membresía cancelada" : "Membresía vencida";
+      $("blockedTitle").textContent = a.state === "cancelled" ? "Tu membresía está cancelada" : "Tu membresía venció";
+      $("blockedText").textContent = "Tus clientes conservan sus tarjetas y sus sellos. Renueva tu plan para volver a sellar, ver tu panel y enviar campañas.";
+      const wa = waLink(`Hola, quiero reactivar Rojo 87 para ${m.name} (código ${m.slug}).`);
+      $("blockedWa").classList.toggle("hidden", !wa);
+      if (wa) $("blockedWa").href = wa;
+      $("blocked").classList.remove("hidden");
+    }
+    setInterval(() => {
+      if (state?.account?.state === "pending" && $("acctLeft")) {
+        $("acctLeft").textContent = timeLeft(state.account.deletes_at);
+        $("trialInfo").textContent = `Cuenta de prueba: se borra en ${timeLeft(state.account.deletes_at)}`;
+      }
+    }, 30000);
+
+    // ---------- Clientes ----------
+    document.querySelectorAll("[data-filter]").forEach((c) => c.addEventListener("click", () => {
+      custFilter = c.dataset.filter;
+      document.querySelectorAll("[data-filter]").forEach((x) => x.classList.toggle("on", x === c));
+      loadCustomers();
+    }));
+    let searchTimer;
+    $("custSearch").addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(loadCustomers, 300);
+    });
+    $("winbackBtn").addEventListener("click", () => {
+      showTab("campaigns");
+      $("campSegment").value = "inactive";
+      $("campMsg").value = `¡Te extrañamos en ${state.merchant.name}! Ven esta semana y recibe un sello doble.`;
+      updateCount();
+    });
+
+    async function loadCustomers() {
+      const q = encodeURIComponent($("custSearch").value);
+      $("custList").innerHTML = `<p class="mute small">Cargando…</p>`;
+      try {
+        const { customers, inactive_days } = await R87.api(`/customers?filter=${custFilter}&q=${q}`, { token });
+        const req = state.merchant.stamps_required;
+        $("custHint").textContent = custFilter === "inactive"
+          ? `Clientes con más de ${inactive_days} días sin visitarte, del más antiguo al más reciente.`
+          : `${customers.length} cliente(s)`;
+        $("custList").innerHTML = customers.length ? customers.map((c) => {
+          const inactive = c.last_visit_at && c.days_since > inactive_days;
+          const status = c.rewards_available ? `<span class="pill ok">${c.rewards_available} premio(s)</span>`
+            : inactive ? `<span class="pill bad">${c.days_since} días sin venir</span>`
+            : !c.last_visit_at ? `<span class="pill">Sin visitas</span>`
+            : `<span class="pill">${R87.ago(c.last_visit_at)}</span>`;
+          const wa = `https://wa.me/${c.phone.length === 10 ? "52" + c.phone : c.phone}`;
+          return `<div class="item">
+            <div class="who"><b>${R87.esc(c.name)}</b><span class="mute small">${c.stamps}/${req} sellos · ${c.total_visits} visitas · <a href="${wa}" target="_blank" rel="noopener">${R87.esc(c.phone)}</a>${c.marketing_opt_in ? "" : " · sin promos"}</span></div>
+            ${status}</div>`;
+        }).join("") : `<p class="mute small">No hay clientes en esta lista.</p>`;
+      } catch (e) {
+        $("custList").innerHTML = `<div class="alert">${R87.esc(e.message)}</div>`;
+      }
+    }
+
+    // ---------- Campañas ----------
+    function renderTemplates() {
+      const m = state.merchant;
+      const t = {
+        inactive: [`¡Te extrañamos en ${m.name}! Ven esta semana y recibe un sello doble.`, `Hace mucho que no te vemos 👀 Tu próximo sello va por nuestra cuenta.`],
+        near: [`¡Te falta 1 sello para tu ${m.reward_text.toLowerCase()}! Te esperamos.`],
+        rewards: [`Tienes un premio esperándote: ${m.reward_text}. ¡Ven a canjearlo!`],
+        all: [`Esta semana: 2x1 para clientes con tarjeta. Solo muestra tu tarjeta al pagar.`],
+      }[$("campSegment").value];
+      $("templates").innerHTML = t.map((x, i) => `<button class="chip" type="button" data-t="${i}">Idea ${i + 1}</button>`).join("");
+      $("templates").querySelectorAll("[data-t]").forEach((b) => b.addEventListener("click", () => {
+        $("campMsg").value = t[b.dataset.t];
+      }));
+      updateCount();
+    }
+    function updateCount() {
+      const s = state.stats;
+      const n = { inactive: s.inactive, near: s.near_reward, rewards: s.rewards_pending, all: s.customers }[$("campSegment").value];
+      $("campCount").textContent = `Hasta ${n} cliente(s) en este segmento. Solo se envía a quienes aceptaron recibir promociones (${s.opted_in} en total).`;
+    }
+    $("campSegment").addEventListener("change", renderTemplates);
+    $("campForm").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const f = ev.target, btn = f.querySelector("button[type=submit]");
+      btn.disabled = true;
+      try {
+        const r = await R87.api("/campaigns", { method: "POST", token, body: { segment: f.segment.value, message: f.message.value } });
+        R87.toast(r.recipients ? `Campaña enviada a ${r.recipients} cliente(s)` : "No hay clientes en ese segmento todavía");
+        f.message.value = "";
+        loadCampaigns();
+      } catch (e) {
+        R87.toast(e.message);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+    async function loadCampaigns() {
+      try {
+        const { campaigns } = await R87.api("/campaigns", { token });
+        const seg = { inactive: "Inactivos", near: "A 1 sello", rewards: "Con premio", all: "Todos" };
+        $("campHistory").innerHTML = campaigns.length ? campaigns.map((c) => `<div class="item"><div class="who"><b style="white-space:normal">${R87.esc(c.message)}</b><span class="mute small">${seg[c.segment] || c.segment} · ${c.recipients} cliente(s) · ${R87.ago(c.created_at)}</span></div></div>`).join("")
+          : `<p class="mute small">Todavía no envías campañas.</p>`;
+      } catch (e) {
+        $("campHistory").innerHTML = `<div class="alert">${R87.esc(e.message)}</div>`;
+      }
+    }
+
+    // ---------- Mi tarjeta ----------
+    const cardFields = ["name", "color_bg", "color_fg", "color_accent", "stamps_required", "reward_text", "ticket_avg", "inactive_days", "stamp_cooldown_min", "address", "lat", "lng", "nearby"];
+    const designOpts = { stamp: R87.STAMP_STYLES, pattern: R87.PATTERNS, font: R87.FONTS, corners: R87.CORNERS, page: R87.PAGES };
+    let design = { ...R87.DEFAULT_DESIGN };
+    let previewStamps = 3;
+    const canUseLogo = () => state.account?.state === "active" && !!state.merchant.paid_until;
+
+    function renderLogoBox() {
+      const m = state.merchant;
+      if (!canUseLogo()) {
+        const wa = waLink(`Hola, quiero activar mi plan de Rojo 87 para ${m.name} (código ${m.slug}) y subir mi logo.`);
+        $("logoBox").innerHTML = `<div class="locked">
+          <span class="lock"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>Tu logo se activa con tu plan</span>
+          <p class="mute small">Mientras tanto tu tarjeta muestra el nombre de tu negocio con el tema que elijas. Al activar tu plan subes tu logo y aparece en la tarjeta y en Wallet.</p>
+          <div class="row">${wa ? `<a class="btn sm gold" href="${wa}" target="_blank" rel="noopener">Activar mi plan</a>` : ""}<a class="btn sm" href="../#precios" target="_blank">Ver planes</a></div>
+        </div>`;
+        return;
+      }
+      $("logoBox").innerHTML = `<label class="field"><span>Logo (PNG o JPG, de preferencia horizontal)</span><input type="file" accept="image/*" id="logoFile" /></label>
+        <button class="btn sm ghost danger${m.logo_png ? "" : " hidden"}" type="button" id="removeLogo">Quitar logo</button>`;
+      $("logoFile").addEventListener("change", async (ev) => {
+        const file = ev.target.files[0];
+        if (!file) return;
+        try {
+          pendingLogo = await R87.imageToPng(file, 480, 150);
+          $("removeLogo").classList.remove("hidden");
+          previewCard();
+        } catch (e) {
+          R87.toast(e.message);
+        }
+      });
+      $("removeLogo").addEventListener("click", () => {
+        pendingLogo = null;
+        $("logoFile").value = "";
+        $("removeLogo").classList.add("hidden");
+        previewCard();
+      });
+    }
+
+    function renderDesigner() {
+      $("themeGrid").innerHTML = R87.THEMES.map((t) => `<button type="button" class="theme-swatch" data-theme-id="${t.id}" aria-pressed="${design.theme === t.id}">
+        <span class="mini" style="background:${t.bg};color:${t.fg}"><i style="background:${t.acc}"></i><i style="background:${t.acc}"></i><i class="off"></i></span>
+        <b>${t.name}</b></button>`).join("");
+      $("iconGrid").innerHTML = Object.entries(R87.ICONS).map(([k, v]) =>
+        `<button type="button" class="icon-opt" data-icon="${k}" aria-pressed="${design.icon === k}" aria-label="${v.label}" title="${v.label}">${R87.iconSvg(k, 26)}</button>`).join("");
+      document.querySelectorAll("[data-opt]").forEach((row) => {
+        const key = row.dataset.opt;
+        row.innerHTML = Object.entries(designOpts[key]).map(([k, v]) =>
+          `<button type="button" class="chip" data-value="${k}" aria-pressed="${design[key] === k}">${v}</button>`).join("");
+      });
+    }
+    function syncPressed() {
+      document.querySelectorAll("[data-theme-id]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.themeId === design.theme)));
+      document.querySelectorAll("[data-icon]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.icon === design.icon)));
+      document.querySelectorAll("[data-opt]").forEach((row) => row.querySelectorAll("[data-value]").forEach((b) =>
+        b.setAttribute("aria-pressed", String(b.dataset.value === design[row.dataset.opt])))); 
+    }
+    function applyTheme(id) {
+      const t = R87.THEMES.find((x) => x.id === id);
+      if (!t) return;
+      const f = $("cardForm");
+      f.color_bg.value = t.bg;
+      f.color_fg.value = t.fg;
+      f.color_accent.value = t.acc;
+      design = { theme: t.id, icon: t.icon, stamp: t.stamp, pattern: t.pattern, font: t.font, corners: t.corners, page: t.page };
+      syncPressed();
+      previewCard();
+    }
+    $("themeGrid").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-theme-id]");
+      if (b) applyTheme(b.dataset.themeId);
+    });
+    $("iconGrid").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-icon]");
+      if (!b) return;
+      design = { ...design, icon: b.dataset.icon, theme: "propio" };
+      syncPressed();
+      previewCard();
+    });
+    document.querySelectorAll("[data-opt]").forEach((row) => row.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-value]");
+      if (!b) return;
+      design = { ...design, [row.dataset.opt]: b.dataset.value, theme: "propio" };
+      syncPressed();
+      previewCard();
+    }));
+
+    function fillCardForm() {
+      const f = $("cardForm"), m = state.merchant;
+      cardFields.forEach((k) => (f[k].value = m[k] ?? (k === "nearby" ? "inactive" : "")));
+      design = R87.designOf(m);
+      pendingLogo = undefined;
+      renderLogoBox();
+      renderDesigner();
+      // Tema elegido en la portada antes de crear la cuenta.
+      const picked = R87.store("r87_pick_theme");
+      if (picked) {
+        R87.store("r87_pick_theme", null);
+        applyTheme(picked);
+        const icon = R87.store("r87_pick_icon");
+        R87.store("r87_pick_icon", null);
+        if (icon && R87.ICONS[icon]) { design = { ...design, icon }; syncPressed(); }
+      }
+      previewCard();
+    }
+    function formMerchant() {
+      const f = $("cardForm");
+      const m = { ...state.merchant };
+      cardFields.forEach((k) => (m[k] = f[k].value));
+      m.stamps_required = Math.min(20, Math.max(3, Number(f.stamps_required.value) || 3));
+      if (pendingLogo !== undefined) m.logo_png = pendingLogo;
+      if (!canUseLogo()) m.logo_png = null;
+      m.design = design;
+      return m;
+    }
+    function previewCard(pop = -1) {
+      const m = formMerchant();
+      previewStamps = Math.min(previewStamps, m.stamps_required);
+      const full = previewStamps >= m.stamps_required;
+      R87.renderCard($("cardPreview"), m, { name: "Cliente Ejemplo", serial: "EJEMPLO-ROJO87-0000000", stamps: previewStamps, rewards_available: full ? 1 : 0 }, { qr: true, popIndex: pop });
+      $("testStamp").textContent = full ? "Volver a empezar" : "Probar un sello";
+    }
+    $("testStamp").addEventListener("click", () => {
+      const req = formMerchant().stamps_required;
+      if (previewStamps >= req) { previewStamps = 0; return previewCard(); }
+      previewStamps += 1;
+      previewCard(previewStamps - 1);
+    });
+    $("cardForm").addEventListener("input", () => previewCard());
+    $("geoBtn").addEventListener("click", () => {
+      if (!navigator.geolocation) return R87.toast("Tu navegador no permite obtener la ubicación.");
+      navigator.geolocation.getCurrentPosition((p) => {
+        $("cardForm").lat.value = p.coords.latitude.toFixed(6);
+        $("cardForm").lng.value = p.coords.longitude.toFixed(6);
+        R87.toast("Ubicación lista. Guarda tu tarjeta.");
+      }, () => R87.toast("No se pudo obtener la ubicación. Revisa los permisos."), { enableHighAccuracy: true, timeout: 10000 });
+    });
+    $("cardForm").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const f = ev.target, btn = $("saveCard"), err = f.querySelector("[data-err]");
+      const body = { design };
+      cardFields.forEach((k) => (body[k] = f[k].value));
+      ["stamps_required", "ticket_avg", "inactive_days", "stamp_cooldown_min"].forEach((k) => (body[k] = Number(body[k])));
+      if (pendingLogo !== undefined && canUseLogo()) {
+        body.logo_png = pendingLogo;
+        body.icon_png = null;
+        if (pendingLogo) {
+          const blob = await (await fetch(pendingLogo)).blob();
+          body.icon_png = await R87.imageToPng(blob, 87, 87, true);
+        }
+      }
+      btn.disabled = true;
+      err.classList.add("hidden");
+      try {
+        const r = await R87.api("/merchant", { method: "PUT", token, body });
+        state.merchant = r.merchant;
+        R87.toast("Tarjeta guardada");
+        renderAll();
+      } catch (e) {
+        err.textContent = e.message;
+        err.classList.remove("hidden");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    // Tutorial: recorre el editor paso a paso y muestra cómo cambia la tarjeta.
+    function startTour() {
+      showTab("card");
+      R87.tour([
+        { el: "#dzThemes", title: "Empieza con un tema", text: "Toca el que más se parezca a tu negocio. Cambia colores, sello, fondo y letra de un solo golpe; mira la vista previa.", before: () => !design.theme && applyTheme(R87.THEMES[0].id) },
+        { el: "#dzBrand", title: "Pon tu marca", text: canUseLogo() ? "Escribe el nombre, sube tu logo y ajusta los colores si quieres otro tono." : "Escribe el nombre y ajusta los colores. Tu logo se activa cuando pagas tu plan." },
+        { el: "#dzStamp", title: "Elige tu sello", text: "El ícono que tus clientes juntan en cada visita: cubiertos, copa, taza… y si se ve como sello de tinta, relleno o solo el contorno." },
+        { el: "#dzLook", title: "Dale estilo", text: "Un fondo con textura, el tipo de letra y las esquinas. Pequeños detalles que hacen que tu tarjeta no se parezca a otra." },
+        { el: "#dzPreview", title: "Pruébala", text: "Toca “Probar un sello” para ver cómo se llena tu tarjeta, igual que la verá tu cliente.", before: () => { previewStamps = Math.max(previewStamps, 1); } },
+        { el: "#dzReward", title: "Define el premio", text: "Cuántos sellos se necesitan y qué gana tu cliente. Ejemplo: 8 sellos = postre gratis." },
+        { el: "#saveCard", title: "Guarda", text: "Listo. Al guardar, la tarjeta de todos tus clientes se actualiza sola." },
+      ], { onEnd: () => R87.store("r87_tour_done", "1") });
+    }
+    $("tourBtn").addEventListener("click", startTour);
+
+    // ---------- Mostrador ----------
+    function renderCounter() {
+      const m = state.merchant;
+      const join = `${R87.BASE}unirse.html?m=${encodeURIComponent(m.slug)}`;
+      const staff = `${R87.BASE}sellar.html?m=${encodeURIComponent(m.slug)}`;
+      $("joinLink").value = join;
+      $("openJoin").href = join;
+      $("staffLink").value = staff;
+      $("slugView").textContent = m.slug;
+      $("pinState").textContent = m.has_staff_pin ? "Sí" : "No";
+      $("joinQr").innerHTML = R87.qrSvg(join, 6);
+      $("joinQr").querySelector("svg").style.cssText = "width:220px;height:220px;display:block";
+      $("posterName").textContent = m.name;
+      $("posterReward").textContent = `Junta ${m.stamps_required} sellos y gana: ${m.reward_text}`;
+      $("posterQr").innerHTML = R87.qrSvg(join, 8);
+    }
+    const copy = (id) => navigator.clipboard?.writeText($(id).value).then(() => R87.toast("Enlace copiado"), () => $(id).select());
+    $("copyJoin").addEventListener("click", () => copy("joinLink"));
+    $("copyStaff").addEventListener("click", () => copy("staffLink"));
+    $("pinForm").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const f = ev.target;
+      try {
+        const r = await R87.api("/merchant", { method: "PUT", token, body: { staff_pin: f.pin.value } });
+        state.merchant = r.merchant;
+        f.pin.value = "";
+        R87.toast("PIN guardado. Compártelo solo con tu personal.");
+        renderAll();
+      } catch (e) {
+        R87.toast(e.message);
+      }
+    });
+
+    document.querySelectorAll("[data-theme-picker]").forEach(R87.mountThemePicker);
+    boot();
+  </script>
+</body>
+</html>

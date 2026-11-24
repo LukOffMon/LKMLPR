@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Rojo 87 · Llave maestra</title>
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script>try{var t=localStorage.getItem("r87_theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <style>
+    .acct { background: var(--paper); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 12px; }
+    .acct.pending { border-color: var(--warn); }
+    .acct.expired, .acct.cancelled { border-color: var(--bad); }
+    .acct h3 { font-size: 1.35rem; }
+    .facts { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .84rem; color: var(--mute); }
+    .facts b { color: var(--text); font-weight: 700; }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .modal { position: fixed; inset: 0; z-index: 60; background: rgba(25, 21, 48, .5); display: none; align-items: flex-end; justify-content: center; padding: 16px; }
+    .modal.open { display: flex; }
+    @media (min-width: 640px) { .modal { align-items: center; } }
+    .modal .box { width: 100%; max-width: 460px; background: var(--paper); border: 1.5px solid var(--line); border-radius: 22px; padding: 22px; max-height: calc(100vh - 32px); overflow: auto; }
+    .countdown { font-variant-numeric: tabular-nums; }
+    .pay { font-size: .82rem; color: var(--mute); padding: 8px 0; border-top: 1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <span class="logo-r87">ROJO<b>87</b> <span class="mute small" >· llave maestra</span></span>
+      <button class="btn sm ghost hidden" id="logout" type="button">Salir</button>
+    </div>
+  </header>
+
+  <!-- Acceso -->
+  <main id="loginView" class="narrow stack hidden">
+    <p class="eyebrow" style="margin-top:24px">Acceso restringido</p>
+    <h1 style="font-size:2.2rem">Llave maestra</h1>
+    <form id="loginForm" class="card-box stack">
+      <label class="field"><span>Clave</span><input type="password" name="password" autocomplete="current-password" required /></label>
+      <div class="alert hidden" id="loginErr"></div>
+      <button class="btn gold block" type="submit">Entrar</button>
+    </form>
+  </main>
+
+  <!-- Panel -->
+  <main id="appView" class="wrap stack hidden" style="padding-top:20px;padding-bottom:64px">
+    <div class="kpis" id="kpis"></div>
+
+    <details class="card-box">
+      <summary style="cursor:pointer;font-weight:800">⚙️ Ajustes y cómo funciona</summary>
+      <div class="stack" style="margin-top:14px">
+        <form id="settingsForm" class="row">
+          <label class="field grow" style="flex:1;min-width:220px"><span>Tu WhatsApp para recibir pagos y comprobantes (se muestra a los negocios)</span><input name="contact_whatsapp" inputmode="tel" placeholder="ej. 4491234567" /></label>
+          <button class="btn" type="submit" style="align-self:flex-end">Guardar</button>
+        </form>
+        <div class="note small">
+          <b>Así funciona:</b> todo negocio que se registra queda <b>pendiente</b> y puede usar Rojo 87 durante 12 horas.
+          Si no lo apruebas en ese tiempo, <b>se borra solo</b> con sus clientes. Cuando te paguen (transferencia o efectivo),
+          toca <b>Aprobar</b>: eliges plan y meses, y la cuenta queda activa hasta esa fecha. Para renovar, <b>Registrar pago</b>
+          suma meses desde la fecha de vencimiento. Si no renuevan, a los 3 días de vencida se bloquea (sus clientes conservan sus tarjetas).
+          <b>Cancelar</b> la bloquea al instante; <b>Reactivar</b> la desbloquea si aún tiene meses pagados.
+        </div>
+      </div>
+    </details>
+
+    <div class="chips" id="filters">
+      <button class="chip on" data-f="pending" type="button">Pendientes</button>
+      <button class="chip" data-f="active" type="button">Activas</button>
+      <button class="chip" data-f="expiring" type="button">Vencen pronto</button>
+      <button class="chip" data-f="blocked" type="button">Canceladas / vencidas</button>
+      <button class="chip" data-f="all" type="button">Todas</button>
+    </div>
+    <input id="search" placeholder="Buscar por negocio, código o correo" />
+    <div class="stack" id="list"></div>
+  </main>
+
+  <!-- Formulario de pago / aprobación -->
+  <div class="modal" id="payModal">
+    <form class="box stack" id="payForm">
+      <p class="eyebrow" id="payEyebrow">Aprobar cuenta</p>
+      <h2 style="font-size:1.6rem" id="payTitle"></h2>
+      <label class="field"><span>Plan que pagó</span><select name="plan" id="payPlan"></select></label>
+      <div class="grid2">
+        <label class="field"><span>Meses pagados</span><input type="number" name="months" min="1" max="24" value="1" required /></label>
+        <label class="field"><span>Monto recibido (MXN)</span><input type="number" name="amount" min="0" step="1" required /></label>
+      </div>
+      <label class="field"><span>Forma de pago</span>
+        <select name="method"><option value="transferencia">Transferencia</option><option value="efectivo">Efectivo</option><option value="deposito">Depósito</option><option value="otro">Otro</option></select>
+      </label>
+      <label class="field"><span>Nota (opcional)</span><input name="note" maxlength="300" placeholder="ej. folio de transferencia" /></label>
+      <p class="note small" id="payPreview"></p>
+      <div class="alert hidden" id="payErr"></div>
+      <button class="btn gold block" type="submit">Confirmar</button>
+      <button class="btn ghost block" type="button" id="payCancel">Cancelar</button>
+    </form>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let token = sessionStorage.getItem("r87_admin_token");
+    let data = null, filter = "pending", payFor = null;
+    const DAY = 86400000;
+    const fmtDate = (iso) => iso ? new Date(iso).toLocaleDateString("es-MX", { day: "numeric", month: "short", year: "numeric" }) : "—";
+    const left = (iso) => {
+      const ms = new Date(iso) - Date.now();
+      if (ms <= 0) return "en minutos";
+      const h = Math.floor(ms / 3600000), m = Math.floor((ms % 3600000) / 60000);
+      return `${h} h ${m} min`;
+    };
+
+    async function api(path, opts = {}) {
+      try {
+        return await R87.api("/admin" + path, { ...opts, token });
+      } catch (e) {
+        if (e.status === 401) { sessionStorage.removeItem("r87_admin_token"); token = null; show(); }
+        throw e;
+      }
+    }
+
+    function show() {
+      $("loginView").classList.toggle("hidden", !!token);
+      $("appView").classList.toggle("hidden", !token);
+      $("logout").classList.toggle("hidden", !token);
+      if (token) load();
+    }
+
+    $("loginForm").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const btn = ev.target.querySelector("button");
+      btn.disabled = true;
+      $("loginErr").classList.add("hidden");
+      try {
+        const r = await R87.api("/admin/login", { method: "POST", body: { password: ev.target.password.value } });
+        token = r.token;
+        sessionStorage.setItem("r87_admin_token", token);
+        ev.target.password.value = "";
+        show();
+      } catch (e) {
+        $("loginErr").textContent = e.message;
+        $("loginErr").classList.remove("hidden");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+    $("logout").addEventListener("click", async () => {
+      await api("/logout", { method: "POST" }).catch(() => {});
+      sessionStorage.removeItem("r87_admin_token");
+      token = null;
+      show();
+    });
+
+    async function load() {
+      try {
+        data = await api("/overview");
+        render();
+      } catch (e) {
+        if (e.status !== 401) R87.toast(e.message);
+      }
+    }
+
+    function render() {
+      const k = data.kpis;
+      const tile = (l, n, extra = "", hl = false) => `<div class="kpi${hl ? " hl" : ""}"><div class="eyebrow">${l}</div><div class="n${hl ? " gold" : ""}">${n}</div>${extra}</div>`;
+      $("kpis").innerHTML = [
+        tile("Ingreso mensual (MRR)", R87.money(k.mrr), `<p class="mute small">según planes activos</p>`, true),
+        tile("Cobrado este mes", R87.money(k.collected_this_month)),
+        tile("Activas", k.active),
+        tile("Pendientes", k.pending, `<p class="mute small">se borran a las 12 h</p>`),
+        tile("Vencen en 7 días", k.expiring_7d),
+        tile("Bloqueadas", k.blocked),
+      ].join("");
+      $("settingsForm").contact_whatsapp.value = data.settings.contact_whatsapp || "";
+      renderList();
+    }
+
+    function matches(m) {
+      const q = $("search").value.trim().toLowerCase();
+      if (q && !`${m.name} ${m.slug} ${m.owner_email}`.toLowerCase().includes(q)) return false;
+      if (filter === "all") return true;
+      if (filter === "blocked") return m.state === "cancelled" || m.state === "expired";
+      if (filter === "expiring") return m.state === "active" && m.paid_until && new Date(m.paid_until) - Date.now() < 7 * DAY;
+      return m.state === filter;
+    }
+
+    function badge(m) {
+      const plan = data.plans[m.plan]?.name;
+      if (m.state === "pending") return `<span class="pill warn">⏳ Pendiente · se borra en <span class="countdown" data-until="${m.deletes_at}">${left(m.deletes_at)}</span></span>`;
+      if (m.state === "active") {
+        const soon = new Date(m.paid_until) - Date.now() < 7 * DAY;
+        return `<span class="pill ${soon ? "warn" : "ok"}">✓ ${plan} · hasta ${fmtDate(m.paid_until)}</span>`;
+      }
+      if (m.state === "expired") return `<span class="pill bad">Vencida desde ${fmtDate(m.paid_until)}</span>`;
+      return `<span class="pill bad">Cancelada ${fmtDate(m.cancelled_at)}</span>`;
+    }
+
+    function renderList() {
+      const items = data.merchants.filter(matches);
+      $("list").innerHTML = items.length ? items.map((m) => {
+        const join = `${R87.BASE}unirse.html?m=${encodeURIComponent(m.slug)}`;
+        const act = [];
+        if (m.state === "pending") {
+          act.push(`<button class="btn sm gold" data-a="pay" data-id="${m.id}">✓ Aprobar y registrar pago</button>`);
+          act.push(`<button class="btn sm" data-a="extend" data-id="${m.id}">+12 h de prueba</button>`);
+          act.push(`<button class="btn sm danger" data-a="delete" data-id="${m.id}">Rechazar y borrar</button>`);
+        } else {
+          act.push(`<button class="btn sm gold" data-a="pay" data-id="${m.id}">💵 Registrar pago / cambiar plan</button>`);
+          if (m.state === "active") act.push(`<button class="btn sm danger" data-a="cancel" data-id="${m.id}">Cancelar membresía</button>`);
+          if (m.state === "cancelled") act.push(`<button class="btn sm" data-a="reactivate" data-id="${m.id}">Reactivar</button>`);
+          if (m.state !== "active") act.push(`<button class="btn sm danger" data-a="delete" data-id="${m.id}">Borrar</button>`);
+        }
+        act.push(`<button class="btn sm ghost" data-a="history" data-id="${m.id}">Pagos</button>`);
+        return `<div class="acct ${m.state}" id="m-${m.id}">
+          <div class="row"><h3 class="grow serif">${R87.esc(m.name)}</h3>${badge(m)}</div>
+          <div class="facts">
+            <span>Código <b>${R87.esc(m.slug)}</b></span><span>${R87.esc(m.owner_email)}</span><span>Giro <b>${R87.esc(m.vertical)}</b></span>
+            <span>Registro <b>${fmtDate(m.created_at)}</b></span><span>Clientes <b>${m.customers}</b></span><span>Visitas 30 d <b>${m.visits_30d}</b></span>
+            <span>Última actividad <b>${R87.ago(m.last_activity)}</b></span><span>Total pagado <b>${R87.money(m.total_paid)}</b></span>
+            <a href="${join}" target="_blank" rel="noopener">Ver su alta de clientes ↗</a>
+          </div>
+          <div class="row"><input class="grow" style="flex:1;min-width:0;min-height:40px;padding:8px 12px" placeholder="Nota interna (ej. pagó en efectivo, contacto…)" value="${R87.esc(m.admin_note || "")}" data-note="${m.id}" />
+          <button class="btn sm" data-a="note" data-id="${m.id}">Guardar nota</button></div>
+          <div class="actions">${act.join("")}</div>
+          <div data-hist="${m.id}"></div>
+        </div>`;
+      }).join("") : `<p class="mute">No hay negocios en esta lista.</p>`;
+    }
+
+    document.querySelectorAll("[data-f]").forEach((c) => c.addEventListener("click", () => {
+      filter = c.dataset.f;
+      document.querySelectorAll("[data-f]").forEach((x) => x.classList.toggle("on", x === c));
+      renderList();
+    }));
+    $("search").addEventListener("input", renderList);
+    setInterval(() => document.querySelectorAll(".countdown").forEach((el) => (el.textContent = left(el.dataset.until))), 30000);
+    setInterval(() => token && !$("payModal").classList.contains("open") && load(), 120000);
+
+    $("settingsForm").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      try {
+        await api("/settings", { method: "PUT", body: { contact_whatsapp: ev.target.contact_whatsapp.value } });
+        R87.toast("WhatsApp guardado");
+      } catch (e) { R87.toast(e.message); }
+    });
+
+    $("list").addEventListener("click", async (ev) => {
+      const b = ev.target.closest("[data-a]");
+      if (!b) return;
+      const m = data.merchants.find((x) => x.id === b.dataset.id);
+      const a = b.dataset.a;
+      try {
+        if (a === "pay") return openPay(m);
+        if (a === "history") {
+          const box = document.querySelector(`[data-hist="${m.id}"]`);
+          if (box.innerHTML) { box.innerHTML = ""; return; }
+          const { payments } = await api(`/m/${m.id}/payments`);
+          box.innerHTML = payments.length ? payments.map((p) => `<div class="pay">${fmtDate(p.created_at)} · <b>${data.plans[p.plan]?.name || p.plan}</b> · ${p.months} mes(es) · ${R87.money(p.amount)} · ${R87.esc(p.method || "")} → hasta ${fmtDate(p.paid_until)}${p.note ? ` · ${R87.esc(p.note)}` : ""}</div>`).join("") : `<div class="pay">Sin pagos registrados.</div>`;
+          return;
+        }
+        if (a === "note") {
+          await api(`/m/${m.id}/note`, { method: "POST", body: { note: document.querySelector(`[data-note="${m.id}"]`).value } });
+          return R87.toast("Nota guardada");
+        }
+        if (a === "extend") {
+          await api(`/m/${m.id}/extend`, { method: "POST" });
+          R87.toast(`${m.name}: 12 horas más de prueba`);
+        }
+        if (a === "cancel") {
+          if (!confirm(`¿Cancelar la membresía de ${m.name}? Se bloquea al instante (sus clientes conservan sus tarjetas).`)) return;
+          await api(`/m/${m.id}/cancel`, { method: "POST" });
+          R87.toast("Membresía cancelada");
+        }
+        if (a === "reactivate") {
+          await api(`/m/${m.id}/reactivate`, { method: "POST" });
+          R87.toast("Membresía reactivada");
+        }
+        if (a === "delete") {
+          const typed = prompt(`Esto borra para siempre a ${m.name} y todos sus clientes.\nEscribe su código para confirmar: ${m.slug}`);
+          if (typed === null) return;
+          await api(`/m/${m.id}/delete`, { method: "POST", body: { confirm: typed.trim() } });
+          R87.toast("Negocio borrado");
+        }
+        load();
+      } catch (e) { R87.toast(e.message); }
+    });
+
+    // ----- aprobar / registrar pago -----
+    function openPay(m) {
+      payFor = m;
+      const f = $("payForm");
+      $("payEyebrow").textContent = m.state === "pending" ? "Aprobar cuenta" : "Registrar pago";
+      $("payTitle").textContent = m.name;
+      $("payPlan").innerHTML = Object.entries(data.plans).map(([k, p]) => `<option value="${k}">${p.name} · ${R87.money(p.price)}/mes</option>`).join("");
+      f.plan.value = data.plans[m.plan] ? m.plan : (m.status === "pending" ? "prueba" : "completo");
+      f.months.value = 1;
+      f.note.value = "";
+      $("payErr").classList.add("hidden");
+      updatePay(true);
+      $("payModal").classList.add("open");
+    }
+    function updatePay(resetAmount) {
+      const f = $("payForm");
+      const price = data.plans[f.plan.value].price, months = Math.max(1, Number(f.months.value) || 1);
+      if (resetAmount) f.amount.value = price * months;
+      const base = payFor.paid_until && new Date(payFor.paid_until) > new Date() ? new Date(payFor.paid_until) : new Date();
+      base.setMonth(base.getMonth() + months);
+      $("payPreview").textContent = `Quedará activa con el plan ${data.plans[f.plan.value].name} hasta el ${fmtDate(base.toISOString())}.`;
+    }
+    $("payForm").plan.addEventListener("change", () => updatePay(true));
+    $("payForm").months.addEventListener("input", () => updatePay(true));
+    $("payCancel").addEventListener("click", () => $("payModal").classList.remove("open"));
+    $("payForm").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const f = ev.target, btn = f.querySelector("button[type=submit]");
+      btn.disabled = true;
+      try {
+        await api(`/m/${payFor.id}/activate`, { method: "POST", body: {
+          plan: f.plan.value, months: Number(f.months.value), amount: Number(f.amount.value), method: f.method.value, note: f.note.value,
+        } });
+        $("payModal").classList.remove("open");
+        R87.toast(`${payFor.name} activa ✓`);
+        load();
+      } catch (e) {
+        $("payErr").textContent = e.message;
+        $("payErr").classList.remove("hidden");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    show();
+  </script>
+</body>
+</html>
