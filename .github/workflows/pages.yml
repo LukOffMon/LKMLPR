@@ -20,28 +20,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: maletin/package-lock.json
-
-      - name: Compilar Maletín
-        working-directory: maletin
-        run: |
-          npm ci
-          npm run build
-
       - name: Armar el sitio
         run: |
           mkdir -p _site
           # Raíz: sitio de LKM'r Company (también disponible en /lkmr/)
           cp lkmr/index.html _site/index.html
           cp -r lkmr _site/lkmr
-          # App Maletín compilada
-          cp -r maletin/dist _site/maletin
           # Proyectos anteriores (se mantienen sus enlaces)
-          for d in candyos encuesta nexus mensajes socios rojo87; do [ -d "$d" ] && cp -r "$d" "_site/$d"; done
+          for d in candyos encuesta nexus rojo87; do [ -d "$d" ] && cp -r "$d" "_site/$d"; done
           # HighlyArtMon: sitio público + editor en modo navegador + instaladores
           mkdir -p _site/highlyartmon/app
           cp highlyartmon/site/index.html _site/highlyartmon/index.html
